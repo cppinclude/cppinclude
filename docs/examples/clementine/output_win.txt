@@ -1,0 +1,115 @@
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Most impact files:
+1 : "src\playlist\playlistsequence.h" impact to 185 file(s)
+Included by:
+	1 : "src\playlist\playlist.h" line 25, impact to 129 file(s)
+	2 : "src\widgets\osd.h" line 30, impact to 76 file(s)
+	3 : "src\networkremote\incomingdataparser.cpp" line 27
+	4 : "src\playlist\playlistsequence.cpp" line 18
+	5 : "src\ui\mainwindow.cpp" line 88
+	6 : "tests\mpris1_test.cpp" line 24
+2 : "src\playlist\playlistitem.h" impact to 179 file(s)
+Included by:
+	1 : "src\playlist\playlist.h" line 24, impact to 129 file(s)
+	2 : "src\smartplaylists\generator.h" line 21, impact to 31 file(s)
+	3 : "src\ui\mainwindow.h" line 33, impact to 13 file(s)
+	4 : "src\library\libraryplaylistitem.h" line 22, impact to 12 file(s)
+	5 : "src\ui\edittagdialog.h" line 28, impact to 12 file(s)
+	6 : "src\playlist\playlistbackend.h" line 26, impact to 11 file(s)
+	7 : "src\songinfo\songinfobase.h" line 26, impact to 11 file(s)
+	8 : "src\playlist\songplaylistitem.h" line 21, impact to 7 file(s)
+	9 : "src\playlist\playlistitemmimedata.h" line 21, impact to 2 file(s)
+	10 : "src\playlist\playlistundocommands.h" line 24, impact to 2 file(s)
+	... 10 of 14 details
+3 : "src\smartplaylists\generator_fwd.h" impact to 166 file(s)
+Included by:
+	1 : "src\playlist\playlist.h" line 28, impact to 129 file(s)
+	2 : "src\playlist\playlistmanager.h" line 29, impact to 73 file(s)
+	3 : "src\library\librarymodel.h" line 34, impact to 58 file(s)
+	4 : "src\smartplaylists\generator.h" line 88, impact to 31 file(s)
+	5 : "src\playlist\playlistbackend.h" line 27, impact to 11 file(s)
+	6 : "src\songinfo\songinfobase.h" line 27, impact to 11 file(s)
+	7 : "src\smartplaylists\generatormimedata.h" line 23, impact to 4 file(s)
+	8 : "src\smartplaylists\wizardplugin.h" line 23, impact to 4 file(s)
+	9 : "src\smartplaylists\generatorinserter.h" line 21, impact to 2 file(s)
+	10 : "src\smartplaylists\wizard.h" line 21, impact to 2 file(s)
+	... 10 of 12 details
+4 : "src\engines\engine_fwd.h" impact to 140 file(s)
+Included by:
+	1 : "src\widgets\osd.h" line 28, impact to 76 file(s)
+	2 : "src\library\librarymodel.h" line 32, impact to 58 file(s)
+	3 : "src\engines\enginebase.h" line 34, impact to 29 file(s)
+	4 : "src\ui\mainwindow.h" line 31, impact to 13 file(s)
+	5 : "src\analyzers\analyzerbase.h" line 36, impact to 9 file(s)
+	6 : "src\networkremote\outgoingdatacreator.h" line 16, impact to 3 file(s)
+	7 : "src\engines\gstenginepipeline.h" line 33, impact to 2 file(s)
+	8 : "src\analyzers\analyzercontainer.h" line 30, impact to 1 file(s)
+5 : "src\playlist\playlist.h" impact to 129 file(s)
+Included by:
+	1 : "src\playlist\playlistmanager.h" line 28, impact to 73 file(s)
+	2 : "src\playlistparsers\parserbase.h" line 25, impact to 27 file(s)
+	3 : "src\playlist\playlistview.h" line 27, impact to 10 file(s)
+	4 : "src\playlistparsers\playlistparser.h" line 25, impact to 8 file(s)
+	5 : "src\playlist\playlistdelegates.h" line 21, impact to 6 file(s)
+	6 : "src\playlist\queue.h" line 21, impact to 6 file(s)
+	7 : "src\networkremote\outgoingdatacreator.h" line 18, impact to 3 file(s)
+	8 : "src\playlist\playlistfilter.h" line 24, impact to 2 file(s)
+	9 : "src\playlist\playlistsaveoptionsdialog.h" line 23, impact to 2 file(s)
+	10 : "src\smartplaylists\generatorinserter.h" line 26, impact to 2 file(s)
+	... 10 of 33 details
+6 : "src\ui\iconloader.h" impact to 128 file(s)
+Included by:
+	1 : "src\widgets\lineedit.h" line 25, impact to 14 file(s)
+	2 : "src\internet\box\boxurlhandler.h" line 23, impact to 2 file(s)
+	3 : "src\internet\dropbox\dropboxurlhandler.h" line 23, impact to 2 file(s)
+	4 : "src\internet\googledrive\googledriveurlhandler.h" line 23, impact to 2 file(s)
+	5 : "src\internet\magnatune\magnatuneurlhandler.h" line 24, impact to 2 file(s)
+	6 : "src\internet\seafile\seafileurlhandler.h" line 23, impact to 2 file(s)
+	7 : "src\internet\skydrive\skydriveurlhandler.h" line 23, impact to 2 file(s)
+	8 : "src\internet\subsonic\subsonicurlhandler.h" line 24, impact to 2 file(s)
+	9 : "src\covers\currentartloader.cpp" line 29
+	10 : "src\devices\deviceinfo.cpp" line 31
+	... 10 of 114 details
+7 : "src\covers\albumcoverloaderoptions.h" impact to 112 file(s)
+Included by:
+	1 : "src\library\librarymodel.h" line 31, impact to 58 file(s)
+	2 : "src\globalsearch\globalsearch.h" line 25, impact to 21 file(s)
+	3 : "src\covers\albumcoverloader.h" line 24, impact to 15 file(s)
+	4 : "src\ui\edittagdialog.h" line 26, impact to 12 file(s)
+	5 : "src\internet\podcasts\podcastdiscoverymodel.h" line 23, impact to 10 file(s)
+	6 : "src\ui\albumcovermanager.h" line 28, impact to 7 file(s)
+	7 : "src\covers\currentartloader.h" line 28, impact to 6 file(s)
+	8 : "src\ui\albumcoversearcher.h" line 26, impact to 3 file(s)
+	9 : "src\ui\standarditemiconloader.h" line 21, impact to 3 file(s)
+	10 : "src\internet\podcasts\podcastinfowidget.h" line 24, impact to 1 file(s)
+	... 10 of 12 details
+8 : "src\library\directory.h" impact to 92 file(s)
+Included by:
+	1 : "src\library\librarywatcher.h" line 21, impact to 60 file(s)
+	2 : "src\library\librarybackend.h" line 26, impact to 59 file(s)
+	3 : "src\library\librarydirectorymodel.h" line 26, impact to 9 file(s)
+	4 : "tests\metatypes_env.h" line 28, impact to 1 file(s)
+9 : "src\library\libraryquery.h" impact to 90 file(s)
+Included by:
+	1 : "src\library\librarybackend.h" line 27, impact to 59 file(s)
+	2 : "src\library\librarymodel.h" line 26, impact to 58 file(s)
+	3 : "src\globalsearch\librarysearchprovider.cpp" line 22
+	4 : "src\library\librarybackend.cpp" line 19
+	5 : "src\library\libraryfilterwidget.cpp" line 20
+	6 : "src\library\libraryquery.cpp" line 18
+	7 : "src\library\sqlrow.cpp" line 18
+	8 : "src\playlistparsers\parserbase.cpp" line 21
+	9 : "src\ui\albumcovermanager.cpp" line 31
+10 : "src\widgets\osd.h" impact to 76 file(s)
+Included by:
+	1 : "src\ui\settingspage.h" line 23, impact to 52 file(s)
+	2 : "src\ui\settingsdialog.h" line 25, impact to 34 file(s)
+	3 : "src\wiimotedev\shortcuts.h" line 27, impact to 3 file(s)
+	4 : "src\main.cpp" line 67
+	5 : "src\ui\mainwindow.cpp" line 122
+	6 : "src\widgets\osd.cpp" line 22
+	7 : "src\widgets\osd_win.cpp" line 18
+	8 : "src\widgets\osd_x11.cpp" line 18
+... 10 of 376 files

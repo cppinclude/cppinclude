@@ -1,0 +1,82 @@
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Most impact files:
+1 : "modules/demux/adaptive/ID.hpp" impact to 78 file(s)
+Included by:
+	1 : "modules/demux/adaptive/http/Chunk.h" line 30, impact to 73 file(s)
+	2 : "modules/demux/adaptive/playlist/Inheritables.hpp" line 26, impact to 63 file(s)
+	3 : "modules/demux/adaptive/ID.cpp" line 24
+	4 : "modules/demux/adaptive/playlist/BaseRepresentation.cpp" line 34
+2 : "modules/demux/adaptive/http/ConnectionParams.hpp" impact to 78 file(s)
+Included by:
+	1 : "modules/demux/adaptive/http/Chunk.h" line 29, impact to 73 file(s)
+	2 : "modules/demux/adaptive/http/HTTPConnection.hpp" line 28, impact to 5 file(s)
+	3 : "modules/demux/adaptive/http/AuthStorage.cpp" line 25
+	4 : "modules/demux/adaptive/http/ConnectionParams.cpp" line 24
+	5 : "modules/demux/adaptive/http/HTTPConnection.cpp" line 25
+	6 : "modules/demux/adaptive/http/HTTPConnectionManager.cpp" line 30
+3 : "modules/demux/adaptive/http/BytesRange.hpp" impact to 77 file(s)
+Included by:
+	1 : "modules/demux/adaptive/http/Chunk.h" line 28, impact to 73 file(s)
+	2 : "modules/demux/adaptive/http/HTTPConnection.hpp" line 29, impact to 5 file(s)
+	3 : "modules/demux/adaptive/http/BytesRange.cpp" line 25
+	4 : "modules/demux/adaptive/playlist/Segment.cpp" line 34
+4 : "modules/demux/adaptive/http/Chunk.h" impact to 73 file(s)
+Included by:
+	1 : "modules/demux/adaptive/playlist/Segment.h" line 32, impact to 63 file(s)
+	2 : "modules/demux/adaptive/playlist/SegmentChunk.hpp" line 25, impact to 7 file(s)
+	3 : "modules/demux/adaptive/http/Downloader.hpp" line 23, impact to 4 file(s)
+	4 : "modules/demux/smooth/playlist/MemoryChunk.hpp" line 23, impact to 2 file(s)
+	5 : "modules/demux/adaptive/http/Chunk.cpp" line 28
+	6 : "modules/demux/adaptive/logic/NearOptimalAdaptationLogic.cpp" line 30
+	7 : "modules/demux/adaptive/logic/PredictiveAdaptationLogic.cpp" line 31
+	8 : "modules/demux/adaptive/logic/RateBasedAdaptationLogic.cpp" line 33
+	9 : "modules/demux/adaptive/plumbing/SourceStream.cpp" line 28
+	10 : "modules/demux/adaptive/tools/Retrieve.cpp" line 29
+5 : "modules/demux/adaptive/playlist/Url.hpp" impact to 73 file(s)
+Included by:
+	1 : "modules/demux/adaptive/playlist/ICanonicalUrl.hpp" line 23, impact to 72 file(s)
+	2 : "modules/demux/adaptive/playlist/Url.cpp" line 24
+6 : "modules/demux/adaptive/playlist/ICanonicalUrl.hpp" impact to 72 file(s)
+Included by:
+	1 : "modules/demux/adaptive/playlist/Segment.h" line 31, impact to 63 file(s)
+	2 : "modules/demux/adaptive/playlist/SegmentInfoCommon.h" line 33, impact to 58 file(s)
+	3 : "modules/demux/adaptive/playlist/SegmentInformation.hpp" line 23, impact to 42 file(s)
+	4 : "modules/demux/adaptive/playlist/AbstractPlaylist.hpp" line 27, impact to 32 file(s)
+	5 : "modules/demux/adaptive/playlist/SegmentChunk.hpp" line 24, impact to 7 file(s)
+7 : "modules/demux/adaptive/tools/Properties.hpp" impact to 72 file(s)
+Included by:
+	1 : "modules/demux/adaptive/playlist/Inheritables.hpp" line 23, impact to 63 file(s)
+	2 : "modules/demux/adaptive/playlist/Segment.h" line 33, impact to 63 file(s)
+	3 : "modules/demux/adaptive/playlist/SegmentInfoCommon.h" line 34, impact to 58 file(s)
+	4 : "modules/demux/adaptive/playlist/SegmentInformation.hpp" line 24, impact to 42 file(s)
+	5 : "modules/demux/adaptive/playlist/AbstractPlaylist.hpp" line 28, impact to 32 file(s)
+	6 : "modules/demux/adaptive/playlist/BasePeriod.h" line 31, impact to 19 file(s)
+	7 : "modules/demux/adaptive/playlist/SegmentTemplate.h" line 28, impact to 12 file(s)
+	8 : "modules/demux/adaptive/playlist/SegmentBase.h" line 30, impact to 3 file(s)
+	9 : "modules/demux/hls/playlist/Representation.hpp" line 25, impact to 3 file(s)
+8 : "modules/demux/adaptive/StreamFormat.hpp" impact to 69 file(s)
+Included by:
+	1 : "modules/demux/adaptive/SegmentTracker.hpp" line 23, impact to 31 file(s)
+	2 : "modules/demux/adaptive/playlist/BaseRepresentation.h" line 33, impact to 29 file(s)
+	3 : "modules/demux/adaptive/playlist/BaseAdaptationSet.h" line 33, impact to 27 file(s)
+	4 : "modules/demux/adaptive/Streams.hpp" line 24, impact to 17 file(s)
+	5 : "modules/demux/dash/mpd/MPD.h" line 29, impact to 9 file(s)
+	6 : "modules/demux/adaptive/playlist/SegmentChunk.hpp" line 26, impact to 7 file(s)
+	7 : "modules/demux/hls/playlist/Representation.hpp" line 26, impact to 3 file(s)
+	8 : "modules/demux/adaptive/StreamFormat.cpp" line 25
+	9 : "modules/demux/dash/mpd/DASHCommonAttributesElements.cpp" line 31
+9 : "modules/demux/adaptive/Time.hpp" impact to 67 file(s)
+Included by:
+	1 : "modules/demux/adaptive/playlist/Inheritables.hpp" line 27, impact to 63 file(s)
+	2 : "modules/demux/adaptive/playlist/Segment.h" line 34, impact to 63 file(s)
+	3 : "modules/demux/smooth/playlist/Manifest.hpp" line 25, impact to 6 file(s)
+10 : "modules/demux/adaptive/playlist/Inheritables.hpp" impact to 63 file(s)
+Included by:
+	1 : "modules/demux/adaptive/playlist/SegmentInfoCommon.h" line 30, impact to 58 file(s)
+	2 : "modules/demux/smooth/playlist/Manifest.hpp" line 24, impact to 6 file(s)
+	3 : "modules/demux/smooth/playlist/ForgedInitSegment.hpp" line 24, impact to 2 file(s)
+	4 : "modules/demux/adaptive/playlist/BaseAdaptationSet.cpp" line 37
+	5 : "modules/demux/adaptive/playlist/Inheritables.cpp" line 25
+... 10 of 446 files

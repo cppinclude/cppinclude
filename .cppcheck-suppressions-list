@@ -1,0 +1,5 @@
+*:*/3rd-part/*
+unusedFunction:*
+missingIncludeSystem:*
+unmatchedSuppression:*
+noExplicitConstructor:*/src/test_tools/boost_predicate_wrapper.hpp

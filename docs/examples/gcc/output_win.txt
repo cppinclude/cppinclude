@@ -1,0 +1,98 @@
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Unresolved files:
+1. "\usr\include\malloc.h" isn't resolved in:
+	1. "libffi\src\dlmalloc.c" line: 622
+Most impact files:
+1 : "gcc\config\arm\arm_mve_types.h" impact to 2496 file(s)
+Included by:
+	1 : "gcc\config\arm\arm_mve.h" line 35, impact to 2484 file(s)
+	2 : "gcc\config\arm\arm_cde.h" line 140, impact to 10 file(s)
+2 : "gcc\config\arm\arm_mve.h" impact to 2484 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\asrl.c" line 5
+	2 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\lsll.c" line 5
+	3 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_fp_fpu1.c" line 6
+	4 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_fp_fpu2.c" line 6
+	5 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_fpu1.c" line 6
+	6 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_fpu2.c" line 6
+	7 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_immediates_1_n.c" line 5
+	8 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_load_from_array.c" line 5
+	9 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_move_gpr_to_gpr.c" line 5
+	10 : "gcc\testsuite\gcc.target\arm\mve\intrinsics\mve_scalar_shifts1.c" line 6
+	... 10 of 2484 details
+3 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\test_sve_acle.h" impact to 2405 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\aarch64\sve2\acle\asm\test_sve_acle.h" line 1, impact to 842 file(s)
+	2 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_f16.c" line 3
+	3 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_f32.c" line 3
+	4 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_f64.c" line 3
+	5 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_s16.c" line 3
+	6 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_s32.c" line 3
+	7 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_s64.c" line 3
+	8 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_s8.c" line 3
+	9 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_u16.c" line 3
+	10 : "gcc\testsuite\gcc.target\aarch64\sve\acle\asm\abd_u32.c" line 3
+	... 10 of 1563 details
+4 : "gcc\testsuite\gcc.target\i386\m128-check.h" impact to 1798 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\i386\m256-check.h" line 2, impact to 1599 file(s)
+	2 : "gcc\testsuite\gcc.target\i386\sse2-check.h" line 3, impact to 146 file(s)
+	3 : "gcc\testsuite\gcc.target\i386\sse4_1-check.h" line 4, impact to 26 file(s)
+	4 : "gcc\testsuite\gcc.target\i386\sse-check.h" line 2, impact to 17 file(s)
+	5 : "gcc\testsuite\g++.target\i386\m128-check.h" line 1
+	6 : "gcc\testsuite\gcc.target\i386\sha1msg1-2.c" line 6
+	7 : "gcc\testsuite\gcc.target\i386\sha1msg2-2.c" line 6
+	8 : "gcc\testsuite\gcc.target\i386\sha1nexte-2.c" line 6
+	9 : "gcc\testsuite\gcc.target\i386\sha1rnds4-2.c" line 6
+	10 : "gcc\testsuite\gcc.target\i386\sha256msg1-2.c" line 6
+	... 10 of 12 details
+5 : "gcc\testsuite\gcc.target\i386\m256-check.h" impact to 1599 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\i386\m512-check.h" line 2, impact to 1131 file(s)
+	2 : "gcc\testsuite\gcc.target\i386\avx2-check.h" line 3, impact to 228 file(s)
+	3 : "gcc\testsuite\gcc.target\i386\avx-check.h" line 3, impact to 206 file(s)
+	4 : "gcc\testsuite\gcc.target\i386\xop-check.h" line 4, impact to 9 file(s)
+	5 : "gcc\testsuite\gcc.target\i386\f16c-check.h" line 4, impact to 6 file(s)
+	6 : "gcc\testsuite\g++.target\i386\m256-check.h" line 1
+	7 : "gcc\testsuite\gcc.target\i386\fma-256-fmaddXX.c" line 8
+	8 : "gcc\testsuite\gcc.target\i386\fma-256-fmaddsubXX.c" line 8
+	9 : "gcc\testsuite\gcc.target\i386\fma-256-fmsubXX.c" line 8
+	10 : "gcc\testsuite\gcc.target\i386\fma-256-fmsubaddXX.c" line 8
+	... 10 of 19 details
+6 : "include\ansidecl.h" impact to 1315 file(s)
+Included by:
+	1 : "include\hashtab.h" line 39, impact to 1205 file(s)
+	2 : "include\libiberty.h" line 42, impact to 1036 file(s)
+	3 : "include\splay-tree.h" line 37, impact to 159 file(s)
+	4 : "include\partition.h" line 43, impact to 14 file(s)
+	5 : "include\md5.h" line 30, impact to 5 file(s)
+	6 : "gcc\brig\brigfrontend\brig-util.h" line 30, impact to 4 file(s)
+	7 : "gcc\brig\brigfrontend\brig-function.h" line 27, impact to 3 file(s)
+	8 : "gcc\brig\brigfrontend\brig-to-generic.h" line 31, impact to 2 file(s)
+	9 : "gcc\go\go-system.h" line 136, impact to 2 file(s)
+	10 : "include\floatformat.h" line 23, impact to 1 file(s)
+	... 10 of 63 details
+7 : "include\hashtab.h" impact to 1205 file(s)
+Included by:
+	1 : "include\filenames.h" line 29, impact to 1041 file(s)
+	2 : "gcc\hash-table.h" line 249, impact to 1017 file(s)
+	3 : "gcc\function-tests.c" line 38
+	4 : "libcpp\files.c" line 29
+	5 : "libiberty\hashtab.c" line 63
+8 : "gcc\testsuite\gcc.target\i386\avx512f-os-support.h" impact to 1131 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\i386\avx512-check.h" line 4, impact to 1130 file(s)
+9 : "gcc\testsuite\gcc.target\i386\m512-check.h" impact to 1131 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\i386\avx512-check.h" line 3, impact to 1130 file(s)
+10 : "gcc\testsuite\gcc.target\i386\avx512-check.h" impact to 1130 file(s)
+Included by:
+	1 : "gcc\testsuite\gcc.target\i386\avx512f-helper.h" line 11, impact to 1095 file(s)
+	2 : "gcc\testsuite\gcc.target\i386\avx512bw-check.h" line 3, impact to 22 file(s)
+	3 : "gcc\testsuite\gcc.target\i386\avx512dq-check.h" line 3, impact to 7 file(s)
+	4 : "gcc\testsuite\gcc.target\i386\avx512f-pr88547-2.c" line 5, impact to 1 file(s)
+	5 : "gcc\testsuite\gcc.target\i386\avx512vl-check.h" line 4, impact to 1 file(s)
+	6 : "gcc\testsuite\gcc.target\i386\avx512dq-pr85918-2.c" line 13
+... 10 of 3168 files

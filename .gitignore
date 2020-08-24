@@ -1,0 +1,4 @@
+*.user
+build/
+cppinclude
+cppinclude.exe

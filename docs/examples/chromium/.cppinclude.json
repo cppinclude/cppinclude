@@ -1,0 +1,132 @@
+{
+	"project_dir" : "chromium",	
+	"ignore_system_includes" : true,
+	
+	"include_dirs" : [
+		".",
+		"native_client_sdk/src/libraries/",
+		"components/cronet/native/include/",
+		"components/grpc_support/include/",
+		"native_client_sdk/src/tests/nacl_io_test/",
+		"testing/gmock/include/",
+		"chrome/browser/devtools/protocol/",
+		"chrome/browser/resources/chromeos/zip_archiver/cpp/",
+		"native_client_sdk/src/libraries/third_party/pthreads-win32/",
+		"native_client_sdk/src/gonacl_appengine/src/",
+		"chromecast/public/",
+		"components/cronet/native/generated/",
+		"third_party/protobuf/src/",
+		"tools/clang/stack_maps/",
+		"gpu/command_buffer/",
+		"third_party/wtl/include/",
+		"tools/traceline/traceline/"
+	],
+	
+	
+	"ignore_files" : [
+		"v8/.*",
+		"media/.*",
+		
+		"chrome/common/.*",
+		"chrome/credential_provider/gaiacp/.*",
+		"chrome/browser/devtools/protocol/forward.h",
+		"chrome/app/vector_icons/vector_icons.h",
+		"chrome/browser/devtools/protocol/.*",
+		"chrome/browser/browser_switcher/bho/.*",
+		"chrome/elevation_service/elevation_service_idl.h",
+		
+		"headless/lib/browser/protocol/protocol.h",
+		"headless/public/devtools/domains/.*",
+		
+		"chromeos/services/device_sync/proto/.*",
+		"chromeos/assistant/internal/.*",
+		
+		"components/autofill_assistant/browser/.*",
+		"components/policy/proto/.*",
+		"components/sync/protocol/.*",
+		"components/ui_devtools/.*",
+		"components/url_pattern_index/flat/url_pattern_index_generated.h",
+		"components/contextual_search/core/browser/contextual_search_preference.h",
+		"components/cronet/version.h",
+		"components/policy/.*",
+		"components/subresource_filter/core/common/flat/indexed_ruleset_generated.h",
+		
+		"content/browser/devtools/protocol/.*",
+		
+		"extensions/buildflags/.*",
+		"extensions/common/api/.*",
+		"extensions/browser/api/declarative_net_request/flat/.*",
+		
+		"native_client/src/include/.*",
+		"native_client/src/trusted/service_runtime/.*",
+		
+		"ppapi/buildflags/.*",
+		"ppapi/c/test_cgen/stdint.h",
+		"ppapi/c/test_cgen_range/dev_channel_interface.h",
+		"ui/accessibility/.*",
+		"ui/ozone/platform_list.h",
+		"device/vr/public/mojom/.*",
+		"printing/buildflags/.*",
+		"libassistant/shared/public/.*",
+		"clang/.*\\.h",
+		"llvm/Support/.*",
+		"llvm/Pass.h",
+		"llvm/Transforms/IPO/PassManagerBuilder.h",
+		"llvm/Analysis/CallGraph.h",
+		"llvm/ADT/.*",
+		"fuchsia/fidl/chromium/cast/cpp/.*",
+		"native_client/src/untrusted/.*",
+		"services/metrics/public/cpp/ukm_builders.h",
+		"services/metrics/public/cpp/ukm_decode.h",
+		"chrome/updater/app/server/win/updater_idl.h",
+		"components/ui_devtools/Protocol.h",
+		"headless/public/devtools/domains/page.h",
+		"base/fuchsia/testfidl/cpp/fidl.h",
+		"remoting/host/win/.*",
+		".*allowed/good.h",
+		"library_loaders/.*",
+		"buildtools/checkdeps/testdata/.*",
+		"ash/resources/vector_icons/vector_icons.h",
+		"chrome/updater/updater_version.h",
+		"chromecast/common/extensions_api/.*",
+		"chromecast/ui/vector_icons.h",
+		"third_party/.*",
+		"include/config/Sk.*",
+		"include/core/Sk.*",
+		"ios/chrome/browser/web/external_app_launcher.h",
+		"libassistant/shared/internal_api/.*",
+		"nacl/nacl_exception.h",
+		"native_client/tests/inbrowser_test_runner/test_runner.h",
+		"node_modules/piex/src/piex.h",
+		
+		"google_update/google_update_idl.h",
+		"gpu/config/gpu_driver_bug_workaround_autogen.h",
+		
+		"headless/lib/browser/protocol/.*",
+		
+		"mojo/public/cpp/bindings/pending_reciever.h",
+
+		".*/config.h",
+		".*\\.mojom.h",
+		".*\\.mojom-forward.h",
+		".*\\.mojom-shared.h",
+		".*\\.mojom-test-utils.h",
+		".*\\.mojom-blink.h",
+		".*\\.test-mojom.h",
+		".*/mojom/.*",
+		".*\\.pb.h",
+		".*buildflags.h",
+		
+		"ui/gfx/x/.*",
+		"llvm/IR/.*",
+		
+		"Availability.h",
+		"archive.h",
+		"atltypes.h",
+		"irt.h",
+		"json_reader.cpp",
+		"stddef.h",
+		
+		"whatever/whocares/ok.h"
+	]
+}

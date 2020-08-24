@@ -1,0 +1,66 @@
+{
+	"project_dir" : "notepad-plus-plus",
+	"ignore_system_includes" : true,
+	"include_dirs" : [
+		"scintilla/include/",
+		"scintilla/lexlib/",
+		"scintilla/src/",
+		"scintilla/qt/ScintillaEditBase/",
+		
+		"PowerEditor/src/",
+		"PowerEditor/src/uchardet/",
+		
+		"PowerEditor/src/MISC/",
+		"PowerEditor/src/MISC/Common/",
+		"PowerEditor/src/MISC/PluginsManager/",
+		"PowerEditor/src/MISC/Process/",
+		"PowerEditor/src/MISC/sha2/",
+		"PowerEditor/src/MISC/md5/",
+		"PowerEditor/src/MISC/RegExt/",
+		"PowerEditor/src/MISC/Exception/",
+		
+		"PowerEditor/src/WinControls/",
+		"PowerEditor/src/WinControls/StaticDialog/",
+		"PowerEditor/src/WinControls/StaticDialog/RunDlg/",
+		"PowerEditor/src/WinControls/DockingWnd/",
+		"PowerEditor/src/WinControls/OpenSaveFileDialog/",
+		"PowerEditor/src/WinControls/Grid/",
+		"PowerEditor/src/WinControls/VerticalFileSwitcher/",
+		"PowerEditor/src/WinControls/FunctionList/",
+		"PowerEditor/src/WinControls/FileBrowser/",
+		"PowerEditor/src/WinControls/TaskList/",
+		"PowerEditor/src/WinControls/DocumentMap/",
+		"PowerEditor/src/WinControls/ImageListSet/",
+		"PowerEditor/src/WinControls/shortcut/",
+		"PowerEditor/src/WinControls/ProjectPanel/",
+		"PowerEditor/src/WinControls/SplitterContainer/",
+		"PowerEditor/src/WinControls/ContextMenu/",
+		"PowerEditor/src/WinControls/TabBar/",
+		"PowerEditor/src/WinControls/ReadDirectoryChanges/",
+		"PowerEditor/src/WinControls/StatusBar/",
+		"PowerEditor/src/WinControls/AboutDlg/",
+		"PowerEditor/src/WinControls/AnsiCharPanel/",
+		"PowerEditor/src/WinControls/ClipboardHistory/",
+		"PowerEditor/src/WinControls/ColourPicker/",
+		"PowerEditor/src/WinControls/Preference/",
+		"PowerEditor/src/WinControls/FindCharsInRange/",
+		"PowerEditor/src/WinControls/ToolBar/",
+		"PowerEditor/src/WinControls/ToolTip/",
+		"PowerEditor/src/WinControls/WindowsDlg/",
+		"PowerEditor/src/WinControls/PluginsAdmin/",
+		"PowerEditor/src/WinControls/TrayIcon/",
+		
+		"PowerEditor/src/ScitillaComponent/",
+		
+		"PowerEditor/src/TinyXml/",
+		"PowerEditor/src/TinyXml/tinyXmlA/",
+		"PowerEditor/src/json/"
+	],
+	
+	"ignore_files" : [
+		"tchar.h",
+		"WindowAccessor.h",
+		"ScintillaEdit.h",
+		"pyside_global.h"
+	]
+}

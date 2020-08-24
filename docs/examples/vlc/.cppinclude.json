@@ -1,0 +1,41 @@
+{
+	"project_dir" : "vlc",
+	"ignore_system_includes" : true,
+	"include_dirs" : [
+		"modules/",
+		"modules/gui/qt/",
+		"modules/demux/adaptive/",
+		"modules/meta_engine/",
+		"modules/access/",
+		"modules/codec/",
+		"modules/demux/",
+		"modules/packetizer/",
+		"modules/video_output/win32/",
+		
+		"include/",
+		"include/vlc/",
+		"src/"
+	],
+	
+	"ignore_files" : [
+		"config.h",
+		"TargetConditionals.h",
+		"ebml/.*",
+		".*revision.c",
+		"CSSGrammar.h",
+		"audio_io.h",
+		"cast_channel.pb.h",
+		"fourcc_tables.h",
+		"include/a52.h",
+		"a52dec/.*",
+		"libmtp.h",
+		"matroska/.*",
+		"ui/.*",
+		"sound_manager.h",
+		
+		"screenshooter-client-protocol.h",
+		"server-decoration-client-protocol.h",
+		"viewporter-client-protocol.h",
+		"xdg-shell-client-protocol.h"
+	]
+}

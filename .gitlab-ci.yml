@@ -1,0 +1,79 @@
+build_gcc:
+  stage: build
+  image: ubuntu
+  script:
+    - apt-get update
+    - apt-get install cmake gcc g++ -y
+    # Build without boost
+    - ./build.sh
+    # Build with boost
+    - apt-get install libboost-test-dev -y
+    - cd build
+    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
+    - cmake --build . --config Release
+    # Run tests
+    - ctest . -C Release
+
+build_clang:
+  stage: build
+  image: ubuntu
+  script:
+    - apt-get update
+    - apt-get install cmake clang -y
+    # Build without boost
+    - ./build.sh
+    # Build with boost
+    - apt-get install libboost-test-dev -y
+    - cd build
+    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
+    - cmake --build . --config Release
+    # Run tests
+    - ctest . -C Release
+    
+build_windows:
+  stage: build
+  tags:
+    - shared-windows
+    - windows
+    - windows-1809
+  script:
+    - choco install cmake -y
+    - $env:PATH="C:\Program Files\CMake\bin;$env:PATH"
+    # Build without boost
+    - cmd /c ".\build.bat"
+    # Clean build folder
+    - rm -r -fo ./build
+    - mkdir build
+    - cd build
+    # Build with boost
+    - vcpkg install boost-test:x64-windows
+    - vcpkg install boost-system:x64-windows
+    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
+    - cmake --build . --config Release
+    # Run tests
+    - ctest . -C Release
+    
+check_typos:
+  stage: build
+  image: ubuntu
+  script:
+    - apt-get update
+    - export DEBIAN_FRONTEND=noninteractive
+    - ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+    - apt-get install -y tzdata
+    - dpkg-reconfigure --frontend noninteractive tzdata
+    - apt-get install npm -y
+    - npm install -g cspell
+    - cspell "src/**/*"
+    
+cppcheck:
+  stage: build
+  image: ubuntu
+  script:
+    - apt-get update
+    - apt-get install cmake gcc g++ libboost-test-dev -y
+    - apt-get install cppcheck -y
+    - cd build
+    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCPPINCLUDE_BUILD_WITH_TESTS=ON
+    - cppcheck --project=compile_commands.json --enable=all --suppressions-list=../.cppcheck-suppressions-list --error-exitcode=1 --quiet
+

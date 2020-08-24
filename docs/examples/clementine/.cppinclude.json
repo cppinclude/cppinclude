@@ -1,0 +1,41 @@
+{
+	"project_dir" : "Clementine",
+	
+	"ignore_system_includes" : true,
+	"ignore_dirs" : [
+		"3rdparty",
+		"gst"
+	],
+	"include_dirs" : [
+	
+		"3rdparty/libmygpo-qt5/src/",
+		"3rdparty/libprojectm/",
+		"3rdparty/qtiocompressor/",
+		"3rdparty/tinysvcmdns/",
+		"3rdparty/qtsingleapplication/",
+		
+		"ext/libclementine-tagreader/",
+		
+		"src/"
+	],
+	"ignore_files" : [
+	
+		"core/.*",
+		"dbus/.*",
+		
+		"gtest/.*",
+		"gmock/.*",
+		
+		"gst/moodbar/.*",
+		
+		"config.h",
+		"version.h",
+		
+		".*.pb.h",
+		"ui_.*",
+		
+		"analyzer.h",
+		"backgroundthread.h"
+		
+	]
+}
