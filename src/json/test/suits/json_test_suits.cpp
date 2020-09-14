@@ -32,7 +32,7 @@ BOOST_FIXTURE_TEST_SUITE(JsonTests, JsonFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(simple_json_1)
+BOOST_AUTO_TEST_CASE(t1_simple_json)
 {
 	// Init
 	createJsonFile(
@@ -58,24 +58,24 @@ BOOST_AUTO_TEST_CASE(simple_json_1)
 	{
 
 		BOOST_TEST_PASSPOINT();
-		auto fileExtentionsPtr = json.getAttributeValue( "file_extensions" );
-		BOOST_REQUIRE( fileExtentionsPtr );
-		const JsonValue & fileExtentionsValue = *fileExtentionsPtr;
-		auto fileExtentionsArrayPtr = fileExtentionsValue.asArray();
-		BOOST_REQUIRE( fileExtentionsArrayPtr );
-		const JsonArray & fileExtentionsArray = *fileExtentionsArrayPtr;
-		BOOST_REQUIRE_EQUAL( fileExtentionsArray.getSize(), 2 );
+		auto fileExtensionsPtr = json.getAttributeValue( "file_extensions" );
+		BOOST_REQUIRE( fileExtensionsPtr );
+		const JsonValue & fileExtensionsValue = *fileExtensionsPtr;
+		auto fileExtensionsArrayPtr = fileExtensionsValue.asArray();
+		BOOST_REQUIRE( fileExtensionsArrayPtr );
+		const JsonArray & fileExtensionsArray = *fileExtensionsArrayPtr;
+		BOOST_REQUIRE_EQUAL( fileExtensionsArray.getSize(), 2 );
 		{
-			auto cppExtentionsPtr = fileExtentionsArray.at( 0 );
-			BOOST_REQUIRE( cppExtentionsPtr );
-			const JsonValue & cppExtention = *cppExtentionsPtr;
-			BOOST_CHECK_EQUAL( cppExtention.asString(), "*.cpp" );
+			auto cppExtensionsPtr = fileExtensionsArray.at( 0 );
+			BOOST_REQUIRE( cppExtensionsPtr );
+			const JsonValue & cppExtension = *cppExtensionsPtr;
+			BOOST_CHECK_EQUAL( cppExtension.asString(), "*.cpp" );
 		}
 		{
-			auto hppExtentionsPtr = fileExtentionsArray.at( 1 );
-			BOOST_REQUIRE( hppExtentionsPtr );
-			const JsonValue & hppExtention = *hppExtentionsPtr;
-			BOOST_CHECK_EQUAL( hppExtention.asString(), "*.hpp" );
+			auto hppExtensionsPtr = fileExtensionsArray.at( 1 );
+			BOOST_REQUIRE( hppExtensionsPtr );
+			const JsonValue & hppExtension = *hppExtensionsPtr;
+			BOOST_CHECK_EQUAL( hppExtension.asString(), "*.hpp" );
 		}
 	}
 	{
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(simple_json_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(bool_2)
+BOOST_AUTO_TEST_CASE(t2_bool)
 {
 	// Init
 	createJsonFile( R"({ "atr1":true, "atr2":false })" );
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE(bool_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(int_3)
+BOOST_AUTO_TEST_CASE(t3_int)
 {
 	// Init
 	createJsonFile( R"({ "val":42 })" );
@@ -173,7 +173,7 @@ BOOST_AUTO_TEST_CASE(int_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(string_4)
+BOOST_AUTO_TEST_CASE(t4_string)
 {
 	// Init
 	createJsonFile( R"({ "name": "str" })" );
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(string_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(object_5)
+BOOST_AUTO_TEST_CASE(t5_object)
 {
 	// Init
 	createJsonFile( R"({ "object" : { "name" : "str" } })" );
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_CASE(object_5)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_bool_6_1)
+BOOST_AUTO_TEST_CASE(t6_1_array_bool)
 {
 	// Init
 	createJsonFile( R"({ "array" : [true,false] })" );
@@ -245,7 +245,7 @@ BOOST_AUTO_TEST_CASE(array_bool_6_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_int_6_2)
+BOOST_AUTO_TEST_CASE(t6_2_array_int)
 {
 	// Init
 	createJsonFile( R"({ "array" : [42,43] })" );
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE(array_int_6_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_string_6_3)
+BOOST_AUTO_TEST_CASE(t6_3_array_string)
 {
 	// Init
 	createJsonFile( R"({ "array" : ["str1","str2"] })" );
@@ -309,7 +309,7 @@ BOOST_AUTO_TEST_CASE(array_string_6_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_object_6_4)
+BOOST_AUTO_TEST_CASE(t6_4_array_object)
 {
 	// Init
 	createJsonFile( R"({ "array" : [ { "name": "str1" }, { "name": "str2" }] })" );
@@ -351,7 +351,7 @@ BOOST_AUTO_TEST_CASE(array_object_6_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(not_exist_attribute_7)
+BOOST_AUTO_TEST_CASE(t7_not_exist_attribute)
 {
 	// Init
 	createJsonFile( R"({ "name": "str" })" );

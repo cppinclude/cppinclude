@@ -27,7 +27,7 @@ BOOST_FIXTURE_TEST_SUITE(ResolverPathTests, ModelIncludesFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(current_directory_1)
+BOOST_AUTO_TEST_CASE(t1_current_directory)
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(current_directory_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(subdirectory_2)
+BOOST_AUTO_TEST_CASE(t2_subdirectory)
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(subdirectory_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(in_include_dir_3_1)
+BOOST_AUTO_TEST_CASE(t3_1_in_include_dir)
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(in_include_dir_3_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(in_include_subdir_3_2)
+BOOST_AUTO_TEST_CASE(t3_2_in_include_subdir)
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(in_include_subdir_3_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(in_include_out_of_project_3_3)
+BOOST_AUTO_TEST_CASE(t3_3_in_include_out_of_project)
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(in_include_out_of_project_3_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(not_found_4)
+BOOST_AUTO_TEST_CASE(t4_not_found)
 {
 	// Init
 	setProjectDir( "/test_project/" );

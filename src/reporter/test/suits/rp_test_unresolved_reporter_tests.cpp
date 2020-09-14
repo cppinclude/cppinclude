@@ -25,7 +25,7 @@ BOOST_FIXTURE_TEST_SUITE(UnresolvedReporterTests, ReporterFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(model_not_have_unresolved_includes_1)
+BOOST_AUTO_TEST_CASE(t1_model_not_have_unresolved_includes)
 {
 	// Init
 	addInclude( "/test_project/main.cpp", "/test_project/classA.hpp" );
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(model_not_have_unresolved_includes_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(several_includes_2)
+BOOST_AUTO_TEST_CASE(t2_several_includes)
 {
 	// Init
 	const auto unresolvedStatus = IncludeStatus::Unresolved;
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(several_includes_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(relative_paths_3)
+BOOST_AUTO_TEST_CASE(t3_relative_paths)
 {
 	// Init
 	const auto unresolvedStatus = IncludeStatus::Unresolved;
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(relative_paths_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_max_files_4_1)
+BOOST_AUTO_TEST_CASE(t4_1_limit_max_files)
 {
 	// Init
 	const int limit = 1;
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(limit_max_files_4_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_max_details_4_2)
+BOOST_AUTO_TEST_CASE(t4_2_limit_max_details)
 {
 	// Init
 	const int limit = 1;
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(limit_max_details_4_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_equal_to_files_count_4_3)
+BOOST_AUTO_TEST_CASE(t4_3_limit_equal_to_files_count)
 {
 	// Init
 	const int limit = 2;
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(limit_equal_to_files_count_4_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_equal_to_details_count_4_4)
+BOOST_AUTO_TEST_CASE(t4_4_limit_equal_to_details_count)
 {
 	// Init
 	const int limit = 2;
@@ -264,7 +264,7 @@ BOOST_AUTO_TEST_CASE(limit_equal_to_details_count_4_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ordering_5)
+BOOST_AUTO_TEST_CASE(t5_ordering)
 {
 	// Init
 	const auto unresolvedStatus = IncludeStatus::Unresolved;

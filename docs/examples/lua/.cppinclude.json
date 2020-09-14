@@ -1,0 +1,12 @@
+{
+	"project_dir" : "lua",
+	"ignore_files" : [
+		"unistd.h",
+		"windows.h",
+		"dlfcn.h",
+		"io.h",
+		"luac.c",
+		"readline/.*",
+		"sys/.*"
+	]
+}

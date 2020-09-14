@@ -1,0 +1,118 @@
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Most impact files:
+1 : "llvm/include/llvm/Support/Compiler.h" impact on 4791 file(s)
+Included by:
+	1 : "llvm/include/llvm/ADT/SmallVector.h" line 18, impact on 4465 file(s)
+	2 : "llvm/include/llvm/ADT/Optional.h" line 19, impact on 2562 file(s)
+	3 : "llvm/include/llvm/Support/Error.h" line 23, impact on 2427 file(s)
+	4 : "llvm/include/llvm/ADT/DenseMap.h" line 19, impact on 2296 file(s)
+	5 : "llvm/include/llvm/Support/SwapByteOrder.h" line 17, impact on 2016 file(s)
+	6 : "llvm/include/llvm/Support/Endian.h" line 17, impact on 2009 file(s)
+	7 : "llvm/include/llvm/ADT/PointerIntPair.h" line 16, impact on 1852 file(s)
+	8 : "llvm/include/llvm/Support/Allocator.h" line 26, impact on 1813 file(s)
+	9 : "clang/include/clang/AST/NestedNameSpecifier.h" line 21, impact on 548 file(s)
+	10 : "clang/include/clang/AST/Decl.h" line 44, impact on 541 file(s)
+	... 10 of 301 details
+2 : "llvm/include/llvm/ADT/SmallVector.h" impact on 4465 file(s)
+Included by:
+	1 : "llvm/include/llvm/Support/raw_ostream.h" line 16, impact on 3651 file(s)
+	2 : "llvm/include/llvm/Support/Error.h" line 18, impact on 2427 file(s)
+	3 : "llvm/include/llvm/Support/Allocator.h" line 24, impact on 1813 file(s)
+	4 : "llvm/include/llvm/Support/SourceMgr.h" line 21, impact on 940 file(s)
+	5 : "llvm/include/llvm/Support/VirtualFileSystem.h" line 20, impact on 652 file(s)
+	6 : "llvm/include/llvm/ADT/MapVector.h" line 20, impact on 523 file(s)
+	7 : "clang/include/clang/AST/Expr.h" line 33, impact on 456 file(s)
+	8 : "clang/include/clang/Basic/FileManager.h" line 21, impact on 409 file(s)
+	9 : "clang/include/clang/Basic/SourceManager.h" line 46, impact on 382 file(s)
+	10 : "llvm/include/llvm/ADT/TinyPtrVector.h" line 15, impact on 381 file(s)
+	... 10 of 698 details
+3 : "llvm/include/llvm/Support/raw_ostream.h" impact on 3651 file(s)
+Included by:
+	1 : "llvm/include/llvm/Support/Error.h" line 28, impact on 2427 file(s)
+	2 : "lldb/include/lldb/Utility/Stream.h" line 17, impact on 355 file(s)
+	3 : "clang/include/clang/AST/Attr.h" line 30, impact on 225 file(s)
+	4 : "llvm/include/llvm/Support/EndianStream.h" line 19, impact on 117 file(s)
+	5 : "llvm/include/llvm/Support/JSON.h" line 54, impact on 88 file(s)
+	6 : "llvm/include/llvm/MC/MCObjectWriter.h" line 17, impact on 85 file(s)
+	7 : "llvm/include/llvm/Support/ScopedPrinter.h" line 18, impact on 83 file(s)
+	8 : "clang-tools-extra/clangd/Protocol.h" line 31, impact on 64 file(s)
+	9 : "llvm/include/llvm/Support/LEB128.h" line 17, impact on 58 file(s)
+	10 : "llvm/include/llvm/Support/FormattedStream.h" line 17, impact on 52 file(s)
+	... 10 of 1274 details
+4 : "llvm/include/llvm/ADT/Optional.h" impact on 2562 file(s)
+Included by:
+	1 : "llvm/include/llvm/Support/Allocator.h" line 23, impact on 1813 file(s)
+	2 : "llvm/include/llvm/Support/VirtualFileSystem.h" line 19, impact on 652 file(s)
+	3 : "clang/include/clang/AST/Decl.h" line 38, impact on 541 file(s)
+	4 : "clang/include/clang/Lex/Lexer.h" line 21, impact on 336 file(s)
+	5 : "clang/include/clang/AST/ExprCXX.h" line 40, impact on 287 file(s)
+	6 : "clang/include/clang/AST/ExprObjC.h" line 29, impact on 260 file(s)
+	7 : "clang/include/clang/Lex/Preprocessor.h" line 38, impact on 229 file(s)
+	8 : "llvm/include/llvm/MC/MCStreamer.h" line 18, impact on 207 file(s)
+	9 : "llvm/include/llvm/ADT/PostOrderIterator.h" line 19, impact on 170 file(s)
+	10 : "llvm/include/llvm/Analysis/ScalarEvolution.h" line 29, impact on 107 file(s)
+	... 10 of 280 details
+5 : "llvm/include/llvm-c/ExternC.h" impact on 2474 file(s)
+Included by:
+	1 : "llvm/include/llvm-c/Error.h" line 17, impact on 2429 file(s)
+	2 : "llvm/include/llvm-c/Disassembler.h" line 19, impact on 18 file(s)
+	3 : "llvm/include/llvm-c/Initialization.h" line 19, impact on 12 file(s)
+	4 : "llvm/include/llvm-c/BitReader.h" line 22, impact on 5 file(s)
+	5 : "llvm/include/llvm-c/Linker.h" line 17, impact on 4 file(s)
+	6 : "llvm/include/llvm-c/Transforms/PassManagerBuilder.h" line 17, impact on 4 file(s)
+	7 : "llvm/include/llvm-c/Transforms/Scalar.h" line 22, impact on 4 file(s)
+	8 : "llvm/include/llvm-c/BitWriter.h" line 22, impact on 3 file(s)
+	9 : "llvm/include/llvm-c/IRReader.h" line 17, impact on 3 file(s)
+	10 : "llvm/include/llvm-c/Transforms/IPO.h" line 18, impact on 3 file(s)
+	... 10 of 11 details
+6 : "llvm/include/llvm/Support/ErrorOr.h" impact on 2465 file(s)
+Included by:
+	1 : "llvm/include/llvm/Support/Error.h" line 26, impact on 2427 file(s)
+	2 : "llvm/include/llvm/Support/FileSystem.h" line 36, impact on 1520 file(s)
+	3 : "llvm/include/llvm/Support/MemoryBuffer.h" line 21, impact on 1380 file(s)
+	4 : "llvm/include/llvm/Support/VirtualFileSystem.h" line 24, impact on 652 file(s)
+	5 : "clang/include/clang/Basic/FileManager.h" line 25, impact on 409 file(s)
+	6 : "llvm/include/llvm/Support/Program.h" line 20, impact on 91 file(s)
+	7 : "llvm/include/llvm/Bitcode/BitcodeReader.h" line 22, impact on 36 file(s)
+	8 : "llvm/tools/dsymutil/DebugMap.h" line 32, impact on 7 file(s)
+	9 : "llvm/include/llvm/ProfileData/SampleProfReader.h" line 222, impact on 5 file(s)
+	10 : "llvm/include/llvm/DebugInfo/CodeView/CVSymbolVisitor.h" line 16, impact on 4 file(s)
+	... 10 of 67 details
+7 : "llvm/include/llvm-c/Error.h" impact on 2429 file(s)
+Included by:
+	1 : "llvm/include/llvm/Support/Error.h" line 16, impact on 2427 file(s)
+	2 : "llvm/tools/llvm-c-test/include-all.c" line 26
+	3 : "llvm/unittests/Support/ErrorTest.cpp" line 10
+8 : "llvm/include/llvm/Support/Error.h" impact on 2427 file(s)
+Included by:
+	1 : "llvm/include/llvm/Support/FileSystem.h" line 34, impact on 1520 file(s)
+	2 : "llvm/include/llvm/Support/DataExtractor.h" line 14, impact on 250 file(s)
+	3 : "llvm/include/llvm/MC/MCStreamer.h" line 25, impact on 207 file(s)
+	4 : "llvm/include/llvm/Support/FileOutputBuffer.h" line 19, impact on 188 file(s)
+	5 : "llvm/include/llvm/Support/BinaryStreamError.h" line 13, impact on 185 file(s)
+	6 : "llvm/include/llvm/Support/BinaryStream.h" line 16, impact on 150 file(s)
+	7 : "lldb/include/lldb/Symbol/TypeSystem.h" line 21, impact on 145 file(s)
+	8 : "clang/include/clang/Frontend/FrontendAction.h" line 26, impact on 142 file(s)
+	9 : "lldb/include/lldb/Utility/Reproducer.h" line 14, impact on 130 file(s)
+	10 : "llvm/include/llvm/Support/BinaryByteStream.h" line 17, impact on 126 file(s)
+	... 10 of 382 details
+9 : "llvm/include/llvm/Support/ReverseIteration.h" impact on 2297 file(s)
+Included by:
+	1 : "llvm/include/llvm/ADT/DenseMap.h" line 21, impact on 2296 file(s)
+	2 : "llvm/unittests/Support/ReverseIterationTest.cpp" line 13
+10 : "llvm/include/llvm/ADT/DenseMap.h" impact on 2296 file(s)
+Included by:
+	1 : "llvm/include/llvm/ADT/MapVector.h" line 19, impact on 523 file(s)
+	2 : "clang/include/clang/Basic/FileManager.h" line 19, impact on 409 file(s)
+	3 : "clang/include/clang/AST/DeclCXX.h" line 39, impact on 396 file(s)
+	4 : "clang/include/clang/Basic/SourceManager.h" line 42, impact on 382 file(s)
+	5 : "clang/include/clang/AST/DeclObjC.h" line 27, impact on 324 file(s)
+	6 : "llvm/include/llvm/MC/MCExpr.h" line 12, impact on 284 file(s)
+	7 : "clang/include/clang/Lex/ModuleMap.h" line 22, impact on 252 file(s)
+	8 : "clang/include/clang/Lex/Preprocessor.h" line 34, impact on 229 file(s)
+	9 : "llvm/include/llvm/MC/MCStreamer.h" line 17, impact on 207 file(s)
+	10 : "lldb/include/lldb/Utility/UserIDResolver.h" line 12, impact on 165 file(s)
+	... 10 of 390 details
+... 10 of 2081 files

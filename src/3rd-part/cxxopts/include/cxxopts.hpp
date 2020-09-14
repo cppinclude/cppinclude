@@ -1373,7 +1373,7 @@ namespace cxxopts
 
   namespace
   {
-    constexpr int OPTION_LONGEST = 30;
+    constexpr int OPTION_LONGEST = 60;
     constexpr int OPTION_DESC_GAP = 2;
 
     std::basic_regex<char> option_matcher
@@ -1417,7 +1417,7 @@ namespace cxxopts
         }
         else
         {
-          result += " " + arg;
+          result += "=" + arg;
         }
       }
 
@@ -1434,7 +1434,11 @@ namespace cxxopts
     {
       auto desc = o.desc;
 
-      if (o.has_default && (!o.is_boolean || o.default_value != "false"))
+	  if (
+		o.has_default &&
+		(!o.is_boolean || o.default_value != "false") &&
+		!o.default_value.empty()
+	  )
       {
         desc += toLocalString(" (default: " + o.default_value + ")");
       }
@@ -1976,7 +1980,7 @@ Options::help_one_group(const std::string& g) const
   longest = (std::min)(longest, static_cast<size_t>(OPTION_LONGEST));
 
   //widest allowed description
-  auto allowed = size_t{76} - longest - OPTION_DESC_GAP;
+  auto allowed = size_t{120} - longest - OPTION_DESC_GAP;
 
   auto fiter = format.begin();
   for (const auto& o : group->second.options)
@@ -1993,13 +1997,13 @@ Options::help_one_group(const std::string& g) const
     if (stringLength(fiter->first) > longest)
     {
       result += '\n';
-      result += toLocalString(std::string(longest + OPTION_DESC_GAP, ' '));
+	  result += toLocalString(std::string(longest + OPTION_DESC_GAP, ' '));
     }
     else
     {
       result += toLocalString(std::string(longest + OPTION_DESC_GAP -
         stringLength(fiter->first),
-        ' '));
+		' '));
     }
     result += d;
     result += '\n';

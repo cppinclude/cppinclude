@@ -2,33 +2,33 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "base_char.hpp" impact to 7 file(s)
+1 : "base_char.hpp" impact on 7 file(s)
 Included by:
-	1 : "char_a.hpp" line 3, impact to 2 file(s)
-	2 : "char_b.hpp" line 3, impact to 2 file(s)
+	1 : "char_a.hpp" line 3, impact on 2 file(s)
+	2 : "char_b.hpp" line 3, impact on 2 file(s)
 	3 : "main.cpp" line 4
-2 : "base_char_factory.hpp" impact to 5 file(s)
+2 : "base_char_factory.hpp" impact on 5 file(s)
 Included by:
-	1 : "char_a_factory.hpp" line 3, impact to 2 file(s)
-	2 : "char_b_factory.hpp" line 3, impact to 2 file(s)
-3 : "char_kind.hpp" impact to 3 file(s)
+	1 : "char_a_factory.hpp" line 3, impact on 2 file(s)
+	2 : "char_b_factory.hpp" line 3, impact on 2 file(s)
+3 : "char_kind.hpp" impact on 3 file(s)
 Included by:
 	1 : "char_a.cpp" line 3
 	2 : "char_b.cpp" line 3
 	3 : "main.cpp" line 3
-4 : "char_a.hpp" impact to 2 file(s)
+4 : "char_a.hpp" impact on 2 file(s)
 Included by:
 	1 : "char_a.cpp" line 1
 	2 : "char_a_factory.cpp" line 3
-5 : "char_a_factory.hpp" impact to 2 file(s)
+5 : "char_a_factory.hpp" impact on 2 file(s)
 Included by:
 	1 : "char_a_factory.cpp" line 1
 	2 : "main.cpp" line 1
-6 : "char_b.hpp" impact to 2 file(s)
+6 : "char_b.hpp" impact on 2 file(s)
 Included by:
 	1 : "char_b.cpp" line 1
 	2 : "char_b_factory.cpp" line 3
-7 : "char_b_factory.hpp" impact to 2 file(s)
+7 : "char_b_factory.hpp" impact on 2 file(s)
 Included by:
 	1 : "char_b_factory.cpp" line 1
 	2 : "main.cpp" line 2

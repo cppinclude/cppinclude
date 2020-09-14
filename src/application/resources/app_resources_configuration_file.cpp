@@ -8,6 +8,7 @@ namespace application::resources::configuration_file {
 
 	const char * const ProjectDir				= "project_dir";
 	const char * const FileExtensions			= "file_extensions";
+	const char * const AnalyzeWithoutExtension	= "analyze_without_extension";
 	const char * const IncludeDirs				= "include_dirs";
 
 	const char * const IgnoreDirs				= "ignore_dirs";

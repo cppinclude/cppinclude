@@ -44,6 +44,9 @@ public:
     StringsArray getFileExtensions() const;
 	StringsArray getDefaultFileExtensions() const;
 
+	bool getAnalyzeWithoutExtension() const;
+	bool getDefaultAnalyzeWithoutExtension() const;
+
     Paths getIncludeDirs() const;
     Paths getDefaultIncludeDirs() const;
 
@@ -67,6 +70,9 @@ public:
 
 	int getReportDetailsLimit() const;
 	int getDefaultReportDetailsLimit() const;
+
+	BoolOpt getShowStdFile() const;
+	bool getDefaultShowStdFile() const;
 
     bool isHelp() const;
 	bool isVerbose() const;

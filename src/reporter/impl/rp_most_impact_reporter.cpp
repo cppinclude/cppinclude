@@ -278,7 +278,7 @@ bool MostImpcatReporter::isCollectFile( const model_includes::File & _file ) con
 	switch( type )
 	{
 		case FileType::ProjectFile		: return true;
-		case FileType::StdLibraryFile	: return false;
+		case FileType::StdLibraryFile	: return getShowStdFiles();
 		default:
 			INTERNAL_CHECK_WARRING( false );
 			return false;

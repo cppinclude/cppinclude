@@ -9,18 +9,19 @@
 
 TEST PLAN:
 
-1 Correct cases
-	1. Simple system include
-	2. Simple user include
-	3. System and user includes
-	4. Include without space
-	5. Include with several spaces
-	6. Include after comment
-	7. Include in multi line comment
-	8. In string
-2. Incorrect cases
-	1  include without " or <
-	2  Include is not closed
+1.  Simple system include
+2.  Simple user include
+3.  System and user includes
+4.  Include without space
+5.  Include with several spaces
+6.  Include after comment
+7.  Include in multiline comment
+8.  In string
+9.  Include in multiline comment with sever lines
+10. Include after multiline comment with sever lines
+11. Include in multiline string
+12. First line \n
+13. String with quotation marks
 
 ------------------------------------------------------------------------------*/
 
@@ -32,7 +33,7 @@ BOOST_FIXTURE_TEST_SUITE(ParserTests, ParserFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(simple_system_include_1_1)
+BOOST_AUTO_TEST_CASE(t1_simple_system_include)
 {
 	// Init
 	file()<<
@@ -58,7 +59,7 @@ BOOST_AUTO_TEST_CASE(simple_system_include_1_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(simple_user_include_1_2)
+BOOST_AUTO_TEST_CASE(t2_simple_user_include)
 {
 	// Init
 	file()<<
@@ -79,7 +80,7 @@ BOOST_AUTO_TEST_CASE(simple_user_include_1_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(simple_user_and_system_include_1_3)
+BOOST_AUTO_TEST_CASE(t3_simple_user_and_system_include)
 {
 	// Init
 	file()
@@ -105,7 +106,7 @@ BOOST_AUTO_TEST_CASE(simple_user_and_system_include_1_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_without_space_1_4)
+BOOST_AUTO_TEST_CASE(t4_include_without_space)
 {
 	// Init
 	file()<<
@@ -126,7 +127,7 @@ BOOST_AUTO_TEST_CASE(include_without_space_1_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_with_several_spaces_1_5)
+BOOST_AUTO_TEST_CASE(t5_include_with_several_spaces)
 {
 	// Init
 	file()<<
@@ -147,7 +148,7 @@ BOOST_AUTO_TEST_CASE(include_with_several_spaces_1_5)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_after_comment_1_6)
+BOOST_AUTO_TEST_CASE(t6_include_after_comment)
 {
 	// Init
 	file()<<
@@ -164,7 +165,7 @@ BOOST_AUTO_TEST_CASE(include_after_comment_1_6)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_in_multiline_coment_1_7)
+BOOST_AUTO_TEST_CASE(t7_include_in_multiline_coment)
 {
 	// Init
 	file()<<
@@ -181,7 +182,7 @@ BOOST_AUTO_TEST_CASE(include_in_multiline_coment_1_7)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_in_string_1_8)
+BOOST_AUTO_TEST_CASE(t8_include_in_string)
 {
 	// Init
 	file()<<
@@ -195,6 +196,114 @@ BOOST_AUTO_TEST_CASE(include_in_string_1_8)
 	const auto & files = getResults();
 	BOOST_REQUIRE_EQUAL( files.size(), 0 );
 }
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t9_include_in_multiline_coment_with_several_lines)
+{
+	// Init
+	file()<<
+		R"(/* text
+		line #include "...".
+		*/
+		)"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 0 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t10_include_after_multiline_coment_with_several_lines)
+{
+	// Init
+	file()<<
+		"/* text \n"
+		"*/\n"
+		"#include <iostream>"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 1 );
+
+	const auto & file = files.at( 0 );
+	BOOST_CHECK_EQUAL( file.getName(), "iostream" );
+	BOOST_CHECK_EQUAL( file.isSystem(), true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t11_include_include_in_multiline_string)
+{
+	// Init
+	file()<<
+		"\" text\\\n"
+		" line #include <iostream>\\\n"
+		"\""
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 0 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t12_first_line_new_line)
+{
+	// Init
+	file()<<
+		R"(
+		#include <boost/test/unit_test.hpp>
+		)"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 1 );
+
+	const auto & file = files.at( 0 );
+	BOOST_CHECK_EQUAL( file.getName(), "boost/test/unit_test.hpp");
+	BOOST_CHECK_EQUAL( file.isSystem(), true );
+
+	const auto & location = file.getLocation();
+	BOOST_CHECK_EQUAL( location.getLineNumber(), 2 );
+	BOOST_CHECK_EQUAL( location.getBegin(), 13 );
+	BOOST_CHECK_EQUAL( location.getEnd(), 37 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t13_string_with_quotation_marks)
+{
+	// Init
+	file()<<
+		R"(\" \"#include <iostream> ")"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 0 );
+}
+
 
 //------------------------------------------------------------------------------
 

@@ -16,11 +16,13 @@ public:
 
 	void setMaxFilesCount( size_t _count ) override;
 	void setMaxDetailsCount( size_t _count ) override;
+	void setShowStdFile( bool _enable ) override;
 
 protected:
 
 	size_t getMaxFilesCount() const;
 	size_t getMaxDetailsCount() const;
+	bool getShowStdFiles() const;
 
 	std::string getPathWithoutProject(
 		const std::filesystem::path & _filePath,
@@ -31,6 +33,7 @@ private:
 
 	size_t m_maxFilesCount;
 	size_t m_maxDetailsCount;
+	bool m_showStdFile;
 };
 
 //------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ public:
 	using FileFilterIndex			= std::size_t;
 
 	using PathCallback				= std::function< bool ( const Path & ) >;
-	using FileExtentionCallback		= std::function< bool ( std::string_view ) >;
+	using FileExtensionCallback		= std::function< bool ( std::string_view ) >;
 
 	virtual ~Project() = default;
 
@@ -37,11 +37,15 @@ public:
 	virtual void addIgnoredDirs( const DirPaths & _paths ) = 0;
 	virtual void forEachIgnoreDir( PathCallback _callback ) const = 0;
 
-	virtual bool hasCppFileExtentions() const = 0;
-	virtual bool isExistsCppExtention( std::string_view _ext ) const = 0;
-	virtual void addCppFileExtention( std::string_view _ext ) = 0;
-	virtual void addCppFileExtentions( const Strings & _extentions ) = 0;
-	virtual void forEachFileExtention( FileExtentionCallback _callback ) const = 0;
+	virtual bool hasCppFileExtensions() const = 0;
+	virtual bool isExistsCppExtension( std::string_view _ext ) const = 0;
+
+	virtual void addCppFileExtension( std::string_view _ext ) = 0;
+	virtual void addCppFileExtensions( const Strings & _extensions ) = 0;
+	virtual void forEachFileExtension( FileExtensionCallback _callback ) const = 0;
+
+	virtual bool getAnalyzeWithoutExtension() const = 0;
+	virtual void setAnalyzeWithoutExtension( bool _enable ) = 0;
 
 	virtual bool getIgnoreSystemIncludes() const = 0;
 	virtual void setIgnoreSystemIncludes( bool _ignore ) = 0;

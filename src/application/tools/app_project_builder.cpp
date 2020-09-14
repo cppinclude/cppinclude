@@ -48,7 +48,7 @@ ProjectBuilder::ProjectPtr ProjectBuilder::build(
 	}
 	Project & project = *projectPtr;
 
-	m_ignoreSystemIncludesChanges = false;
+	m_ignoreSystemIncludesChanged = false;
 
 	auto configFileOpt = _arguments.getConfigurationFile();
 	if( !configFileOpt )
@@ -74,8 +74,15 @@ void ProjectBuilder::initProjectWithDefaultValues(
 	if( auto projectDir = _project.getProjectDir(); projectDir.empty() )
 		_project.setProjectDir( _arguments.getDefaultProjectDir() );
 
-	if( !_project.hasCppFileExtentions() )
-		_project.addCppFileExtentions( _arguments.getDefaultFileExtensions() );
+	if( !_project.hasCppFileExtensions() )
+		_project.addCppFileExtensions( _arguments.getDefaultFileExtensions() );
+
+	if( !m_analyzeWithoutExtensionChanged )
+	{
+		_project.setAnalyzeWithoutExtension(
+			_arguments.getDefaultAnalyzeWithoutExtension()
+		);
+	}
 
 	if( !_project.getIncludeDirsCount() )
 		_project.addIncludeDirs( _arguments.getDefaultIncludeDirs() );
@@ -83,7 +90,7 @@ void ProjectBuilder::initProjectWithDefaultValues(
 	if( !_project.hasFileFilters() )
 		_project.addFileFilters( _arguments.getDefaultIgnoreFiles() );
 
-	if( !m_ignoreSystemIncludesChanges )
+	if( !m_ignoreSystemIncludesChanged )
 		_project.setIgnoreSystemIncludes( _arguments.getDefaultIgnoreSystemIncludes() );
 
 	if( !_project.hasIgnoreDirs() )
@@ -117,12 +124,18 @@ void ProjectBuilder::initProject(
 
 	if( auto valueOpt = _source.getIgnoreSystemIncludes(); valueOpt )
 	{
-		m_ignoreSystemIncludesChanges = true;
+		m_ignoreSystemIncludesChanged = true;
 		_project.setIgnoreSystemIncludes( *valueOpt );
 	}
 
 	if( auto valueOpt = _source.getFileExtensions(); valueOpt )
-		_project.addCppFileExtentions( *valueOpt );
+		_project.addCppFileExtensions( *valueOpt );
+
+	if( auto valueOpt = _source.getAnalyzeWithoutExtension(); valueOpt )
+	{
+		m_analyzeWithoutExtensionChanged = true;
+		_project.setAnalyzeWithoutExtension( *valueOpt );
+	}
 }
 
 //------------------------------------------------------------------------------

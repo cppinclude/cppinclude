@@ -35,11 +35,15 @@ public:
 	void addIgnoredDirs( const DirPaths & _paths ) override;
 	void forEachIgnoreDir( PathCallback _callback ) const override;
 
-	bool hasCppFileExtentions() const override;
-	bool isExistsCppExtention( std::string_view _ext ) const override;
-	void addCppFileExtention( std::string_view _ext ) override;
-	void addCppFileExtentions( const Strings & _extentions ) override;
-	void forEachFileExtention( FileExtentionCallback _callback ) const override;
+	bool hasCppFileExtensions() const override;
+	bool isExistsCppExtension( std::string_view _ext ) const override;
+
+	void addCppFileExtension( std::string_view _ext ) override;
+	void addCppFileExtensions( const Strings & _extensions ) override;
+	void forEachFileExtension( FileExtensionCallback _callback ) const override;
+
+	bool getAnalyzeWithoutExtension() const override;
+	void setAnalyzeWithoutExtension( bool _enable ) override;
 
 	bool getIgnoreSystemIncludes() const override;
 	void setIgnoreSystemIncludes( bool _ignore ) override;
@@ -67,12 +71,13 @@ private:
 
 	std::vector< Path > m_includeDirs;
 	std::unordered_set< Path > m_ignoredDirs;
-	std::unordered_set< std::string > m_extentions;
+	std::unordered_set< std::string > m_extensions;
 	std::vector< std::regex > m_fileFilters;
 
 	Path m_projectDir;
 
 	bool m_ignoreSystemIncludes;
+	bool m_analyzeWithoutExtension;
 };
 
 //------------------------------------------------------------------------------

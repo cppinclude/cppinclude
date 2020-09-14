@@ -162,13 +162,11 @@
 		
 		"gcc/gen.*.c",
 		"gcc/testsuite/objc.dg/gnu-encoding/struct-layout-encoding-1_generate.c",
-		"gcc/incpath.c",
+		
 		
 		"BlocksRuntime/Block.h",
 		
 		"gcc/testsuite/gcc.dg/cpp/pr.*",
-		"gcc/testsuite/gcc.dg/cpp/include2a.c",
-		
-		"libcpp/line-map.c"
+		"gcc/testsuite/gcc.dg/cpp/include2a.c"
 	]
 }

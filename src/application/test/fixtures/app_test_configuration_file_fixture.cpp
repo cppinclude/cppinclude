@@ -49,6 +49,14 @@ ConfigurationfileFixture::getFileExtensions() const
 
 //------------------------------------------------------------------------------
 
+ConfigurationfileFixture::BoolOpt
+ConfigurationfileFixture::getAnalyzeWithoutExtension() const
+{
+	return getConfigurationFile().getAnalyzeWithoutExtension();
+}
+
+//------------------------------------------------------------------------------
+
 ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::getIncludeDirs() const
 {

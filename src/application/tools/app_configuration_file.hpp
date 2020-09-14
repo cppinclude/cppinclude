@@ -37,6 +37,7 @@ public:
 
 	PathOpt getProjectDir() const;
 	StringsOpt getFileExtensions() const;
+	BoolOpt getAnalyzeWithoutExtension() const;
 	PathsOpt getIncludeDirs() const;
 
 	PathsOpt getIgnoreDirs() const;
@@ -46,7 +47,8 @@ public:
 private:
 
 	void loadProjectDir( const json::JsonObject & _json );
-	void loadFileExtentions( const json::JsonObject & _json );
+	void loadFileExtensions( const json::JsonObject & _json );
+	void loadAnalyzeWithoutExtension( const json::JsonObject & _json );
 	void loadIncludeDirs( const json::JsonObject & _json );
 
 	void loadIgnoreDirs( const json::JsonObject & _json );
@@ -80,7 +82,8 @@ private:
 private:
 
 	PathOpt m_projectDir;
-	StringsOpt m_fileExtentions;
+	StringsOpt m_fileExtensions;
+	BoolOpt m_analyzeWithoutExtension;
 	PathsOpt m_includeDirs;
 
 	PathsOpt m_ignoreDirs;

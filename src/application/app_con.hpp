@@ -81,11 +81,14 @@ private:
 
 	int getReportLimit( const ParserArgWrapper & _arg ) const;
 	int getReportDetailsLimit( const ParserArgWrapper & _arg ) const;
+	bool getShowStdFile( const ParserArgWrapper & _arg ) const;
+
 	void runReporters(
 		const Model & _model,
 		const ReporterKinds & _kinds,
 		int _maxFiles,
-		int _maxDetails
+		int _maxDetails,
+		bool _showStdFile
 	);
 
 	ProjectPtr createProject( const ParserArgWrapper & _arguments );

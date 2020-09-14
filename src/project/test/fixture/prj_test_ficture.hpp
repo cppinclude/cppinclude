@@ -46,8 +46,8 @@ public:
 	void addFileFilter( std::string_view _filter );
 	bool isIgnoredFile( std::string_view _path ) const;
 
-	void addCppExtentions( const Strings & _ext );
-	bool isExistsCppExtention( std::string_view _ext ) const;
+	void addCppExtensions( const Strings & _ext );
+	bool isExistsCppExtension( std::string_view _ext ) const;
 
 	void changeAllPathsToAbsolute();
 	Path toAbsolutePath( const Path & _path );

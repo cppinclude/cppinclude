@@ -44,6 +44,7 @@ public:
 
 	PathOpt getProjectDir() const;
 	StringOpt getFileExtensions() const;
+	BoolOpt getAnalyzeWithoutExtension() const;
 	StringOpt getIncludeDirs() const;
 
 	StringOpt getIgnoreDirs() const;

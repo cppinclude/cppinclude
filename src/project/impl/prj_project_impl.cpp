@@ -15,6 +15,7 @@ namespace project {
 
 ProjectImpl::ProjectImpl()
 	:	m_ignoreSystemIncludes{ false }
+	,	m_analyzeWithoutExtension{ false }
 {
 }
 
@@ -118,21 +119,21 @@ void ProjectImpl::forEachIgnoreDir( PathCallback _callback ) const
 
 //------------------------------------------------------------------------------
 
-bool ProjectImpl::hasCppFileExtentions() const
+bool ProjectImpl::hasCppFileExtensions() const
 {
-	return !m_extentions.empty();
+	return !m_extensions.empty();
 }
 
 //------------------------------------------------------------------------------
 
-bool ProjectImpl::isExistsCppExtention( std::string_view _ext ) const
+bool ProjectImpl::isExistsCppExtension( std::string_view _ext ) const
 {
 	std::string ext{ _ext };
-	bool result = m_extentions.count( ext );
+	bool result = m_extensions.count( ext );
 	if( !result )
 	{
 		ext = "*" + ext;
-		result = m_extentions.count( ext );
+		result = m_extensions.count( ext );
 	}
 
 	return result;
@@ -140,29 +141,43 @@ bool ProjectImpl::isExistsCppExtention( std::string_view _ext ) const
 
 //------------------------------------------------------------------------------
 
-void ProjectImpl::addCppFileExtention( std::string_view _ext )
+void ProjectImpl::addCppFileExtension( std::string_view _ext )
 {
 	std::string ext{ _ext };
-	m_extentions.insert( ext );
+	m_extensions.insert( ext );
 }
 
 //------------------------------------------------------------------------------
 
-void ProjectImpl::addCppFileExtentions( const Strings & _extentions )
+void ProjectImpl::addCppFileExtensions( const Strings & _extensions )
 {
-	for( std::string_view ext : _extentions )
-		addCppFileExtention( ext );
+	for( std::string_view ext : _extensions )
+		addCppFileExtension( ext );
 }
 
 //------------------------------------------------------------------------------
 
-void ProjectImpl::forEachFileExtention( FileExtentionCallback _callback ) const
+void ProjectImpl::forEachFileExtension( FileExtensionCallback _callback ) const
 {
-	for( const std::string & ext : m_extentions )
+	for( const std::string & ext : m_extensions )
 	{
 		if( !_callback( ext ) )
 			break;
 	}
+}
+
+//------------------------------------------------------------------------------
+
+bool ProjectImpl::getAnalyzeWithoutExtension() const
+{
+	return m_analyzeWithoutExtension;
+}
+
+//------------------------------------------------------------------------------
+
+void ProjectImpl::setAnalyzeWithoutExtension( bool _enable )
+{
+	m_analyzeWithoutExtension = _enable;
 }
 
 //------------------------------------------------------------------------------

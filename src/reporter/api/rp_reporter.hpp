@@ -27,6 +27,7 @@ public:
 
 	virtual void setMaxFilesCount( size_t _count ) = 0;
 	virtual void setMaxDetailsCount( size_t _count ) = 0;
+	virtual void setShowStdFile( bool _enable ) = 0;
 
 	virtual void report(
 		const model_includes::Model & _model,

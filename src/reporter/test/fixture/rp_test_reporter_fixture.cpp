@@ -26,6 +26,7 @@ namespace reporter::test {
 ReporterFixture::ReporterFixture()
 	:	m_maxFilesCount{ 0 }
 	,	m_maxDetailsCount{ 0 }
+	,	m_showStdFiles{ false }
 {
 
 }
@@ -39,6 +40,23 @@ ReporterFixture::~ReporterFixture() = default;
 void ReporterFixture::addInclude(
 	std::string_view _sourceFile,
 	std::string_view _destinationFile,
+	IncludeType _type
+)
+{
+	addInclude(
+		_sourceFile,
+		_destinationFile,
+		IncludeStatus::Resolved,
+		_type,
+		{1,1,1}
+	);
+}
+
+//------------------------------------------------------------------------------
+
+void ReporterFixture::addInclude(
+	std::string_view _sourceFile,
+	std::string_view _destinationFile,
 	IncludeStatus _status,
 	IncludeType _type,
 	const LocationInfo & _location
@@ -46,12 +64,8 @@ void ReporterFixture::addInclude(
 {
 	using namespace model_includes;
 
-	Model & model = getModel();
-
-	FileType defaultType = FileType::ProjectFile;
-
-	File & sourceFile = model.ensureFile( _sourceFile, defaultType );
-	File & destinationFile = model.ensureFile( _destinationFile, defaultType );
+	File & sourceFile = addFile( _sourceFile );
+	File & destinationFile = addFile( _destinationFile );
 
 	Model::IncludeLocationInfo location{
 		_location.m_line,
@@ -59,7 +73,13 @@ void ReporterFixture::addInclude(
 		_location.m_end
 	};
 
-	model.createInclude( location, sourceFile, destinationFile, _status, _type );
+	getModel().createInclude(
+		location,
+		sourceFile,
+		destinationFile,
+		_status,
+		_type
+	);
 }
 
 //------------------------------------------------------------------------------
@@ -81,6 +101,13 @@ void ReporterFixture::setMaxFilesCount( int _count )
 void ReporterFixture::setMaxDetailsCount( int _count )
 {
 	m_maxDetailsCount = _count;
+}
+
+//------------------------------------------------------------------------------
+
+void ReporterFixture::setShowStdFile( bool _enable )
+{
+	m_showStdFiles = _enable;
 }
 
 //------------------------------------------------------------------------------
@@ -112,6 +139,16 @@ std::string ReporterFixture::runMostImpactReporter()
 
 //------------------------------------------------------------------------------
 
+model_includes::File & ReporterFixture::addFile(
+	std::string_view _file,
+	FileType _type
+)
+{
+	return getModel().ensureFile( _file, _type );
+}
+
+//------------------------------------------------------------------------------
+
 std::string ReporterFixture::toPath( std::string_view _str )
 {
 	return tools::toPath( std::string{ _str } );
@@ -126,6 +163,7 @@ std::string ReporterFixture::runReporter( Reporter & _reporter)
 
 	_reporter.setMaxFilesCount( m_maxFilesCount );
 	_reporter.setMaxDetailsCount( m_maxDetailsCount );
+	_reporter.setShowStdFile( m_showStdFiles );
 	_reporter.report( model, stream );
 
 	return stream.str();

@@ -23,7 +23,7 @@ BOOST_FIXTURE_TEST_SUITE(ModelIncludesTests, ModelIncludesFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(file_includes_count_recursive_1_1)
+BOOST_AUTO_TEST_CASE(t1_1_file_includes_count_recursive)
 {
 	// Init
 	const std::string baseFile = "/test_project/base.hpp";
@@ -51,10 +51,9 @@ BOOST_AUTO_TEST_CASE(file_includes_count_recursive_1_1)
 	BOOST_CHECK( file.checkIncludesCountRecursive( 3 ) );
 }
 
-
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(file_includes_by_count_recursive_1_2)
+BOOST_AUTO_TEST_CASE(t1_2_file_includes_by_count_recursive)
 {
 	// Init
 	const std::string baseFile = "/test_project/base.hpp";

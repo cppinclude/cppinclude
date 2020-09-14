@@ -188,11 +188,15 @@ bool AnalyzerImpl::isCppFile(
 	const std::filesystem::path & _path
 ) const
 {
-	if( !_project.hasCppFileExtentions() )
+	if( !_project.hasCppFileExtensions() )
 		return true;
 
 	const std::filesystem::path extension = _path.extension();
-	const bool result = _project.isExistsCppExtention( extension.string() );
+
+	if( extension.empty() && _project.getAnalyzeWithoutExtension() )
+		return true;
+
+	const bool result = _project.isExistsCppExtension( extension.string() );
 	return result;
 }
 

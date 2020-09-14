@@ -48,6 +48,9 @@ public:
 	StringsOpt getFileExtensions() const;
 	Strings getDefaultFileExtensions() const;
 
+	BoolOpt getAnalyzeWithoutExtension() const;
+	bool getDefaultAnalyzeWithoutExtension() const;
+
 	PathsOpt getIncludeDirs() const;
 	Paths getDefaultIncludeDirs() const;
 
@@ -71,6 +74,9 @@ public:
 
 	IntOpt getReportDetailsLimit() const;
 	int getDefaultReportDetailsLimit() const;
+
+	BoolOpt getShowStdFile() const;
+	bool getDefaultShowStdfile() const;
 
 	bool isHelp() const;
 	void showHelp( std::ostream & _stream ) const;
@@ -113,7 +119,8 @@ private:
 	ParserArg m_parser;
 
 	Argument m_projectDirArg;
-	Argument m_fileExtentionsArg;
+	Argument m_fileExtensionsArg;
+	Argument m_analyzeWithoutextension;
 	Argument m_includeDirsArg;
 
 	Argument m_ignoreDirsArg;
@@ -129,6 +136,7 @@ private:
 	Argument m_reportArg;
 	Argument m_reportLimitArg;
 	Argument m_reportDetailsLimitArg;
+	Argument m_showStdFilesArg;
 };
 
 //------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 # CPPINCLUDE
 
-Tool that helps to analyze includes in C++.
+Tool for analyzing includes in C++.
 One of the problem in C++ is that if header file was changed all files that
 include the file will be recompiled and sometime it takes a lot of time.
 
@@ -12,6 +12,7 @@ include the file will be recompiled and sometime it takes a lot of time.
   * [configuration_file](#configuration_file)
   * [project_dir](#project_dir)
   * [file_extensions](#file_extensions)
+  * [analyze_without_extension](#analyze_without_extension)
   * [include_dirs](#include_dirs)
   * [ignore_dirs](#ignore_dirs)
   * [ignore_system_includes](#ignore_system_includes)
@@ -71,18 +72,18 @@ file in top of include hierarchy:
 cppinclude
 ...
 Most impact files:
-1 : "char_kind.hpp" impact to 11 file(s)
+1 : "char_kind.hpp" impact on 11 file(s)
 Included by:
-   1 : "base_char.hpp" line 3, impact to 10 file(s)
-2 : "base_char.hpp" impact to 10 file(s)
+   1 : "base_char.hpp" line 3, impact on 10 file(s)
+2 : "base_char.hpp" impact on 10 file(s)
 Included by:
-    1 : "base_char_factory.hpp" line 3, impact to 5 file(s)
-    2 : "char_a.hpp" line 3, impact to 2 file(s)
-    3 : "char_b.hpp" line 3, impact to 2 file(s)
-3 : "base_char_factory.hpp" impact to 5 file(s)
+    1 : "base_char_factory.hpp" line 3, impact on 5 file(s)
+    2 : "char_a.hpp" line 3, impact on 2 file(s)
+    3 : "char_b.hpp" line 3, impact on 2 file(s)
+3 : "base_char_factory.hpp" impact on 5 file(s)
 Included by:
-    1 : "char_a_factory.hpp" line 3, impact to 2 file(s)
-    2 : "char_b_factory.hpp" line 3, impact to 2 file(s)
+    1 : "char_a_factory.hpp" line 3, impact on 2 file(s)
+    2 : "char_b_factory.hpp" line 3, impact on 2 file(s)
 ...
 ```
 
@@ -99,13 +100,15 @@ Name|Short description
 --[configuration_file](#configuration_file)=file|Path to configuration file (default: .cppinclude.json)
 --[project_dir](#project_dir)=dir|Project directory
 --[file_extensions](#file_extensions)=arg1,arg2,...|Extensions C++ files (default: \*.cpp, \*.hpp,\*.c,\*.h,\*.cxx,\*.hxx)
+--[analyze_without_extension](#analyze_without_extension)=true|Analyze files without extension (default: false)
 --[include_dirs](#include_dirs)=dir1,dir2,...|Include directories
 --[ignore_dirs](#ignore_dirs)=dir1,dir2,...|Directories that will be ignored
---[ignore_system_includes](#ignore_system_includes)=true|Ignore headers in \<\>
+--[ignore_system_includes](#ignore_system_includes)=true|Ignore headers in \<\> (default: false)
 --[ignore_files](#ignore_files)=regexp1,regexp2,...|Files will be ignored by regexp
 --[report](#report)=name1,name2,...|List reports (default: unresolved,most_impact)
 --[report_limit](#report_limit)=42|Maximum elements in report, 0 - unlimited (default: 10)
 --[report_details_limit](#report_details_limit)=42|Maximum details in report, 0 - unlimited (default: 10)
+--[show_std_files](#show_std_files)|Show standard library headers in output (default: false)
 --help|Show usage
 --verbose|Verbose mode
 --version|Show application version
@@ -142,7 +145,7 @@ or in arguments:
 
 ### file_extensions
 
-If you use file extensions for C++ that aren’t in default values you can set in
+If you use file extensions for C++ that aren’t in default values. You can set in
 configuration file:
 
 ```json
@@ -154,6 +157,23 @@ configuration file:
 or in arguments:
 
 `cppinclude --file_extensions=*.cc,*hh`
+
+[Back to top](#cppinclude)
+
+### analyze_without_extension
+
+Analyze files in project directory without extension, default: false.
+You can set in configuration file:
+
+```json
+{
+    "analyze_without_extension" : true
+}
+```
+
+or in arguments:
+
+`cppinclude --analyze_without_extension=true`
 
 [Back to top](#cppinclude)
 
@@ -232,7 +252,7 @@ or in arguments:
 Name of report. Possible values:
 
 * *unresolved* -- show included files that are not found in project folder;
-* *most_impact* -- show files that most impact to other files.
+* *most_impact* -- show files that most impact on other files.
 
 This report show how many files will be recompiled if the file is changes
 
@@ -259,6 +279,14 @@ Maximum number of detail in report.
 For example, only 3 files will be in report that include unresolved file
 
 `cppinclude --report=unresolved --report_details_limit=3`
+
+[Back to top](#cppinclude)
+
+### show_std_files
+
+Show standard library headers in output.
+
+`cppinclude --show_std_files=true`
 
 [Back to top](#cppinclude)
 

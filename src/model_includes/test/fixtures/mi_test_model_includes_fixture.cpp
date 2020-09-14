@@ -96,6 +96,20 @@ void ModelIncludesFixture::setIgnoreSystemIncludes( bool _ignoreSystemIncludes )
 
 //------------------------------------------------------------------------------
 
+void ModelIncludesFixture::addCppExtensions( const Strings & _extensions )
+{
+	ensureProject().addCppFileExtensions( _extensions );
+}
+
+//------------------------------------------------------------------------------
+
+void ModelIncludesFixture::setAnalyzeWithoutExtension( bool _enable )
+{
+	ensureProject().setAnalyzeWithoutExtension( _enable );
+}
+
+//------------------------------------------------------------------------------
+
 ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
 	const std::filesystem::path & _startFile,
 	stdfwd::string_view _fileName

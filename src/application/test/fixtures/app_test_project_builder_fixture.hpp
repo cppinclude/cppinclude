@@ -57,12 +57,16 @@ public:
 	const project::Project & getProject() const;
 
 	std::string getProjectDir() const;
+
 	std::string getIncludeDirs() const;
 	std::string getIgnoreDirs() const;
+
 	int getFileFiltersCount() const;
 	const std::regex & getFileFilter( int _index ) const;
+
 	bool getIgnoreSystemIncludes() const;
-	std::string getFileExtentions() const;
+	std::string getFileExtensions() const;
+	bool getAnalyzeWithoutExtension() const;
 
 	std::filesystem::path getProjectPath() const;
 	std::string toAbsolutePath( std::string_view _path );

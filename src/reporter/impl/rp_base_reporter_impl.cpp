@@ -12,6 +12,7 @@ namespace reporter {
 BaseReporterImpl::BaseReporterImpl()
 	:	m_maxFilesCount{ 0 }
 	,	m_maxDetailsCount{ 0 }
+	,	m_showStdFile{ false }
 {
 }
 
@@ -41,6 +42,20 @@ size_t BaseReporterImpl::getMaxFilesCount() const
 size_t BaseReporterImpl::getMaxDetailsCount() const
 {
 	return m_maxDetailsCount;
+}
+
+//------------------------------------------------------------------------------
+
+void BaseReporterImpl::setShowStdFile( bool _enable )
+{
+	m_showStdFile = _enable;
+}
+
+//------------------------------------------------------------------------------
+
+bool BaseReporterImpl::getShowStdFiles() const
+{
+	return m_showStdFile;
 }
 
 //------------------------------------------------------------------------------

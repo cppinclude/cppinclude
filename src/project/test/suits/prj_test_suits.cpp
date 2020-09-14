@@ -37,7 +37,7 @@ BOOST_FIXTURE_TEST_SUITE(ProjectTests, ProjectFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(project_dir_absolute_path_1_1)
+BOOST_AUTO_TEST_CASE(t1_1_project_dir_absolute_path)
 {
 	// Init
 	const Path projectDirFullPath = "/home/user/project/";
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(project_dir_absolute_path_1_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(project_dir_relative_path_1_2)
+BOOST_AUTO_TEST_CASE(t1_2_project_dir_relative_path)
 {
 	// Init
 	const Path projectRelativePath = "project/";
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(project_dir_relative_path_1_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_dirs_absolute_paths_2_1)
+BOOST_AUTO_TEST_CASE(t2_1_include_dirs_absolute_paths)
 {
 	// Init
 	setProjectDir( "/home/user/project/" );
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(include_dirs_absolute_paths_2_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_dirs_relative_paths_2_2)
+BOOST_AUTO_TEST_CASE(t2_2_include_dirs_relative_paths)
 {
 	// Init
 	setProjectDir( "/project/" );
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(include_dirs_relative_paths_2_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_dirs_absolute_paths_3_1)
+BOOST_AUTO_TEST_CASE(t3_1_ignore_dirs_absolute_paths)
 {
 	// Init
 	setProjectDir( "/home/user/project/" );
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(ignore_dirs_absolute_paths_3_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_dirs_relative_paths_3_2)
+BOOST_AUTO_TEST_CASE(t3_2_ignore_dirs_relative_paths)
 {
 	// Init
 	setProjectDir( "/project/" );
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_CASE(ignore_dirs_relative_paths_3_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_dirs_is_ignore_3_3)
+BOOST_AUTO_TEST_CASE(t3_3_ignore_dirs_is_ignore)
 {
 	// Init
 
@@ -183,21 +183,21 @@ BOOST_AUTO_TEST_CASE(ignore_dirs_is_ignore_3_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(cpp_extention_is_cpp_extention_4_1)
+BOOST_AUTO_TEST_CASE(t4_1_cpp_extension_is_cpp_extension)
 {
 	// Run
-	addCppExtentions( { "*.cpp", "*.hpp" } );
+	addCppExtensions( { "*.cpp", "*.hpp" } );
 
 	//Check
-	BOOST_CHECK( isExistsCppExtention( "*.cpp" ) );
-	BOOST_CHECK( isExistsCppExtention( "*.hpp" ) );
-	BOOST_CHECK( isExistsCppExtention( ".hpp" ) );
-	BOOST_CHECK( !isExistsCppExtention( ".cxx" ) );
+	BOOST_CHECK( isExistsCppExtension( "*.cpp" ) );
+	BOOST_CHECK( isExistsCppExtension( "*.hpp" ) );
+	BOOST_CHECK( isExistsCppExtension( ".hpp" ) );
+	BOOST_CHECK( !isExistsCppExtension( ".cxx" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_empty_5_1)
+BOOST_AUTO_TEST_CASE(t5_1_ignore_files_empty)
 {
 	// Init
 	changeAllPathsToAbsolute(); // create project
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(ignore_files_empty_5_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_library_5_2)
+BOOST_AUTO_TEST_CASE(t5_2_ignore_files_library)
 {
 	// Init
 	addFileFilter( "boost/.*" );
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE(ignore_files_library_5_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(file_name_5_3)
+BOOST_AUTO_TEST_CASE(t5_3_file_name_5_3)
 {
 	// Init
 	addFileFilter( "Q.*" );

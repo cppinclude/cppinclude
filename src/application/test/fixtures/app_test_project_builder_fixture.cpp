@@ -123,11 +123,11 @@ bool ProjectBuilderFixture::getIgnoreSystemIncludes() const
 
 //------------------------------------------------------------------------------
 
-std::string ProjectBuilderFixture::getFileExtentions() const
+std::string ProjectBuilderFixture::getFileExtensions() const
 {
 	OrderedStrings strings;
 	const project::Project & project = getProject();
-	project.forEachFileExtention(
+	project.forEachFileExtension(
 		[&]( const std::filesystem::path & _path )
 		{
 			strings.insert( _path.string() );
@@ -135,6 +135,13 @@ std::string ProjectBuilderFixture::getFileExtentions() const
 		}
 	);
 	return toString( strings );
+}
+
+//------------------------------------------------------------------------------
+
+bool ProjectBuilderFixture::getAnalyzeWithoutExtension() const
+{
+	return getProject().getAnalyzeWithoutExtension();
 }
 
 //------------------------------------------------------------------------------

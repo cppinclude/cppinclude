@@ -71,6 +71,25 @@ ParserWrapperFixture::getDefaultFileExtensions() const
 
 //------------------------------------------------------------------------------
 
+bool ParserWrapperFixture::getAnalyzeWithoutExtension() const
+{
+	auto valueOpt = getParser().getAnalyzeWithoutExtension();
+	if( valueOpt )
+	{
+		return *valueOpt;
+	}
+	return false;
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserWrapperFixture::getDefaultAnalyzeWithoutExtension() const
+{
+	return getParser().getDefaultAnalyzeWithoutExtension();
+}
+
+//------------------------------------------------------------------------------
+
 std::string ParserWrapperFixture::getDefaultProjectDir() const
 {
     return getParser().getDefaultProjectDir().string();
@@ -213,6 +232,20 @@ int ParserWrapperFixture::getReportDetailsLimit() const
 int ParserWrapperFixture::getDefaultReportDetailsLimit() const
 {
 	return getParser().getDefaultReportDetailsLimit();
+}
+
+//------------------------------------------------------------------------------
+
+ParserWrapperFixture::BoolOpt ParserWrapperFixture::getShowStdFile() const
+{
+	return getParser().getShowStdFile();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserWrapperFixture::getDefaultShowStdFile() const
+{
+	return getParser().getDefaultShowStdfile();
 }
 
 //------------------------------------------------------------------------------

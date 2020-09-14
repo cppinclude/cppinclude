@@ -126,16 +126,16 @@ bool ProjectFixture::isIgnoredFile( std::string_view _path ) const
 
 //------------------------------------------------------------------------------
 
-void ProjectFixture::addCppExtentions( const Strings & _ext )
+void ProjectFixture::addCppExtensions( const Strings & _ext )
 {
-	getProject().addCppFileExtentions( _ext );
+	getProject().addCppFileExtensions( _ext );
 }
 
 //------------------------------------------------------------------------------
 
-bool ProjectFixture::isExistsCppExtention( std::string_view _ext ) const
+bool ProjectFixture::isExistsCppExtension( std::string_view _ext ) const
 {
-	return getProject().isExistsCppExtention( _ext );
+	return getProject().isExistsCppExtension( _ext );
 }
 
 //------------------------------------------------------------------------------

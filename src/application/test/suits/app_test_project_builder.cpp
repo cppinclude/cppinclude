@@ -22,6 +22,10 @@ TEST PLAN:
 	6.1 From configuration file
 	6.2 From arguments
 	6.3 Default
+7. Analyze without extension
+	7.1 From Configuration file
+	7.2 From arguments
+	7.3 Default
 
 ------------------------------------------------------------------------------*/
 
@@ -33,7 +37,7 @@ BOOST_FIXTURE_TEST_SUITE(ProjectBuildersTets, ProjectBuilderFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(empty_arguments_and_configuration_file_1)
+BOOST_AUTO_TEST_CASE(t1_empty_arguments_and_configuration_file)
 {
 	//Run
 	parserArguments( {} );
@@ -43,12 +47,12 @@ BOOST_AUTO_TEST_CASE(empty_arguments_and_configuration_file_1)
 	BOOST_CHECK_EQUAL( getProjectDir(),		toAbsolutePath("./") );
 	BOOST_CHECK_EQUAL( getIncludeDirs(),	toAbsolutePath("./") );
 	BOOST_CHECK_EQUAL( getIgnoreDirs(),		"" );
-	BOOST_CHECK_EQUAL( getFileExtentions(),	"*.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx" );
+	BOOST_CHECK_EQUAL( getFileExtensions(),	"*.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(only_arguments_2)
+BOOST_AUTO_TEST_CASE(t2_only_arguments)
 {
 	//Init
 	using namespace resources::arguments;
@@ -64,8 +68,8 @@ BOOST_AUTO_TEST_CASE(only_arguments_2)
 	const std::string ignoreDirsArgName = argPrefix + ignoreDirs::FullName;
 	const std::string ignoreDirsArgValue = "ignore1/,ignore2/";
 
-	const std::string fileExtentionsArgName = argPrefix + fileExtensions::FullName;
-	const std::string fileExtentionsArgValue = "*.cpp,*.hpp";
+	const std::string fileExtensionsArgName = argPrefix + fileExtensions::FullName;
+	const std::string fileExtensionsArgValue = "*.cpp,*.hpp";
 
 	//Run
 	parserArguments( {
@@ -78,8 +82,8 @@ BOOST_AUTO_TEST_CASE(only_arguments_2)
 		ignoreDirsArgName,
 		ignoreDirsArgValue,
 
-		fileExtentionsArgName,
-		fileExtentionsArgValue
+		fileExtensionsArgName,
+		fileExtensionsArgValue
 	} );
 	buildProject();
 
@@ -97,13 +101,13 @@ BOOST_AUTO_TEST_CASE(only_arguments_2)
 		"," +
 		toAbsolutePath("test_project/ignore2/")
 	);
-	BOOST_CHECK_EQUAL( getFileExtentions(),	fileExtentionsArgValue );
+	BOOST_CHECK_EQUAL( getFileExtensions(),	fileExtensionsArgValue );
 
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(only_configuration_file_3)
+BOOST_AUTO_TEST_CASE(t3_only_configuration_file)
 {
 	//Init
 	createDefaultConfigurationFile(
@@ -133,13 +137,13 @@ BOOST_AUTO_TEST_CASE(only_configuration_file_3)
 		"," +
 		toAbsolutePath("src/ignore2/")
 	);
-	BOOST_CHECK_EQUAL( getFileExtentions(),	"*.cpp,*.hpp" );
+	BOOST_CHECK_EQUAL( getFileExtensions(),	"*.cpp,*.hpp" );
 
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_system_includes_from_configuration_file_5_1)
+BOOST_AUTO_TEST_CASE(t5_1_ignore_system_includes_from_configuration_file)
 {
 	//Init
 	createDefaultConfigurationFile(
@@ -158,7 +162,7 @@ BOOST_AUTO_TEST_CASE(ignore_system_includes_from_configuration_file_5_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_system_includes_from_arguments_5_2)
+BOOST_AUTO_TEST_CASE(t5_2_ignore_system_includes_from_arguments)
 {
 	//Run
 	parserArguments({ "--ignore_system_includes=true" });
@@ -170,7 +174,7 @@ BOOST_AUTO_TEST_CASE(ignore_system_includes_from_arguments_5_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_system_includes_default_5_3)
+BOOST_AUTO_TEST_CASE(t5_3_ignore_system_includes_default)
 {
 	//Run
 	parserArguments({});
@@ -185,7 +189,7 @@ BOOST_AUTO_TEST_CASE(ignore_system_includes_default_5_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_from_configuration_file_6_1)
+BOOST_AUTO_TEST_CASE(t6_1_ignore_files_from_configuration_file)
 {
 	//Init
 	createDefaultConfigurationFile(
@@ -204,7 +208,7 @@ BOOST_AUTO_TEST_CASE(ignore_files_from_configuration_file_6_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_from_arguments_6_2)
+BOOST_AUTO_TEST_CASE(t6_2_ignore_files_from_arguments)
 {
 	//Run
 	parserArguments({ "--ignore_files=boost.*" });
@@ -216,7 +220,7 @@ BOOST_AUTO_TEST_CASE(ignore_files_from_arguments_6_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_default_6_3)
+BOOST_AUTO_TEST_CASE(t6_3_ignore_files_default)
 {
 	//Run
 	parserArguments({});
@@ -226,6 +230,51 @@ BOOST_AUTO_TEST_CASE(ignore_files_default_6_3)
 	auto defaultValues = toStrings( resources::arguments::ignoreFiles::DefaultValue );
 
 	BOOST_REQUIRE_EQUAL( getFileFiltersCount(), defaultValues.size() );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t7_1_analyze_without_extension_from_configuration_file)
+{
+	//Init
+	createDefaultConfigurationFile(
+	R"({
+		"analyze_without_extension" : true
+	})"
+	);
+
+	//Run
+	parserArguments( {} );
+	buildProject();
+
+	//Check
+	BOOST_REQUIRE_EQUAL( getAnalyzeWithoutExtension(), true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t7_2_analyze_without_extension_from_arguments)
+{
+	//Run
+	parserArguments({ "--analyze_without_extension=true" });
+	buildProject();
+
+	//Check
+	BOOST_REQUIRE_EQUAL( getAnalyzeWithoutExtension(), true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t7_3_analyze_without_extension_default)
+{
+	//Run
+	parserArguments({});
+	buildProject();
+
+	//Check
+	auto defaultValue = resources::arguments::analyze_without_extension::DefaultValue;
+
+	BOOST_REQUIRE_EQUAL( getAnalyzeWithoutExtension(), defaultValue );
 }
 
 //------------------------------------------------------------------------------

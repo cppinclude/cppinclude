@@ -24,6 +24,15 @@ namespace fileExtensions {
 
 //------------------------------------------------------------------------------
 
+namespace analyze_without_extension {
+
+	extern const char * const FullName;
+	extern const char * const Description;
+	extern const bool DefaultValue;
+}
+
+//------------------------------------------------------------------------------
+
 namespace includeDirs {
 
 	extern const char * const FullName;
@@ -124,4 +133,12 @@ namespace report_details_limit {
 
 //------------------------------------------------------------------------------
 
+namespace show_std_files {
+
+	extern const char * const FullName;
+	extern const char * const Description;
+	extern const bool DefaultValue;
+}
+
+//------------------------------------------------------------------------------
 }

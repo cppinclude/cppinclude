@@ -38,7 +38,7 @@ BOOST_FIXTURE_TEST_SUITE(ParserArgumentsTets, ParserArgumentsFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(argument_with_value_1)
+BOOST_AUTO_TEST_CASE(t1_argument_with_value)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(argument_with_value_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(argument_with_only_default_value_2)
+BOOST_AUTO_TEST_CASE(t2_argument_with_only_default_value)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(argument_with_only_default_value_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(argument_with_value_and_default_value_3)
+BOOST_AUTO_TEST_CASE(t3_argument_with_value_and_default_value)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(argument_with_value_and_default_value_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(unrecognized_argument_4)
+BOOST_AUTO_TEST_CASE(t4_unrecognized_argument)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE(unrecognized_argument_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(help_5)
+BOOST_AUTO_TEST_CASE(t5_help)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -140,14 +140,14 @@ BOOST_AUTO_TEST_CASE(help_5)
 		"Usage:\n"
 		"   [OPTION...]\n"
 		"\n"
-		"      --dir arg  Test dir (default: test_dir)\n"
+		"      --dir=arg  Test dir (default: test_dir)\n"
 	);
 
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(value_with_quotation_mark_6)
+BOOST_AUTO_TEST_CASE(t6_value_with_quotation_mark)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(value_with_quotation_mark_6)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(value_with_apostrophe_7)
+BOOST_AUTO_TEST_CASE(t7_value_with_apostrophe)
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -202,7 +202,7 @@ BOOST_AUTO_TEST_CASE(value_with_apostrophe_7)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(several_arguments_8)
+BOOST_AUTO_TEST_CASE(t8_several_arguments)
 {
 	// Init
 	const std::string argumentNewName = "new";
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE(several_arguments_8)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(check_exist_argument_9)
+BOOST_AUTO_TEST_CASE(t9_check_exist_argument)
 {
 	// Init
 	const std::string argumentName = "help";
@@ -258,7 +258,7 @@ BOOST_AUTO_TEST_CASE(check_exist_argument_9)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_simple_10_1)
+BOOST_AUTO_TEST_CASE(t10_1_array_simple)
 {
 	// Init
 	const std::string argumentName = "array";
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(array_simple_10_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_with_default_value_10_1)
+BOOST_AUTO_TEST_CASE(t10_2_array_with_default_value)
 {
 	// Init
 	const std::string argumentName = "array";
@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_CASE(array_with_default_value_10_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(array_with_quotes_10_2)
+BOOST_AUTO_TEST_CASE(t10_3_array_with_quotes)
 {
 	// Init
 	const std::string argumentName = "array";
@@ -331,7 +331,7 @@ BOOST_AUTO_TEST_CASE(array_with_quotes_10_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(int_11)
+BOOST_AUTO_TEST_CASE(t11_int)
 {
 	// Init
 	const std::string argumentName = "number";
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_CASE(int_11)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(bool_12)
+BOOST_AUTO_TEST_CASE(t12_bool)
 {
 	// Init
 	const std::string argumentName = "skip";
@@ -383,7 +383,7 @@ BOOST_AUTO_TEST_CASE(bool_12)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(path_13)
+BOOST_AUTO_TEST_CASE(t13_path)
 {
 	// Init
 	const std::string argumentName = "number";
@@ -409,7 +409,7 @@ BOOST_AUTO_TEST_CASE(path_13)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(paths_14)
+BOOST_AUTO_TEST_CASE(t14_paths)
 {
 	// Init
 	const std::string argumentName = "number";

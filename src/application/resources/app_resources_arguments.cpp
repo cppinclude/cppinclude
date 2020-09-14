@@ -26,6 +26,15 @@ namespace fileExtensions {
 
 //------------------------------------------------------------------------------
 
+namespace analyze_without_extension {
+
+	const char * const FullName			= configuration_file::AnalyzeWithoutExtension;
+	const char * const Description		= "Analyze files without extension (default: false)";
+	const bool DefaultValue				= false;
+}
+
+//------------------------------------------------------------------------------
+
 namespace includeDirs {
 
 	const char * const FullName			= configuration_file::IncludeDirs ;
@@ -47,7 +56,7 @@ namespace ignoreDirs {
 namespace ignoreSystemIncludes {
 
 	const char * const FullName			= configuration_file::IgnoreSystemIncludes;
-	const char * const Description		= "Ignore headers in <> ";
+	const char * const Description		= "Ignore headers in <> (default: false)";
 	const bool DefaultValue				= false;
 }
 
@@ -127,6 +136,15 @@ namespace report_details_limit {
 	const char * const FullName			= "report_details_limit";
 	const char * const Description		= "Maximum details in report, 0 - unlimited";
 	const int DefaultValue				= 10;
+}
+
+//------------------------------------------------------------------------------
+
+namespace show_std_files {
+
+	const char * const FullName		= "show_std_files";
+	const char * const Description	= "Show standard library headers in output (default: false)";
+	const bool DefaultValue			= false;
 }
 
 //------------------------------------------------------------------------------

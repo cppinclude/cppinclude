@@ -17,7 +17,8 @@ namespace application {
 void ConfigurationFile::loadFromJson( const json::JsonObject & _json )
 {
 	loadProjectDir( _json );
-	loadFileExtentions( _json );
+	loadFileExtensions( _json );
+	loadAnalyzeWithoutExtension( _json );
 	loadIncludeDirs( _json );
 
 	loadIgnoreDirs( _json );
@@ -36,7 +37,14 @@ ConfigurationFile::PathOpt ConfigurationFile::getProjectDir() const
 
 ConfigurationFile::StringsOpt ConfigurationFile::getFileExtensions() const
 {
-	return m_fileExtentions;
+	return m_fileExtensions;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::BoolOpt ConfigurationFile::getAnalyzeWithoutExtension() const
+{
+	return m_analyzeWithoutExtension;
 }
 
 //------------------------------------------------------------------------------
@@ -81,11 +89,26 @@ void ConfigurationFile::loadProjectDir( const json::JsonObject & _json )
 
 //------------------------------------------------------------------------------
 
-void ConfigurationFile::loadFileExtentions( const json::JsonObject & _json )
+void ConfigurationFile::loadFileExtensions( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadArrayOpt( _json, configuration_file::FileExtensions, m_fileExtentions );
+	loadArrayOpt( _json, configuration_file::FileExtensions, m_fileExtensions );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadAnalyzeWithoutExtension(
+	const json::JsonObject & _json
+)
+{
+	using namespace resources;
+
+	loadBoolOpt(
+		_json,
+		configuration_file::AnalyzeWithoutExtension,
+		m_analyzeWithoutExtension
+	);
 }
 
 //------------------------------------------------------------------------------

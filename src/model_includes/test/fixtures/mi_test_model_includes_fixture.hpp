@@ -50,6 +50,7 @@ public:
 
 	using PathOpt	= std::optional< std::filesystem::path >;
 	using FilePtr	= stdfwd::shared_ptr< fs::File >;
+	using Strings	= std::vector< std::string >;
 
 	ModelIncludesFixture();
 	~ModelIncludesFixture();
@@ -63,6 +64,8 @@ public:
 	void addIgnoredDir(		std::string_view _dir );
 	void addFileFilter(		std::string_view _filter );
 	void setIgnoreSystemIncludes( bool _ignoreSystemIncludes );
+	void addCppExtensions( const Strings & _extensions );
+	void setAnalyzeWithoutExtension( bool _enable );
 
 	PathOpt resolvePath(
 		const std::filesystem::path & _startFile,

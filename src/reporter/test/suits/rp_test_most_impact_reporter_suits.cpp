@@ -17,6 +17,9 @@ TEST PLAN:
 	5.3 Limit equal to files number
 	5.4 Limit equal to details number
 6. Relevant paths
+7. Std Files
+	7.1 Don't show
+	7.2 Show
 
 ------------------------------------------------------------------------------*/
 
@@ -28,7 +31,7 @@ BOOST_FIXTURE_TEST_SUITE(MostImpactReporterTests, ReporterFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(empty_1)
+BOOST_AUTO_TEST_CASE(t1_empty)
 {
 	// Run
 	std::string result = runMostImpactReporter();
@@ -39,7 +42,7 @@ BOOST_AUTO_TEST_CASE(empty_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(only_cpp_files_2)
+BOOST_AUTO_TEST_CASE(t2_only_cpp_files)
 {
 	// Init
 	const std::string classAFile = "/test_project/classA.hpp";
@@ -62,11 +65,11 @@ BOOST_AUTO_TEST_CASE(only_cpp_files_2)
 	BOOST_CHECK_EQUAL(
 		result,
 		"Most impact files:\n"
-		"1 : \"" + toPath( classAFile ) + "\" impact to 2 file(s)\n"
+		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
 			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFile ) + "\" impact to 1 file(s)\n"
+		"2 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
 	);
@@ -74,7 +77,7 @@ BOOST_AUTO_TEST_CASE(only_cpp_files_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(files_with_same_count_3)
+BOOST_AUTO_TEST_CASE(t3_files_with_same_count)
 {
 	// Init
 	const std::string classAFile = "/test_project/classA.hpp";
@@ -99,11 +102,11 @@ BOOST_AUTO_TEST_CASE(files_with_same_count_3)
 	BOOST_CHECK_EQUAL(
 		result,
 		"Most impact files:\n"
-		"1 : \"" + toPath( classAFile ) + "\" impact to 2 file(s)\n"
+		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
 			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFile ) + "\" impact to 2 file(s)\n"
+		"2 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
 			"\t2 : \"" + toPath( runB2file ) +"\" line 1\n"
@@ -112,7 +115,7 @@ BOOST_AUTO_TEST_CASE(files_with_same_count_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(several_details_4)
+BOOST_AUTO_TEST_CASE(t4_several_details)
 {
 	// Init
 	const std::string classABaseFile = "/test_project/classABase.hpp";
@@ -142,20 +145,20 @@ BOOST_AUTO_TEST_CASE(several_details_4)
 	BOOST_CHECK_EQUAL(
 		result,
 		"Most impact files:\n"
-		"1 : \"" + toPath( classBBaseFile ) + "\" impact to 4 file(s)\n"
+		"1 : \"" + toPath( classBBaseFile ) + "\" impact on 4 file(s)\n"
 		"Included by:\n"
-			"\t1 : \"" + toPath( classBSubBaseFile ) + "\" line 1, impact to 3 file(s)\n"
-		"2 : \"" + toPath( classABaseFile ) + "\" impact to 3 file(s)\n"
+			"\t1 : \"" + toPath( classBSubBaseFile ) + "\" line 1, impact on 3 file(s)\n"
+		"2 : \"" + toPath( classABaseFile ) + "\" impact on 3 file(s)\n"
 		"Included by:\n"
-				"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact to 2 file(s)\n"
-		"3 : \"" + toPath( classBSubBaseFile ) + "\" impact to 3 file(s)\n"
+				"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
+		"3 : \"" + toPath( classBSubBaseFile ) + "\" impact on 3 file(s)\n"
 		"Included by:\n"
-			"\t1 : \"" + toPath( classBFile ) + "\" line 1, impact to 2 file(s)\n"
-		"4 : \"" + toPath( classAFile ) + "\" impact to 2 file(s)\n"
+			"\t1 : \"" + toPath( classBFile ) + "\" line 1, impact on 2 file(s)\n"
+		"4 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
 			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"5 : \"" + toPath( classBFile ) + "\" impact to 2 file(s)\n"
+		"5 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
 			"\t2 : \"" + toPath( runB2file ) +"\" line 1\n"
@@ -165,7 +168,7 @@ BOOST_AUTO_TEST_CASE(several_details_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_max_files_5_1)
+BOOST_AUTO_TEST_CASE(t5_1_limit_max_files)
 {
 	// Init
 	const std::string sourceFileFmt		 = "/test_project/class{}.cpp";
@@ -188,7 +191,7 @@ BOOST_AUTO_TEST_CASE(limit_max_files_5_1)
 	// Check
 	std::string expectedString = "Most impact files:\n";
 	const std::string lineFmt =
-	"{} : \"{}\" impact to 1 file(s)\n"
+	"{} : \"{}\" impact on 1 file(s)\n"
 	"Included by:\n"
 		"\t1 : \"{}\" line 1\n"
 	;
@@ -212,7 +215,7 @@ BOOST_AUTO_TEST_CASE(limit_max_files_5_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_max_details_5_2)
+BOOST_AUTO_TEST_CASE(t5_2_limit_max_details)
 {
 	// Init
 	const std::string classBaseFile = "/test_project/classBase.hpp";
@@ -241,15 +244,15 @@ BOOST_AUTO_TEST_CASE(limit_max_details_5_2)
 	BOOST_CHECK_EQUAL(
 		result,
 		"Most impact files:\n"
-		"1 : \"" + toPath( classBaseFile ) + "\" impact to 6 file(s)\n"
+		"1 : \"" + toPath( classBaseFile ) + "\" impact on 6 file(s)\n"
 		"Included by:\n"
-			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact to 2 file(s)\n"
+			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
 			"\t... 1 of 2 details\n"
-		"2 : \"" + toPath( classAFile ) + "\" impact to 2 file(s)\n"
+		"2 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
 			"\t... 1 of 2 details\n"
-		"3 : \"" + toPath( classBFile ) + "\" impact to 2 file(s)\n"
+		"3 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runB1file ) + "\" line 1\n"
 			"\t... 1 of 2 details\n"
@@ -258,7 +261,7 @@ BOOST_AUTO_TEST_CASE(limit_max_details_5_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_equal_to_files_number_5_3)
+BOOST_AUTO_TEST_CASE(t5_3_limit_equal_to_files_number)
 {
 	// Init
 	const std::string sourceFileFmt		 = "/test_project/class{}.cpp";
@@ -281,7 +284,7 @@ BOOST_AUTO_TEST_CASE(limit_equal_to_files_number_5_3)
 	// Check
 	std::string expectedString = "Most impact files:\n";
 	const std::string lineFmt =
-	"{} : \"{}\" impact to 1 file(s)\n"
+	"{} : \"{}\" impact on 1 file(s)\n"
 	"Included by:\n"
 		"\t1 : \"{}\" line 1\n"
 	;
@@ -303,7 +306,7 @@ BOOST_AUTO_TEST_CASE(limit_equal_to_files_number_5_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(limit_to_equal_details_number_5_4)
+BOOST_AUTO_TEST_CASE(t5_4_limit_to_equal_details_number)
 {
 	// Init
 	const std::string classBaseFile = "/test_project/classBase.hpp";
@@ -332,15 +335,15 @@ BOOST_AUTO_TEST_CASE(limit_to_equal_details_number_5_4)
 	BOOST_CHECK_EQUAL(
 		result,
 		"Most impact files:\n"
-		"1 : \"" + toPath( classBaseFile ) + "\" impact to 6 file(s)\n"
+		"1 : \"" + toPath( classBaseFile ) + "\" impact on 6 file(s)\n"
 		"Included by:\n"
-			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact to 2 file(s)\n"
-			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact to 2 file(s)\n"
-		"2 : \"" + toPath( classAFile ) + "\" impact to 2 file(s)\n"
+			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
+			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact on 2 file(s)\n"
+		"2 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
 			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"3 : \"" + toPath( classBFile ) + "\" impact to 2 file(s)\n"
+		"3 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
 			"Included by:\n"
 			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
 			"\t2 : \"" + toPath( runB2file ) +"\" line 1\n"
@@ -349,7 +352,7 @@ BOOST_AUTO_TEST_CASE(limit_to_equal_details_number_5_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(relevant_pants_6)
+BOOST_AUTO_TEST_CASE(t6_relevant_pants)
 {
 	// Init
 	const std::string projectDir = "/test_project/";
@@ -381,13 +384,105 @@ BOOST_AUTO_TEST_CASE(relevant_pants_6)
 	BOOST_CHECK_EQUAL(
 		result,
 		"Most impact files:\n"
-		"1 : \"" + toPath( classAFileName ) + "\" impact to 2 file(s)\n"
+		"1 : \"" + toPath( classAFileName ) + "\" impact on 2 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runA1fileName ) + "\" line 1\n"
 			"\t2 : \"" + toPath( runA2fileName ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFileName ) + "\" impact to 1 file(s)\n"
+		"2 : \"" + toPath( classBFileName ) + "\" impact on 1 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runB1fileName ) +"\" line 1\n"
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t7_1_std_file_dont_show)
+{
+	// Init
+	const std::string stdFile	= "vector";
+
+	const std::string classAFile = "/test_project/classA.hpp";
+	const std::string classBFile = "/test_project/classB.hpp";
+
+	const std::string runA1file = "/test_project/runA1.cpp";
+	const std::string runA2file = "/test_project/runA2.cpp";
+
+	const std::string runB1file = "/test_project/runB1.cpp";
+
+	addFile( "vector", FileType::StdLibraryFile );
+
+	addInclude( classAFile, stdFile, IncludeType::System );
+	addInclude( classBFile, stdFile, IncludeType::System );
+
+	addInclude( runA1file, classAFile );
+	addInclude( runA2file, classAFile );
+
+	addInclude( runB1file, classBFile );
+
+	setShowStdFile( false );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result,
+		"Most impact files:\n"
+		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
+			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
+		"2 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t7_2_std_file_show)
+{
+	// Init
+	const std::string stdFile	= "vector";
+
+	const std::string classAFile = "/test_project/classA.hpp";
+	const std::string classBFile = "/test_project/classB.hpp";
+
+	const std::string runA1file = "/test_project/runA1.cpp";
+	const std::string runA2file = "/test_project/runA2.cpp";
+
+	const std::string runB1file = "/test_project/runB1.cpp";
+
+	addFile( "vector", FileType::StdLibraryFile );
+
+	addInclude( classAFile, stdFile, IncludeType::System );
+	addInclude( classBFile, stdFile, IncludeType::System );
+
+	addInclude( runA1file, classAFile );
+	addInclude( runA2file, classAFile );
+
+	addInclude( runB1file, classBFile );
+
+	setShowStdFile( true );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result,
+		"Most impact files:\n"
+		"1 : \"" + stdFile + "\" impact on 5 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
+			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact on 1 file(s)\n"
+		"2 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
+			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
+		"3 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
 	);
 }
 

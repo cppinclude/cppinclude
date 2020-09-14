@@ -25,11 +25,16 @@ ParserArgWrapper::ParserArgWrapper()
 			resources::arguments::projectDir::Description,
 			Path( resources::arguments::projectDir::DefaultValue ),
 		}
-	,	m_fileExtentionsArg{
+	,	m_fileExtensionsArg{
 			resources::arguments::fileExtensions::FullName,
 			resources::arguments::fileExtensions::Description,
 			toStrings( resources::arguments::fileExtensions::DefaultValue )
 		}
+	,	m_analyzeWithoutextension{
+			resources::arguments::analyze_without_extension::FullName,
+			resources::arguments::analyze_without_extension::Description,
+			resources::arguments::analyze_without_extension::DefaultValue
+	}
 	,	m_includeDirsArg{
 			resources::arguments::includeDirs::FullName,
 			resources::arguments::includeDirs::Description,
@@ -82,6 +87,11 @@ ParserArgWrapper::ParserArgWrapper()
 			resources::arguments::report_details_limit::Description,
 			resources::arguments::report_details_limit::DefaultValue
 		}
+	,	m_showStdFilesArg{
+			resources::arguments::show_std_files::FullName,
+			resources::arguments::show_std_files::Description,
+			resources::arguments::show_std_files::DefaultValue
+		}
 {
 
 }
@@ -103,7 +113,8 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 	}
 
 	setArgumentValue( m_projectDirArg,		&ParserArgWrapper::getPath );
-	setArgumentValue( m_fileExtentionsArg,	&ParserArgWrapper::getStrings );
+	setArgumentValue( m_fileExtensionsArg,	&ParserArgWrapper::getStrings );
+	setArgumentValue( m_analyzeWithoutextension,	&ParserArgWrapper::getBool );
 	setArgumentValue( m_includeDirsArg,		&ParserArgWrapper::getPaths );
 
 	setArgumentValue( m_ignoreDirsArg,			&ParserArgWrapper::getPaths );
@@ -115,6 +126,7 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 	setArgumentValue( m_reportArg,				&ParserArgWrapper::getStrings );
 	setArgumentValue( m_reportLimitArg,			&ParserArgWrapper::getInt );
 	setArgumentValue( m_reportDetailsLimitArg,	&ParserArgWrapper::getInt );
+	setArgumentValue( m_showStdFilesArg,		&ParserArgWrapper::getBool );
 }
 
 //------------------------------------------------------------------------------
@@ -122,7 +134,8 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 void ParserArgWrapper::init()
 {
 	addArgument< Path >(			m_projectDirArg );
-	addArgument< Strings >(			m_fileExtentionsArg );
+	addArgument< Strings >(			m_fileExtensionsArg );
+	addArgument< bool >(			m_analyzeWithoutextension );
 	addArgument< Paths >(			m_includeDirsArg );
 
 	addArgument< Paths >(			m_ignoreDirsArg );
@@ -134,6 +147,7 @@ void ParserArgWrapper::init()
 	addArgument< Strings >(			m_reportArg );
 	addArgument< int >(				m_reportLimitArg );
 	addArgument< int >(				m_reportDetailsLimitArg );
+	addArgument< bool >(			m_showStdFilesArg );
 
 	addArgument( m_helpArg );
 	addArgument( m_verboseArg );
@@ -159,14 +173,28 @@ ParserArgWrapper::PathOpt ParserArgWrapper::getProjectDir() const
 ParserArgWrapper::Strings
 ParserArgWrapper::getDefaultFileExtensions() const
 {
-	return getDefaultValue< Strings >( m_fileExtentionsArg );
+	return getDefaultValue< Strings >( m_fileExtensionsArg );
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::BoolOpt ParserArgWrapper::getAnalyzeWithoutExtension() const
+{
+	return m_analyzeWithoutextension.getValue< bool >();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserArgWrapper::getDefaultAnalyzeWithoutExtension() const
+{
+	return getDefaultValue< bool >( m_analyzeWithoutextension );
 }
 
 //------------------------------------------------------------------------------
 
 ParserArgWrapper::StringsOpt ParserArgWrapper::getFileExtensions() const
 {
-	return m_fileExtentionsArg.getValue< Strings >();
+	return m_fileExtensionsArg.getValue< Strings >();
 }
 
 //------------------------------------------------------------------------------
@@ -276,6 +304,20 @@ ParserArgWrapper::IntOpt ParserArgWrapper::getReportDetailsLimit() const
 int ParserArgWrapper::getDefaultReportDetailsLimit() const
 {
 	return getDefaultValue< int >( m_reportDetailsLimitArg );
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::BoolOpt ParserArgWrapper::getShowStdFile() const
+{
+	return m_showStdFilesArg.getValue< bool >();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserArgWrapper::getDefaultShowStdfile() const
+{
+	return getDefaultValue< bool >( m_showStdFilesArg );
 }
 
 //------------------------------------------------------------------------------

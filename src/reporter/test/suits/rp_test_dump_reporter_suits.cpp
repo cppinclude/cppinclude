@@ -20,7 +20,7 @@ BOOST_FIXTURE_TEST_SUITE(DumpReporterTests, ReporterFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(includes_1)
+BOOST_AUTO_TEST_CASE(t1_includes)
 {
 	// Init
 	const std::string classA = toPath( "/test_project/class_a.hpp" );
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(includes_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(unresolved_includes_2)
+BOOST_AUTO_TEST_CASE(t2_unresolved_includes)
 {
 	// Init
 	const std::string classA = "class_a.hpp";
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(unresolved_includes_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(system_includes_3)
+BOOST_AUTO_TEST_CASE(t3_system_includes)
 {
 	// Init
 	const std::string main = toPath( "/test_project/main.cpp" );
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(system_includes_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(relative_paths_4)
+BOOST_AUTO_TEST_CASE(t4_relative_paths)
 {
 	// Init
 	const std::string classA = toPath( "/test_project/class_a.hpp" );

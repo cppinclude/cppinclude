@@ -15,6 +15,7 @@ TEST PLAN
 5. Ignore dirs
 6. Ignore system includes
 7. Ignore files
+8. Analyze without extension
 
 -------------------------------------------------------------------------------*/
 
@@ -26,7 +27,7 @@ BOOST_FIXTURE_TEST_SUITE(ConfigurationfileTests, ConfigurationfileFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(empty_1)
+BOOST_AUTO_TEST_CASE(t1_empty)
 {
 
 	// Run
@@ -35,6 +36,7 @@ BOOST_AUTO_TEST_CASE(empty_1)
 	// Check
 	BOOST_CHECK( !getProjectDir().has_value() );
 	BOOST_CHECK( !getFileExtensions().has_value() );
+	BOOST_CHECK( !getAnalyzeWithoutExtension().has_value() );
 	BOOST_CHECK( !getIncludeDirs().has_value() );
 	BOOST_CHECK( !getIgnoreDirs().has_value() );
 	BOOST_CHECK( !getIgnoreSystemIncludes().has_value() );
@@ -43,7 +45,7 @@ BOOST_AUTO_TEST_CASE(empty_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(project_dir_2)
+BOOST_AUTO_TEST_CASE(t2_project_dir)
 {
 
 	// Run
@@ -56,7 +58,7 @@ BOOST_AUTO_TEST_CASE(project_dir_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(file_extenstions_3)
+BOOST_AUTO_TEST_CASE(t3_file_extenstions)
 {
 
 	// Run
@@ -71,7 +73,7 @@ BOOST_AUTO_TEST_CASE(file_extenstions_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_dir_4)
+BOOST_AUTO_TEST_CASE(t4_include_dir)
 {
 
 	// Run
@@ -86,7 +88,7 @@ BOOST_AUTO_TEST_CASE(include_dir_4)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_dir_5)
+BOOST_AUTO_TEST_CASE(t5_ignore_dir)
 {
 
 	// Run
@@ -101,7 +103,7 @@ BOOST_AUTO_TEST_CASE(ignore_dir_5)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_system_includes_6)
+BOOST_AUTO_TEST_CASE(t6_ignore_system_includes)
 {
 
 	// Run
@@ -116,7 +118,7 @@ BOOST_AUTO_TEST_CASE(ignore_system_includes_6)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_7)
+BOOST_AUTO_TEST_CASE(t7_ignore_files)
 {
 
 	// Run
@@ -127,6 +129,21 @@ BOOST_AUTO_TEST_CASE(ignore_files_7)
 
 	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( *valueOpt, "lib1_*,lib2_*" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t8_analyze_without_extension)
+{
+
+	// Run
+	loadFromJson( R"({ "analyze_without_extension" : true })" );
+
+	// Check
+	auto valueOpt = getAnalyzeWithoutExtension();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, true );
 }
 
 //------------------------------------------------------------------------------

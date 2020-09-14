@@ -74,7 +74,8 @@ private:
 	ProjectAccessor & m_projectAccessor;
 	JsonAccessor & m_jsonAccessor;
 	FileSystem & m_fs;
-	bool m_ignoreSystemIncludesChanges;
+	bool m_ignoreSystemIncludesChanged;
+	bool m_analyzeWithoutExtensionChanged;
 
 };
 

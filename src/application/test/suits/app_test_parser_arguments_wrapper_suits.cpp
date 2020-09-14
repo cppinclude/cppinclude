@@ -50,6 +50,12 @@ TEST PLAN
 13. Report details limit
 	13.1 From arguments
 	13.2 Default
+14. Analyze without extension
+	14.1 From arguments
+	14.2 Default
+15. Show std files
+	15.1 From arguments
+	15.2 Default
 
 -------------------------------------------------------------------------------*/
 
@@ -61,7 +67,7 @@ BOOST_FIXTURE_TEST_SUITE(ParserWrapperTets, ParserWrapperFixture)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(project_dir_from_argument_1_1)
+BOOST_AUTO_TEST_CASE(t1_1_project_dir_from_argument)
 {
 	// Init
     const std::string argumentName = resources::arguments::projectDir::FullName;
@@ -78,7 +84,7 @@ BOOST_AUTO_TEST_CASE(project_dir_from_argument_1_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(project_dir_default_1_2)
+BOOST_AUTO_TEST_CASE(t1_2_project_dir_default)
 {
     // Run
     parse({ "" });
@@ -92,7 +98,7 @@ BOOST_AUTO_TEST_CASE(project_dir_default_1_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(project_dir_from_argument_without_full_name_1_3)
+BOOST_AUTO_TEST_CASE(t1_3_project_dir_from_argument_without_full_name)
 {
 	// Init
 	const std::string projectDir = "project_dir";
@@ -106,7 +112,7 @@ BOOST_AUTO_TEST_CASE(project_dir_from_argument_without_full_name_1_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(file_extentions_from_argument_2_1)
+BOOST_AUTO_TEST_CASE(t2_1_file_extensions_from_argument)
 {
     // Init
 	const std::string argumentName = resources::arguments::fileExtensions::FullName;
@@ -118,15 +124,15 @@ BOOST_AUTO_TEST_CASE(file_extentions_from_argument_2_1)
     parse({ argument });
 
     // Check
-	auto fileExtentions = getFileExtensions();
-    BOOST_REQUIRE_EQUAL( fileExtentions.size(), 2 );
-    BOOST_CHECK_EQUAL(fileExtentions.at( 0 ), "*.cpp");
-    BOOST_CHECK_EQUAL(fileExtentions.at( 1 ), "*.hpp");
+	auto fileExtensions = getFileExtensions();
+	BOOST_REQUIRE_EQUAL( fileExtensions.size(), 2 );
+	BOOST_CHECK_EQUAL(fileExtensions.at( 0 ), "*.cpp");
+	BOOST_CHECK_EQUAL(fileExtensions.at( 1 ), "*.hpp");
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(file_extentions_default_2_2)
+BOOST_AUTO_TEST_CASE(t2_2_file_extensions_default)
 {
     // Run
     parse({ "" });
@@ -140,7 +146,7 @@ BOOST_AUTO_TEST_CASE(file_extentions_default_2_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_dirs_from_argument_3_1)
+BOOST_AUTO_TEST_CASE(t3_1_include_dirs_from_argument)
 {
     // Init
     const std::string argumentName = resources::arguments::includeDirs::FullName;
@@ -160,7 +166,7 @@ BOOST_AUTO_TEST_CASE(include_dirs_from_argument_3_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(include_dirs_default_3_2)
+BOOST_AUTO_TEST_CASE(t3_2_include_dirs_default)
 {
     // Run
     parse({ "" });
@@ -174,7 +180,7 @@ BOOST_AUTO_TEST_CASE(include_dirs_default_3_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_dirs_from_argument_4_1)
+BOOST_AUTO_TEST_CASE(t4_1_ignore_dirs_from_argument)
 {
     // Init
     const std::string argumentName = resources::arguments::ignoreDirs::FullName;
@@ -194,7 +200,7 @@ BOOST_AUTO_TEST_CASE(ignore_dirs_from_argument_4_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_dirs_default_4_2)
+BOOST_AUTO_TEST_CASE(t4_2_ignore_dirs_default)
 {
     // Run
     parse({ "" });
@@ -208,7 +214,7 @@ BOOST_AUTO_TEST_CASE(ignore_dirs_default_4_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(configuration_file_from_arguments_5_1)
+BOOST_AUTO_TEST_CASE(t5_1_configuration_file_from_arguments)
 {
     // Init
     const std::string argumentName = resources::arguments::configurationFile::FullName;
@@ -225,7 +231,7 @@ BOOST_AUTO_TEST_CASE(configuration_file_from_arguments_5_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(configuration_file_default_5_2)
+BOOST_AUTO_TEST_CASE(t5_2_configuration_file_default)
 {
     // Run
     parse({ "" });
@@ -239,7 +245,7 @@ BOOST_AUTO_TEST_CASE(configuration_file_default_5_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(help_from_arguments_6_1)
+BOOST_AUTO_TEST_CASE(t6_1_help_from_arguments)
 {
     // Init
     const std::string argumentName = resources::arguments::help::FullName;
@@ -254,7 +260,7 @@ BOOST_AUTO_TEST_CASE(help_from_arguments_6_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(verbose_7)
+BOOST_AUTO_TEST_CASE(t7_verbose)
 {
 	// Init
 	const std::string argumentName = resources::arguments::verbose::FullName;
@@ -269,7 +275,7 @@ BOOST_AUTO_TEST_CASE(verbose_7)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_from_argument_8_1)
+BOOST_AUTO_TEST_CASE(t8_1_report_from_argument)
 {
 	// Init
 	using namespace resources::arguments;
@@ -290,7 +296,7 @@ BOOST_AUTO_TEST_CASE(report_from_argument_8_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_default_8_2)
+BOOST_AUTO_TEST_CASE(t8_2_report_default)
 {
 	// Run
 	parse({ "" });
@@ -304,7 +310,7 @@ BOOST_AUTO_TEST_CASE(report_default_8_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_incorrect_name_8_3)
+BOOST_AUTO_TEST_CASE(t8_3_report_incorrect_name)
 {
 	// Init
 	using namespace resources::arguments;
@@ -322,7 +328,7 @@ BOOST_AUTO_TEST_CASE(report_incorrect_name_8_3)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_limit_from_argument_9_1)
+BOOST_AUTO_TEST_CASE(t9_1_report_limit_from_argument)
 {
 	// Init
 	using namespace resources::arguments;
@@ -342,7 +348,7 @@ BOOST_AUTO_TEST_CASE(report_limit_from_argument_9_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_limit_default_9_2)
+BOOST_AUTO_TEST_CASE(t9_2_report_limit_default)
 {
 	// Run
 	parse({ "" });
@@ -356,7 +362,7 @@ BOOST_AUTO_TEST_CASE(report_limit_default_9_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_system_includes_from_arguments_10_1)
+BOOST_AUTO_TEST_CASE(t10_1_ignore_system_includes_from_arguments)
 {
 	// Init
 	using namespace resources::arguments;
@@ -378,7 +384,7 @@ BOOST_AUTO_TEST_CASE(ignore_system_includes_from_arguments_10_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_system_includes_default_10_2)
+BOOST_AUTO_TEST_CASE(t10_2_ignore_system_includes_default)
 {
 	// Run
 	parse({ "" });
@@ -392,7 +398,7 @@ BOOST_AUTO_TEST_CASE(ignore_system_includes_default_10_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_from_argument_11_1)
+BOOST_AUTO_TEST_CASE(t11_1_ignore_files_from_argument)
 {
 	// Init
 	using namespace resources::arguments;
@@ -413,7 +419,7 @@ BOOST_AUTO_TEST_CASE(ignore_files_from_argument_11_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(ignore_files_default_11_2)
+BOOST_AUTO_TEST_CASE(t11_2_ignore_files_default)
 {
 	// Run
 	parse({ "" });
@@ -427,7 +433,7 @@ BOOST_AUTO_TEST_CASE(ignore_files_default_11_2)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(version_12)
+BOOST_AUTO_TEST_CASE(t12_version)
 {
 	// Init
 	const std::string argumentName = resources::arguments::version::FullName;
@@ -444,7 +450,7 @@ BOOST_AUTO_TEST_CASE(version_12)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_details_limit_from_argument_13_1)
+BOOST_AUTO_TEST_CASE(t13_1_report_details_limit_from_argument)
 {
 	// Init
 	using namespace resources::arguments;
@@ -464,7 +470,7 @@ BOOST_AUTO_TEST_CASE(report_details_limit_from_argument_13_1)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(report_details_limit_default_13_2)
+BOOST_AUTO_TEST_CASE(t13_2_report_details_limit_default)
 {
 	// Run
 	parse({ "" });
@@ -473,6 +479,76 @@ BOOST_AUTO_TEST_CASE(report_details_limit_default_13_2)
 	BOOST_CHECK_EQUAL(
 		getDefaultReportDetailsLimit(),
 		resources::arguments::report_details_limit::DefaultValue
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t14_1_analyze_without_extension_from_argument)
+{
+	// Init
+	using namespace resources::arguments;
+
+	const std::string argumentName = analyze_without_extension::FullName;
+	const bool argumentValue = true;
+
+	const std::string argument =
+		"--" + argumentName + "=" + std::to_string( argumentValue );
+
+	// Run
+	parse({ argument });
+
+	// Check
+	BOOST_CHECK_EQUAL( getAnalyzeWithoutExtension(), argumentValue );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t14_2_analyze_without_extension_default)
+{
+	// Run
+	parse({ "" });
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		getDefaultAnalyzeWithoutExtension(),
+		resources::arguments::analyze_without_extension::DefaultValue
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t15_1_show_std_files_from_argument)
+{
+	// Init
+	using namespace resources::arguments;
+
+	const std::string argumentName = show_std_files::FullName;
+	const bool argumentValue = true;
+
+	const std::string argument =
+		"--" + argumentName + "=" + std::to_string( argumentValue );
+
+	// Run
+	parse({ argument });
+
+	// Check
+	auto valueOpt = getShowStdFile();
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, argumentValue );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t15_1_show_std_files_default)
+{
+	// Run
+	parse({ "" });
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		getDefaultShowStdFile(),
+		resources::arguments::show_std_files::DefaultValue
 	);
 }
 

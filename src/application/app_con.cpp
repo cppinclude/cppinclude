@@ -88,11 +88,12 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 
 	const int maxFiles = getReportLimit( parser );
 	const int maxDetails = getReportDetailsLimit( parser );
+	const bool showStdFile = getShowStdFile( parser );
 
 	if( kindsOpt )
-		runReporters( model, *kindsOpt, maxFiles, maxDetails );
+		runReporters( model, *kindsOpt, maxFiles, maxDetails, showStdFile );
 	else
-		runReporters( model, parser.getDefaultReporterKinds(), maxFiles, maxDetails );
+		runReporters( model, parser.getDefaultReporterKinds(), maxFiles, maxDetails, showStdFile );
 
 	return EXIT_SUCCESS;
 
@@ -165,11 +166,28 @@ int ConcoleApplication::getReportDetailsLimit( const ParserArgWrapper & _arg ) c
 
 //------------------------------------------------------------------------------
 
+bool ConcoleApplication::getShowStdFile( const ParserArgWrapper & _arg ) const
+{
+	bool result = false;
+	if( auto valueOpt = _arg.getShowStdFile(); valueOpt )
+	{
+		result = *valueOpt;
+	}
+	else
+	{
+		result = _arg.getDefaultShowStdfile();
+	}
+	return result;
+}
+
+//------------------------------------------------------------------------------
+
 void ConcoleApplication::runReporters(
 	const Model & _model,
 	const ReporterKinds & _kinds,
 	int _limit,
-	int _maxDetails
+	int _maxDetails,
+	bool _showStdFile
 )
 {
 	using namespace reporter;
@@ -190,6 +208,7 @@ void ConcoleApplication::runReporters(
 		Report & report = *reportPtr;
 		report.setMaxFilesCount( _limit );
 		report.setMaxDetailsCount( _maxDetails );
+		report.setShowStdFile( _showStdFile );
 		report.report( _model, std::cout );
 	}
 }
@@ -310,18 +329,18 @@ void ConcoleApplication::dump( const Project & _project ) const
 		}
 	);
 
-	int fileExtentionNumber = 1;
-	_project.forEachFileExtention(
+	int fileExtensionNumber = 1;
+	_project.forEachFileExtension(
 		[&]( std::string_view _ext )
 		{
-			if( fileExtentionNumber == 1 )
+			if( fileExtensionNumber == 1 )
 			{
 				std::cout << "File extensions\n";
 			}
 
-			std::cout << "\t" << fileExtentionNumber << " : " << _ext << std::endl;
+			std::cout << "\t" << fileExtensionNumber << " : " << _ext << std::endl;
 
-			++fileExtentionNumber;
+			++fileExtensionNumber;
 			return true;
 		}
 	);
