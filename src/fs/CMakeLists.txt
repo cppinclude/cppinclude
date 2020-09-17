@@ -10,3 +10,8 @@ file(GLOB fs_sources
 )
 
 add_library( ${PROJECT_NAME}_lib STATIC ${fs_sources} )
+
+# GCC requires explicit linking to the <filesystem> static lib
+if(CMAKE_COMPILER_IS_GNUCXX)
+    target_link_libraries(${PROJECT_NAME}_lib stdc++fs)
+endif()

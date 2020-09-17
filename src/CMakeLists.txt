@@ -35,8 +35,11 @@ add_subdirectory(json)
 
 target_link_libraries(${PROJECT_NAME} application_lib)
 
+# GCC requires explicit linking to the <filesystem> static lib
+if(CMAKE_COMPILER_IS_GNUCXX)
+    target_link_libraries(${PROJECT_NAME} stdc++fs)
+endif()
+
 if(MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/INCREMENTAL:NO")
 endif()
-
-
