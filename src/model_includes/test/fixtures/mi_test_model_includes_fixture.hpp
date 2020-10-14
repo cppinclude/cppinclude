@@ -48,7 +48,8 @@ class ModelIncludesFixture
 
 public:
 
-	using PathOpt	= std::optional< std::filesystem::path >;
+	using Path		= stdfs::path;
+	using PathOpt	= std::optional< Path >;
 	using FilePtr	= stdfwd::shared_ptr< fs::File >;
 	using Strings	= std::vector< std::string >;
 
@@ -67,10 +68,7 @@ public:
 	void addCppExtensions( const Strings & _extensions );
 	void setAnalyzeWithoutExtension( bool _enable );
 
-	PathOpt resolvePath(
-		const std::filesystem::path & _startFile,
-		std::string_view _fileName
-	);
+	PathOpt resolvePath( const Path & _startFile, std::string_view _fileName );
 
 	FileType resolveFileType( stdfwd::string_view _file );
 
@@ -85,7 +83,7 @@ public:
 
 private:
 
-	const std::filesystem::path & getProjectDir();
+	const Path & getProjectDir();
 
 	ModelIncludesAccessor & ensureModelAccesddor();
 

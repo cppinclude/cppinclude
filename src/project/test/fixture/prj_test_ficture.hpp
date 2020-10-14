@@ -24,7 +24,7 @@ class ProjectFixture
 public:
 
 	using Strings	= stdfwd::vector< std::string >;
-	using Path		= std::filesystem::path;
+	using Path		= stdfs::path;
 	using Paths		= stdfwd::vector< Path >;
 
 	ProjectFixture();

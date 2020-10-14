@@ -6,7 +6,7 @@
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <memory>
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -14,9 +14,7 @@ namespace fs::memory {
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::FilePtr MemoryFileSystem::openFile(
-	const std::filesystem::path & _path
-) const
+MemoryFileSystem::FilePtr MemoryFileSystem::openFile( const Path & _path ) const
 {
 	const Path path = toAbsolutePath( _path );
 
@@ -24,26 +22,24 @@ MemoryFileSystem::FilePtr MemoryFileSystem::openFile(
 	if( !dirPtr )
 		return nullptr;
 
-	const std::filesystem::path fileName = _path.filename();
+	const Path fileName = _path.filename();
 	return dirPtr->getFile( fileName.string() );
 }
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::FilePtr MemoryFileSystem::createFile(
-	const std::filesystem::path & _path
-)
+MemoryFileSystem::FilePtr MemoryFileSystem::createFile( const Path & _path )
 {
 	const Path path = toAbsolutePath( _path );
 	MemoryFolder & folder = ensureFolder( path.parent_path() );
 
-	const std::filesystem::path fileName = _path.filename();
+	const Path fileName = _path.filename();
 	return folder.ensureFile( fileName.string() );
 }
 
 //------------------------------------------------------------------------------
 
-bool MemoryFileSystem::isExistFile( const std::filesystem::path & _path ) const
+bool MemoryFileSystem::isExistFile( const Path & _path ) const
 {
 	return openFile( _path ).get();
 }
@@ -65,7 +61,7 @@ MemoryFileSystem::Path MemoryFileSystem::toAbsolute( const Path & _path ) const
 //------------------------------------------------------------------------------
 
 void MemoryFileSystem::forEachItem(
-	const std::filesystem::path & _dirPath,
+	const Path & _dirPath,
 	ItemCallback _callback
 ) const
 {
@@ -78,7 +74,7 @@ void MemoryFileSystem::forEachItem(
 	folder.forEachItem(
 		[&]( std::string_view _name, ItemType _type )
 		{
-			std::filesystem::path path = _dirPath / _name;
+			Path path = _dirPath / _name;
 			_callback( path, _type );
 		}
 	);
@@ -86,7 +82,7 @@ void MemoryFileSystem::forEachItem(
 
 //------------------------------------------------------------------------------
 
-MemoryFolder & MemoryFileSystem::ensureRoot( const std::filesystem::path & _path )
+MemoryFolder & MemoryFileSystem::ensureRoot( const Path & _path )
 {
 	auto pair = m_roots.try_emplace(
 		_path,
@@ -100,9 +96,7 @@ MemoryFolder & MemoryFileSystem::ensureRoot( const std::filesystem::path & _path
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::FolderPtr MemoryFileSystem::getRoot(
-	const std::filesystem::path & _path
-) const
+MemoryFileSystem::FolderPtr MemoryFileSystem::getRoot( const Path & _path ) const
 {
 	if( auto it = m_roots.find( _path ); it != m_roots.end() )
 		return it->second;
@@ -112,20 +106,17 @@ MemoryFileSystem::FolderPtr MemoryFileSystem::getRoot(
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::FolderPtr MemoryFileSystem::getFolder(
-	const std::filesystem::path & _path
-) const
+MemoryFileSystem::FolderPtr MemoryFileSystem::getFolder( const Path & _path ) const
 {
 	FolderPtr rootPtr = getRoot( _path.root_directory() );
 	if( !rootPtr )
 		return nullptr;
 
 	FolderPtr currentFolder = rootPtr;
-	const std::filesystem::path pathWitoutRoot = _path.relative_path();
+	const Path pathWitoutRoot = _path.relative_path();
 	for( auto currentName : pathWitoutRoot )
 	{
-		const std::string folderName = currentName.string();
-		if( folderName.empty() )
+		if( stdfs::is_dir_filename( currentName ) )
 			continue;
 
 		INTERNAL_CHECK_ERROR( currentFolder );
@@ -140,9 +131,7 @@ MemoryFileSystem::FolderPtr MemoryFileSystem::getFolder(
 
 //------------------------------------------------------------------------------
 
-MemoryFolder & MemoryFileSystem::ensureFolder(
-	const std::filesystem::path & _path
-)
+MemoryFolder & MemoryFileSystem::ensureFolder( const Path & _path )
 {
 	Path pathWitoutRoot = _path.relative_path();
 	MemoryFolder & root = ensureRoot( _path.root_directory() );
@@ -164,9 +153,7 @@ MemoryFolder & MemoryFileSystem::ensureFolder(
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::Path MemoryFileSystem::toAbsolutePath(
-	const Path & _path
-) const
+MemoryFileSystem::Path MemoryFileSystem::toAbsolutePath( const Path & _path ) const
 {
 	if( !_path.is_absolute() )
 		return getCurrentPath() / _path;

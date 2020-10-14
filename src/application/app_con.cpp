@@ -36,7 +36,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <filesystem>
+#include <std_fs>
 #include <functional>
 
 //------------------------------------------------------------------------------
@@ -316,7 +316,7 @@ void ConcoleApplication::dump( const Project & _project ) const
 	}
 	int ignoreDirNumber = 1;
 	_project.forEachIgnoreDir(
-		[&]( const std::filesystem::path & _path )
+		[&]( const stdfs::path & _path )
 		{
 			if( ignoreDirNumber == 1 )
 			{

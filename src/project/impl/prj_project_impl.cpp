@@ -28,7 +28,7 @@ void ProjectImpl::setProjectDir( const Path & _path )
 
 //------------------------------------------------------------------------------
 
-const std::filesystem::path & ProjectImpl::getProjectDir() const
+const ProjectImpl::Path & ProjectImpl::getProjectDir() const
 {
 	return m_projectDir;
 }
@@ -275,11 +275,14 @@ void ProjectImpl::changeAllPathsToAbsolute( const Path & _currentDir )
 ProjectImpl::Path ProjectImpl::convertToDirPath( const Path & _path ) const
 {
 	Path path = _path;
-	path = path.lexically_normal();
-	if( !path.filename().empty() )
+	path = stdfs::lexically_normal( path );
+	const std::string filename = path.filename().string();
+	if( !stdfs::is_dir_filename( path ) )
 	{
 		// folder path should finish with path separator
 		path /= "";
+		if( filename == path.filename().string() )
+			path /= Path::string_type { Path::preferred_separator };
 	}
 
 	return path;

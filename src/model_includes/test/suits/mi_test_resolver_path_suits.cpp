@@ -2,7 +2,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <filesystem>
+#include <std_fs>
 #include <optional>
 
 /*------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(t1_current_directory)
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
 
-	const std::filesystem::path exceptedPath{ "/test_project/include.hpp" };
+	const Path exceptedPath{ "/test_project/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 }
 
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(t2_subdirectory)
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
 
-	const std::filesystem::path exceptedPath{ "/test_project/sub_dir/include.hpp" };
+	const Path exceptedPath{ "/test_project/sub_dir/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 }
 
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(t3_1_in_include_dir)
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
 
-	const std::filesystem::path exceptedPath{ "/test_project/lib/include.hpp" };
+	const Path exceptedPath{ "/test_project/lib/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 }
 
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(t3_2_in_include_subdir)
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
 
-	const std::filesystem::path exceptedPath{ "/test_project/lib/sub/include.hpp" };
+	const Path exceptedPath{ "/test_project/lib/sub/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 }
 
@@ -134,7 +134,7 @@ BOOST_AUTO_TEST_CASE(t3_3_in_include_out_of_project)
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
 
-	const std::filesystem::path exceptedPath{ "/lib/include.hpp" };
+	const Path exceptedPath{ "/lib/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 }
 

@@ -8,7 +8,7 @@
 #include "project/api/prj_project.hpp"
 
 #include <optional>
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ Resolver::Resolver( const fs::FileSystem & _fs, const project::Project & _projec
 
 //------------------------------------------------------------------------------
 
-const std::filesystem::path & Resolver::getProjectFolder() const
+const Resolver::Path & Resolver::getProjectFolder() const
 {
 	return m_project.getProjectDir();
 }
@@ -32,7 +32,7 @@ const std::filesystem::path & Resolver::getProjectFolder() const
 //------------------------------------------------------------------------------
 
 Resolver::PathOpt Resolver::resolvePath(
-	const std::filesystem::path & _startFile,
+	const Path & _startFile,
 	stdfwd::string_view _fileName
 ) const
 {
@@ -47,7 +47,7 @@ Resolver::PathOpt Resolver::resolvePath(
 
 //------------------------------------------------------------------------------
 
-FileType Resolver::resolveFileType( const std::filesystem::path & _file )
+FileType Resolver::resolveFileType( const Path & _file )
 {
 	FileType result = FileType::ProjectFile;
 
@@ -66,15 +66,15 @@ FileType Resolver::resolveFileType( const std::filesystem::path & _file )
 //------------------------------------------------------------------------------
 
 Resolver::PathOpt Resolver::checkInCurrentDir(
-	const std::filesystem::path & _startFile,
+	const Path & _startFile,
 	stdfwd::string_view _fileName
 ) const
 {
-	std::filesystem::path startDir = _startFile.parent_path();
+	Path startDir = _startFile.parent_path();
 	if( startDir.is_relative() )
 		startDir = getProjectFolder() / startDir;
 
-	const std::filesystem::path file = startDir / _fileName;
+	const Path file = startDir / _fileName;
 	if( isExistFile( file ) )
 		return PathOpt{ file };
 
@@ -89,11 +89,11 @@ Resolver::PathOpt Resolver::findInIncludeFolders( std::string_view _fileName ) c
 	const project::Project::IncludeDirIndex count = m_project.getIncludeDirsCount();
 	for( project::Project::IncludeDirIndex i = 0; i < count; ++i )
 	{
-		std::filesystem::path includeDir = m_project.getIncludeDir( i );
+		Path includeDir = m_project.getIncludeDir( i );
 		if( includeDir.is_relative() )
 			includeDir = getProjectFolder() / includeDir;
 
-		const std::filesystem::path file = includeDir / _fileName;
+		const Path file = includeDir / _fileName;
 
 		if( isExistFile( file ) )
 			return PathOpt{ file };
@@ -104,7 +104,7 @@ Resolver::PathOpt Resolver::findInIncludeFolders( std::string_view _fileName ) c
 
 //------------------------------------------------------------------------------
 
-bool Resolver::isExistFile( const std::filesystem::path & _filePath ) const
+bool Resolver::isExistFile( const Path & _filePath ) const
 {
 	return m_fs.isExistFile( _filePath );
 }

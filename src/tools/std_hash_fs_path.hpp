@@ -1,16 +1,16 @@
 #pragma once
 
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
 namespace std
 {
-	template<> struct hash<filesystem::path>
+	template<> struct hash<stdfs::path>
 	{
-		std::size_t operator()(const filesystem::path & _file) const noexcept
+		std::size_t operator()(const stdfs::path & _file) const noexcept
 		{
-			return std::filesystem::hash_value( _file );
+			return stdfs::hash_value( _file );
 		}
 	};
 }

@@ -3,7 +3,7 @@
 #include <stdfwd.hpp>
 
 #include <optional>
-#include <filesystem>
+#include <std_fs>
 #include <vector>
 #include <string>
 
@@ -27,8 +27,9 @@ public:
 	using Strings			= stdfwd::vector< std::string >;
 	using StringsOpt		= std::optional< Strings >;
 
-	using PathOpt			= std::optional< std::filesystem::path >;
-	using Paths				= stdfwd::vector< std::filesystem::path >;
+	using Path				= stdfs::path;
+	using PathOpt			= std::optional< Path >;
+	using Paths				= stdfwd::vector< Path >;
 	using PathsOpt			= std::optional< Paths >;
 
 	using BoolOpt			= std::optional< bool >;

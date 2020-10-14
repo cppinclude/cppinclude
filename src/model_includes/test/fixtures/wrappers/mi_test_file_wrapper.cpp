@@ -7,7 +7,7 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -82,7 +82,7 @@ BoostPredicate FileWrapper::checkIncludedByCountRecursive( int _exceptCount ) co
 
 IncludeWrapper FileWrapper::getIncludedBy( std::string_view _sourcePath ) const
 {
-	const std::filesystem::path sourcePath = _sourcePath;
+	const stdfs::path sourcePath = _sourcePath;
 	const File & file = getFile();
 	for( File::IncludeIndex i = 0; i < file.getIncludedByCount(); ++i )
 	{

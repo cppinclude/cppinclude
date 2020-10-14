@@ -65,19 +65,19 @@ private:
 	void printIncludesByFiles(
 		const FilesContainer & _files,
 		size_t _originSize,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 
 	void printDetails(
 		const model_includes::File & _includedByFile,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 
 	void printDetail(
 		const MostImpactReporterDetail & _detail,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		size_t currentNumber,
 		std::ostream & _stream
 	) const;

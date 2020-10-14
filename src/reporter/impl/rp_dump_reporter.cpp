@@ -13,7 +13,7 @@
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <functional>
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ bool DumpReporter::FileSorter::operator()(
 	const model_includes::File & _l
 ) const
 {
-	return _r.getPath() < _l.getPath();
+	return stdfs::less( _r.getPath(), _l.getPath() );
 }
 
 //------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ void DumpReporter::collectFiles(
 
 void DumpReporter::dump(
 	const SortedFilesContainer & _files,
-	const std::filesystem::path & _dirPath,
+	const Path & _dirPath,
 	std::ostream & _stream
 ) const
 {
@@ -114,7 +114,7 @@ void DumpReporter::dump(
 
 void DumpReporter::dumpIncludes(
 	const model_includes::File & _file,
-	const std::filesystem::path & _dirPath,
+	const Path & _dirPath,
 	std::ostream & _stream
 ) const
 {
@@ -143,7 +143,7 @@ void DumpReporter::dumpIncludes(
 
 void DumpReporter::dumpIncludedBy(
 	const model_includes::File & _file,
-	const std::filesystem::path & _dirPath,
+	const Path & _dirPath,
 	std::ostream & _stream
 ) const
 {
@@ -172,7 +172,7 @@ void DumpReporter::dumpIncludedBy(
 
 void DumpReporter::dumpFileFromInclude(
 	const model_includes::File & _file,
-	const std::filesystem::path & _dirPath,
+	const Path & _dirPath,
 	const model_includes::Include & _include,
 	size_t _index,
 	std::ostream & _stream
@@ -205,7 +205,7 @@ std::ostream & DumpReporter::indent( int _count, std::ostream & _stream ) const
 
 std::string DumpReporter::toString(
 	const model_includes::File & _file,
-	const std::filesystem::path & _dirPath
+	const Path & _dirPath
 ) const
 {
 	return getPathWithoutProject( _file.getPath(), _dirPath );

@@ -11,7 +11,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/system/config.hpp>
 
-#include <filesystem>
+#include <std_fs>
 
 /*------------------------------------------------------------------------------
 
@@ -963,9 +963,9 @@ BOOST_AUTO_TEST_CASE(t7_1_file_extensions_only_cpp_files)
 
 	setProjectDir( projectDir );
 
-	addFileToProject( mainCppName, "#include \"" + classAHppName +"\"" );
-	addFileToProject( cppHeaderName, "#include \"" + classAHppName +"\"" );
-	addFileToProject( notCppHeaderName, "#include \"" + classAHppName +"\"" );
+	addFileToProject( mainCppName,		"#include \"" + classAHppName + "\"" );
+	addFileToProject( cppHeaderName,	"#include \"" + classAHppName + "\"" );
+	addFileToProject( notCppHeaderName, "#include \"" + classAHppName + "\"" );
 
 	addFileToProject( classAHppName, "class A{ A();  };" );
 	addFileToProject(
@@ -1062,15 +1062,15 @@ BOOST_AUTO_TEST_CASE(t7_2_file_extensions_analyze_without_extension)
 	const std::string headerName{ "header" };
 	const std::string mainCppName{ "main.cpp" };
 
-	const std::string classAHppPath{ projectDir + classAHppName };
-	const std::string classACppPath{ projectDir + classACppName };
-	const std::string headerPath{ projectDir + headerName };
-	const std::string mainCppPath{   projectDir + mainCppName };
+	const std::string classAHppPath{	projectDir + classAHppName };
+	const std::string classACppPath{	projectDir + classACppName };
+	const std::string headerPath{		projectDir + headerName };
+	const std::string mainCppPath{		projectDir + mainCppName };
 
 	setProjectDir( projectDir );
 
-	addFileToProject( mainCppName, "#include \"" + classAHppName +"\"" );
-	addFileToProject( headerPath, "#include \"" + classAHppName +"\"" );
+	addFileToProject( mainCppName,	"#include \"" + classAHppName + "\"" );
+	addFileToProject( headerName,	"#include \"" + classAHppName + "\"" );
 
 	addFileToProject( classAHppName, "class A{ A();  };" );
 	addFileToProject(

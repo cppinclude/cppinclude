@@ -15,7 +15,7 @@ class FileSystem
 {
 public:
 
-	using Path			= std::filesystem::path;
+	using Path			= stdfs::path;
 	using FilePtr		= stdfwd::shared_ptr< File >;
 	using ItemCallback	= std::function< void ( const Path &, ItemType ) >;
 

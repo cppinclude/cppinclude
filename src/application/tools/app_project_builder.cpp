@@ -141,7 +141,7 @@ void ProjectBuilder::initProject(
 //------------------------------------------------------------------------------
 
 void ProjectBuilder::initFromConfigurationFile(
-	const std::filesystem::path & _file,
+	const Path & _file,
 	Project & _project
 )
 {
@@ -167,9 +167,7 @@ ProjectBuilder::ProjectPtr ProjectBuilder::createProject()
 
 //------------------------------------------------------------------------------
 
-ProjectBuilder::JsonObjectPtr ProjectBuilder::createJson(
-	const std::filesystem::path & _file
-)
+ProjectBuilder::JsonObjectPtr ProjectBuilder::createJson( const Path & _file )
 {
 	auto filePtr = m_fs.openFile( _file );
 	INTERNAL_CHECK_WARRING( filePtr )

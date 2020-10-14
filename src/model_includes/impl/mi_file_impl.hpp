@@ -3,7 +3,7 @@
 #include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
 
-#include <filesystem>
+#include <std_fs>
 #include <vector>
 
 //------------------------------------------------------------------------------
@@ -16,9 +16,9 @@ class FileImpl final : public File
 {
 public:
 
-	FileImpl( const std::filesystem::path & _path, FileType _type );
+	FileImpl( const Path & _path, FileType _type );
 
-	std::filesystem::path getPath() const override;
+	Path getPath() const override;
 	FileType getType() const override;
 
 	void addInclude( const Include & _include ) override;
@@ -47,7 +47,7 @@ private:
 	IncludesContainer m_includes;
 	IncludesContainer m_includedBy;
 
-	const std::filesystem::path m_path;
+	const Path m_path;
 	const FileType m_type;
 };
 

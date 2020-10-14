@@ -17,7 +17,9 @@
 
 #include <set>
 #include <functional>
-#include <filesystem>
+#include <std_fs>
+#include <unordered_map>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -134,7 +136,7 @@ UnresolvedReporter::DestinationFileByCount UnresolvedReporter::orderDestinationB
 void UnresolvedReporter::report(
 	const UnorderedIncludesByDestination & _unorderedIncludesByDestination,
 	const DestinationFileByCount & _destinationFileByCount,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	std::ostream & _stream
 ) const
 {
@@ -184,7 +186,7 @@ void UnresolvedReporter::report(
 void UnresolvedReporter::reportDestinationFile(
 	const model_includes::File & _file,
 	size_t _number,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	std::ostream & _stream
 ) const
 {
@@ -204,7 +206,7 @@ void UnresolvedReporter::reportDestinationFile(
 
 void UnresolvedReporter::reportSourceFiles(
 	const UnorderedIncludes & _includes,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	std::ostream & _stream
 ) const
 {
@@ -237,7 +239,7 @@ void UnresolvedReporter::reportSourceFiles(
 void UnresolvedReporter::reportSourceFile(
 	const model_includes::Include & _include,
 	size_t _number,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	std::ostream & _stream
 ) const
 {

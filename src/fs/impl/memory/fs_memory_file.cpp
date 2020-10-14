@@ -1,6 +1,7 @@
 #include "fs/impl/memory/fs_memory_file.hpp"
 
 #include <sstream>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 

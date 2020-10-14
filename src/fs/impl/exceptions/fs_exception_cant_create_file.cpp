@@ -10,7 +10,7 @@ namespace fs {
 
 //------------------------------------------------------------------------------
 
-CantCreateFileImpl::CantCreateFileImpl( const std::filesystem::path & _path )
+CantCreateFileImpl::CantCreateFileImpl( const Path & _path )
 	:	BaseClass( resources::exceptions::CantCreateFile::Code )
 	,	m_path{ _path }
 {

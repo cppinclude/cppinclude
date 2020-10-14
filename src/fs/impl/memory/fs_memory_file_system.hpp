@@ -33,17 +33,17 @@ private:
 
 	using FolderPtr = std::shared_ptr< MemoryFolder >;
 
-	FolderPtr getRoot( const std::filesystem::path & _path ) const;
-	MemoryFolder & ensureRoot( const std::filesystem::path & _path );
+	FolderPtr getRoot( const Path & _path ) const;
+	MemoryFolder & ensureRoot( const Path & _path );
 
-	FolderPtr getFolder( const std::filesystem::path & _path ) const;
-	MemoryFolder & ensureFolder( const std::filesystem::path & _path );
+	FolderPtr getFolder( const Path & _path ) const;
+	MemoryFolder & ensureFolder( const Path & _path );
 
 	Path toAbsolutePath( const Path & _path ) const;
 
 private:
 
-	using Roots = std::unordered_map< std::filesystem::path, FolderPtr >;
+	using Roots = std::unordered_map< Path, FolderPtr >;
 	Roots m_roots;
 };
 

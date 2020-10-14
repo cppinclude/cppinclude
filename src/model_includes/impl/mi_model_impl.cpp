@@ -43,26 +43,23 @@ void ModelImpl::forEachFile( FileCallback _callback ) const
 
 //------------------------------------------------------------------------------
 
-void ModelImpl::setProjectDir( const std::filesystem::path & _path )
+void ModelImpl::setProjectDir( const Path & _path )
 {
 	m_projectDir = _path;
 }
 
 //------------------------------------------------------------------------------
 
-const std::filesystem::path & ModelImpl::getProjectDir() const
+const ModelImpl::Path & ModelImpl::getProjectDir() const
 {
 	return m_projectDir;
 }
 
 //------------------------------------------------------------------------------
 
-File & ModelImpl::ensureFile(
-	const std::filesystem::path & _filePath,
-	FileType _fileType
-)
+File & ModelImpl::ensureFile( const Path & _filePath, FileType _fileType )
 {
-	const auto path = _filePath.lexically_normal();
+	const auto path = stdfs::lexically_normal( _filePath );
 	auto pair = m_files.try_emplace( path, new FileImpl{ path, _fileType } );
 	auto it = pair.first;
 	FilePtr & filePtr = it->second;
@@ -72,7 +69,7 @@ File & ModelImpl::ensureFile(
 
 //------------------------------------------------------------------------------
 
-const File * ModelImpl::findFile( const std::filesystem::path & _filePath ) const
+const File * ModelImpl::findFile( const Path & _filePath ) const
 {
 	if( auto it = m_files.find( _filePath ); it != m_files.end() )
 		return it->second.get();

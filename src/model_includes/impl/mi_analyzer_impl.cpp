@@ -49,7 +49,7 @@ AnalyzerImpl::ModelPtr AnalyzerImpl::analyze(
 ) const
 {
 	ModelPtr modelPtr{ new ModelImpl };
-	const std::filesystem::path & projectDir = _project.getProjectDir();
+	const Path & projectDir = _project.getProjectDir();
 	INTERNAL_CHECK_WARRING( !projectDir.empty() );
 
 	modelPtr->setProjectDir( projectDir );
@@ -63,7 +63,7 @@ AnalyzerImpl::ModelPtr AnalyzerImpl::analyze(
 
 void AnalyzerImpl::analyzeFolder(
 	const Project & _project,
-	const std::filesystem::path & _folderPath,
+	const Path & _folderPath,
 	Model & _model,
 	IgnoredFiles & _ignoreFiles
 ) const
@@ -73,7 +73,7 @@ void AnalyzerImpl::analyzeFolder(
 
 	m_fs.forEachItem(
 		_folderPath,
-		[&]( const std::filesystem::path & _path, fs::ItemType _type )
+		[&]( const Path & _path, fs::ItemType _type )
 		{
 			static_assert( static_cast< int >( fs::ItemType::Count ) == 2 );
 			switch ( _type )
@@ -97,7 +97,7 @@ void AnalyzerImpl::analyzeFolder(
 
 void AnalyzerImpl::analyzeFile(
 	const Project & _project,
-	const std::filesystem::path & _path,
+	const Path & _path,
 	Model & _model,
 	IgnoredFiles & _ignoredFiles
 ) const
@@ -130,7 +130,7 @@ void AnalyzerImpl::analyzeFile(
 
 void AnalyzerImpl::analyzeIncludeFiles(
 	const Project & _project,
-	const std::filesystem::path & _path,
+	const Path & _path,
 	const IncludeFiles & _includesFile,
 	Model & _model,
 	IgnoredFiles & _ignoreFiles
@@ -148,7 +148,7 @@ void AnalyzerImpl::analyzeIncludeFiles(
 
 void AnalyzerImpl::analyzeIncludeFile(
 	const Project & _project,
-	const std::filesystem::path & _path,
+	const Path & _path,
 	const parser::IncludeFile & _includesFile,
 	File & _file,
 	Model & _model,
@@ -183,15 +183,12 @@ void AnalyzerImpl::analyzeIncludeFile(
 
 //------------------------------------------------------------------------------
 
-bool AnalyzerImpl::isCppFile(
-	const Project & _project,
-	const std::filesystem::path & _path
-) const
+bool AnalyzerImpl::isCppFile( const Project & _project, const Path & _path ) const
 {
 	if( !_project.hasCppFileExtensions() )
 		return true;
 
-	const std::filesystem::path extension = _path.extension();
+	const Path extension = _path.extension();
 
 	if( extension.empty() && _project.getAnalyzeWithoutExtension() )
 		return true;
@@ -202,7 +199,7 @@ bool AnalyzerImpl::isCppFile(
 
 //------------------------------------------------------------------------------
 
-FileType AnalyzerImpl::getFileType( const std::filesystem::path & _path ) const
+FileType AnalyzerImpl::getFileType( const Path & _path ) const
 {
 	return Resolver::resolveFileType( _path );
 }
@@ -235,7 +232,7 @@ IncludeStatus AnalyzerImpl::getIncludeStatus(
 //------------------------------------------------------------------------------
 
 bool AnalyzerImpl::isIgnoredFile(
-	const std::filesystem::path & _path,
+	const Path & _path,
 	const Project & _project,
 	const Model & _model,
 	IgnoredFiles & _ignoreFiles
@@ -260,12 +257,12 @@ bool AnalyzerImpl::isIgnoredFile(
 
 AnalyzerImpl::ResolvedPath AnalyzerImpl::resolvePath(
 	const Project & _project,
-	const std::filesystem::path & _currentFile,
+	const Path & _currentFile,
 	const parser::IncludeFile & _includeFile
 ) const
 {
 	std::string_view includeFileName = _includeFile.getName();
-	std::filesystem::path filePath = includeFileName;
+	Path filePath = includeFileName;
 	bool isResolved = false;
 	Resolver resolver{ m_fs, _project };
 

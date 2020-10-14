@@ -25,14 +25,11 @@ public:
 	std::size_t getFilesCount() const override;
 	void forEachFile( FileCallback _callback ) const override;
 
-	void setProjectDir( const std::filesystem::path & _path ) override;
-	const std::filesystem::path & getProjectDir() const override;
+	void setProjectDir( const Path & _path ) override;
+	const Path & getProjectDir() const override;
 
-	File & ensureFile(
-		const std::filesystem::path & _filePath,
-		FileType _fileType
-	) override;
-	const File * findFile( const std::filesystem::path & _filePath ) const override;
+	File & ensureFile( const Path & _filePath, FileType _fileType ) override;
+	const File * findFile( const Path & _filePath ) const override;
 
 	void forEachInclude( IncludeCallback _callback ) const override;
 
@@ -54,7 +51,7 @@ private:
 private:
 
 	using FilePtr = std::unique_ptr< File >;
-	using Files = std::unordered_map< std::filesystem::path, FilePtr >;
+	using Files = std::unordered_map< Path, FilePtr >;
 
 	using IncludePtr = std::unique_ptr< Include >;
 	using Includes = std::vector< IncludePtr >;
@@ -62,7 +59,7 @@ private:
 	Files m_files;
 	Includes m_includes;
 
-	std::filesystem::path m_projectDir;
+	Path m_projectDir;
 
 };
 

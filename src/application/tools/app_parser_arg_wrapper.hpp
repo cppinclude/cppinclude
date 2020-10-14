@@ -26,7 +26,7 @@ public:
 	void parse( int _argc, char * _argv[] );
 	void init();
 
-	using Path				= std::filesystem::path;
+	using Path				= stdfs::path;
 	using PathOpt			= std::optional< Path >;
 
 	using StringOpt			= std::optional< std::string >;

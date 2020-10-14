@@ -17,3 +17,5 @@ target_link_libraries(
 )
 
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}_test)
+
+TARGET_SPECIFIC( ${PROJECT_NAME}_test )

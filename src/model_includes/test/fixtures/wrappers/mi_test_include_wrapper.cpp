@@ -8,7 +8,7 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -109,8 +109,8 @@ BoostPredicate IncludeWrapper::checkFile(
 	std::string_view _path
 ) const
 {
-	const std::filesystem::path filePath = _file.getPath();
-	const std::filesystem::path excpectedPath{ std::string{ _path } };
+	const stdfs::path filePath = _file.getPath();
+	const stdfs::path excpectedPath{ std::string{ _path } };
     if( filePath == excpectedPath )
 		return true;
 

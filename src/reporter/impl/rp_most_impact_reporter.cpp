@@ -14,7 +14,7 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <filesystem>
+#include <std_fs>
 #include <functional>
 #include <fmt/format.h>
 
@@ -118,7 +118,7 @@ void MostImpcatReporter::resizeByLimit( FilesContainer & _files ) const
 void MostImpcatReporter::printIncludesByFiles(
 	const FilesContainer & _files,
 	size_t _originSize,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	std::ostream & _stream
 ) const
 {
@@ -167,7 +167,7 @@ void MostImpcatReporter::printIncludesByFiles(
 
 void MostImpcatReporter::printDetails(
 	const model_includes::File & _includedByFile,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	std::ostream & _stream
 ) const
 {
@@ -207,7 +207,7 @@ void MostImpcatReporter::printDetails(
 
 void MostImpcatReporter::printDetail(
 	const MostImpactReporterDetail & _detail,
-	const std::filesystem::path & _projectDir,
+	const Path & _projectDir,
 	size_t currentNumber,
 	std::ostream & _stream
 ) const

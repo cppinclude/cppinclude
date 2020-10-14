@@ -31,8 +31,9 @@ public:
 	using StringsArray		= stdfwd::vector< std::string >;
 	using StringsOpt		= std::optional< StringsArray >;
 
-	using PathOpt			= std::optional< std::filesystem::path >;
-	using PathsArray		= stdfwd::vector< std::filesystem::path >;
+	using Path				= stdfs::path;
+	using PathOpt			= std::optional< Path >;
+	using PathsArray		= stdfwd::vector< Path >;
 	using PathsArrayOpt		= std::optional< PathsArray >;
 
 	using BoolOpt			= std::optional< bool >;

@@ -47,6 +47,7 @@ public:
 	using Strings			= stdfwd::vector< std::string >;
 	using OrderedStrings	= stdfwd::set< std::string >;
 	using FilePtr			= std::shared_ptr< fs::File >;
+	using Path				= stdfs::path;
 
 	ProjectBuilderFixture();
 	~ProjectBuilderFixture();
@@ -61,14 +62,14 @@ public:
 	std::string getIncludeDirs() const;
 	std::string getIgnoreDirs() const;
 
-	int getFileFiltersCount() const;
+    std::size_t getFileFiltersCount() const;
 	const std::regex & getFileFilter( int _index ) const;
 
 	bool getIgnoreSystemIncludes() const;
 	std::string getFileExtensions() const;
 	bool getAnalyzeWithoutExtension() const;
 
-	std::filesystem::path getProjectPath() const;
+	Path getProjectPath() const;
 	std::string toAbsolutePath( std::string_view _path );
 
 	void createDefaultConfigurationFile( std::string_view _text );

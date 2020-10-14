@@ -4,7 +4,7 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <filesystem>
+#include <std_fs>
 #include <functional>
 #include <list>
 #include <unordered_set>
@@ -15,7 +15,7 @@ namespace model_includes {
 
 //------------------------------------------------------------------------------
 
-FileImpl::FileImpl( const std::filesystem::path & _path, FileType _type )
+FileImpl::FileImpl( const Path & _path, FileType _type )
 	:	m_path{ _path }
 	,	m_type{ _type }
 {
@@ -23,7 +23,7 @@ FileImpl::FileImpl( const std::filesystem::path & _path, FileType _type )
 
 //------------------------------------------------------------------------------
 
-std::filesystem::path FileImpl::getPath() const
+FileImpl::Path FileImpl::getPath() const
 {
 	return m_path;
 }

@@ -35,6 +35,8 @@ public:
 
 private:
 
+	using Path = stdfs::path;
+
 	struct FileSorter
 	{
 		bool operator()(
@@ -60,25 +62,25 @@ private:
 
 	void dump(
 		const SortedFilesContainer & _files,
-		const std::filesystem::path & _dirPath,
+		const Path & _dirPath,
 		std::ostream & _stream
 	) const;
 
 	void dumpIncludes(
 		const model_includes::File & _file,
-		const std::filesystem::path & _dirPath,
+		const Path & _dirPath,
 		std::ostream & _stream
 	) const;
 
 	void dumpIncludedBy(
 		const model_includes::File & _file,
-		const std::filesystem::path & _dirPath,
+		const Path & _dirPath,
 		std::ostream & _stream
 	) const;
 
 	void dumpFileFromInclude(
 		const model_includes::File & _file,
-		const std::filesystem::path & _dirPath,
+		const Path & _dirPath,
 		const model_includes::Include & _include,
 		size_t _index,
 		std::ostream & _stream
@@ -87,7 +89,7 @@ private:
 	std::ostream & indent( int _count, std::ostream & _stream ) const;
 	std::string toString(
 		const model_includes::File & _file,
-		const std::filesystem::path & _dirPath
+		const Path & _dirPath
 	) const;
 
 	std::string toString( model_includes::FileType _type ) const;

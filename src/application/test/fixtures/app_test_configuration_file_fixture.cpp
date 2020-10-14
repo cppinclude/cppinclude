@@ -118,7 +118,7 @@ ConfigurationfileFixture::toStirng( const PathsArrayOpt & _arrayOpt )
 
 	std::string result;
 
-	for( const std::filesystem::path & path : *_arrayOpt )
+	for( const Path & path : *_arrayOpt )
 	{
 		if( !result.empty() )
 			result += ',';

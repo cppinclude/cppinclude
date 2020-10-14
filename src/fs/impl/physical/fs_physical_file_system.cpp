@@ -16,7 +16,7 @@ namespace fs::physical {
 //------------------------------------------------------------------------------
 
 PhysicalFileSystem::FilePtr PhysicalFileSystem::openFile(
-	const std::filesystem::path & _path
+	const Path & _path
 ) const
 {
 	const bool create = false;
@@ -31,7 +31,7 @@ PhysicalFileSystem::FilePtr PhysicalFileSystem::openFile(
 //------------------------------------------------------------------------------
 
 PhysicalFileSystem::FilePtr PhysicalFileSystem::createFile(
-	const std::filesystem::path & _path
+	const Path & _path
 )
 {
 	const bool create = true;
@@ -45,22 +45,23 @@ PhysicalFileSystem::FilePtr PhysicalFileSystem::createFile(
 
 //------------------------------------------------------------------------------
 
-bool PhysicalFileSystem::isExistFile( const std::filesystem::path & _path ) const
+bool PhysicalFileSystem::isExistFile( const Path & _path ) const
 {
-	return std::filesystem::exists( _path );
+	return stdfs::exists( _path );
 }
 
 //------------------------------------------------------------------------------
 
 PhysicalFileSystem::Path PhysicalFileSystem::toAbsolute( const Path & _path ) const
 {
-	return std::filesystem::absolute( _path );
+	return stdfs::absolute( _path );
 }
 
 //------------------------------------------------------------------------------
 
 PhysicalFileSystem::FilePtr PhysicalFileSystem::getFile(
-	const std::filesystem::path & _path, bool _create
+	const Path & _path,
+	bool _create
 ) const
 {
 	const std::ios_base::openmode mode =
@@ -79,15 +80,15 @@ PhysicalFileSystem::FilePtr PhysicalFileSystem::getFile(
 //------------------------------------------------------------------------------
 
 void PhysicalFileSystem::forEachItem(
-	const std::filesystem::path & _ditPath,
+	const Path & _ditPath,
 	ItemCallback _callback
 ) const
 {
-	for(auto& item : std::filesystem::directory_iterator( _ditPath ) )
+	for(auto& item : stdfs::directory_iterator( _ditPath ) )
 	{
 		static_assert( static_cast< int >( ItemType::Count ) == 2 );
 		ItemType type =
-			std::filesystem::is_directory( item ) ?
+			stdfs::is_directory( item ) ?
 			ItemType::Folder :
 			ItemType::File
 		;
@@ -99,7 +100,7 @@ void PhysicalFileSystem::forEachItem(
 
 PhysicalFileSystem::Path PhysicalFileSystem::getCurrentPath() const
 {
-	return std::filesystem::current_path();
+	return stdfs::current_path();
 }
 
 //------------------------------------------------------------------------------

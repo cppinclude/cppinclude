@@ -295,8 +295,12 @@ Show standard library headers in output.
 Requirements:
 
 * C++17
-* Cmake
-* GCC/Clang/Visual Studio
+* CMake
+* Compilers:
+  * GCC ( tested on 7.5 and 10.1 versions )
+  * Visual Studio ( tested on 2017 and 2019 community edition versions  )
+  * Clang ( tested on 10.0 version )
+  * Apple Clang ( tested on 12.0 version )
 
 Build script
 on Windows:

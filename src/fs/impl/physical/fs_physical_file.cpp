@@ -1,6 +1,7 @@
 #include "fs/impl/physical/fs_physical_file.hpp"
 
 #include <string>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ bool PhysicalFile::eof() const
 std::string PhysicalFile::getLine() const
 {
 	std::string line;
-	getline( m_file, line );
+    std::getline( m_file, line );
 	return line;
 }
 

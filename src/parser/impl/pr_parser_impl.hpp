@@ -6,7 +6,7 @@
 
 namespace parser {
 
-struct ParserContext;
+class ParserContext;
 
 //------------------------------------------------------------------------------
 

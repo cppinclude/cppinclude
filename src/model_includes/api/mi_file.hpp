@@ -15,10 +15,11 @@ class File
 public:
 
 	using IncludeIndex = std::size_t;
+	using Path = stdfs::path;
 
 	virtual ~File() = default;
 
-	virtual std::filesystem::path getPath() const = 0;
+	virtual Path getPath() const = 0;
 	virtual FileType getType() const = 0;
 
 	virtual void addInclude( const Include & _include ) = 0;

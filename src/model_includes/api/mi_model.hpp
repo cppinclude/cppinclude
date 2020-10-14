@@ -19,22 +19,18 @@ public:
 
 	using FileCallback		= std::function< bool ( const File & ) >;
 	using IncludeCallback	= std::function< bool ( const Include & ) >;
+	using Path				= stdfs::path;
 
 	virtual ~Model() = default;
 
 	virtual std::size_t getFilesCount() const = 0;
 	virtual void forEachFile( FileCallback _callback ) const = 0;
 
-	virtual void setProjectDir( const std::filesystem::path & _path ) = 0;
-	virtual const std::filesystem::path & getProjectDir() const = 0;
+	virtual void setProjectDir( const Path & _path ) = 0;
+	virtual const Path & getProjectDir() const = 0;
 
-	virtual const File * findFile(
-		const std::filesystem::path & _filePath
-	) const = 0;
-	virtual File & ensureFile(
-		const std::filesystem::path & _filePath,
-		FileType _fileType
-	) = 0;
+	virtual const File * findFile( const Path & _filePath ) const = 0;
+	virtual File & ensureFile( const Path & _filePath, FileType _fileType ) = 0;
 
 	virtual void forEachInclude( IncludeCallback _callback ) const = 0;
 

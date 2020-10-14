@@ -26,7 +26,8 @@ class Resolver
 {
 public:
 
-	using PathOpt = std::optional< std::filesystem::path >;
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
 
 	Resolver(
 		const fs::FileSystem & _fs,
@@ -34,26 +35,26 @@ public:
 	);
 
 	PathOpt resolvePath(
-		const std::filesystem::path & _startFile,
+		const Path & _startFile,
 		stdfwd::string_view _fileName
 	) const;
 
-	static FileType resolveFileType( const std::filesystem::path & _startFile );
+	static FileType resolveFileType( const Path & _startFile );
 
 private:
 
 	PathOpt checkInCurrentDir(
-		const std::filesystem::path & _startFile,
+		const Path & _startFile,
 		stdfwd::string_view _fileName
 	) const;
 
 	PathOpt findInIncludeFolders( stdfwd::string_view _fileName	) const;
 
-	bool isExistFile( const std::filesystem::path & _filePath ) const;
+	bool isExistFile( const Path & _filePath ) const;
 
 	static const StdLibrary & getStdLibrary();
 
-	const std::filesystem::path & getProjectFolder() const;
+	const Path & getProjectFolder() const;
 
 private:
 

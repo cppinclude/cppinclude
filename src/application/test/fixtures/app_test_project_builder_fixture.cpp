@@ -18,7 +18,7 @@
 
 #include <vector>
 #include <string>
-#include <filesystem>
+#include <std_fs>
 #include <functional>
 #include <set>
 
@@ -77,7 +77,7 @@ std::string ProjectBuilderFixture::getIncludeDirs() const
 	const project::Project::IncludeDirIndex count = project.getIncludeDirsCount();
 	for( project::Project::IncludeDirIndex i = 0; i < count; ++i )
 	{
-		const std::filesystem::path & path = project.getIncludeDir( i );
+		const Path & path = project.getIncludeDir( i );
 		strings.push_back( path.string() );
 	}
 
@@ -91,7 +91,7 @@ std::string ProjectBuilderFixture::getIgnoreDirs() const
 	OrderedStrings strings;
 	const project::Project & project = getProject();
 	project.forEachIgnoreDir(
-		[&]( const std::filesystem::path & _path )
+		[&]( const Path & _path )
 		{
 			strings.insert( _path.string() );
 			return true;
@@ -102,7 +102,7 @@ std::string ProjectBuilderFixture::getIgnoreDirs() const
 
 //------------------------------------------------------------------------------
 
-int ProjectBuilderFixture::getFileFiltersCount() const
+std::size_t ProjectBuilderFixture::getFileFiltersCount() const
 {
 	return getProject().getFileFilterCount();
 }
@@ -128,7 +128,7 @@ std::string ProjectBuilderFixture::getFileExtensions() const
 	OrderedStrings strings;
 	const project::Project & project = getProject();
 	project.forEachFileExtension(
-		[&]( const std::filesystem::path & _path )
+		[&]( const Path & _path )
 		{
 			strings.insert( _path.string() );
 			return true;
@@ -146,7 +146,7 @@ bool ProjectBuilderFixture::getAnalyzeWithoutExtension() const
 
 //------------------------------------------------------------------------------
 
-std::filesystem::path ProjectBuilderFixture::getProjectPath() const
+ProjectBuilderFixture::Path ProjectBuilderFixture::getProjectPath() const
 {
 	return "/projects/test_project/";
 }
@@ -155,9 +155,9 @@ std::filesystem::path ProjectBuilderFixture::getProjectPath() const
 
 std::string ProjectBuilderFixture::toAbsolutePath( std::string_view _path )
 {
-	const std::filesystem::path currentPath =  getFileSystem().getCurrentPath();
-	std::filesystem::path path = currentPath / _path;
-	path = path.lexically_normal();
+	const Path currentPath =  getFileSystem().getCurrentPath();
+	Path path = currentPath / _path;
+	path = stdfs::lexically_normal( path );
 	return path.string();
 }
 
@@ -270,7 +270,7 @@ fs::File & ProjectBuilderFixture::getDefaultConfigurationFile()
 {
 	if( !m_defaultConfigurationFile )
 	{
-		const std::filesystem::path filePath =
+		const Path filePath =
 			getFileSystem().getCurrentPath() /
 			resources::arguments::configurationFile::DefaultValue
 		;

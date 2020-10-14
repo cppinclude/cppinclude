@@ -39,26 +39,27 @@ public:
 
 private:
 
+	using Path = stdfs::path;
 	using IncludeFiles = stdfwd::vector< parser::IncludeFile >;
-	using IgnoredFiles = stdfwd::unordered_set< std::filesystem::path >;
+	using IgnoredFiles = stdfwd::unordered_set< Path >;
 
 	void analyzeFolder(
 		const Project & _project,
-		const std::filesystem::path & _path,
+		const Path & _path,
 		Model & _model,
 		IgnoredFiles & _ignoreFiles
 	) const;
 	
 	void analyzeFile(
 		const Project & _project,
-		const std::filesystem::path & _path,
+		const Path & _path,
 		Model & _model,
 		IgnoredFiles & _ignoreFiles
 	) const;
 
 	void analyzeIncludeFiles(
 		const Project & _project,
-		const std::filesystem::path & _path,
+		const Path & _path,
 		const IncludeFiles & _includesFile,
 		Model & _model,
 		IgnoredFiles & _ignoreFiles
@@ -66,28 +67,25 @@ private:
 
 	void analyzeIncludeFile(
 		const Project & _project,
-		const std::filesystem::path & _path,
+		const Path & _path,
 		const parser::IncludeFile & _includesFile,
 		File & _file,
 		Model & _model,
 		IgnoredFiles & _ignoreFiles
 	) const;
 
-	bool isCppFile(
-		const Project & _project,
-		const std::filesystem::path & _path
-	) const;
+	bool isCppFile( const Project & _project, const Path & _path ) const;
 
-	const std::filesystem::path & getProjectDir() const;
+	const Path & getProjectDir() const;
 
-	using ResolvedPath = std::pair< std::filesystem::path, bool >;
+	using ResolvedPath = std::pair< Path, bool >;
 	ResolvedPath resolvePath(
 		const Project & _project,
-		const std::filesystem::path & _currentFile,
+		const Path & _currentFile,
 		const parser::IncludeFile & _includeFile
 	) const;
 
-	FileType getFileType( const std::filesystem::path & _path ) const;
+	FileType getFileType( const Path & _path ) const;
 
 	IncludeType getIncludeType( const parser::IncludeFile & _includesFile ) const;
 	IncludeStatus getIncludeStatus(
@@ -96,7 +94,7 @@ private:
 	) const;
 
 	static bool isIgnoredFile(
-		const std::filesystem::path & _path,
+		const Path & _path,
 		const Project & _project,
 		const Model & _model,
 		IgnoredFiles & _ignoreFiles

@@ -42,7 +42,7 @@ public:
 	using JsonObject			= json::JsonObject;
 	using JsonObjectPtr			= stdfwd::unique_ptr< JsonObject >;
 
-	using Path					= std::filesystem::path;
+	using Path					= stdfs::path;
 	using FileSystem			= fs::FileSystem;
 
 	ProjectBuilder(

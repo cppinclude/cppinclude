@@ -1,7 +1,7 @@
 #include "reporter/impl/rp_base_reporter_impl.hpp"
 
 #include <string>
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -61,14 +61,14 @@ bool BaseReporterImpl::getShowStdFiles() const
 //------------------------------------------------------------------------------
 
 std::string BaseReporterImpl::getPathWithoutProject(
-	const std::filesystem::path & _filePath,
-	const std::filesystem::path & _dirPath
+	const Path & _filePath,
+	const Path & _dirPath
 ) const
 {
 	if( _dirPath.empty() )
 		return _filePath.string();
 
-	std::filesystem::path result = _filePath.lexically_relative( _dirPath );
+	Path result = stdfs::lexically_relative( _filePath, _dirPath );
 	// if file out of project then return full path
 	if( ( !result.empty() ) && (*result.begin()) != ".." )
 		return result.string();

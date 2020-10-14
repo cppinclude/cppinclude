@@ -83,33 +83,33 @@ private:
 	void report(
 		const UnorderedIncludesByDestination & _unorderedIncludesByDestination,
 		const DestinationFileByCount & _destinationFileByCount,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 
 	void report(
 		const model_includes::Include & _include,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 
 	void reportDestinationFile(
 		const model_includes::File & _file,
 		size_t _number,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 
 	void reportSourceFiles(
 		const UnorderedIncludes & _includes,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 
 	void reportSourceFile(
 		const model_includes::Include & _include,
 		size_t _number,
-		const std::filesystem::path & _projectDir,
+		const Path & _projectDir,
 		std::ostream & _stream
 	) const;
 };

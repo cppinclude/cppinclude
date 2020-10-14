@@ -1,6 +1,7 @@
 #include "application/tools/app_log.hpp"
 
 #include <iostream>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 

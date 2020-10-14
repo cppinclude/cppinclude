@@ -1,9 +1,29 @@
-build_gcc:
+build_gcc10:
   stage: build
   image: ubuntu
   script:
     - apt-get update
-    - apt-get install cmake gcc g++ -y
+    - apt-get install cmake gcc-10 g++-10 -y
+    - export CC=gcc-10
+    - export CXX=g++-10
+    # Build without boost
+    - ./build.sh
+    # Build with boost
+    - apt-get install libboost-test-dev -y
+    - cd build
+    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
+    - cmake --build . --config Release
+    # Run tests
+    - ctest . -C Release
+    
+build_gcc7:
+  stage: build
+  image: ubuntu
+  script:
+    - apt-get update
+    - apt-get install cmake gcc-7 g++-7 -y
+    - export CC=gcc-7
+    - export CXX=g++-7
     # Build without boost
     - ./build.sh
     # Build with boost
@@ -20,6 +40,8 @@ build_clang:
   script:
     - apt-get update
     - apt-get install cmake clang -y
+    - export CC=/usr/bin/clang
+    - export CXX=/usr/bin/clang++
     # Build without boost
     - ./build.sh
     # Build with boost
@@ -33,11 +55,9 @@ build_clang:
 build_windows:
   stage: build
   tags:
-    - shared-windows
-    - windows
-    - windows-1809
+    - vm_win
   script:
-    - choco install cmake -y
+    #- choco install cmake -y
     - $env:PATH="C:\Program Files\CMake\bin;$env:PATH"
     # Build without boost
     - cmd /c ".\build.bat"
@@ -46,9 +66,37 @@ build_windows:
     - mkdir build
     - cd build
     # Build with boost
-    - vcpkg install boost-test:x64-windows
-    - vcpkg install boost-system:x64-windows
-    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
+    #- vcpkg install boost-test:x64-windows
+    #- vcpkg install boost-system:x64-windows
+    - cmake ../src/ -G "Visual Studio 16" -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
+    - cmake --build . --config Release
+    # Run tests
+    - ctest . -C Release
+    
+build_vs2017:
+  stage: build
+  tags:
+    - vm_win
+  script:
+    #- choco install visualstudio2017community -y
+    #- choco install visualstudio2017-workload-nativedesktop -y
+    #- choco install cmake -y
+    - $env:PATH="C:\Program Files\CMake\bin;$env:PATH"
+    - cd build
+    - cmake -G "Visual Studio 15" ../src/ -DCMAKE_BUILD_TYPE=Release
+    - cmake --build . --config Release
+    
+build_macos:
+  stage: build
+  tags: 
+    - macmini
+  script:
+    # Build without boost
+    - ./build.sh
+    # Build with boost
+    # brew install boost
+    - cd build
+    - cmake ../src/ -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
     - cmake --build . --config Release
     # Run tests
     - ctest . -C Release

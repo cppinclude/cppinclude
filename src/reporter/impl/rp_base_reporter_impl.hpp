@@ -20,13 +20,15 @@ public:
 
 protected:
 
+	using Path = stdfs::path;
+
 	size_t getMaxFilesCount() const;
 	size_t getMaxDetailsCount() const;
 	bool getShowStdFiles() const;
 
 	std::string getPathWithoutProject(
-		const std::filesystem::path & _filePath,
-		const std::filesystem::path & _dirPath
+		const Path & _filePath,
+		const Path & _dirPath
 	) const;
 
 private:

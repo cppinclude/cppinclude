@@ -13,7 +13,7 @@ class Project
 public:
 
 	using Strings					= stdfwd::vector< std::string >;
-	using Path						= std::filesystem::path;
+	using Path						= stdfs::path;
 	using DirPaths					= stdfwd::vector< Path >;
 	using IncludeDirIndex			= std::size_t;
 	using FileFilterIndex			= std::size_t;

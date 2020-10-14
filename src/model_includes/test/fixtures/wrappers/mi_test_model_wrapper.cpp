@@ -9,7 +9,7 @@
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <memory>
-#include <filesystem>
+#include <std_fs>
 #include <set>
 
 //------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ BoostPredicate ModelWrapper::checkFilesCount( std::size_t _expectCount ) const
 
 FileWrapper ModelWrapper::findFile( std::string_view _path ) const
 {
-	const std::filesystem::path path{ _path };
+	const stdfs::path path{ _path };
 	return getModel().findFile( path );
 }
 
@@ -112,6 +112,7 @@ std::string ModelWrapper::dump() const
 	std::stringstream result;
 	result << '\n';
 	int i = 1;
+	result << "Files count: " << paths.size() << '\n';
 	for( const auto & path : paths )
 	{
 		result << i++ << ": " << path << '\n';

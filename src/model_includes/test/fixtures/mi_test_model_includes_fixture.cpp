@@ -23,7 +23,7 @@
 
 #include <string_view>
 #include <optional>
-#include <filesystem>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ void ModelIncludesFixture::addFileToProject(
 	std::string_view _text
 )
 {
-	std::filesystem::path filePath = getProjectDir() / _file;
+	Path filePath = getProjectDir() / _file;
 	addFile( filePath.string(), _text );
 }
 
@@ -59,8 +59,8 @@ void ModelIncludesFixture::addFile(
 	std::string_view _text
 )
 {
-	std::filesystem::path filePath{ _path };
-	filePath = filePath.lexically_normal();
+	Path filePath{ _path };
+	filePath = stdfs::lexically_normal( filePath );
 	auto filePtr = ensureFileSystem().createFile( filePath );
 	INTERNAL_CHECK_ERROR( filePtr );
 	(*filePtr) << _text;
@@ -111,7 +111,7 @@ void ModelIncludesFixture::setAnalyzeWithoutExtension( bool _enable )
 //------------------------------------------------------------------------------
 
 ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
-	const std::filesystem::path & _startFile,
+	const Path & _startFile,
 	stdfwd::string_view _fileName
 )
 {
@@ -241,7 +241,7 @@ Analyzer & ModelIncludesFixture::ensureAnalyzer()
 
 //------------------------------------------------------------------------------
 
-const std::filesystem::path & ModelIncludesFixture::getProjectDir()
+const ModelIncludesFixture::Path & ModelIncludesFixture::getProjectDir()
 {
 	return ensureProject().getProjectDir();
 }
