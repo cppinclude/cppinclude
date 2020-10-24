@@ -1,0 +1,4 @@
+@PACKAGE_INIT@
+
+list(APPEND CMAKE_MODULE_PATH "@PACKAGE_cmakeModulesDir@")
+include("${CMAKE_CURRENT_LIST_DIR}/cppinclude-targets.cmake")
