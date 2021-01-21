@@ -45,6 +45,8 @@ add_subdirectory(project)
 add_subdirectory(application)
 add_subdirectory(3rd-part/fmt)
 add_subdirectory(json)
+add_subdirectory(compilation_db)
+add_subdirectory(cmake_project)
 
 target_link_libraries(${PROJECT_NAME} application_lib)
 

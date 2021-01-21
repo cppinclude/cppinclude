@@ -2,7 +2,7 @@
 
 #include "json/api/json_object.hpp"
 
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -24,6 +24,7 @@ public:
 	explicit JsonObjectImpl( std::istream & _stream );
 
 	JsonValuePtr getAttributeValue( std::string_view _name ) const override;
+	JsonValuePtr asValue() const override;
 
 private:
 

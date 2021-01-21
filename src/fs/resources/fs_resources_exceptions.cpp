@@ -26,4 +26,12 @@ namespace CantOpenFile
 
 //------------------------------------------------------------------------------
 
+namespace CheckingExistFileFail
+{
+	const char * const Code		= "IS_EXIST_PATH";
+	const char * const Msg		= "Error during checking path: ";
+}
+
+//------------------------------------------------------------------------------
+
 }

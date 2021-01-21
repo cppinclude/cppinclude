@@ -1,0 +1,1 @@
+call ..\tools\run_analyze.bat

@@ -27,6 +27,7 @@ class ModelWrapper
 public:
 
 	using ModelPtr	= stdfwd::unique_ptr< Model >;
+	using Path		= stdfs::path;
 
 	ModelWrapper( ModelPtr && _modelPtr );
 	~ModelWrapper();

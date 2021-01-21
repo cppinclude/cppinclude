@@ -23,7 +23,7 @@ FileImpl::FileImpl( const Path & _path, FileType _type )
 
 //------------------------------------------------------------------------------
 
-FileImpl::Path FileImpl::getPath() const
+const FileImpl::Path & FileImpl::getPath() const
 {
 	return m_path;
 }

@@ -9,15 +9,6 @@ namespace project {
 	class Project;
 }
 
-//------------------------------------------------------------------------------
-
-namespace json {
-	class JsonAccessor;
-	class JsonObject;
-}
-
-//------------------------------------------------------------------------------
-
 namespace fs {
 	class FileSystem;
 }
@@ -38,20 +29,18 @@ public:
 	using Project				= project::Project;
 	using ProjectPtr			= stdfwd::unique_ptr< Project >;
 
-	using JsonAccessor			= json::JsonAccessor;
-	using JsonObject			= json::JsonObject;
-	using JsonObjectPtr			= stdfwd::unique_ptr< JsonObject >;
-
 	using Path					= stdfs::path;
 	using FileSystem			= fs::FileSystem;
 
 	ProjectBuilder(
 		ProjectAccessor & _projectAccessor,
-		JsonAccessor & _jsonAccessor,
 		FileSystem & _fs
 	);
 
-	ProjectPtr build( const ParserArgWrapper & _arguments );
+	ProjectPtr build(
+		const ParserArgWrapper & _arguments,
+		const ConfigurationFile * _configurationFile
+	);
 
 private:
 
@@ -67,12 +56,11 @@ private:
 
 	ProjectPtr createProject();
 
-	JsonObjectPtr createJson( const Path & _file );
+	void reset();
 
 private:
 
 	ProjectAccessor & m_projectAccessor;
-	JsonAccessor & m_jsonAccessor;
 	FileSystem & m_fs;
 	bool m_ignoreSystemIncludesChanged;
 	bool m_analyzeWithoutExtensionChanged;

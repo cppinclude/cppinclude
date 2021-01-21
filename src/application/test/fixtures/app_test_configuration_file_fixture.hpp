@@ -11,10 +11,12 @@ namespace json {
 	class JsonAccessor;
 }
 
-//------------------------------------------------------------------------------
-
 namespace application {
 	class ConfigurationFile;
+}
+
+namespace reporter {
+	enum class ReporterKind;
 }
 
 //------------------------------------------------------------------------------
@@ -28,8 +30,8 @@ class ConfigurationfileFixture
 public:
 
 	using StringOpt			= stdfwd::optional< std::string >;
-	using StringsArray		= stdfwd::vector< std::string >;
-	using StringsOpt		= std::optional< StringsArray >;
+	using Strings			= stdfwd::vector< std::string >;
+	using StringsOpt		= std::optional< Strings >;
 
 	using Path				= stdfs::path;
 	using PathOpt			= std::optional< Path >;
@@ -37,6 +39,10 @@ public:
 	using PathsArrayOpt		= std::optional< PathsArray >;
 
 	using BoolOpt			= std::optional< bool >;
+	using IntOpt			= std::optional< int >;
+
+	using ReporterKinds		= stdfwd::vector< reporter::ReporterKind >;
+	using ReporterKindsOpt	= std::optional< ReporterKinds >;
 
 	ConfigurationfileFixture();
 	~ConfigurationfileFixture();
@@ -52,8 +58,23 @@ public:
 	BoolOpt getIgnoreSystemIncludes() const;
 	StringOpt getIgnoreFiles() const;
 
+	PathOpt getCompileCommands() const;
+
+	StringOpt getReports() const;
+
+	IntOpt getReportLimit() const;
+	IntOpt getReportDetailsLimit() const;
+	BoolOpt getShowStdFile() const;
+
 	static StringOpt toStirng( const StringsOpt & _arrayOpt );
 	static StringOpt toStirng( const PathsArrayOpt & _arrayOpt );
+	static StringOpt toStirng( const ReporterKindsOpt & _arrayOpt );
+
+	template< class _ArrayTypeOpt >
+	static StringOpt arrayToString( const _ArrayTypeOpt & _arrayOpt );
+
+	static std::string toString( reporter::ReporterKind _kind );
+	static std::string toString( const Path & _path );
 
 private:
 

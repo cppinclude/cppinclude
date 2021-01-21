@@ -1,6 +1,7 @@
 {
 	"project_dir" : "./src",
 	"file_extentions" : ["*.cpp", "*.hpp"],
-	"include_dirs" : [".", "/usr/include/", "./3rd-part/cpp-std-fwd-master/"],
-	"ignore_dirs" : ["./3rd-part"]
+	"include_dirs" : ["."],
+	"ignore_dirs" : ["./3rd-part"],
+	"ignore_system_includes" : true
 }

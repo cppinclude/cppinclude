@@ -16,6 +16,15 @@ TEST PLAN
 6. Ignore system includes
 7. Ignore files
 8. Analyze without extension
+9. Reports
+	9.1	Unresolved
+	9.2 MostImpact
+	9.3 Dump
+	9.4 Several reports
+10. Report limit
+11. Report details limit
+12. Show std files
+13. Compile commands
 
 -------------------------------------------------------------------------------*/
 
@@ -144,6 +153,126 @@ BOOST_AUTO_TEST_CASE(t8_analyze_without_extension)
 
 	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( *valueOpt, true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t9_1_report_unresolved)
+{
+
+	// Run
+	loadFromJson( R"({ "report" : [ "unresolved" ] })" );
+
+	// Check
+	auto valueOpt = getReports();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "unresolved" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t9_2_report_most_impact)
+{
+
+	// Run
+	loadFromJson( R"({ "report" : [ "most_impact" ] })" );
+
+	// Check
+	auto valueOpt = getReports();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "most_impact" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t9_3_report_dump)
+{
+
+	// Run
+	loadFromJson( R"({ "report" : [ "dump" ] })" );
+
+	// Check
+	auto valueOpt = getReports();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "dump" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t9_4_several_reports)
+{
+
+	// Run
+	loadFromJson( R"({ "report" : [ "unresolved" , "most_impact", "dump" ] })" );
+
+	// Check
+	auto valueOpt = getReports();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "unresolved,most_impact,dump" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t10_report_limit)
+{
+
+	// Run
+	loadFromJson( R"({ "report_limit" : 10 })" );
+
+	// Check
+	auto valueOpt = getReportLimit();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, 10 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t11_report_details_limit)
+{
+
+	// Run
+	loadFromJson( R"({ "report_details_limit" : 10 })" );
+
+	// Check
+	auto valueOpt = getReportDetailsLimit();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, 10 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t12_show_std_files)
+{
+
+	// Run
+	loadFromJson( R"({ "show_std_files" : true })" );
+
+	// Check
+	auto valueOpt = getShowStdFile();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t13_compile_commands)
+{
+
+	// Run
+	loadFromJson( R"({ "compile_commands" : "compile_commands.json" })" );
+
+	// Check
+	auto valueOpt = getCompileCommands();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, stdfs::path{ "compile_commands.json" } );
 }
 
 //------------------------------------------------------------------------------

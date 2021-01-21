@@ -19,6 +19,10 @@
 #include "project/api/prj_project.hpp"
 #include "project/ih/prj_project_accesso_impl.hpp"
 
+#include "cmake_project/api/cprj_project.hpp"
+#include "cmake_project/api/cprj_loader.hpp"
+#include "cmake_project/ih/cprj_accessor_impl.hpp"
+
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <string_view>
@@ -50,6 +54,13 @@ void ModelIncludesFixture::addFileToProject(
 {
 	Path filePath = getProjectDir() / _file;
 	addFile( filePath.string(), _text );
+}
+
+//------------------------------------------------------------------------------
+
+void ModelIncludesFixture::addFileToCmake( std::string_view _file )
+{
+	ensureCmakeProject().addFilePath( _file );
 }
 
 //------------------------------------------------------------------------------
@@ -110,12 +121,39 @@ void ModelIncludesFixture::setAnalyzeWithoutExtension( bool _enable )
 
 //------------------------------------------------------------------------------
 
-ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
-	const Path & _startFile,
-	stdfwd::string_view _fileName
+void ModelIncludesFixture::addIncludePathToCMake(
+	std::string_view _file,
+	std::string_view _includeDir
 )
 {
-	return ensureResolver().resolvePath( _startFile, _fileName );
+	ensureCmakeProject().addIncludeToFile( _file, _includeDir );
+}
+
+//------------------------------------------------------------------------------
+
+ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
+	const Path & _startFile,
+	std::string_view _fileName
+)
+{
+	return resolvePath( _startFile, _fileName, std::nullopt );
+}
+
+//------------------------------------------------------------------------------
+
+ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
+	const Path & _startFile,
+	stdfwd::string_view _fileName,
+	const PathOpt & _currentCMakeFile
+)
+{
+	return ensureResolver().resolvePath(
+		ensureProject(),
+		m_cmakeProject.get(),
+		_startFile,
+		_fileName,
+		_currentCMakeFile
+	);
 }
 
 //------------------------------------------------------------------------------
@@ -150,8 +188,20 @@ BoostPredicate ModelIncludesFixture::checkFileType(
 
 ModelWrapper ModelIncludesFixture::analyze()
 {
-	ensureProject().changeAllPathsToAbsolute();
-	return ensureAnalyzer().analyze( ensureProject() );
+	project::Project & project = ensureProject();
+	project.changeAllPathsToAbsolute();
+
+	return ensureAnalyzer().analyze( project );
+}
+
+//------------------------------------------------------------------------------
+
+ModelWrapper ModelIncludesFixture::analyzeCmake()
+{
+	project::Project & project = ensureProject();
+	project.changeAllPathsToAbsolute();
+
+	return ensureAnalyzer().analyze( project, ensureCmakeProject() );
 }
 
 //------------------------------------------------------------------------------
@@ -216,9 +266,7 @@ fs::FileSystem & ModelIncludesFixture::ensureFileSystem()
 Resolver & ModelIncludesFixture::ensureResolver()
 {
 	if( !m_resolverPtr )
-		m_resolverPtr.reset(
-			new Resolver{ ensureFileSystem(), ensureProject() }
-	);
+		m_resolverPtr.reset( new Resolver{ ensureFileSystem() } );
 
 	return *m_resolverPtr;
 }
@@ -261,11 +309,33 @@ project::ProjectAccessor & ModelIncludesFixture::ensureProjectAccessor()
 project::Project & ModelIncludesFixture::ensureProject()
 {
 	if( !m_project )
-	{
-		auto newProject{ ensureProjectAccessor().createProject() };
-		m_project.swap( newProject );
-	}
+		m_project = ensureProjectAccessor().createProject();
+
 	return *m_project;
+}
+
+//------------------------------------------------------------------------------
+
+cmake_project::Accessor & ModelIncludesFixture::ensureCmakeProjectAccessor()
+{
+	if( !m_cmakeProjectAccessor )
+		m_cmakeProjectAccessor.reset( new cmake_project::AccessorImpl );
+
+	return *m_cmakeProjectAccessor;
+}
+
+//------------------------------------------------------------------------------
+
+cmake_project::Project & ModelIncludesFixture::ensureCmakeProject()
+{
+	if( !m_cmakeProject )
+	{
+		auto loaderPtr = ensureCmakeProjectAccessor().createLoader();
+		INTERNAL_CHECK_ERROR( loaderPtr );
+		m_cmakeProject = loaderPtr->createEmptyProject();
+	}
+
+	return *m_cmakeProject;
 }
 
 //------------------------------------------------------------------------------

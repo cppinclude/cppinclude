@@ -4,6 +4,8 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
+#include "reporter/tools/rp_reporter_kind_functins.hpp"
+
 #include "json/api/json_object.hpp"
 #include "json/api/json_value.hpp"
 #include "json/api/json_array.hpp"
@@ -24,6 +26,14 @@ void ConfigurationFile::loadFromJson( const json::JsonObject & _json )
 	loadIgnoreDirs( _json );
 	loadIgnoreSystemIncludes( _json );
 	loadIgnoreFiles( _json );
+
+	loadCompileCommands( _json );
+
+	loadReports( _json );
+	loadReportLimit( _json );
+	loadReportDetailsLimit( _json );
+	loadShowStdFiles( _json );
+
 }
 
 //------------------------------------------------------------------------------
@@ -77,14 +87,53 @@ ConfigurationFile::StringsOpt ConfigurationFile::getIgnoreFiles() const
 
 //------------------------------------------------------------------------------
 
+ConfigurationFile::PathOpt ConfigurationFile::getCompileCommands() const
+{
+	return m_compileCommands;
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::setCompileCommands( const Path & _path )
+{
+	m_compileCommands = _path;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::ReporterKindsOpt ConfigurationFile::getReporterKinds() const
+{
+	return m_reports;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::IntOpt ConfigurationFile::getReportLimit() const
+{
+	return m_reportLimit;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::IntOpt ConfigurationFile::getReportDetailsLimit() const
+{
+	return m_reportDetailsLimit;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::BoolOpt ConfigurationFile::getShowStdFiles() const
+{
+	return m_showStdFiles;
+}
+
+//------------------------------------------------------------------------------
+
 void ConfigurationFile::loadProjectDir( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	StringOpt pathStrOpt;
-	loadStringValue( _json, configuration_file::ProjectDir, pathStrOpt);
-
-	m_projectDir = pathStrOpt;
+	loadPathOpt( _json, configuration_file::ProjectDir, m_projectDir);
 }
 
 //------------------------------------------------------------------------------
@@ -154,6 +203,63 @@ void ConfigurationFile::loadIgnoreFiles( const json::JsonObject & _json )
 
 //------------------------------------------------------------------------------
 
+void ConfigurationFile::loadCompileCommands( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadPathOpt( _json, configuration_file::CompileCommands, m_compileCommands );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadReports( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	StringsOpt stringsOpt;
+
+	loadArrayOpt( _json, configuration_file::Report, stringsOpt );
+	if( !stringsOpt )
+		return;
+
+	m_reports = ReporterKinds{};
+	m_reports->reserve( stringsOpt->size() );
+	for( const std::string str : *stringsOpt )
+	{
+		const reporter::ReporterKind kind = reporter::toReporterKind( str );
+		m_reports->push_back( kind );
+	}
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadReportLimit( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadIntOpt( _json, configuration_file::ReportLimit, m_reportLimit );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadReportDetailsLimit( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadIntOpt( _json, configuration_file::ReportDetailsLimit, m_reportDetailsLimit );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadShowStdFiles( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadBoolOpt( _json, configuration_file::ShowStdFiles, m_showStdFiles );
+}
+
+//------------------------------------------------------------------------------
+
 void ConfigurationFile::loadStringValue(
 	const json::JsonObject & _json,
 	std::string_view _name,
@@ -214,6 +320,20 @@ void ConfigurationFile::loadArrayOpt(
 
 //------------------------------------------------------------------------------
 
+void ConfigurationFile::loadPathOpt(
+	const json::JsonObject & _json,
+	std::string_view _name,
+	PathOpt & _valueOpt
+)
+{
+	StringOpt pathStrOpt;
+	loadStringValue( _json, _name, pathStrOpt);
+
+	_valueOpt = pathStrOpt;
+}
+
+//------------------------------------------------------------------------------
+
 void ConfigurationFile::loadPathsOpt(
 	const json::JsonObject & _json,
 	std::string_view _name,
@@ -247,6 +367,22 @@ void ConfigurationFile::loadBoolOpt(
 		const json::JsonValue & value = *valuePtr;
 		const bool valueBool = value.asBool();
 		_valueOpt = valueBool;
+	}
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadIntOpt(
+	const json::JsonObject & _json,
+	std::string_view _name,
+	IntOpt & _valueOpt
+)
+{
+	if( auto valuePtr = _json.getAttributeValue( _name ); valuePtr )
+	{
+		const json::JsonValue & value = *valuePtr;
+		const int valueInt = value.asInt();
+		_valueOpt = valueInt;
 	}
 }
 

@@ -2,117 +2,146 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "llvm\include\llvm\Support\Compiler.h" impact on 4791 file(s)
+1 : "libcxx\include\__config" impact on 18982 file(s)
 Included by:
-	1 : "llvm\include\llvm\ADT\SmallVector.h" line 18, impact on 4465 file(s)
-	2 : "llvm\include\llvm\ADT\Optional.h" line 19, impact on 2562 file(s)
-	3 : "llvm\include\llvm\Support\Error.h" line 23, impact on 2427 file(s)
-	4 : "llvm\include\llvm\ADT\DenseMap.h" line 19, impact on 2296 file(s)
-	5 : "llvm\include\llvm\Support\SwapByteOrder.h" line 17, impact on 2016 file(s)
-	6 : "llvm\include\llvm\Support\Endian.h" line 17, impact on 2009 file(s)
-	7 : "llvm\include\llvm\ADT\PointerIntPair.h" line 16, impact on 1852 file(s)
-	8 : "llvm\include\llvm\Support\Allocator.h" line 26, impact on 1813 file(s)
-	9 : "clang\include\clang\AST\NestedNameSpecifier.h" line 21, impact on 548 file(s)
-	10 : "clang\include\clang\AST\Decl.h" line 44, impact on 541 file(s)
-	... 10 of 301 details
-2 : "llvm\include\llvm\ADT\SmallVector.h" impact on 4465 file(s)
+	1 : "libcxx\include\math.h" line 294, impact on 17505 file(s)
+	2 : "libcxx\include\stdlib.h" line 91, impact on 17505 file(s)
+	3 : "libcxx\include\stdint.h" line 106, impact on 11752 file(s)
+	4 : "libcxx\include\stddef.h" line 39, impact on 11042 file(s)
+	5 : "libcxx\include\inttypes.h" line 238, impact on 9937 file(s)
+	6 : "libcxx\include\setjmp.h" line 28, impact on 7910 file(s)
+	7 : "libcxx\test\support\test_macros.h" line 18, impact on 5744 file(s)
+	8 : "libcxx\include\stdio.h" line 101, impact on 3356 file(s)
+	9 : "libcxx\include\string.h" line 54, impact on 1882 file(s)
+	10 : "libcxx\include\limits.h" line 40, impact on 1068 file(s)
+	... 10 of 48 details
+2 : "libcxx\include\type_traits" impact on 17768 file(s)
 Included by:
-	1 : "llvm\include\llvm\Support\raw_ostream.h" line 16, impact on 3651 file(s)
-	2 : "llvm\include\llvm\Support\Error.h" line 18, impact on 2427 file(s)
-	3 : "llvm\include\llvm\Support\Allocator.h" line 24, impact on 1813 file(s)
-	4 : "llvm\include\llvm\Support\SourceMgr.h" line 21, impact on 940 file(s)
-	5 : "llvm\include\llvm\Support\VirtualFileSystem.h" line 20, impact on 652 file(s)
-	6 : "llvm\include\llvm\ADT\MapVector.h" line 20, impact on 523 file(s)
-	7 : "clang\include\clang\AST\Expr.h" line 33, impact on 456 file(s)
-	8 : "clang\include\clang\Basic\FileManager.h" line 21, impact on 409 file(s)
-	9 : "clang\include\clang\Basic\SourceManager.h" line 46, impact on 382 file(s)
-	10 : "llvm\include\llvm\ADT\TinyPtrVector.h" line 15, impact on 381 file(s)
-	... 10 of 698 details
-3 : "llvm\include\llvm\Support\raw_ostream.h" impact on 3651 file(s)
+	1 : "libcxx\include\math.h" line 311, impact on 17505 file(s)
+	2 : "llvm\include\llvm\Support\type_traits.h" line 17, impact on 9534 file(s)
+	3 : "llvm\include\llvm\ADT\iterator.h" line 16, impact on 9419 file(s)
+	4 : "llvm\include\llvm\ADT\STLExtras.h" line 35, impact on 9405 file(s)
+	5 : "llvm\include\llvm\Support\SwapByteOrder.h" line 20, impact on 9323 file(s)
+	6 : "llvm\include\llvm\ADT\StringRef.h" line 21, impact on 9312 file(s)
+	7 : "llvm\include\llvm\Support\MathExtras.h" line 23, impact on 9305 file(s)
+	8 : "llvm\include\llvm\ADT\SmallVector.h" line 32, impact on 9242 file(s)
+	9 : "llvm\include\llvm\ADT\ArrayRef.h" line 24, impact on 8875 file(s)
+	10 : "llvm\include\llvm\Support\PointerLikeTypeTraits.h" line 19, impact on 8498 file(s)
+	... 10 of 1372 details
+3 : "libcxx\include\limits" impact on 17677 file(s)
 Included by:
-	1 : "llvm\include\llvm\Support\Error.h" line 28, impact on 2427 file(s)
-	2 : "lldb\include\lldb\Utility\Stream.h" line 17, impact on 355 file(s)
-	3 : "clang\include\clang\AST\Attr.h" line 30, impact on 225 file(s)
-	4 : "llvm\include\llvm\Support\EndianStream.h" line 19, impact on 117 file(s)
-	5 : "llvm\include\llvm\Support\JSON.h" line 54, impact on 88 file(s)
-	6 : "llvm\include\llvm\MC\MCObjectWriter.h" line 17, impact on 85 file(s)
-	7 : "llvm\include\llvm\Support\ScopedPrinter.h" line 18, impact on 83 file(s)
-	8 : "clang-tools-extra\clangd\Protocol.h" line 31, impact on 64 file(s)
-	9 : "llvm\include\llvm\Support\LEB128.h" line 17, impact on 58 file(s)
-	10 : "llvm\include\llvm\Support\FormattedStream.h" line 17, impact on 52 file(s)
-	... 10 of 1274 details
-4 : "llvm\include\llvm\ADT\Optional.h" impact on 2562 file(s)
+	1 : "libcxx\include\math.h" line 312, impact on 17505 file(s)
+	2 : "llvm\include\llvm\ADT\STLExtras.h" line 32, impact on 9405 file(s)
+	3 : "llvm\include\llvm\ADT\StringRef.h" line 19, impact on 9312 file(s)
+	4 : "llvm\include\llvm\Support\MathExtras.h" line 22, impact on 9305 file(s)
+	5 : "llvm\include\llvm\Support\Alignment.h" line 28, impact on 8063 file(s)
+	6 : "llvm\include\llvm\ADT\PointerIntPair.h" line 21, impact on 6760 file(s)
+	7 : "clang\include\clang\Basic\Diagnostic.h" line 31, impact on 2055 file(s)
+	8 : "llvm\include\llvm\ADT\SmallBitVector.h" line 24, impact on 1103 file(s)
+	9 : "llvm\include\llvm\ADT\SparseSet.h" line 28, impact on 746 file(s)
+	10 : "clang\include\clang\ASTMatchers\ASTMatchers.h" line 89, impact on 695 file(s)
+	... 10 of 379 details
+4 : "libcxx\include\math.h" impact on 17505 file(s)
 Included by:
-	1 : "llvm\include\llvm\Support\Allocator.h" line 23, impact on 1813 file(s)
-	2 : "llvm\include\llvm\Support\VirtualFileSystem.h" line 19, impact on 652 file(s)
-	3 : "clang\include\clang\AST\Decl.h" line 38, impact on 541 file(s)
-	4 : "clang\include\clang\Lex\Lexer.h" line 21, impact on 336 file(s)
-	5 : "clang\include\clang\AST\ExprCXX.h" line 40, impact on 287 file(s)
-	6 : "clang\include\clang\AST\ExprObjC.h" line 29, impact on 260 file(s)
-	7 : "clang\include\clang\Lex\Preprocessor.h" line 38, impact on 229 file(s)
-	8 : "llvm\include\llvm\MC\MCStreamer.h" line 18, impact on 207 file(s)
-	9 : "llvm\include\llvm\ADT\PostOrderIterator.h" line 19, impact on 170 file(s)
-	10 : "llvm\include\llvm\Analysis\ScalarEvolution.h" line 29, impact on 107 file(s)
-	... 10 of 280 details
-5 : "llvm\include\llvm-c\ExternC.h" impact on 2474 file(s)
+	1 : "libcxx\include\stdlib.h" line 100, impact on 17505 file(s)
+	2 : "llvm\include\llvm-c\DataTypes.h" line 30, impact on 9481 file(s)
+	3 : "compiler-rt\lib\builtins\int_math.h" line 27, impact on 66 file(s)
+	4 : "openmp\runtime\src\kmp_stats.h" line 30, impact on 18 file(s)
+	5 : "compiler-rt\lib\msan\tests\msan_test.cpp" line 41
+	6 : "compiler-rt\test\asan\TestCases\frexp_interceptor.cpp" line 5
+	7 : "compiler-rt\test\builtins\Unit\adddf3vfp_test.c" line 18
+	8 : "compiler-rt\test\builtins\Unit\addsf3vfp_test.c" line 18
+	9 : "compiler-rt\test\builtins\Unit\arm\aeabi_cdcmpeq_test.c" line 19
+	10 : "compiler-rt\test\builtins\Unit\arm\aeabi_cdcmple_test.c" line 21
+	... 10 of 127 details
+5 : "libcxx\include\stdlib.h" impact on 17505 file(s)
 Included by:
-	1 : "llvm\include\llvm-c\Error.h" line 17, impact on 2429 file(s)
-	2 : "llvm\include\llvm-c\Disassembler.h" line 19, impact on 18 file(s)
-	3 : "llvm\include\llvm-c\Initialization.h" line 19, impact on 12 file(s)
-	4 : "llvm\include\llvm-c\BitReader.h" line 22, impact on 5 file(s)
-	5 : "llvm\include\llvm-c\Linker.h" line 17, impact on 4 file(s)
-	6 : "llvm\include\llvm-c\Transforms\PassManagerBuilder.h" line 17, impact on 4 file(s)
-	7 : "llvm\include\llvm-c\Transforms\Scalar.h" line 22, impact on 4 file(s)
-	8 : "llvm\include\llvm-c\BitWriter.h" line 22, impact on 3 file(s)
-	9 : "llvm\include\llvm-c\IRReader.h" line 17, impact on 3 file(s)
-	10 : "llvm\include\llvm-c\Transforms\IPO.h" line 18, impact on 3 file(s)
-	... 10 of 11 details
-6 : "llvm\include\llvm\Support\ErrorOr.h" impact on 2465 file(s)
+	1 : "libcxx\include\math.h" line 301, impact on 17505 file(s)
+	2 : "llvm\include\llvm-c\DataTypes.h" line 63, impact on 9481 file(s)
+	3 : "llvm\include\llvm\Support\SwapByteOrder.h" line 22, impact on 9323 file(s)
+	4 : "clang\lib\Headers\mm_malloc.h" line 13, impact on 7943 file(s)
+	5 : "libcxx\test\support\test_macros.h" line 301, impact on 5744 file(s)
+	6 : "polly\lib\External\isl\include\isl\arg.h" line 14, impact on 316 file(s)
+	7 : "polly\lib\External\isl\include\isl\ctx.h" line 14, impact on 315 file(s)
+	8 : "compiler-rt\test\tsan\test.h" line 2, impact on 169 file(s)
+	9 : "llgo\third_party\gofrontend\libffi\testsuite\libffi.call\ffitest.h" line 1, impact on 144 file(s)
+	10 : "libcxx\test\support\platform_support.h" line 55, impact on 137 file(s)
+	... 10 of 1003 details
+6 : "libcxx\include\cassert" impact on 14768 file(s)
 Included by:
-	1 : "llvm\include\llvm\Support\Error.h" line 26, impact on 2427 file(s)
-	2 : "llvm\include\llvm\Support\FileSystem.h" line 36, impact on 1520 file(s)
-	3 : "llvm\include\llvm\Support\MemoryBuffer.h" line 21, impact on 1380 file(s)
-	4 : "llvm\include\llvm\Support\VirtualFileSystem.h" line 24, impact on 652 file(s)
-	5 : "clang\include\clang\Basic\FileManager.h" line 25, impact on 409 file(s)
-	6 : "llvm\include\llvm\Support\Program.h" line 20, impact on 91 file(s)
-	7 : "llvm\include\llvm\Bitcode\BitcodeReader.h" line 22, impact on 36 file(s)
-	8 : "llvm\tools\dsymutil\DebugMap.h" line 32, impact on 7 file(s)
-	9 : "llvm\include\llvm\ProfileData\SampleProfReader.h" line 222, impact on 5 file(s)
-	10 : "llvm\include\llvm\DebugInfo\CodeView\CVSymbolVisitor.h" line 16, impact on 4 file(s)
-	... 10 of 67 details
-7 : "llvm\include\llvm-c\Error.h" impact on 2429 file(s)
+	1 : "llvm\include\llvm\ADT\Optional.h" line 21, impact on 9448 file(s)
+	2 : "llvm\include\llvm\ADT\STLExtras.h" line 25, impact on 9405 file(s)
+	3 : "llvm\include\llvm\ADT\StringRef.h" line 16, impact on 9312 file(s)
+	4 : "llvm\include\llvm\Support\MathExtras.h" line 19, impact on 9305 file(s)
+	5 : "llvm\include\llvm\ADT\SmallVector.h" line 24, impact on 9242 file(s)
+	6 : "llvm\include\llvm\ADT\Hashing.h" line 52, impact on 8901 file(s)
+	7 : "llvm\include\llvm\ADT\ArrayRef.h" line 19, impact on 8875 file(s)
+	8 : "llvm\include\llvm\ADT\Twine.h" line 15, impact on 8386 file(s)
+	9 : "llvm\include\llvm\Support\raw_ostream.h" line 18, impact on 8269 file(s)
+	10 : "llvm\include\llvm\Support\Alignment.h" line 27, impact on 8063 file(s)
+	... 10 of 6042 details
+7 : "libcxx\include\cstddef" impact on 11856 file(s)
 Included by:
-	1 : "llvm\include\llvm\Support\Error.h" line 16, impact on 2427 file(s)
-	2 : "llvm\tools\llvm-c-test\include-all.c" line 26
-	3 : "llvm\unittests\Support\ErrorTest.cpp" line 10
-8 : "llvm\include\llvm\Support\Error.h" impact on 2427 file(s)
+	1 : "llvm\include\llvm-c\DataTypes.h" line 59, impact on 9481 file(s)
+	2 : "llvm\include\llvm\ADT\iterator.h" line 14, impact on 9419 file(s)
+	3 : "llvm\include\llvm\ADT\STLExtras.h" line 26, impact on 9405 file(s)
+	4 : "llvm\include\llvm\Support\SwapByteOrder.h" line 19, impact on 9323 file(s)
+	5 : "llvm\include\llvm\ADT\StringRef.h" line 17, impact on 9312 file(s)
+	6 : "llvm\include\llvm\Support\AlignOf.h" line 17, impact on 9249 file(s)
+	7 : "llvm\include\llvm\ADT\SmallVector.h" line 25, impact on 9242 file(s)
+	8 : "llvm\include\llvm\ADT\ArrayRef.h" line 20, impact on 8875 file(s)
+	9 : "llvm\include\llvm\Support\raw_ostream.h" line 19, impact on 8269 file(s)
+	10 : "llvm\include\llvm\ADT\SmallString.h" line 18, impact on 8032 file(s)
+	... 10 of 890 details
+8 : "libcxx\include\stdint.h" impact on 11752 file(s)
 Included by:
-	1 : "llvm\include\llvm\Support\FileSystem.h" line 34, impact on 1520 file(s)
-	2 : "llvm\include\llvm\Support\DataExtractor.h" line 14, impact on 250 file(s)
-	3 : "llvm\include\llvm\MC\MCStreamer.h" line 25, impact on 207 file(s)
-	4 : "llvm\include\llvm\Support\FileOutputBuffer.h" line 19, impact on 188 file(s)
-	5 : "llvm\include\llvm\Support\BinaryStreamError.h" line 13, impact on 185 file(s)
-	6 : "llvm\include\llvm\Support\BinaryStream.h" line 16, impact on 150 file(s)
-	7 : "lldb\include\lldb\Symbol\TypeSystem.h" line 21, impact on 145 file(s)
-	8 : "clang\include\clang\Frontend\FrontendAction.h" line 26, impact on 142 file(s)
-	9 : "lldb\include\lldb\Utility\Reproducer.h" line 14, impact on 130 file(s)
-	10 : "llvm\include\llvm\Support\BinaryByteStream.h" line 17, impact on 126 file(s)
-	... 10 of 382 details
-9 : "llvm\include\llvm\Support\ReverseIteration.h" impact on 2297 file(s)
+	1 : "compiler-rt\include\sanitizer\common_interface_defs.h" line 16, impact on 10001 file(s)
+	2 : "libcxx\include\inttypes.h" line 255, impact on 9937 file(s)
+	3 : "llvm\include\llvm-c\DataTypes.h" line 34, impact on 9481 file(s)
+	4 : "lldb\include\lldb\lldb-types.h" line 15, impact on 1722 file(s)
+	5 : "llvm\include\llvm\IR\FPEnv.h" line 20, impact on 1196 file(s)
+	6 : "lldb\include\lldb\Utility\Status.h" line 18, impact on 1129 file(s)
+	7 : "lldb\include\lldb\Utility\FileSpec.h" line 23, impact on 1128 file(s)
+	8 : "lldb\include\lldb\Utility\Stream.h" line 21, impact on 983 file(s)
+	9 : "lldb\include\lldb\Core\Address.h" line 18, impact on 845 file(s)
+	10 : "lldb\include\lldb\Utility\Endian.h" line 14, impact on 751 file(s)
+	... 10 of 430 details
+9 : "libcxx\include\memory" impact on 11478 file(s)
 Included by:
-	1 : "llvm\include\llvm\ADT\DenseMap.h" line 21, impact on 2296 file(s)
-	2 : "llvm\unittests\Support\ReverseIterationTest.cpp" line 13
-10 : "llvm\include\llvm\ADT\DenseMap.h" impact on 2296 file(s)
+	1 : "llvm\include\llvm\ADT\Optional.h" line 22, impact on 9448 file(s)
+	2 : "llvm\include\llvm\ADT\STLExtras.h" line 33, impact on 9405 file(s)
+	3 : "llvm\include\llvm\ADT\SmallVector.h" line 30, impact on 9242 file(s)
+	4 : "llvm\include\llvm\ADT\ArrayRef.h" line 23, impact on 8875 file(s)
+	5 : "llvm\include\llvm\Support\Casting.h" line 20, impact on 7366 file(s)
+	6 : "llvm\include\llvm\Support\Error.h" line 34, impact on 6869 file(s)
+	7 : "llvm\include\llvm\Support\FileSystem.h" line 41, impact on 5728 file(s)
+	8 : "llvm\include\llvm\ADT\APFloat.h" line 22, impact on 5376 file(s)
+	9 : "llvm\include\llvm\Support\MemoryBuffer.h" line 25, impact on 5178 file(s)
+	10 : "llvm\include\llvm\Support\SourceMgr.h" line 28, impact on 4601 file(s)
+	... 10 of 1310 details
+10 : "libcxx\include\cstdlib" impact on 11439 file(s)
 Included by:
-	1 : "llvm\include\llvm\ADT\MapVector.h" line 19, impact on 523 file(s)
-	2 : "clang\include\clang\Basic\FileManager.h" line 19, impact on 409 file(s)
-	3 : "clang\include\clang\AST\DeclCXX.h" line 39, impact on 396 file(s)
-	4 : "clang\include\clang\Basic\SourceManager.h" line 42, impact on 382 file(s)
-	5 : "clang\include\clang\AST\DeclObjC.h" line 27, impact on 324 file(s)
-	6 : "llvm\include\llvm\MC\MCExpr.h" line 12, impact on 284 file(s)
-	7 : "clang\include\clang\Lex\ModuleMap.h" line 22, impact on 252 file(s)
-	8 : "clang\include\clang\Lex\Preprocessor.h" line 34, impact on 229 file(s)
-	9 : "llvm\include\llvm\MC\MCStreamer.h" line 17, impact on 207 file(s)
-	10 : "lldb\include\lldb\Utility\UserIDResolver.h" line 12, impact on 165 file(s)
-	... 10 of 390 details
-... 10 of 2076 files
+	1 : "llvm\include\llvm-c\DataTypes.h" line 60, impact on 9481 file(s)
+	2 : "llvm\include\llvm\ADT\STLExtras.h" line 28, impact on 9405 file(s)
+	3 : "llvm\include\llvm\Support\MemAlloc.h" line 21, impact on 9243 file(s)
+	4 : "llvm\include\llvm\ADT\SmallVector.h" line 26, impact on 9242 file(s)
+	5 : "llvm\include\llvm\Support\Allocator.h" line 34, impact on 8025 file(s)
+	6 : "llvm\include\llvm\ADT\StringMap.h" line 25, impact on 7738 file(s)
+	7 : "llvm\include\llvm\ADT\StringExtras.h" line 23, impact on 6930 file(s)
+	8 : "llvm\include\llvm\Support\Error.h" line 32, impact on 6869 file(s)
+	9 : "llvm\include\llvm\ADT\SmallPtrSet.h" line 23, impact on 5164 file(s)
+	10 : "llvm\include\llvm\ADT\BitVector.h" line 23, impact on 4074 file(s)
+	... 10 of 570 details
+... 10 of 5975 files
+Unincluded headers:
+1 : "clang\include\clang\Analysis\AnalysisDiagnostic.h"
+2 : "clang\include\clang\Analysis\FlowSensitive\DataflowValues.h"
+3 : "clang\include\clang\StaticAnalyzer\Core\PathSensitive\SummaryManager.h"
+4 : "clang\lib\Headers\__clang_cuda_runtime_wrapper.h"
+5 : "clang\lib\Headers\arm_cmse.h"
+6 : "clang\lib\Headers\float.h"
+7 : "clang\lib\Headers\htmxlintrin.h"
+8 : "clang\lib\Headers\inttypes.h"
+9 : "clang\lib\Headers\limits.h"
+10 : "clang\lib\Headers\msa.h"
+... 10 of 210 files

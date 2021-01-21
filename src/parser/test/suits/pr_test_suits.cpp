@@ -22,6 +22,9 @@ TEST PLAN:
 11. Include in multiline string
 12. First line \n
 13. String with quotation marks
+14. Raw string
+15. Raw string with separator
+16. Brackets in comments
 
 ------------------------------------------------------------------------------*/
 
@@ -304,6 +307,74 @@ BOOST_AUTO_TEST_CASE(t13_string_with_quotation_marks)
 	BOOST_REQUIRE_EQUAL( files.size(), 0 );
 }
 
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t14_raw_string)
+{
+	// Init
+	file()<<
+		" R\"( \n"
+		"#include <lib1>"
+		")\" \n"
+		"#include <lib2>"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 1 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t15_raw_string_with_seperator)
+{
+	// Init
+	file()<<
+		" R\"( \n"
+		"some text ) #include <lib1>"
+		")\" \n"
+		"#include <lib2>"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 1 );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t16_brackets_in_comments)
+{
+	// Init
+	file()<<
+		R"(
+		#include "file.hpp" //  <->
+		)"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 1 );
+
+	const auto & file = files.at( 0 );
+	BOOST_CHECK_EQUAL( file.getName(), "file.hpp");
+	BOOST_CHECK_EQUAL( file.isSystem(), false );
+
+	const auto & location = file.getLocation();
+	BOOST_CHECK_EQUAL( location.getLineNumber(), 2 );
+	BOOST_CHECK_EQUAL( location.getBegin(), 13 );
+	BOOST_CHECK_EQUAL( location.getEnd(), 21 );
+}
 
 //------------------------------------------------------------------------------
 

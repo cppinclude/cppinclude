@@ -20,6 +20,9 @@ TEST PLAN:
 7. Std Files
 	7.1 Don't show
 	7.2 Show
+8. Files out of project
+	8.1 in sub directory
+	8.2 in other directory
 
 ------------------------------------------------------------------------------*/
 
@@ -419,7 +422,7 @@ BOOST_AUTO_TEST_CASE(t7_1_std_file_dont_show)
 
 	addInclude( runB1file, classBFile );
 
-	setShowStdFile( false );
+	setShowStdFiles( false );
 
 	// Run
 	std::string result = runMostImpactReporter();
@@ -463,7 +466,7 @@ BOOST_AUTO_TEST_CASE(t7_2_std_file_show)
 
 	addInclude( runB1file, classBFile );
 
-	setShowStdFile( true );
+	setShowStdFiles( true );
 
 	// Run
 	std::string result = runMostImpactReporter();
@@ -483,6 +486,96 @@ BOOST_AUTO_TEST_CASE(t7_2_std_file_show)
 		"3 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
 		"Included by:\n"
 			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t8_1_files_out_of_project_in_subdir)
+{
+	// Init
+	const std::string projectDir = "/test_project/";
+	const std::string subdir = "build/";
+
+	const std::string classAFileName = "classA.hpp";
+	const std::string classAFile = projectDir + classAFileName;
+	const std::string classBFileName = "classB.hpp";
+	const std::string classBFile = projectDir + classBFileName;
+
+	const std::string runA1fileName = "runA1.cpp";
+	const std::string runA1file = projectDir + runA1fileName;
+	const std::string runA2fileName = "runA2.cpp";
+	const std::string runA2file = projectDir + runA2fileName;
+
+	const std::string runB1fileName = "runB1.cpp";
+	const std::string runB1file = projectDir + runB1fileName;
+
+	setProjectDir( projectDir + subdir );
+
+	addInclude( runA1file, classAFile );
+	addInclude( runA2file, classAFile );
+
+	addInclude( runB1file, classBFile );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result,
+		"Most impact files:\n"
+		"1 : \"" + toPath( "../" + classAFileName ) + "\" impact on 2 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( "../" + runA1fileName ) + "\" line 1\n"
+			"\t2 : \"" + toPath( "../" + runA2fileName ) + "\" line 1\n"
+		"2 : \"" + toPath( "../" + classBFileName ) + "\" impact on 1 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( "../" + runB1fileName ) +"\" line 1\n"
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t8_2_files_out_of_project_in_other_dir)
+{
+	// Init
+	const std::string projectDir = "/test_project/";
+	const std::string otherDir = "/tmp/";
+
+	const std::string classAFileName = "classA.hpp";
+	const std::string classAFile = otherDir + classAFileName;
+	const std::string classBFileName = "classB.hpp";
+	const std::string classBFile = otherDir + classBFileName;
+
+	const std::string runA1fileName = "runA1.cpp";
+	const std::string runA1file = projectDir + runA1fileName;
+	const std::string runA2fileName = "runA2.cpp";
+	const std::string runA2file = projectDir + runA2fileName;
+
+	const std::string runB1fileName = "runB1.cpp";
+	const std::string runB1file = projectDir + runB1fileName;
+
+	setProjectDir( projectDir );
+
+	addInclude( runA1file, classAFile );
+	addInclude( runA2file, classAFile );
+
+	addInclude( runB1file, classBFile );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result,
+		"Most impact files:\n"
+		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( runA1fileName ) + "\" line 1\n"
+			"\t2 : \"" + toPath( runA2fileName ) + "\" line 1\n"
+		"2 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( runB1fileName ) +"\" line 1\n"
 	);
 }
 

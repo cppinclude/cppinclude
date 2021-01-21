@@ -1,0 +1,27 @@
+[
+{
+  "directory": ".",
+  "command": "/usr/bin/c++  -I../lib -I../lib/base -I../lib/a -I../lib/b  -o CMakeFiles/simple_example.dir/lib/a/char_a.cpp.o -c ../lib/a/char_a.cpp",
+  "file": "../lib/a/char_a.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++  -I../lib -I../lib/base -I../lib/a -I../lib/b  -o CMakeFiles/simple_example.dir/lib/a/char_a_factory.cpp.o -c ../lib/a/char_a_factory.cpp",
+  "file": "../lib/a/char_a_factory.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++  -I../lib -I../lib/base -I../lib/a -I../lib/b  -o CMakeFiles/simple_example.dir/lib/b/char_b.cpp.o -c ../lib/b/char_b.cpp",
+  "file": "../lib/b/char_b.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++  -I../lib -I../lib/base -I../lib/a -I../lib/b  -o CMakeFiles/simple_example.dir/lib/b/char_b_factory.cpp.o -c ../lib/b/char_b_factory.cpp",
+  "file": "../lib/b/char_b_factory.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++  -I../lib -I../lib/base -I../lib/a -I../lib/b  -o CMakeFiles/simple_example.dir/main.cpp.o -c ..main.cpp",
+  "file": "../main.cpp"
+}
+]

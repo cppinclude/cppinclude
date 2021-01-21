@@ -15,6 +15,10 @@ public:
 	ReporterPtr createDumpReporter() override;
 	ReporterPtr createUnresolvedReporter() override;
 	ReporterPtr createMostImpactReporter() override;
+	ReporterPtr createUnincludedReporter() override;
+	ReporterPtr createDifferentTypeReporter() override;
+
+	SettingsPtr createSettings() override;
 
 };
 

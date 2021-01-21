@@ -1,17 +1,19 @@
 #include "application/tools/app_parser_arg_wrapper.hpp"
 
 #include "application/resources/app_resources_arguments.hpp"
-#include "application/exceptions/app_incorrect_report_impl.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 #include "exception/ih/exc_internal_error.hpp"
 #include "tools/is_vector.hpp"
+
+#include "reporter/tools/rp_reporter_kind_functins.hpp"
 
 #include <string>
 #include <optional>
 #include <std_fs>
 #include <vector>
 #include <unordered_map>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -60,6 +62,11 @@ ParserArgWrapper::ParserArgWrapper()
 			resources::arguments::configurationFile::Description,
 			Path( resources::arguments::configurationFile::DefaultValue )
 		}
+	,	m_compileCommandsFileArg{
+			resources::arguments::compileCommands::FullName,
+			resources::arguments::compileCommands::Description,
+			Path( resources::arguments::compileCommands::DefaultValue )
+}
 	,	m_helpArg{
 			resources::arguments::help::FullName,
 			resources::arguments::help::Description
@@ -122,6 +129,7 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 	setArgumentValue( m_ignoreFilesArg,			&ParserArgWrapper::getStrings );
 
 	setArgumentValue( m_configurationFileArg,	&ParserArgWrapper::getPath );
+	setArgumentValue( m_compileCommandsFileArg,	&ParserArgWrapper::getPath );
 
 	setArgumentValue( m_reportArg,				&ParserArgWrapper::getStrings );
 	setArgumentValue( m_reportLimitArg,			&ParserArgWrapper::getInt );
@@ -131,8 +139,28 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 
 //------------------------------------------------------------------------------
 
+void ParserArgWrapper::parse( const stdfwd::vector< std::string > & _arguments )
+{
+	std::vector< std::string >arguments{ _arguments };
+
+	std::vector< char * > arg;
+	arg.reserve( arguments.size() );
+
+	for( std::string & str : arguments )
+		arg.push_back( str.data() );
+
+	parse( static_cast< int >( arg.size() ), arg.data() );
+}
+
+//------------------------------------------------------------------------------
+
 void ParserArgWrapper::init()
 {
+	addArgument< Strings >(			m_reportArg );
+
+	addArgument< Path >(			m_configurationFileArg );
+	addArgument< Path >(			m_compileCommandsFileArg );
+
 	addArgument< Path >(			m_projectDirArg );
 	addArgument< Strings >(			m_fileExtensionsArg );
 	addArgument< bool >(			m_analyzeWithoutextension );
@@ -142,9 +170,6 @@ void ParserArgWrapper::init()
 	addArgument< bool >(			m_ignoreSystemIncludes );
 	addArgument< Strings >(			m_ignoreFilesArg );
 
-	addArgument< Path >(			m_configurationFileArg );
-
-	addArgument< Strings >(			m_reportArg );
 	addArgument< int >(				m_reportLimitArg );
 	addArgument< int >(				m_reportDetailsLimitArg );
 	addArgument< bool >(			m_showStdFilesArg );
@@ -255,13 +280,6 @@ ParserArgWrapper::PathsOpt ParserArgWrapper::getIgnoreDirs() const
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::Path ParserArgWrapper::getDefaultConfigurationFile() const
-{
-	return getDefaultValue< Path >( m_configurationFileArg );
-}
-
-//------------------------------------------------------------------------------
-
 ParserArgWrapper::ReporterKinds ParserArgWrapper::getDefaultReporterKinds() const
 {
 	Strings strings = getDefaultValue< Strings >( m_reportArg );
@@ -325,6 +343,27 @@ bool ParserArgWrapper::getDefaultShowStdfile() const
 ParserArgWrapper::PathOpt ParserArgWrapper::getConfigurationFile() const
 {
 	return m_configurationFileArg.getValue< Path >();
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::Path ParserArgWrapper::getDefaultConfigurationFile() const
+{
+	return getDefaultValue< Path >( m_configurationFileArg );
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::PathOpt ParserArgWrapper::getCompileCommandsFile() const
+{
+	return m_compileCommandsFileArg.getValue< Path >();
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::Path ParserArgWrapper::getDefaultCompileCommandsFile() const
+{
+	return getDefaultValue< Path >( m_compileCommandsFileArg );
 }
 
 //------------------------------------------------------------------------------
@@ -443,7 +482,8 @@ void ParserArgWrapper::showHelp( std::ostream & _stream ) const
 //------------------------------------------------------------------------------
 
 ParserArgWrapper::Strings ParserArgWrapper::toStrings(
-	const char * const _values[] )
+	const char * const _values[]
+)
 {
 	Strings array;
 	const char * const * it = _values;
@@ -497,24 +537,7 @@ ParserArgWrapper::ReporterKinds ParserArgWrapper::toReporterKinds(
 
 reporter::ReporterKind ParserArgWrapper::toReporterKind( std::string_view _str )
 {
-	using namespace resources::arguments;
-	using namespace reporter;
-
-	static_assert( static_cast< int >( ReporterKind::Count ) == 3 );
-
-	static std::unordered_map< std::string, reporter::ReporterKind > names{
-		{ report::UnresolvedReport, ReporterKind::Unresolved },
-		{ report::MostImpactReport, ReporterKind::MostImpact },
-		{ report::DumpReport,		ReporterKind::Dump },
-	};
-
-	const std::string str{ _str };
-	if( !names.count( str ) )
-	{
-		throw IncorrectReportImpl( _str, names );
-	}
-
-	return names[ str ];
+	return reporter::toReporterKind( _str );
 }
 
 //------------------------------------------------------------------------------

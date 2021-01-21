@@ -1,14 +1,20 @@
 #include "model_includes/impl/mi_resolver.hpp"
 
 #include "model_includes/impl/mi_std_library.hpp"
+#include "model_includes/impl/mi_resolver_context.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
 
 #include "fs/api/fs_file_system.hpp"
+#include "fs/api/fs_exceptions.hpp"
 
 #include "project/api/prj_project.hpp"
+#include "cmake_project/api/cprj_project.hpp"
+
+#include "exception/ih/exc_internal_error.hpp"
 
 #include <optional>
 #include <std_fs>
+#include <functional>
 
 //------------------------------------------------------------------------------
 
@@ -16,33 +22,36 @@ namespace model_includes {
 
 //------------------------------------------------------------------------------
 
-Resolver::Resolver( const fs::FileSystem & _fs, const project::Project & _project  )
+Resolver::Resolver( const fs::FileSystem & _fs  )
 	:	m_fs{ _fs }
-	,	m_project{ _project }
 {
-}
-
-//------------------------------------------------------------------------------
-
-const Resolver::Path & Resolver::getProjectFolder() const
-{
-	return m_project.getProjectDir();
 }
 
 //------------------------------------------------------------------------------
 
 Resolver::PathOpt Resolver::resolvePath(
+	const project::Project & _project,
+	const cmake_project::Project * _cmakeProject,
 	const Path & _startFile,
-	stdfwd::string_view _fileName
+	stdfwd::string_view _fileName,
+	PathOpt _currentCMakeSourceFile
 ) const
 {
-	if( PathOpt pathOpt = checkInCurrentDir( _startFile, _fileName ); pathOpt )
-		return  pathOpt;
+	ResolverContext context{
+		_project,
+		_cmakeProject,
+		_startFile,
+		_fileName,
+		_currentCMakeSourceFile
+	};
 
-	if( PathOpt pathOpt = findInIncludeFolders( _fileName ); pathOpt )
-		return  pathOpt;
+	PathOpt pathOpt = checkInCurrentDir( context );
+	if( pathOpt )
+		return pathOpt;
 
-	return std::nullopt;
+	pathOpt = findInIncludeFolders( context );
+
+	return pathOpt;
 }
 
 //------------------------------------------------------------------------------
@@ -66,15 +75,14 @@ FileType Resolver::resolveFileType( const Path & _file )
 //------------------------------------------------------------------------------
 
 Resolver::PathOpt Resolver::checkInCurrentDir(
-	const Path & _startFile,
-	stdfwd::string_view _fileName
+	const ResolverContext & _context
 ) const
 {
-	Path startDir = _startFile.parent_path();
+	Path startDir = _context.getStartFile().parent_path();
 	if( startDir.is_relative() )
-		startDir = getProjectFolder() / startDir;
+		startDir = _context.getProject().getProjectDir() / startDir;
 
-	const Path file = startDir / _fileName;
+	const Path file = startDir / _context.getFileName();
 	if( isExistFile( file ) )
 		return PathOpt{ file };
 
@@ -84,20 +92,99 @@ Resolver::PathOpt Resolver::checkInCurrentDir(
 
 //------------------------------------------------------------------------------
 
-Resolver::PathOpt Resolver::findInIncludeFolders( std::string_view _fileName ) const
+Resolver::PathOpt Resolver::findInIncludeFolders(
+	const ResolverContext & _context
+) const
 {
-	const project::Project::IncludeDirIndex count = m_project.getIncludeDirsCount();
+	PathOpt pathOpt = findInIncludeFoldersInProject( _context );
+	if( pathOpt )
+		return pathOpt;
+
+	if( _context.getCMakeProject() )
+		pathOpt = findInIncludeFoldersInCMakeProject( _context );
+
+	return pathOpt;
+}
+
+
+//------------------------------------------------------------------------------
+
+Resolver::PathOpt Resolver::findInIncludeFoldersInProject(
+	const ResolverContext & _context
+) const
+{
+	const std::string & fileName = _context.getFileName();
+	const project::Project & project = _context.getProject();
+	const project::Project::IncludeDirIndex count = project.getIncludeDirsCount();
+	const auto projectDir = project.getProjectDir();
+
 	for( project::Project::IncludeDirIndex i = 0; i < count; ++i )
 	{
-		Path includeDir = m_project.getIncludeDir( i );
-		if( includeDir.is_relative() )
-			includeDir = getProjectFolder() / includeDir;
+		Path includeDir = project.getIncludeDir( i );
 
-		const Path file = includeDir / _fileName;
-
-		if( isExistFile( file ) )
-			return PathOpt{ file };
+		PathOpt fileOpt = findFile( projectDir, includeDir, fileName );
+		if( fileOpt )
+			return fileOpt;
 	}
+
+	return std::nullopt;
+}
+
+//------------------------------------------------------------------------------
+
+Resolver::PathOpt Resolver::findInIncludeFoldersInCMakeProject(
+	const ResolverContext & _context
+) const
+{
+	const cmake_project::Project * projectOpt = _context.getCMakeProject();
+	if( !projectOpt )
+	{
+		INTERNAL_CHECK_WARRING( false );
+		return std::nullopt;
+	}
+
+	const cmake_project::Project & project = *projectOpt;
+	const auto projectDir = _context.getProject().getProjectDir();
+	const std::string & fileName = _context.getFileName();
+
+	const Path & startFile = _context.getStartFile();
+
+	PathOpt sourceFile = _context.getCurrentCMakeSourceFile();
+	if( !sourceFile )
+		sourceFile = startFile;
+
+	PathOpt result;
+
+	project.forEachIncludes(
+		*sourceFile,
+		[&]( const Path & _includedir )
+		{
+			result = findFile( projectDir, _includedir, fileName );
+			return !result;
+		}
+	);
+
+	return result;
+}
+
+//------------------------------------------------------------------------------
+
+Resolver::PathOpt Resolver::findFile(
+	const Path & _projectDir,
+	const Path & _includeDir,
+	const std::string & _fileName
+) const
+{
+	Path includeDir{ _includeDir };
+	if( includeDir.is_relative() )
+		includeDir = _projectDir / includeDir;
+
+	Path file = includeDir / _fileName;
+
+	file = stdfs::lexically_normal( file );
+
+	if( isExistFile( file ) )
+		return PathOpt{ file };
 
 	return std::nullopt;
 }
@@ -106,7 +193,15 @@ Resolver::PathOpt Resolver::findInIncludeFolders( std::string_view _fileName ) c
 
 bool Resolver::isExistFile( const Path & _filePath ) const
 {
-	return m_fs.isExistFile( _filePath );
+	try
+	{
+		return m_fs.isExistFile( _filePath );
+	}
+	catch( const fs::CheckingExistFileFail & _exception )
+	{
+		std::cout << _exception.what() << std::endl;
+		return false;
+	}
 }
 
 //------------------------------------------------------------------------------

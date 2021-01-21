@@ -1,8 +1,4 @@
-file(GLOB_RECURSE all_sources
-	"*.cpp"
-	"fixtures/**/.cpp"
-	"suits/*.cpp"
-)
+file(GLOB_RECURSE all_sources "*.cpp")
 
 add_executable(${PROJECT_NAME}_test ${all_sources})
 
@@ -16,6 +12,7 @@ target_link_libraries(
 	file_system_lib
 	parser_lib
 	test_tools_lib
+	cmake_project_lib
 )
 
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}_test)

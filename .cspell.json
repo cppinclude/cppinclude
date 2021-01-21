@@ -20,6 +20,8 @@
     "words": [
         "nlohmann",
         "ccomplex",
-        "stdfs"
+        "stdfs",
+        "cmake",
+        "unincluded"
     ],
 }

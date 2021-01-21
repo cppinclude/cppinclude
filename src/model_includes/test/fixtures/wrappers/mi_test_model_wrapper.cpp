@@ -48,7 +48,8 @@ BoostPredicate ModelWrapper::checkFilesCount( std::size_t _expectCount ) const
 
 FileWrapper ModelWrapper::findFile( std::string_view _path ) const
 {
-	const stdfs::path path{ _path };
+	Path path{ _path };
+	path = stdfs::lexically_normal( path );
 	return getModel().findFile( path );
 }
 

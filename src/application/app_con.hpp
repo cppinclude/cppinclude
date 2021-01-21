@@ -27,9 +27,20 @@ namespace project {
 	class Project;
 }
 
+namespace cmake_project {
+	class Project;
+	class Accessor;
+}
+
+namespace compilation_db {
+	class Accessor;
+}
+
 namespace reporter {
 	class ReporterAccessor;
 	class Reporter;
+	class Settings;
+	class Factory;
 	enum class ReporterKind;
 }
 
@@ -41,6 +52,7 @@ namespace json {
 
 namespace application {
 	class ParserArgWrapper;
+	class ConfigurationFile;
 	class Log;
 
 //------------------------------------------------------------------------------
@@ -60,6 +72,10 @@ private:
 	using Project				= project::Project;
 	using ProjectPtr			= std::unique_ptr< Project >;
 
+	using CMakeProject			= cmake_project::Project;
+	using CMakeProjectPtr		= std::unique_ptr< CMakeProject >;
+	using CMakeAccessor			= cmake_project::Accessor;
+
 	using ModelIncludesAccessor = model_includes::ModelIncludesAccessor;
 	using Model					= model_includes::Model;
 	using ModelPtr				= std::unique_ptr< Model>;
@@ -77,21 +93,34 @@ private:
 
 	using JsonAccessor			= json::JsonAccessor;
 
-	ModelPtr runAnalyzer( const Project & _project );
+	using CompilationDbAccessor	= compilation_db::Accessor;
 
-	int getReportLimit( const ParserArgWrapper & _arg ) const;
-	int getReportDetailsLimit( const ParserArgWrapper & _arg ) const;
-	bool getShowStdFile( const ParserArgWrapper & _arg ) const;
+	using ConfigurationFilePtr	= std::unique_ptr< ConfigurationFile >;
+
+	ModelPtr runAnalyzer(
+		const Project & _project,
+		const CMakeProject * _cmakeProject
+	);
 
 	void runReporters(
 		const Model & _model,
 		const ReporterKinds & _kinds,
-		int _maxFiles,
-		int _maxDetails,
-		bool _showStdFile
+		const reporter::Settings & _reporterSettings
 	);
 
-	ProjectPtr createProject( const ParserArgWrapper & _arguments );
+	ProjectPtr createProject(
+		const ParserArgWrapper & _arguments,
+		const ConfigurationFile * _configurationFile
+	);
+
+	CMakeProjectPtr createCMakeProject(
+		const ParserArgWrapper & _arguments,
+		const ConfigurationFile * _configurationFile
+	);
+
+	ConfigurationFilePtr loadConfigurationFile(
+		const ParserArgWrapper & _arguments
+	);
 
 	ProjectAccessor & ensureProjectAccessor();
 
@@ -105,12 +134,17 @@ private:
 	const Parser & ensureParser();
 
 	ReporterAccessor & ensureReporterAccessor();
+	reporter::Factory & getReporterFactory();
 
 	JsonAccessor & ensureJsonAccessor();
+
+	CMakeAccessor & ensureCMakeAccessor();
+	CompilationDbAccessor & ensureCompilationDbAccessor();
 
 	Log & getLog();
 
 	void dump( const Project & _project ) const;
+	void dump( const CMakeProject & _project ) const;
 
 	void showVersion();
 
@@ -122,6 +156,8 @@ private:
 	PluginPtr< ParserAccessor > m_parserAccessor;
 	PluginPtr< ReporterAccessor > m_reporterAccessor;
 	PluginPtr< JsonAccessor > m_jsonAccessor;
+	PluginPtr< CMakeAccessor > m_cmakeAccessor;
+	PluginPtr< CompilationDbAccessor > m_compilationDbAccessor;
 
 	ParserPtr m_parser;
 	std::unique_ptr< Log > m_log;

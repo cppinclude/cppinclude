@@ -7,8 +7,8 @@ namespace application::resources::version {
 //------------------------------------------------------------------------------
 
 	const int Major = 0;
-	const int Minor	= 2;
-	const int Path	= 1;
+	const int Minor	= 3;
+	const int Path	= 0;
 
 	const char * const VersionFormat = "{}.{}.{}\n";
 

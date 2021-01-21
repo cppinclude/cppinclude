@@ -1,0 +1,15 @@
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Files that are included by different ways:
+1. base_char.hpp
+With double quotation marks ( #include "..." ) in files:
+	1. base_char_factory.hpp line 3
+	2. char_b.hpp line 3
+With angle brackets ( #include <...> ) in files:
+	1. char_a.hpp line 3
+2. base_char_factory.hpp
+With double quotation marks ( #include "..." ) in files:
+	1. char_b_factory.hpp line 3
+With angle brackets ( #include <...> ) in files:
+	1. char_a_factory.hpp line 3

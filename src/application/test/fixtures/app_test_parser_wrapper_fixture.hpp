@@ -36,7 +36,8 @@ public:
     ParserWrapperFixture();
     ~ParserWrapperFixture();
 
-    void parse( const Arguments & _arguments );
+	void parse( std::string_view _argument );
+	void parse( const Arguments & _arguments );
 
     std::string getProjectDir() const;
     std::string getDefaultProjectDir() const;
@@ -61,6 +62,9 @@ public:
 
     Path getConfigurationFile() const;
     Path getDefaultConfigurationFile() const;
+
+	Path getCompileCommandsFile() const;
+	Path getDefaultCompileCommandsFile() const;
 
 	ReporterKinds getReporterKinds() const;
 	ReporterKinds getDefaultReporterKinds() const;

@@ -15,6 +15,14 @@ namespace application::resources::configuration_file {
 	extern const char * const IgnoreSystemIncludes;
 	extern const char * const IgnoreFiles;
 
+	extern const char * const CompileCommands;
+
+	extern const char * const Report;
+
+	extern const char * const ReportLimit;
+	extern const char * const ReportDetailsLimit;
+	extern const char * const ShowStdFiles;
+
 //------------------------------------------------------------------------------
 
 }

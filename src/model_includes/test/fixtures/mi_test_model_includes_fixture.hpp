@@ -12,8 +12,6 @@ namespace fs {
 	class File;
 }
 
-//------------------------------------------------------------------------------
-
 namespace model_includes {
 	class ModelIncludesAccessor;
 	class Model;
@@ -22,18 +20,19 @@ namespace model_includes {
 	enum class FileType;
 }
 
-//------------------------------------------------------------------------------
-
 namespace parser {
 	class ParserAccessor;
 	class Parser;
 }
 
-//------------------------------------------------------------------------------
-
 namespace project {
 	class ProjectAccessor;
 	class Project;
+}
+
+namespace cmake_project {
+	class Project;
+	class Accessor;
 }
 
 //------------------------------------------------------------------------------
@@ -60,15 +59,28 @@ public:
 
 	void addFile(			std::string_view _path, std::string_view _text = "" );
 	void addFileToProject(	std::string_view _file, std::string_view _text = "" );
+	void addFileToCmake(	std::string_view _file );
 
 	void addIncludePath(	std::string_view _file );
 	void addIgnoredDir(		std::string_view _dir );
 	void addFileFilter(		std::string_view _filter );
+
 	void setIgnoreSystemIncludes( bool _ignoreSystemIncludes );
 	void addCppExtensions( const Strings & _extensions );
 	void setAnalyzeWithoutExtension( bool _enable );
 
-	PathOpt resolvePath( const Path & _startFile, std::string_view _fileName );
+	void addIncludePathToCMake(	std::string_view _file, std::string_view _includeDir );
+
+	PathOpt resolvePath(
+		const Path & _startFile,
+		std::string_view _fileName
+	);
+
+	PathOpt resolvePath(
+		const Path & _startFile,
+		std::string_view _fileName,
+		const PathOpt & _currentCMakeSource
+	);
 
 	FileType resolveFileType( stdfwd::string_view _file );
 
@@ -78,6 +90,7 @@ public:
 	);
 
 	ModelWrapper analyze();
+	ModelWrapper analyzeCmake();
 
 	ModelWrapper createModel();
 
@@ -99,6 +112,9 @@ private:
 	project::ProjectAccessor & ensureProjectAccessor();
 	project::Project & ensureProject();
 
+	cmake_project::Accessor & ensureCmakeProjectAccessor();
+	cmake_project::Project & ensureCmakeProject();
+
 	std::string toString( FileType _fileType ) const;
 
 private:
@@ -115,6 +131,9 @@ private:
 
 	std::unique_ptr< project::ProjectAccessor > m_projectAccessor;
 	std::unique_ptr< project::Project > m_project;
+
+	std::unique_ptr< cmake_project::Accessor > m_cmakeProjectAccessor;
+	std::unique_ptr< cmake_project::Project > m_cmakeProject;
 };
 
 //------------------------------------------------------------------------------

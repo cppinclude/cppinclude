@@ -20,6 +20,7 @@ TEST PLAN:
 	6.2 int
 	6.3 string
 	6.4 object
+	6.5 root of document with objects
 7. Not exist attribute
 
 ------------------------------------------------------------------------------*/
@@ -322,6 +323,57 @@ BOOST_AUTO_TEST_CASE(t6_4_array_object)
 	BOOST_REQUIRE( attributePtr );
 
 	auto arrayPtr = attributePtr->asArray();
+	BOOST_REQUIRE( arrayPtr );
+	const JsonArray & array = *arrayPtr;
+
+	BOOST_REQUIRE_EQUAL( array.getSize(), 2 );
+	{
+		auto valPtr = array.at( 0 );
+		BOOST_REQUIRE( valPtr );
+
+		auto objectPtr = valPtr->asObject();
+		BOOST_REQUIRE( objectPtr );
+
+		auto namePtr = objectPtr->getAttributeValue( "name" );
+		BOOST_CHECK_EQUAL( namePtr->asString(), "str1" );
+	}
+	{
+		auto valPtr = array.at( 1 );
+		BOOST_REQUIRE( valPtr );
+
+		auto objectPtr = valPtr->asObject();
+		BOOST_REQUIRE( objectPtr );
+
+		auto namePtr = objectPtr->getAttributeValue( "name" );
+		BOOST_CHECK_EQUAL( namePtr->asString(), "str2" );
+	}
+
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t6_4_array_root_of_object_with_objects)
+{
+	// Init
+	createJsonFile(
+	R"([
+	{
+		"name" : "str1"
+	},
+	{
+		"name" : "str2"
+	}
+	])"
+	);
+
+	// Run
+	const JsonObject & json = loadJson();
+
+	// Check
+	auto arrayValuePtr = json.asValue();
+	BOOST_REQUIRE( arrayValuePtr );
+
+	auto arrayPtr = arrayValuePtr->asArray();
 	BOOST_REQUIRE( arrayPtr );
 	const JsonArray & array = *arrayPtr;
 

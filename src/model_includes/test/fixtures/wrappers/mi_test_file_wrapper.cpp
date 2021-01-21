@@ -82,7 +82,8 @@ BoostPredicate FileWrapper::checkIncludedByCountRecursive( int _exceptCount ) co
 
 IncludeWrapper FileWrapper::getIncludedBy( std::string_view _sourcePath ) const
 {
-	const stdfs::path sourcePath = _sourcePath;
+	Path sourcePath = _sourcePath;
+	sourcePath = stdfs::lexically_normal( sourcePath );
 	const File & file = getFile();
 	for( File::IncludeIndex i = 0; i < file.getIncludedByCount(); ++i )
 	{

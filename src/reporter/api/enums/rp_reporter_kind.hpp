@@ -10,7 +10,9 @@ enum class ReporterKind
 {
 	Unresolved,
 	MostImpact,
+	Unincluded,
 	Dump,
+	DifferentType,
 
 	Count
 };

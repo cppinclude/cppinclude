@@ -19,7 +19,7 @@ public:
 
 	virtual ~File() = default;
 
-	virtual Path getPath() const = 0;
+	virtual const Path & getPath() const = 0;
 	virtual FileType getType() const = 0;
 
 	virtual void addInclude( const Include & _include ) = 0;

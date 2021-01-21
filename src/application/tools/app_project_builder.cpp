@@ -6,11 +6,7 @@
 #include "project/api/prj_project.hpp"
 #include "project/ih/prj_project_accessor.hpp"
 
-#include "json/api/json_object.hpp"
-#include "json/ih/json_accessor.hpp"
-
 #include "fs/api/fs_file_system.hpp"
-#include "fs/api/fs_file.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
@@ -25,11 +21,9 @@ namespace application {
 
 ProjectBuilder::ProjectBuilder(
 	ProjectAccessor & _projectAccessor,
-	JsonAccessor & _jsonAccessor,
 	FileSystem & _fs
 )
 	:	m_projectAccessor{ _projectAccessor }
-	,	m_jsonAccessor{ _jsonAccessor }
 	,	m_fs{ _fs }
 {
 
@@ -38,7 +32,8 @@ ProjectBuilder::ProjectBuilder(
 //------------------------------------------------------------------------------
 
 ProjectBuilder::ProjectPtr ProjectBuilder::build(
-	const ParserArgWrapper & _arguments
+	const ParserArgWrapper & _arguments,
+	const ConfigurationFile * _configurationFile
 )
 {
 	ProjectPtr projectPtr = createProject();
@@ -48,14 +43,10 @@ ProjectBuilder::ProjectPtr ProjectBuilder::build(
 	}
 	Project & project = *projectPtr;
 
-	m_ignoreSystemIncludesChanged = false;
+	reset();
 
-	auto configFileOpt = _arguments.getConfigurationFile();
-	if( !configFileOpt )
-		configFileOpt = _arguments.getDefaultConfigurationFile();
-
-	if( configFileOpt )
-		initFromConfigurationFile( *configFileOpt, project );
+	if( _configurationFile )
+		initProject( *_configurationFile, project );
 
 	initProject( _arguments, project );
 	initProjectWithDefaultValues( _arguments, project );
@@ -140,26 +131,6 @@ void ProjectBuilder::initProject(
 
 //------------------------------------------------------------------------------
 
-void ProjectBuilder::initFromConfigurationFile(
-	const Path & _file,
-	Project & _project
-)
-{
-	if( !m_fs.isExistFile( _file ) )
-		return;
-
-	JsonObjectPtr jsonObjectPtr = createJson( _file );
-	INTERNAL_CHECK_WARRING( jsonObjectPtr )
-	if( !jsonObjectPtr )
-		return;
-
-	ConfigurationFile configurationFile;
-	configurationFile.loadFromJson( *jsonObjectPtr );
-	initProject( configurationFile, _project );
-}
-
-//------------------------------------------------------------------------------
-
 ProjectBuilder::ProjectPtr ProjectBuilder::createProject()
 {
 	return m_projectAccessor.createProject();
@@ -167,14 +138,10 @@ ProjectBuilder::ProjectPtr ProjectBuilder::createProject()
 
 //------------------------------------------------------------------------------
 
-ProjectBuilder::JsonObjectPtr ProjectBuilder::createJson( const Path & _file )
+void ProjectBuilder::reset()
 {
-	auto filePtr = m_fs.openFile( _file );
-	INTERNAL_CHECK_WARRING( filePtr )
-	if( !filePtr )
-		return nullptr;
-
-	return m_jsonAccessor.createJson( filePtr->toInputStream() );
+	m_ignoreSystemIncludesChanged = false;
+	m_analyzeWithoutExtensionChanged = false;
 }
 
 //------------------------------------------------------------------------------

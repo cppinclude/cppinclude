@@ -7,6 +7,9 @@
 #include "json/ih/json_accessor_impl.hpp"
 #include "json/api/json_object.hpp"
 
+#include "reporter/api/enums/rp_reporter_kind.hpp"
+#include "reporter/tools/rp_reporter_kind_functins.hpp"
+
 #include <optional>
 #include <string>
 #include <sstream>
@@ -89,6 +92,45 @@ ConfigurationfileFixture::getIgnoreFiles() const
 
 //------------------------------------------------------------------------------
 
+ConfigurationfileFixture::PathOpt
+ConfigurationfileFixture::getCompileCommands() const
+{
+	return getConfigurationFile().getCompileCommands();
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationfileFixture::StringOpt ConfigurationfileFixture::getReports() const
+{
+	auto reportsOpt = getConfigurationFile().getReporterKinds();
+	return toStirng( reportsOpt );
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationfileFixture::IntOpt ConfigurationfileFixture::getReportLimit() const
+{
+	return getConfigurationFile().getReportLimit();
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationfileFixture::IntOpt
+ConfigurationfileFixture::getReportDetailsLimit() const
+{
+	return getConfigurationFile().getReportDetailsLimit();
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationfileFixture::BoolOpt
+ConfigurationfileFixture::getShowStdFile() const
+{
+	return getConfigurationFile().getShowStdFiles();
+}
+
+//------------------------------------------------------------------------------
+
 ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::toStirng( const StringsOpt & _arrayOpt )
 {
@@ -113,20 +155,49 @@ ConfigurationfileFixture::toStirng( const StringsOpt & _arrayOpt )
 ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::toStirng( const PathsArrayOpt & _arrayOpt )
 {
+	return arrayToString( _arrayOpt );
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationfileFixture::StringOpt
+ConfigurationfileFixture::toStirng( const ReporterKindsOpt & _arrayOpt )
+{
+	return arrayToString( _arrayOpt );
+}
+
+//------------------------------------------------------------------------------
+
+template< class _ArrayTypeOpt >
+ConfigurationfileFixture::StringOpt
+ConfigurationfileFixture::arrayToString( const _ArrayTypeOpt & _arrayOpt )
+{
 	if( !_arrayOpt )
 		return std::nullopt;
 
-	std::string result;
+	Strings strings;
 
-	for( const Path & path : *_arrayOpt )
+	for( const auto & value : *_arrayOpt )
 	{
-		if( !result.empty() )
-			result += ',';
-
-		result += path.string();
+		const std::string valueStr = toString( value );
+		strings.push_back( valueStr );
 	}
 
-	return result;
+	return toStirng( strings );
+}
+
+//------------------------------------------------------------------------------
+
+std::string ConfigurationfileFixture::toString( const Path & _path )
+{
+	return _path.string();
+}
+
+//------------------------------------------------------------------------------
+
+std::string ConfigurationfileFixture::toString( reporter::ReporterKind _kind )
+{
+	return reporter::reporterKindToString( _kind );
 }
 
 //------------------------------------------------------------------------------

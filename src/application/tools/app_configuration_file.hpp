@@ -13,6 +13,10 @@ namespace json {
 	class JsonObject;
 }
 
+namespace reporter {
+	enum class ReporterKind;
+}
+
 //------------------------------------------------------------------------------
 
 namespace application {
@@ -33,6 +37,10 @@ public:
 	using PathsOpt			= std::optional< Paths >;
 
 	using BoolOpt			= std::optional< bool >;
+	using IntOpt			= std::optional< int >;
+
+	using ReporterKinds		= stdfwd::vector< reporter::ReporterKind >;
+	using ReporterKindsOpt	= std::optional< ReporterKinds >;
 
 	void loadFromJson( const json::JsonObject & _json );
 
@@ -45,6 +53,15 @@ public:
 	BoolOpt getIgnoreSystemIncludes() const;
 	StringsOpt getIgnoreFiles() const;
 
+	PathOpt getCompileCommands() const;
+	void setCompileCommands( const Path & _path );
+
+	ReporterKindsOpt getReporterKinds() const;
+
+	IntOpt getReportLimit() const;
+	IntOpt getReportDetailsLimit() const;
+	BoolOpt getShowStdFiles() const;
+
 private:
 
 	void loadProjectDir( const json::JsonObject & _json );
@@ -56,6 +73,13 @@ private:
 	void loadIgnoreSystemIncludes( const json::JsonObject & _json );
 	void loadIgnoreFiles( const json::JsonObject & _json );
 
+	void loadCompileCommands( const json::JsonObject & _json );
+
+	void loadReports( const json::JsonObject & _json );
+	void loadReportLimit( const json::JsonObject & _json );
+	void loadReportDetailsLimit( const json::JsonObject & _json );
+	void loadShowStdFiles( const json::JsonObject & _json );
+
 	void loadStringValue(
 		const json::JsonObject & _json,
 		std::string_view _name,
@@ -66,6 +90,12 @@ private:
 		const json::JsonObject & _json,
 		std::string_view _name,
 		StringsOpt & _valueOpt
+	);
+
+	void loadPathOpt(
+		const json::JsonObject & _json,
+		std::string_view _name,
+		PathOpt & _valueOpt
 	);
 
 	void loadPathsOpt(
@@ -80,6 +110,12 @@ private:
 		BoolOpt & _valueOpt
 	);
 
+	void loadIntOpt(
+		const json::JsonObject & _json,
+		std::string_view _name,
+		IntOpt & _valueOpt
+	);
+
 private:
 
 	PathOpt m_projectDir;
@@ -90,6 +126,14 @@ private:
 	PathsOpt m_ignoreDirs;
 	BoolOpt m_ignoreSystemIncludes;
 	StringsOpt m_ignoreFiles;
+
+	PathOpt m_compileCommands;
+
+	ReporterKindsOpt m_reports;
+
+	IntOpt m_reportLimit;
+	IntOpt m_reportDetailsLimit;
+	BoolOpt m_showStdFiles;
 };
 
 //------------------------------------------------------------------------------

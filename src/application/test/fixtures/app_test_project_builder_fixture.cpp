@@ -2,6 +2,8 @@
 
 #include "application/tools/app_parser_arg_wrapper.hpp"
 #include "application/tools/app_project_builder.hpp"
+#include "application/tools/app_configuration_file.hpp"
+#include "application/tools/app_configuration_file_loader.hpp"
 #include "application/resources/app_resources_arguments.hpp"
 
 #include "project/api/prj_project.hpp"
@@ -38,19 +40,25 @@ void ProjectBuilderFixture::parserArguments( const Arguments & _arguments )
 	Arguments arguments{ _arguments };
 	arguments.insert( arguments.begin(),  "./application" );
 
-	std::vector< char * > arg;
-	arg.reserve( arguments.size() );
-	for( std::string & str : arguments )
-		arg.push_back( str.data() );
-
-	getArgumentParser().parse( static_cast< int >( arg.size() ), arg.data() );
+	getArgumentParser().parse( arguments );
 }
 
 //------------------------------------------------------------------------------
 
 void ProjectBuilderFixture::buildProject()
 {
-	m_project = getBuilder().build( getArgumentParser() );
+	const ConfigurationFile * configurationFile = loadConfigurationFile();
+
+	m_project = getBuilder().build( getArgumentParser(), configurationFile );
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile * ProjectBuilderFixture::loadConfigurationFile()
+{
+	ConfigurationFileLoader loader{ getJsonAccessor(), getFileSystem() };
+	m_configurationFile = loader.load( getArgumentParser() );
+	return m_configurationFile.get();
 }
 
 //------------------------------------------------------------------------------
@@ -105,13 +113,6 @@ std::string ProjectBuilderFixture::getIgnoreDirs() const
 std::size_t ProjectBuilderFixture::getFileFiltersCount() const
 {
 	return getProject().getFileFilterCount();
-}
-
-//------------------------------------------------------------------------------
-
-const std::regex & ProjectBuilderFixture::getFileFilter( int _index ) const
-{
-	return getProject().getFileFilter( _index );
 }
 
 //------------------------------------------------------------------------------
@@ -232,11 +233,7 @@ ProjectBuilder & ProjectBuilderFixture::getBuilder()
 	if( !m_builder )
 	{
 		m_builder.reset(
-			new ProjectBuilder(
-				getProjectAccessor(),
-				getJsonAccessor(),
-				getFileSystem()
-			)
+			new ProjectBuilder( getProjectAccessor(), getFileSystem() )
 		);
 	}
 	return *m_builder;

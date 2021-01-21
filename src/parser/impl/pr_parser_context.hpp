@@ -27,13 +27,17 @@ public:
 	bool isEnableMultilineString() const noexcept;
 	void setMultilineString( bool _enable ) noexcept;
 
+	bool isEnableRawString() const noexcept;
+	void seEnableRawString( bool _enable ) noexcept;
+
 private:
 
 	std::string m_currentLine;
-	std::size_t m_lineNumber = 1;
+	std::size_t m_lineNumber;
 
-	bool m_isEnableMultilineComment = false;
-	bool m_isEnableMultilineString = false;
+	bool m_isEnableMultilineComment;
+	bool m_isEnableMultilineString;
+	bool m_isEnableRawString;
 
 };
 

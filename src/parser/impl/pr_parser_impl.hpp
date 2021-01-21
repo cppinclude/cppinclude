@@ -37,6 +37,11 @@ private:
 		ParserContext & _context,
 		std::size_t _index
 	) noexcept;
+	static std::size_t findEndOfRawString(
+		ParserContext & _context,
+		std::size_t _index
+	) noexcept;
+
 	static std::optional< std::size_t > findInclude(
 		std::string_view _line,
 		std::size_t _index

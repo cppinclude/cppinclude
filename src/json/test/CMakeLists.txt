@@ -1,8 +1,4 @@
-file(GLOB_RECURSE all_sources
-	"*.cpp"
-	"fixtures/*.cpp"
-	"suits/*.cpp"
-)
+file(GLOB_RECURSE all_sources "*.cpp")
 add_executable(${PROJECT_NAME}_test ${all_sources})
 
 include(TestConfig)

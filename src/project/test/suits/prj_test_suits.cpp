@@ -1,5 +1,7 @@
 #include "project/test/fixture/prj_test_ficture.hpp"
 
+#include "project/api/prj_exceptions.hpp"
+
 #include <boost/test/unit_test.hpp>
 #include <boost/test/test_tools.hpp>
 
@@ -25,7 +27,10 @@ TEST PLAN:
 	5.1 Empty
 	5.2 Library
 	5.3 File name
-
+	5.4 Sub string
+	5.5 Only begin part
+	5.6 Invalid regex
+	5.7 Double plus
 
 ------------------------------------------------------------------------------*/
 
@@ -221,7 +226,7 @@ BOOST_AUTO_TEST_CASE(t5_2_ignore_files_library)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_3_file_name_5_3)
+BOOST_AUTO_TEST_CASE(t5_3_ignore_file_name)
 {
 	// Init
 	addFileFilter( "Q.*" );
@@ -229,6 +234,51 @@ BOOST_AUTO_TEST_CASE(t5_3_file_name_5_3)
 	//Check
 	BOOST_CHECK( isIgnoredFile( "QWidget" ) );
 	BOOST_CHECK( !isIgnoredFile( "/tmp/q_file.cpp" ) );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t5_4_ignore_sub_string)
+{
+	// Init
+	addFileFilter( "/ui.*.h" );
+
+	//Check
+	BOOST_CHECK( isIgnoredFile( "/tmp/ui/file.h" ) );
+	BOOST_CHECK( !isIgnoredFile( "/tmp/gui/file.h" ) );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t5_5_ignore_only_begin_part)
+{
+	// Init
+	addFileFilter( "^ui.*.h" );
+
+	//Check
+	BOOST_CHECK( !isIgnoredFile( "/tmp/ui/file.h" ) );
+	BOOST_CHECK( !isIgnoredFile( "/tmp/gui/file.h" ) );
+	BOOST_CHECK( isIgnoredFile( "ui/file.h" ) );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t5_6_invalid_regex)
+{
+	// Check
+	BOOST_CHECK_THROW( addFileFilter( "[" ), project::InvalidRegex );
+
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t5_7_double_plus)
+{
+	// Init
+	addFileFilter( "lib\\+\\+v3/include/.*" );
+
+	//Check
+	BOOST_CHECK( isIgnoredFile( "lib++v3/include/folder/file.h" ) );
 }
 
 //------------------------------------------------------------------------------

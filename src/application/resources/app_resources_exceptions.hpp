@@ -42,18 +42,10 @@ namespace CantCreateReport {
 
 //------------------------------------------------------------------------------
 
-namespace CantCreateParser {
+namespace CantLoadReporterSettings {
 
 	extern const char * const Code;
 	extern const char * const Msg;
-}
-
-//------------------------------------------------------------------------------
-
-namespace IncorrectReport {
-
-	extern const char * const Code;
-	extern const char * const MsgFmt;
 }
 
 //------------------------------------------------------------------------------

@@ -1,6 +1,12 @@
 {
 	"project_dir" : "Clementine",
 	
+	"file_extentions" : [
+		"*.cpp", 
+		"*.h",
+		"*.mm"
+	],
+	
 	"ignore_system_includes" : true,
 	"ignore_dirs" : [
 		"3rdparty",

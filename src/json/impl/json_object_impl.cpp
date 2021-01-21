@@ -46,4 +46,12 @@ JsonObjectImpl::JsonValuePtr JsonObjectImpl::getAttributeValue(
 
 //------------------------------------------------------------------------------
 
+JsonObjectImpl::JsonValuePtr JsonObjectImpl::asValue() const
+{
+	JsonImpl copy = m_jsonImpl;
+	return JsonValuePtr{ new JsonValueImpl{ std::move( copy ) } };
+}
+
+//------------------------------------------------------------------------------
+
 }

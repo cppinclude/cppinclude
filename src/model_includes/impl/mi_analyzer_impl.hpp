@@ -2,6 +2,8 @@
 
 #include "model_includes/api/mi_analyzer.hpp"
 
+#include <memory>
+
 //------------------------------------------------------------------------------
 
 namespace fs {
@@ -20,6 +22,9 @@ namespace parser {
 namespace model_includes {
 	class Model;
 	class File;
+	class Include;
+	class AnalyzerContext;
+	class Resolver;
 	enum class FileType;
 	enum class IncludeType;
 	enum class IncludeStatus;
@@ -35,52 +40,47 @@ public:
 		const parser::Parser & _parser
 	);
 
-	ModelPtr analyze( const Project & _project ) const override;
+	ModelPtr analyze( const project::Project & _project ) const override;
+
+	ModelPtr analyze(
+		const project::Project & _project,
+		const cmake_project::Project & _cmakeProject
+	) const override;
 
 private:
 
 	using Path = stdfs::path;
 	using IncludeFiles = stdfwd::vector< parser::IncludeFile >;
-	using IgnoredFiles = stdfwd::unordered_set< Path >;
 
-	void analyzeFolder(
-		const Project & _project,
-		const Path & _path,
-		Model & _model,
-		IgnoredFiles & _ignoreFiles
-	) const;
+	static ModelPtr initModel( const project::Project & _project );
+
+	void analyzeFolder( AnalyzerContext & _context, const Path & _path ) const;
 	
-	void analyzeFile(
-		const Project & _project,
-		const Path & _path,
-		Model & _model,
-		IgnoredFiles & _ignoreFiles
-	) const;
+	void analyzeFile( AnalyzerContext & _context, const Path & _path ) const;
 
 	void analyzeIncludeFiles(
-		const Project & _project,
+		AnalyzerContext & _context,
 		const Path & _path,
-		const IncludeFiles & _includesFile,
-		Model & _model,
-		IgnoredFiles & _ignoreFiles
+		const IncludeFiles & _includesFile
 	) const;
 
 	void analyzeIncludeFile(
-		const Project & _project,
+		AnalyzerContext & _context,
 		const Path & _path,
-		const parser::IncludeFile & _includesFile,
-		File & _file,
-		Model & _model,
-		IgnoredFiles & _ignoreFiles
+		const parser::IncludeFile & _includeFile,
+		File & _file
 	) const;
 
-	bool isCppFile( const Project & _project, const Path & _path ) const;
+	static void postProcesNewInclude(
+		AnalyzerContext & _context,
+		const model_includes::Include & _include
+	);
 
 	const Path & getProjectDir() const;
 
 	using ResolvedPath = std::pair< Path, bool >;
 	ResolvedPath resolvePath(
-		const Project & _project,
+		const AnalyzerContext & _context,
 		const Path & _currentFile,
 		const parser::IncludeFile & _includeFile
 	) const;
@@ -93,17 +93,13 @@ private:
 		const ResolvedPath & _pair
 	) const;
 
-	static bool isIgnoredFile(
-		const Path & _path,
-		const Project & _project,
-		const Model & _model,
-		IgnoredFiles & _ignoreFiles
-	);
+	Resolver & ensureResolver() const;
 
 private:
 
 	const fs::FileSystem & m_fs;
 	const parser::Parser & m_parser;
+	mutable std::unique_ptr< Resolver > m_resolver;
 };
 
 //------------------------------------------------------------------------------

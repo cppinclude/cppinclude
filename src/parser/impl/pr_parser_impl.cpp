@@ -9,6 +9,7 @@
 #include <vector>
 #include <optional>
 #include <cassert>
+#include <algorithm>
 
 //------------------------------------------------------------------------------
 
@@ -53,15 +54,19 @@ ParserImpl::IncludeFileOpt ParserImpl::parseLine( ParserContext & _context )
 
 	for( size_t i = startPos; i < size; ++i )
 	{
-		const char str_char = line[i];
-		switch( str_char )
+		const char currentChar = line[i];
+		switch( currentChar )
 		{
 			case '/' :
 				i = findComentEnd( _context, i);
 				break;
 
-			case '\"':
+			case '"':
 				i = findEndOfString( _context, i );
+				break;
+
+			case 'R':
+				i = findEndOfRawString( _context, i );
 				break;
 
 			case '#' :
@@ -79,17 +84,16 @@ ParserImpl::IncludeFileOpt ParserImpl::parseLine( ParserContext & _context )
 
 std::size_t ParserImpl::getStartPos( ParserContext & _context ) noexcept
 {
+	const std::size_t index = 0;
+
 	if( _context.isEnableMultilineComment() )
-	{
-		const std::size_t index = 0;
 		return findComentEnd( _context, index );
-	}
 
 	if( _context.isEnableMultilineString() )
-	{
-		const std::size_t index = 0;
 		return findEndOfString( _context, index );
-	}
+
+	if( _context.isEnableRawString() )
+		return findEndOfRawString( _context, index );
 
 	return 0;
 }
@@ -167,6 +171,40 @@ std::size_t ParserImpl::findEndOfString(
 
 //------------------------------------------------------------------------------
 
+std::size_t ParserImpl::findEndOfRawString(
+	ParserContext & _context,
+	std::size_t _index
+) noexcept
+{
+	const std::string & line = _context.getCurrentLine();
+
+	if( !_context.isEnableRawString() )
+	{
+		const auto pos = line.find( "\"(", _index + 1 );
+		if( pos == std::string::npos )
+		{
+			return _index;
+		}
+		else
+		{
+			_index += 3;
+			_context.seEnableRawString( true );
+		}
+	}
+
+	const auto pos = line.find( ")\"", _index );
+	if( pos != std::string::npos )
+	{
+		_context.seEnableRawString( false );
+		return pos + 2;
+	}
+
+	return line.size();
+
+}
+
+//------------------------------------------------------------------------------
+
 std::optional< std::size_t > ParserImpl::findInclude(
 	std::string_view _line,
 	std::size_t _index
@@ -224,7 +262,12 @@ ParserImpl::IncludeFileOpt ParserImpl::parseInclude(
 		return std::nullopt;
 	}
 
-	const bool isSystem = startPosSystem != std::string::npos;
+	const size_t startPos = std::min( startPosSystem, startPosUser );
+
+	const bool isSystem =
+			startPosSystem != std::string::npos
+		&&	startPosSystem == startPos
+	;
 	const size_t startPosName = ( isSystem ? startPosSystem : startPosUser ) + 1;
 
 	const char endChar = isSystem ? '>' : '"';

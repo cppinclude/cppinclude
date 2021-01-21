@@ -35,7 +35,7 @@ namespace stdfs STDFS_NAMESPACE_VISIBILITY
 	using path = fs_real::path;
 	using directory_iterator = fs_real::directory_iterator;
 	static decltype( auto ) hash_value = &fs_real::hash_value;
-	static bool (*exists)( const path& ) = &fs_real::exists;
+	static bool (*exists)( const path&, std::error_code & ) = &fs_real::exists;
 	static bool (*is_directory)( const path& ) = &fs_real::is_directory;
 	static path (*current_path)() = &fs_real::current_path;
 
@@ -60,14 +60,14 @@ namespace stdfs STDFS_NAMESPACE_VISIBILITY
 		return _path.filename().empty();
 	}
 
-	static int compare( const path & _r, const path & _l )
+	static int compare( const path & _l, const path & _r )
 	{
-		return _r.compare( _l );
+		return _l.compare( _r );
 	}
 
-	static bool less( const path & _r, const path & _l )
+	static bool less( const path & _l, const path & _r )
 	{
-		return _r < _l;
+		return _l < _r;
 	}
 
 #elif __has_include(<experimental/filesystem>)
@@ -163,23 +163,23 @@ namespace stdfs STDFS_NAMESPACE_VISIBILITY
 		return pathStr.back() == path::preferred_separator || pathStr == ".";
 	}
 
-	static int compare( const path & _r, const path & _l )
+	static int compare( const path & _l, const path & _r )
 	{
 		int result = 1;
 
-		if( _r.has_root_directory() != _l.has_root_directory() )
+		if( _l.has_root_directory() != _r.has_root_directory() )
 		{
-			if( !_r.has_root_directory() )
-				return -result;
-			else
+			if( !_l.has_root_directory() )
 				return +result;
+			else
+				return -result;
 		}
-
-		auto rightBegin = _r.begin();
-		auto rightEnd = _r.end();
 
 		auto leftBegin = _l.begin();
 		auto leftEnd = _l.end();
+
+		auto rightBegin = _r.begin();
+		auto rightEnd = _r.end();
 
 		while( rightBegin != rightEnd && leftBegin != leftEnd )
 		{
@@ -202,9 +202,9 @@ namespace stdfs STDFS_NAMESPACE_VISIBILITY
 		return +result;
 	}
 
-	static bool less( const path & _r, const path & _l )
+	static bool less( const path & _l, const path & _r )
 	{
-		return compare( _r, _l ) < 0;
+		return compare( _l, _r ) > 0;
 	}
 
 

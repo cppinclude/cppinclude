@@ -2,6 +2,8 @@
 
 #include "test_tools/boost_predicate_wrapper.hpp"
 
+#include <stdfwd.hpp>
+
 //------------------------------------------------------------------------------
 
 namespace model_includes {
@@ -33,6 +35,8 @@ public:
 	IncludeWrapper getIncludedBy( std::string_view _sourcePath ) const;
 
 private:
+
+	using Path	= stdfs::path;
 
 	const File & getFile() const;
 

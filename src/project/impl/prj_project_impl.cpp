@@ -1,5 +1,7 @@
 #include "project/impl/prj_project_impl.hpp"
 
+#include "project/impl/exceptions/prj_exception_invalid_regex.hpp"
+
 #include "tools/path_string_tools.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
@@ -203,17 +205,18 @@ ProjectImpl::FileFilterIndex ProjectImpl::getFileFilterCount() const
 
 //------------------------------------------------------------------------------
 
-const std::regex & ProjectImpl::getFileFilter( FileFilterIndex _index ) const
-{
-	return m_fileFilters.at( _index );
-}
-
-//------------------------------------------------------------------------------
-
 void ProjectImpl::addFileFilter( std::string_view _filter )
 {
 	std::string str{ _filter };
-	m_fileFilters.push_back( std::regex( str ) );
+	try
+	{
+		m_fileFilters.push_back( tools::Regex{ str } );
+	}
+	catch (const std::regex_error& _exception)
+	{
+		throw InvalidRegexImpl{ str, _exception };
+	}
+
 }
 
 //------------------------------------------------------------------------------
@@ -235,7 +238,7 @@ bool ProjectImpl::hasFileFilters() const
 
 bool ProjectImpl::isIgnoredFile( const Path & _path ) const
 {
-	for( const std::regex & filter : m_fileFilters )
+	for( const tools::Regex & filter : m_fileFilters )
 	{
 		if( isIgnoredFile( _path, filter ) )
 			return true;
@@ -300,19 +303,30 @@ void ProjectImpl::changeToAbsolute( const Path & _currentDir, Path & _path )
 
 //------------------------------------------------------------------------------
 
-bool ProjectImpl::isIgnoredFile( const Path & _path, const std::regex & _filter)
+bool ProjectImpl::isIgnoredFile( const Path & _path, const tools::Regex & _filter )
 {
 	const std::string originStr = _path.string();
 	const std::string unixStr = tools::toUnixPath( originStr );
-	if( regex_search( unixStr, _filter ) )
+	if( checkFilter( unixStr, _filter ) )
 	{
 		return true;
 	}
 	else
 	{
 		const std::string windowsStr = tools::toWindowsPath( originStr );
-		return regex_search( windowsStr, _filter );
+		return checkFilter( windowsStr, _filter );
 	}
+}
+
+//------------------------------------------------------------------------------
+
+bool ProjectImpl::checkFilter(
+	const std::string & _str,
+	const tools::Regex  & _filter
+)
+{
+	const bool result = _filter.search( _str );
+	return result;
 }
 
 //------------------------------------------------------------------------------

@@ -3,6 +3,8 @@
 #include "application/resources/app_resources_exceptions.hpp"
 #include "application/resources/app_resources_arguments.hpp"
 
+#include "reporter/tools/rp_reporter_kind_functins.hpp"
+
 #include "exception/ih/exc_internal_error.hpp"
 
 //------------------------------------------------------------------------------
@@ -29,20 +31,7 @@ std::string CantCreateReportImpl::getMessage() const noexcept
 
 std::string CantCreateReportImpl::toString( reporter::ReporterKind _kind )
 {
-	using namespace reporter;
-	using namespace resources;
-
-	static_assert( static_cast< int >( ReporterKind::Count ) == 3 );
-	switch( _kind )
-	{
-		case ReporterKind::Dump			: return arguments::report::DumpReport;
-		case ReporterKind::MostImpact	: return arguments::report::MostImpactReport;
-		case ReporterKind::Unresolved	: return arguments::report::UnresolvedReport;
-		default:
-			THROW_INTERNAL_ERROR
-	}
-	THROW_INTERNAL_ERROR
-	return "";
+	return reporter::reporterKindToString( _kind );
 }
 
 //------------------------------------------------------------------------------

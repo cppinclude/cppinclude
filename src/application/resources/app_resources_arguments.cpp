@@ -2,6 +2,13 @@
 
 #include "application/resources/app_resources_configuration_file.hpp"
 
+#include "reporter/resources/rp_most_impact_report_resources.hpp"
+#include "reporter/resources/rp_unresolved_report_resources.hpp"
+#include "reporter/resources/rp_unincluded_report_resources.hpp"
+#include "reporter/resources/rp_dump_resources.hpp"
+
+#include "reporter/api/enums/rp_reporter_kind.hpp"
+
 //------------------------------------------------------------------------------
 
 namespace application::resources::arguments {
@@ -80,6 +87,15 @@ namespace configurationFile {
 
 //------------------------------------------------------------------------------
 
+namespace compileCommands {
+
+	const char * const FullName			= configuration_file::CompileCommands;
+	const char * const Description		= "Path to JSON Compilation Database";
+	const char * const DefaultValue		= "compile_commands.json";
+}
+
+//------------------------------------------------------------------------------
+
 namespace help {
 
 	const char * const FullName			= "help";
@@ -106,25 +122,33 @@ namespace version {
 
 namespace report {
 
-	const char * const FullName			= "report";
-	const char * const Description		= "List of reports";
+	using namespace reporter::resources;
+
+	const char * const FullName			= configuration_file::Report;
+
+	static_assert( static_cast< int >( reporter::ReporterKind::Count ) == 5 );
+	const char * const Description		=
+		"List of reports. Name of reports: "
+		"unresolved, "
+		"most_impact, "
+		"unincluded, "
+		"different_type"
+		;
+
 	const char * const DefaultValue[]	= {
-		UnresolvedReport,
-		MostImpactReport,
+		unresolved_report::Name,
+		most_impact_report::Name,
+		unincluded_report::Name,
 
 		nullptr
 	};
-
-	const char * const UnresolvedReport	= "unresolved";
-	const char * const MostImpactReport	= "most_impact";
-	const char * const DumpReport		= "dump";
 }
 
 //------------------------------------------------------------------------------
 
 namespace report_limit {
 
-	const char * const FullName			= "report_limit";
+	const char * const FullName			= configuration_file::ReportLimit;
 	const char * const Description		= "Maximum elements in report, 0 - unlimited";
 	const int DefaultValue				= 10;
 }
@@ -133,7 +157,7 @@ namespace report_limit {
 
 namespace report_details_limit {
 
-	const char * const FullName			= "report_details_limit";
+	const char * const FullName			= configuration_file::ReportDetailsLimit;
 	const char * const Description		= "Maximum details in report, 0 - unlimited";
 	const int DefaultValue				= 10;
 }
@@ -142,9 +166,9 @@ namespace report_details_limit {
 
 namespace show_std_files {
 
-	const char * const FullName		= "show_std_files";
-	const char * const Description	= "Show standard library headers in output (default: false)";
-	const bool DefaultValue			= false;
+	const char * const FullName			= configuration_file::ShowStdFiles;
+	const char * const Description		= "Show standard library headers in output (default: false)";
+	const bool DefaultValue				= false;
 }
 
 //------------------------------------------------------------------------------

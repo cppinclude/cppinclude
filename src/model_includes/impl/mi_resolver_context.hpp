@@ -1,0 +1,61 @@
+#pragma once
+
+#include <stdfwd.hpp>
+
+#include <std_fs>
+#include <string>
+#include <optional>
+
+//------------------------------------------------------------------------------
+
+namespace project {
+	class Project;
+}
+
+namespace cmake_project {
+	class Project;
+}
+
+//------------------------------------------------------------------------------
+
+namespace model_includes {
+
+//------------------------------------------------------------------------------
+
+class ResolverContext
+{
+public:
+
+	using Path			= stdfs::path;
+	using PathOpt		= std::optional< Path >;
+
+	ResolverContext(
+		const project::Project & _project,
+		const cmake_project::Project * _cmakeProject,
+		const Path & _startFile,
+		stdfwd::string_view _fileName,
+		PathOpt _currentCMakeSourceFile
+	);
+
+	const project::Project & getProject() const;
+	const cmake_project::Project * getCMakeProject() const;
+
+	const Path & getStartFile() const;
+	const std::string & getFileName() const;
+
+	PathOpt getCurrentCMakeSourceFile() const;
+
+private:
+
+	const project::Project & m_project;
+	const cmake_project::Project * m_cmakeProject;
+
+	const Path m_startFile;
+	const std::string m_fileName;
+
+	const PathOpt m_currentCMakeSourceFile;
+};
+
+//------------------------------------------------------------------------------
+
+}

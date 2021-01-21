@@ -5,6 +5,7 @@
 
 #include "fs/impl/exceptions/fs_exception_cant_open_file_impl.hpp"
 #include "fs/impl/exceptions/fs_exception_cant_create_file.hpp"
+#include "fs/impl/exceptions/fs_exception_checking_exist_file_fail.hpp"
 
 #include <memory>
 #include <functional>
@@ -47,7 +48,12 @@ PhysicalFileSystem::FilePtr PhysicalFileSystem::createFile(
 
 bool PhysicalFileSystem::isExistFile( const Path & _path ) const
 {
-	return stdfs::exists( _path );
+	std::error_code errorCode;
+	const bool result = stdfs::exists( _path, errorCode );
+	if( errorCode )
+		throw CheckingExistFileFailImpl( _path, errorCode );
+
+	return result;
 }
 
 //------------------------------------------------------------------------------

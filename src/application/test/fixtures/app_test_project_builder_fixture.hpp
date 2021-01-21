@@ -12,13 +12,9 @@ namespace project {
 	class Project;
 }
 
-//------------------------------------------------------------------------------
-
 namespace json {
 	class JsonAccessor;
 }
-
-//------------------------------------------------------------------------------
 
 namespace fs {
 	class FileSystemAccessor;
@@ -26,11 +22,10 @@ namespace fs {
 	class File;
 }
 
-//------------------------------------------------------------------------------
-
 namespace application {
 	class ParserArgWrapper;
 	class ProjectBuilder;
+	class ConfigurationFile;
 }
 
 //------------------------------------------------------------------------------
@@ -63,7 +58,6 @@ public:
 	std::string getIgnoreDirs() const;
 
     std::size_t getFileFiltersCount() const;
-	const std::regex & getFileFilter( int _index ) const;
 
 	bool getIgnoreSystemIncludes() const;
 	std::string getFileExtensions() const;
@@ -82,6 +76,8 @@ private:
 	template< class _Strings >
 	static std::string toString( const _Strings & _strings );
 
+	ConfigurationFile * loadConfigurationFile();
+
 	ParserArgWrapper & getArgumentParser();
 	ProjectBuilder & getBuilder();
 
@@ -96,6 +92,8 @@ private:
 	std::unique_ptr< project::Project > m_project;
 	std::unique_ptr< ParserArgWrapper > m_parser;
 	std::unique_ptr< ProjectBuilder > m_builder;
+	std::unique_ptr< ConfigurationFile > m_configurationFile;
+
 
 	PluginPtr< project::ProjectAccessor > m_projectAccessor;
 	PluginPtr< json::JsonAccessor > m_json;

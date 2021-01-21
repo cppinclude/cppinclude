@@ -1,0 +1,7 @@
+{
+	"project_dir" : "../../../src",
+	"file_extentions" : ["*.cpp", "*.hpp"],
+	"include_dirs" : ["."],
+	"ignore_dirs" : ["./3rd-part"],
+	"ignore_system_includes" : true
+}

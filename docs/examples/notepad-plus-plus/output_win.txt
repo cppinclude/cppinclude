@@ -126,3 +126,15 @@ Included by:
 	10 : "scintilla\lexers\LexAsn1.cxx" line 23
 	... 10 of 119 details
 ... 10 of 243 files
+Unincluded headers:
+1 : "PowerEditor\gcc\include\various.h"
+2 : "PowerEditor\src\MISC\PluginsManager\deprecatedSymbols.h"
+3 : "PowerEditor\src\MISC\crc16\Crc16.h"
+4 : "PowerEditor\src\StaticControl.h"
+5 : "PowerEditor\src\WinControls\WindowInterface.h"
+6 : "scintilla\cocoa\InfoBar.h"
+7 : "scintilla\cocoa\InfoBarCommunicator.h"
+8 : "scintilla\cocoa\PlatCocoa.h"
+9 : "scintilla\cocoa\ScintillaCocoa.h"
+10 : "scintilla\cocoa\ScintillaTest\AppController.h"
+... 10 of 12 files

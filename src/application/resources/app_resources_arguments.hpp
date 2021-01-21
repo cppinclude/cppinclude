@@ -78,6 +78,15 @@ namespace configurationFile {
 
 //------------------------------------------------------------------------------
 
+namespace compileCommands {
+
+	extern const char * const FullName;
+	extern const char * const Description;
+	extern const char * const DefaultValue;
+}
+
+//------------------------------------------------------------------------------
+
 namespace help {
 
 	extern const char * const FullName;
@@ -108,9 +117,6 @@ namespace report {
 	extern const char * const Description;
 	extern const char * const DefaultValue[];
 
-	extern const char * const UnresolvedReport;
-	extern const char * const MostImpactReport;
-	extern const char * const DumpReport;
 }
 
 //------------------------------------------------------------------------------

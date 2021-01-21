@@ -4,6 +4,7 @@
 #include "application/resources/app_resources_arguments.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
+#include "reporter/tools/rp_reporter_kind_functins.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
@@ -21,18 +22,23 @@ ParserWrapperFixture::~ParserWrapperFixture() = default;
 
 //------------------------------------------------------------------------------
 
+void ParserWrapperFixture::parse( std::string_view _argument )
+{
+	Arguments arguments;
+	arguments.push_back( _argument.data() );
+
+	parse( arguments );
+}
+
+//------------------------------------------------------------------------------
+
 void ParserWrapperFixture::parse( const Arguments & _arguments )
 {
 	Arguments arguments{ _arguments };
 	arguments.insert( arguments.begin(),  "./application" );
 
-    std::vector< char * > arg;
-	arg.reserve( arguments.size() );
-	for( std::string & str : arguments )
-        arg.push_back( str.data() );
-
     ParserArgWrapper & parser = getParser();
-    parser.parse( static_cast< int >( arg.size() ), arg.data() );
+	parser.parse( arguments );
 }
 
 //------------------------------------------------------------------------------
@@ -173,6 +179,24 @@ ParserWrapperFixture::Path ParserWrapperFixture::getConfigurationFile() const
         return *valueOpt;
 
     return Path{};
+}
+
+//------------------------------------------------------------------------------
+
+ParserWrapperFixture::Path ParserWrapperFixture::getCompileCommandsFile() const
+{
+	auto valueOpt = getParser().getCompileCommandsFile();
+	if( valueOpt )
+		return *valueOpt;
+
+	return Path{};
+}
+
+//------------------------------------------------------------------------------
+
+ParserWrapperFixture::Path ParserWrapperFixture::getDefaultCompileCommandsFile() const
+{
+	return getParser().getDefaultCompileCommandsFile();
 }
 
 //------------------------------------------------------------------------------
@@ -318,24 +342,7 @@ std::string ParserWrapperFixture::toString( const ReporterKinds & _array ) const
 
 std::string ParserWrapperFixture::toString( reporter::ReporterKind _kind ) const
 {
-	using namespace reporter;
-	using namespace resources::arguments;
-
-	static_assert( static_cast< int >( ReporterKind::Count )  == 3 );
-	switch( _kind )
-	{
-		case ReporterKind::Unresolved	: return report::UnresolvedReport;
-		case ReporterKind::MostImpact	: return report::MostImpactReport;
-		case ReporterKind::Dump			: return report::DumpReport;
-		case ReporterKind::Count :
-		{
-			THROW_INTERNAL_ERROR
-			return "";
-		}
-	}
-
-	THROW_INTERNAL_ERROR
-	return "";
+	return reporter::reporterKindToString( _kind );
 }
 
 //------------------------------------------------------------------------------

@@ -113,3 +113,7 @@ Included by:
 	7 : "src/widgets/osd_win.cpp" line 18
 	8 : "src/widgets/osd_x11.cpp" line 18
 ... 10 of 376 files
+Unincluded headers:
+1 : "src/internet/lastfm/lastfmurlhandler.h"
+2 : "src/mac/SBSystemPreferences.h"
+3 : "tests/mock_sqldriver.h"

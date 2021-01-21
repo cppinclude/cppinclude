@@ -2,119 +2,143 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "build/build_config.h" impact on 21394 file(s)
+1 : "build/build_config.h" impact on 53601 file(s)
 Included by:
-	1 : "base/compiler_specific.h" line 8, impact on 20668 file(s)
-	2 : "base/immediate_crash.h" line 8, impact on 20317 file(s)
-	3 : "base/template_util.h" line 15, impact on 19985 file(s)
-	4 : "base/strings/string16.h" line 37, impact on 19723 file(s)
-	5 : "base/numerics/safe_math_shared_impl.h" line 19, impact on 17993 file(s)
-	6 : "base/time/time.h" line 66, impact on 17522 file(s)
-	7 : "base/threading/platform_thread.h" line 17, impact on 16313 file(s)
-	8 : "base/thread_annotations.h" line 36, impact on 16297 file(s)
-	9 : "base/synchronization/lock_impl.h" line 12, impact on 16293 file(s)
-	10 : "base/synchronization/lock.h" line 14, impact on 16291 file(s)
-	... 10 of 1488 details
-2 : "base/base_export.h" impact on 20920 file(s)
+	1 : "base/compiler_specific.h" line 8, impact on 52630 file(s)
+	2 : "base/immediate_crash.h" line 8, impact on 52115 file(s)
+	3 : "base/template_util.h" line 15, impact on 51449 file(s)
+	4 : "base/strings/string16.h" line 37, impact on 50734 file(s)
+	5 : "base/numerics/safe_math_shared_impl.h" line 19, impact on 47161 file(s)
+	6 : "base/time/time.h" line 66, impact on 46267 file(s)
+	7 : "base/threading/platform_thread.h" line 17, impact on 43621 file(s)
+	8 : "base/thread_annotations.h" line 36, impact on 43570 file(s)
+	9 : "base/synchronization/lock_impl.h" line 12, impact on 43565 file(s)
+	10 : "base/synchronization/lock.h" line 14, impact on 43561 file(s)
+	... 10 of 5797 details
+2 : "base/base_export.h" impact on 52947 file(s)
 Included by:
-	1 : "base/check.h" line 10, impact on 20314 file(s)
-	2 : "base/strings/string16.h" line 36, impact on 19723 file(s)
-	3 : "base/strings/string_piece.h" line 32, impact on 19012 file(s)
-	4 : "base/time/time.h" line 60, impact on 17522 file(s)
-	5 : "base/threading/platform_thread.h" line 14, impact on 16313 file(s)
-	6 : "base/synchronization/lock_impl.h" line 8, impact on 16293 file(s)
-	7 : "base/synchronization/lock.h" line 8, impact on 16291 file(s)
-	8 : "base/atomicops.h" line 39, impact on 16146 file(s)
-	9 : "base/sequence_checker_impl.h" line 10, impact on 15941 file(s)
-	10 : "base/threading/thread_collision_warner.h" line 11, impact on 15771 file(s)
-	... 10 of 426 details
-3 : "base/macros.h" impact on 20745 file(s)
+	1 : "base/check.h" line 10, impact on 52108 file(s)
+	2 : "base/strings/string16.h" line 36, impact on 50734 file(s)
+	3 : "base/strings/string_piece.h" line 32, impact on 49683 file(s)
+	4 : "base/time/time.h" line 60, impact on 46267 file(s)
+	5 : "base/threading/platform_thread.h" line 14, impact on 43621 file(s)
+	6 : "base/synchronization/lock_impl.h" line 8, impact on 43565 file(s)
+	7 : "base/synchronization/lock.h" line 8, impact on 43561 file(s)
+	8 : "base/atomicops.h" line 39, impact on 43505 file(s)
+	9 : "base/sequence_checker_impl.h" line 10, impact on 42643 file(s)
+	10 : "base/threading/thread_collision_warner.h" line 11, impact on 42420 file(s)
+	... 10 of 424 details
+3 : "base/compiler_specific.h" impact on 52630 file(s)
 Included by:
-	1 : "base/threading/platform_thread.h" line 15, impact on 16313 file(s)
-	2 : "base/synchronization/lock_impl.h" line 10, impact on 16293 file(s)
-	3 : "base/synchronization/lock.h" line 10, impact on 16291 file(s)
-	4 : "base/atomicops_internals_x86_msvc.h" line 16, impact on 16147 file(s)
-	5 : "base/sequence_checker_impl.h" line 12, impact on 15941 file(s)
-	6 : "base/memory/scoped_refptr.h" line 16, impact on 15884 file(s)
-	7 : "base/threading/thread_collision_warner.h" line 13, impact on 15771 file(s)
-	8 : "base/memory/ref_counted.h" line 17, impact on 15769 file(s)
-	9 : "base/callback_internal.h" line 13, impact on 13337 file(s)
-	10 : "base/containers/span.h" line 19, impact on 13302 file(s)
-	... 10 of 11766 details
-4 : "base/compiler_specific.h" impact on 20668 file(s)
+	1 : "base/check.h" line 11, impact on 52108 file(s)
+	2 : "base/strings/char_traits.h" line 10, impact on 49686 file(s)
+	3 : "base/time/time.h" line 62, impact on 46267 file(s)
+	4 : "base/sequence_checker_impl.h" line 11, impact on 42643 file(s)
+	5 : "base/sequence_checker.h" line 9, impact on 42641 file(s)
+	6 : "base/memory/scoped_refptr.h" line 15, impact on 42570 file(s)
+	7 : "base/threading/thread_collision_warner.h" line 12, impact on 42420 file(s)
+	8 : "base/memory/ref_counted.h" line 15, impact on 42417 file(s)
+	9 : "base/mac/scoped_typeref.h" line 9, impact on 33370 file(s)
+	10 : "base/bind.h" line 14, impact on 32901 file(s)
+	... 10 of 2103 details
+4 : "base/dcheck_is_on.h" impact on 52187 file(s)
 Included by:
-	1 : "base/check.h" line 11, impact on 20314 file(s)
-	2 : "base/strings/char_traits.h" line 10, impact on 19013 file(s)
-	3 : "base/time/time.h" line 62, impact on 17522 file(s)
-	4 : "base/sequence_checker_impl.h" line 11, impact on 15941 file(s)
-	5 : "base/sequence_checker.h" line 9, impact on 15940 file(s)
-	6 : "base/memory/scoped_refptr.h" line 15, impact on 15884 file(s)
-	7 : "base/threading/thread_collision_warner.h" line 12, impact on 15771 file(s)
-	8 : "base/memory/ref_counted.h" line 15, impact on 15769 file(s)
-	9 : "base/mac/scoped_typeref.h" line 9, impact on 10162 file(s)
-	10 : "base/bind.h" line 14, impact on 9974 file(s)
-	... 10 of 1593 details
-5 : "base/dcheck_is_on.h" impact on 20346 file(s)
+	1 : "base/check.h" line 12, impact on 52108 file(s)
+	2 : "base/win/scoped_handle.h" line 13, impact on 29646 file(s)
+	3 : "base/logging.h" line 18, impact on 24516 file(s)
+	4 : "components/performance_manager/public/graph/graph.h" line 12, impact on 204 file(s)
+	5 : "remoting/base/protobuf_http_request_base.h" line 12, impact on 15 file(s)
+	6 : "chrome/app/chrome_main_delegate.cc" line 14
+	7 : "chrome/chrome_cleaner/executables/chrome_cleaner_main.cc" line 16
+	8 : "chrome/chrome_cleaner/executables/chrome_reporter_main.cc" line 17
+	9 : "components/performance_manager/graph/graph.cc" line 7
+	10 : "content/browser/tracing/tracing_controller_impl.cc" line 16
+5 : "base/immediate_crash.h" impact on 52115 file(s)
 Included by:
-	1 : "base/check.h" line 12, impact on 20314 file(s)
-	2 : "base/win/scoped_handle.h" line 13, impact on 8218 file(s)
-	3 : "base/logging.h" line 18, impact on 5808 file(s)
-	4 : "components/performance_manager/public/graph/graph.h" line 12, impact on 55 file(s)
-	5 : "remoting/base/protobuf_http_request_base.h" line 12, impact on 2 file(s)
-6 : "base/immediate_crash.h" impact on 20317 file(s)
+	1 : "base/check.h" line 13, impact on 52108 file(s)
+	2 : "base/allocator/malloc_zone_functions_mac.h" line 12, impact on 5 file(s)
+	3 : "base/immediate_crash_unittest.cc" line 5
+	4 : "base/test/immediate_crash_test_helper.cc" line 5
+	5 : "base/win/atl_throw.cc" line 11
+	6 : "components/openscreen_platform/logging.cc" line 11
+	7 : "components/services/storage/test_api/test_api.cc" line 8
+	8 : "net/dns/host_resolver.cc" line 11
+	9 : "services/test/echo/echo_service.cc" line 7
+6 : "base/check.h" impact on 52108 file(s)
 Included by:
-	1 : "base/check.h" line 13, impact on 20314 file(s)
-	2 : "base/allocator/malloc_zone_functions_mac.h" line 12, impact on 1 file(s)
-7 : "base/check.h" impact on 20314 file(s)
+	1 : "base/check_op.h" line 11, impact on 50824 file(s)
+	2 : "base/optional.h" line 12, impact on 49824 file(s)
+	3 : "base/stl_util.h" line 26, impact on 44553 file(s)
+	4 : "base/sequence_checker.h" line 8, impact on 42641 file(s)
+	5 : "base/memory/scoped_refptr.h" line 14, impact on 42570 file(s)
+	6 : "base/notreached.h" line 8, impact on 40938 file(s)
+	7 : "base/memory/weak_ptr.h" line 76, impact on 37545 file(s)
+	8 : "base/mac/scoped_typeref.h" line 8, impact on 33370 file(s)
+	9 : "base/bind_internal.h" line 18, impact on 32901 file(s)
+	10 : "base/task_runner.h" line 13, impact on 30221 file(s)
+	... 10 of 1523 details
+7 : "base/macros.h" impact on 51890 file(s)
 Included by:
-	1 : "base/check_op.h" line 11, impact on 19608 file(s)
-	2 : "base/optional.h" line 12, impact on 19129 file(s)
-	3 : "base/sequence_checker.h" line 8, impact on 15940 file(s)
-	4 : "base/memory/scoped_refptr.h" line 14, impact on 15884 file(s)
-	5 : "base/stl_util.h" line 26, impact on 15388 file(s)
-	6 : "base/notreached.h" line 8, impact on 14345 file(s)
-	7 : "base/memory/weak_ptr.h" line 76, impact on 12861 file(s)
-	8 : "base/mac/scoped_typeref.h" line 8, impact on 10162 file(s)
-	9 : "base/bind_internal.h" line 18, impact on 9974 file(s)
-	10 : "base/task_runner.h" line 13, impact on 8695 file(s)
-	... 10 of 166 details
-8 : "base/template_util.h" impact on 19985 file(s)
+	1 : "base/threading/platform_thread.h" line 15, impact on 43621 file(s)
+	2 : "base/synchronization/lock_impl.h" line 10, impact on 43565 file(s)
+	3 : "base/synchronization/lock.h" line 10, impact on 43561 file(s)
+	4 : "base/atomicops_internals_x86_msvc.h" line 16, impact on 43506 file(s)
+	5 : "base/sequence_checker_impl.h" line 12, impact on 42643 file(s)
+	6 : "base/memory/scoped_refptr.h" line 16, impact on 42570 file(s)
+	7 : "base/threading/thread_collision_warner.h" line 13, impact on 42420 file(s)
+	8 : "base/memory/ref_counted.h" line 17, impact on 42417 file(s)
+	9 : "base/containers/span.h" line 19, impact on 41006 file(s)
+	10 : "base/callback_internal.h" line 13, impact on 38416 file(s)
+	... 10 of 15272 details
+8 : "base/template_util.h" impact on 51449 file(s)
 Included by:
-	1 : "base/check_op.h" line 12, impact on 19608 file(s)
-	2 : "base/optional.h" line 13, impact on 19129 file(s)
-	3 : "base/stl_util.h" line 28, impact on 15388 file(s)
-	4 : "base/containers/span.h" line 21, impact on 13302 file(s)
-	5 : "base/memory/raw_scoped_refptr_mismatch_checker.h" line 10, impact on 9975 file(s)
-	6 : "base/bind.h" line 15, impact on 9974 file(s)
-	7 : "base/bind_internal.h" line 23, impact on 9974 file(s)
-	8 : "base/containers/flat_tree.h" line 15, impact on 8859 file(s)
-	9 : "base/containers/flat_map.h" line 14, impact on 8201 file(s)
-	10 : "base/containers/circular_deque.h" line 18, impact on 7149 file(s)
-	... 10 of 18 details
-9 : "base/strings/string16.h" impact on 19723 file(s)
+	1 : "base/check_op.h" line 12, impact on 50824 file(s)
+	2 : "base/optional.h" line 13, impact on 49824 file(s)
+	3 : "base/stl_util.h" line 28, impact on 44553 file(s)
+	4 : "base/containers/span.h" line 21, impact on 41006 file(s)
+	5 : "base/memory/raw_scoped_refptr_mismatch_checker.h" line 10, impact on 32902 file(s)
+	6 : "base/bind.h" line 15, impact on 32901 file(s)
+	7 : "base/bind_internal.h" line 23, impact on 32901 file(s)
+	8 : "base/containers/flat_tree.h" line 15, impact on 31143 file(s)
+	9 : "base/containers/flat_map.h" line 14, impact on 29812 file(s)
+	10 : "base/containers/circular_deque.h" line 18, impact on 26264 file(s)
+	... 10 of 23 details
+9 : "base/check_op.h" impact on 50824 file(s)
 Included by:
-	1 : "base/strings/string_piece_forward.h" line 12, impact on 19171 file(s)
-	2 : "base/strings/string_piece.h" line 35, impact on 19012 file(s)
-	3 : "base/hash/hash.h" line 17, impact on 11896 file(s)
-	4 : "base/files/file_path.h" line 115, impact on 8925 file(s)
-	5 : "url/url_canon.h" line 13, impact on 7271 file(s)
-	6 : "base/values.h" line 40, impact on 7218 file(s)
-	7 : "url/gurl.h" line 16, impact on 6940 file(s)
-	8 : "base/strings/string_util.h" line 24, impact on 5270 file(s)
-	9 : "base/strings/string_util_win.h" line 19, impact on 5270 file(s)
-	10 : "base/pickle.h" line 19, impact on 4056 file(s)
-	... 10 of 1399 details
-10 : "base/check_op.h" impact on 19608 file(s)
+	1 : "base/strings/string_piece.h" line 33, impact on 49683 file(s)
+	2 : "base/time/time.h" line 61, impact on 46267 file(s)
+	3 : "base/thread_annotations.h" line 35, impact on 43570 file(s)
+	4 : "base/synchronization/lock_impl.h" line 9, impact on 43565 file(s)
+	5 : "base/synchronization/lock.h" line 9, impact on 43561 file(s)
+	6 : "base/memory/ref_counted.h" line 14, impact on 42417 file(s)
+	7 : "base/containers/checked_iterators.h" line 12, impact on 41010 file(s)
+	8 : "base/containers/span.h" line 17, impact on 41006 file(s)
+	9 : "base/win/scoped_handle.h" line 11, impact on 29646 file(s)
+	10 : "base/observer_list_internal.h" line 9, impact on 27997 file(s)
+	... 10 of 1609 details
+10 : "base/strings/string16.h" impact on 50734 file(s)
 Included by:
-	1 : "base/strings/string_piece.h" line 33, impact on 19012 file(s)
-	2 : "base/time/time.h" line 61, impact on 17522 file(s)
-	3 : "base/thread_annotations.h" line 35, impact on 16297 file(s)
-	4 : "base/synchronization/lock_impl.h" line 9, impact on 16293 file(s)
-	5 : "base/synchronization/lock.h" line 9, impact on 16291 file(s)
-	6 : "base/memory/ref_counted.h" line 14, impact on 15769 file(s)
-	7 : "base/containers/checked_iterators.h" line 12, impact on 13304 file(s)
-	8 : "base/containers/span.h" line 17, impact on 13302 file(s)
-	9 : "base/win/scoped_handle.h" line 11, impact on 8218 file(s)
-	10 : "base/observer_list_internal.h" line 9, impact on 7688 file(s)
-	... 10 of 172 details
-... 10 of 11677 files
+	1 : "base/strings/string_piece_forward.h" line 12, impact on 50009 file(s)
+	2 : "base/strings/string_piece.h" line 35, impact on 49683 file(s)
+	3 : "base/hash/hash.h" line 17, impact on 37370 file(s)
+	4 : "base/files/file_path.h" line 115, impact on 31747 file(s)
+	5 : "base/values.h" line 40, impact on 27647 file(s)
+	6 : "url/url_canon.h" line 13, impact on 24380 file(s)
+	7 : "url/gurl.h" line 16, impact on 23762 file(s)
+	8 : "base/strings/string_util.h" line 24, impact on 23068 file(s)
+	9 : "base/strings/string_util_win.h" line 19, impact on 23068 file(s)
+	10 : "base/pickle.h" line 19, impact on 18703 file(s)
+	... 10 of 2099 details
+... 10 of 26036 files
+Unincluded headers:
+1 : "ash/accelerators/accelerator_ids.h"
+2 : "ash/assistant/model/assistant_screen_context_model_observer.h"
+3 : "base/file_version_info_mac.h"
+4 : "base/ios/crb_protocol_observers.h"
+5 : "base/ios/ns_error_util.h"
+6 : "base/ios/weak_nsobject.h"
+7 : "base/mac/launch_services_util.h"
+8 : "base/mac/objc_release_properties.h"
+9 : "base/mac/scoped_aedesc.h"
+10 : "base/mac/scoped_objc_class_swizzler.h"
+... 10 of 2691 files

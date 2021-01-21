@@ -1,0 +1,32 @@
+{
+	
+	"ignore_system_includes" : true,
+	"compile_commands" : "build/compile_commands.json",
+	"ignore_files" : [
+		"^android_lf.h",
+		"^blake2-kat.h",
+		"^aich.h",
+		"^cipher.mih",
+		"^config-.*.h",
+		"^config.h",
+		"^dbghelp.h",
+		"^ed2k.h",
+		"^edonr.h",
+		"^gost12.h",
+		"^gost94.h",
+		"^has160.h",
+		"^io.h",
+		"^md4.h",
+		"^ripemd-160.h",
+		"^snefru.h",
+		"^tiger.h",
+		"^tth.h",
+		"^whirlpool.h",
+		"zstd_legacy.h",
+		"os390.c"
+	],
+	
+	"include_dirs" : [
+		"CMake/Utilities/cmzlib/"
+	]
+}

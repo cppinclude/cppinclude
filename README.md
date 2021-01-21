@@ -9,7 +9,13 @@ include the file will be recompiled and sometime it takes a lot of time.
 * [Examples](#examples)
 * [Settings](#setting)
   * [All arguments](#all-arguments)
+  * [report](#report)
+    * [unresolved](#unresolved)
+    * [most_impact](#most_impact)
+    * [unincluded](#unincluded)
+    * [different_type](#different_type)
   * [configuration_file](#configuration_file)
+  * [compile_commands](#compile_commands)
   * [project_dir](#project_dir)
   * [file_extensions](#file_extensions)
   * [analyze_without_extension](#analyze_without_extension)
@@ -17,11 +23,10 @@ include the file will be recompiled and sometime it takes a lot of time.
   * [ignore_dirs](#ignore_dirs)
   * [ignore_system_includes](#ignore_system_includes)
   * [ignore_files](#ignore_files)
-  * [report](#report)
   * [report_limit](#report_limit)
   * [report_details_limit](#report_details_limit)
 * [Build](#build)
-* [Presentations](#presentation)
+* [Presentations](#presentations)
 * [Tips for optimization includes](#tips-for-optimization-includes)
 * [Third-party libraries](#third-party-libraries)
 * [Support](#support)
@@ -97,7 +102,9 @@ See more examples in [docs/examples/](docs/examples/)
 
 Name|Short description
 ------------ | -------------
+--[report](#report)=name1,name2,...|List reports. Name of reports: [unresolved](#unresolved), [most_impact](#most_impact), [unincluded](#unincluded), [different_type](#different_type) (default: [unresolved](#unresolved),[most_impact](#most_impact),[unincluded](#unincluded))
 --[configuration_file](#configuration_file)=file|Path to configuration file (default: .cppinclude.json)
+--[compile_commands](#compile_commands)=file|Path to JSON Compilation Database (default: compile_commands.json)
 --[project_dir](#project_dir)=dir|Project directory
 --[file_extensions](#file_extensions)=arg1,arg2,...|Extensions C++ files (default: \*.cpp, \*.hpp,\*.c,\*.h,\*.cxx,\*.hxx)
 --[analyze_without_extension](#analyze_without_extension)=true|Analyze files without extension (default: false)
@@ -105,7 +112,6 @@ Name|Short description
 --[ignore_dirs](#ignore_dirs)=dir1,dir2,...|Directories that will be ignored
 --[ignore_system_includes](#ignore_system_includes)=true|Ignore headers in \<\> (default: false)
 --[ignore_files](#ignore_files)=regexp1,regexp2,...|Files will be ignored by regexp
---[report](#report)=name1,name2,...|List reports (default: unresolved,most_impact)
 --[report_limit](#report_limit)=42|Maximum elements in report, 0 - unlimited (default: 10)
 --[report_details_limit](#report_details_limit)=42|Maximum details in report, 0 - unlimited (default: 10)
 --[show_std_files](#show_std_files)|Show standard library headers in output (default: false)
@@ -122,6 +128,27 @@ you can set file in argument *configuration_file*.
 For example:
 
 `cppinclude --configuration_file=project.json`
+
+[Back to top](#cppinclude)
+
+### compile_commands
+
+Path to generated *compile_commands.json* file by CMake with argument
+*-DCMAKE_EXPORT_COMPILE_COMMANDS=ON*, for example:
+
+`cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
+
+You can set path in configuration file:
+
+```json
+{
+    "compile_commands" : "build/compile_commands.json"
+}
+```
+
+or in arguments:
+
+`cppinclude --compile_commands=build/compile_commands.json`
 
 [Back to top](#cppinclude)
 
@@ -252,14 +279,170 @@ or in arguments:
 Name of report. Possible values:
 
 * *unresolved* -- show included files that are not found in project folder;
-* *most_impact* -- show files that most impact on other files.
-
-This report show how many files will be recompiled if the file is changes
+* *most_impact* -- show files that most impact on other files;
+* *unincluded* -- show unincluded headers;
+* *different_type* -- show headers that are included in #include <...> and #include "..." .
 
 ```
 cppinclude --report=unresolved
 cppinclude --report=most_impact
 cppinclude --report=unresolved,most_impact
+```
+
+Also you can set in configuration file:
+
+```json
+{
+    "report" : [ "unresolved", "most_impact"]
+}
+```
+
+[Back to top](#cppinclude)
+
+#### unresolved
+
+Show files that are found in includes but didn't found in file system.
+One of the resean is missing includes files, for example:
+There is file *main.cpp*, folder *include* that store file *header.hpp* :
+
+```
+tree
+.
+├── include
+│   └── header.hpp
+└── main.cpp
+
+```
+
+If run *cppinclude* result will be:
+
+```
+cppinclude --report=unresolved
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Unresolved files:
+1. "header.hpp" isn't resolved in:
+    1. "main.cpp" line: 1
+
+```
+
+But if add folder *include* to *include_dirs* resultat will be empty:
+
+```
+cppinclude --report=unresolved --include_dirs=include
+```
+
+[Back to top](#cppinclude)
+
+#### most_impact
+
+Show how many files will be recompiled with header will be changed.
+Example from [docs/examples/simple_example/](docs/examples/simple_example/)
+
+```
+cppinclude --report=most_impact
+...
+Most impact files:
+1 : "char_kind.hpp" impact on 11 file(s)
+Included by:
+   1 : "base_char.hpp" line 3, impact on 10 file(s)
+2 : "base_char.hpp" impact on 10 file(s)
+Included by:
+    1 : "base_char_factory.hpp" line 3, impact on 5 file(s)
+    2 : "char_a.hpp" line 3, impact on 2 file(s)
+    3 : "char_b.hpp" line 3, impact on 2 file(s)
+3 : "base_char_factory.hpp" impact on 5 file(s)
+Included by:
+    1 : "char_a_factory.hpp" line 3, impact on 2 file(s)
+    2 : "char_b_factory.hpp" line 3, impact on 2 file(s)
+...
+```
+
+It means if file char_kind.hpp will be changed 11 files are recompiled.
+
+[Back to top](#cppinclude)
+
+#### unincluded
+
+Show files that are found in file system but didn't found in includes.
+It often happens after refactoring when file that include header was deleted.
+Example from [docs/examples/simple_example_with_unincluded_headers/](docs/examples/simple_example_with_unincluded_headers/)
+
+```
+cppinclude --report=unincluded
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Unincluded headers:
+1 : "config.hpp"
+2 : "settings.hpp"
+
+```
+
+**Limitations:**
+
+* Header with same names: 
+
+If headers have same name but are located in different folders will be found 
+only first header and other will be unincluded. 
+For example: *lib1/header.hpp*, *lib2/header.hpp* and
+*main.cpp* : 
+
+```c++
+#include "header.hpp"
+...
+```
+Result will be:
+
+```
+cppinclude --include_dirs=lib1,lib2 --report=unincluded
+
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Unincluded headers:
+1 : "lib2/header.hpp"
+
+```
+
+* Empty result for CMake project: 
+
+If analyze CMake project ( generated file compile_commands.json ) 
+result will be empty. Because in current implementation *cppinclude* analyze 
+source files on file system or files from compile_commands.json
+
+* Header files are files that have extension started with *h* letter
+
+***All limitations will be fixed in future releases ***
+
+
+[Back to top](#cppinclude)
+
+#### different_type
+
+Show headers that are included in different ways.
+It helps to follow code style in project,
+for example include third party libraries in <...> and project header in "...".
+Example from [docs/examples/simple_example_for_different_type_report/](docs/examples/simple_example_for_different_type_report/)
+
+```
+cppinclude --report=different_type
+Start initialization project ...
+Start analyze sources ...
+Start report results ...
+Files that are included by different ways:
+1. base_char.hpp
+With double quotation marks ( #include "..." ) in files:
+    1. base_char_factory.hpp line 3
+    2. char_b.hpp line 3
+With angle brackets ( #include <...> ) in files:
+    1. char_a.hpp line 3
+2. base_char_factory.hpp
+With double quotation marks ( #include "..." ) in files:
+    1. char_b_factory.hpp line 3
+With angle brackets ( #include <...> ) in files:
+    1. char_a_factory.hpp line 3
 ```
 
 [Back to top](#cppinclude)
@@ -271,6 +454,14 @@ only 5 unresolved files will be in report:
 
 `cppinclude --report=unresolved --report_limit=5`
 
+Also you can set in configuration file:
+
+```json
+{
+    "report_limit" : 5
+}
+```
+
 [Back to top](#cppinclude)
 
 ### report_details_limit
@@ -280,13 +471,29 @@ For example, only 3 files will be in report that include unresolved file
 
 `cppinclude --report=unresolved --report_details_limit=3`
 
+Also you can set in configuration file:
+
+```json
+{
+    "report_details_limit" : 3
+}
+```
+
 [Back to top](#cppinclude)
 
 ### show_std_files
 
-Show standard library headers in output.
+Enable showing standard library headers in output.
 
 `cppinclude --show_std_files=true`
+
+Also you can set in configuration file:
+
+```json
+{
+    "show_std_files" : true
+}
+```
 
 [Back to top](#cppinclude)
 
@@ -319,6 +526,9 @@ on Unix:
 
 ## Presentations
 
+* 2020, Lightning Talk on CppCon 2020, cppinclude - Tool for analyzing includes in C++
+  * Video : [https://www.youtube.com/watch?v=DXil_ahLTyg](https://www.youtube.com/watch?v=DXil_ahLTyg)
+  * Slides: [2020_cppcon2020_small_talk.pdf](docs/slides/2020_cppcon2020_small_talk.pdf)
 * 2020, internal talk - [2020_internal_talk.pdf](docs/slides/2020_internal_talk.pdf)
 
 [Back to top](#cppinclude)

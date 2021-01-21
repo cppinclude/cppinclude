@@ -8,6 +8,7 @@
 #include "model_includes/impl/mi_model_impl.hpp"
 #include "model_includes/impl/mi_std_library.hpp"
 #include "model_includes/impl/mi_resolver.hpp"
+#include "model_includes/impl/mi_analyzer_context.hpp"
 
 #include "parser/api/pr_parser.hpp"
 #include "parser/api/pr_include_file.hpp"
@@ -15,11 +16,13 @@
 #include "fs/api/fs_file_system.hpp"
 #include "fs/api/fs_file.hpp"
 #include "fs/api/enums/fs_item_type.hpp"
-#include "fs/api/exceptions/fs_exceptions.hpp"
+#include "fs/api/fs_exceptions.hpp"
 
 #include "project/api/prj_project.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
+
+#include "cmake_project/api/cprj_project.hpp"
 
 #include <memory>
 #include <string_view>
@@ -48,27 +51,67 @@ AnalyzerImpl::ModelPtr AnalyzerImpl::analyze(
 	const project::Project & _project
 ) const
 {
+	ModelPtr modelPtr = initModel( _project );
+	AnalyzerContext context{ _project, *modelPtr };
+
+	analyzeFolder( context, context.getProjectDir() );
+	return modelPtr;
+}
+
+//------------------------------------------------------------------------------
+
+AnalyzerImpl::ModelPtr AnalyzerImpl::analyze(
+	const project::Project & _project,
+	const cmake_project::Project & _cmakeProject
+) const
+{
+	ModelPtr modelPtr = initModel( _project );
+	AnalyzerContext context{ _project, _cmakeProject, *modelPtr };
+
+	context.setNeedAnalyzeResolvedIncludes( true );
+
+	_cmakeProject.forEachFilePath(
+		[&]( const Path & _path )
+		{
+			if( context.isFileInIgnoreDir( _path ) )
+				return true;
+
+			context.setCurrentCMakeSourceFile( _path );
+
+			analyzeFile( context, _path );
+
+			while( auto pathOpt = context.popResolvedFile() )
+			{
+				analyzeFile( context, *pathOpt );
+			}
+
+			return true;
+		}
+	);
+
+	return modelPtr;
+}
+
+//------------------------------------------------------------------------------
+
+AnalyzerImpl::ModelPtr AnalyzerImpl::initModel( const project::Project & _project )
+{
 	ModelPtr modelPtr{ new ModelImpl };
 	const Path & projectDir = _project.getProjectDir();
 	INTERNAL_CHECK_WARRING( !projectDir.empty() );
 
 	modelPtr->setProjectDir( projectDir );
-
-	IgnoredFiles ignoreFiles;
-	analyzeFolder( _project, projectDir, *modelPtr, ignoreFiles );
 	return modelPtr;
 }
 
 //------------------------------------------------------------------------------
 
 void AnalyzerImpl::analyzeFolder(
-	const Project & _project,
-	const Path & _folderPath,
-	Model & _model,
-	IgnoredFiles & _ignoreFiles
+	AnalyzerContext & _context,
+	const Path & _folderPath
 ) const
 {
-	if( _project.isIgnoredDir( _folderPath ) )
+	if( _context.isIgnoredDir( _folderPath ) )
 		return;
 
 	m_fs.forEachItem(
@@ -79,11 +122,11 @@ void AnalyzerImpl::analyzeFolder(
 			switch ( _type )
 			{
 				case fs::ItemType::Folder :
-					analyzeFolder( _project, _path, _model, _ignoreFiles );
+					analyzeFolder( _context, _path );
 					break;
 
 				case fs::ItemType::File :
-					analyzeFile( _project, _path, _model, _ignoreFiles );
+					analyzeFile( _context, _path );
 					break;
 
 				default:
@@ -96,16 +139,14 @@ void AnalyzerImpl::analyzeFolder(
 //------------------------------------------------------------------------------
 
 void AnalyzerImpl::analyzeFile(
-	const Project & _project,
-	const Path & _path,
-	Model & _model,
-	IgnoredFiles & _ignoredFiles
+	AnalyzerContext & _context,
+	const Path & _path
 ) const
 {
-	if( !isCppFile( _project, _path ) )
+	if( !_context.isCppFile( _path ) )
 		return;
 
-	if( isIgnoredFile( _path, _project, _model, _ignoredFiles ) )
+	if( _context.isIgnoredFile( _path ) )
 		return;
 
 	try
@@ -116,11 +157,11 @@ void AnalyzerImpl::analyzeFile(
 			return;
 
 		auto includesFiles = m_parser.parseFile( *filePtr );
-		analyzeIncludeFiles( _project, _path, includesFiles, _model, _ignoredFiles );
+		analyzeIncludeFiles( _context, _path, includesFiles );
 	}
 	catch( const fs::Exception & _exception )
 	{
-		std::cerr << _exception.what() << std::endl;
+		std::cout << _exception.what() << std::endl;
 		return;
 	}
 
@@ -129,72 +170,114 @@ void AnalyzerImpl::analyzeFile(
 //------------------------------------------------------------------------------
 
 void AnalyzerImpl::analyzeIncludeFiles(
-	const Project & _project,
+	AnalyzerContext & _context,
 	const Path & _path,
-	const IncludeFiles & _includesFile,
-	Model & _model,
-	IgnoredFiles & _ignoreFiles
+	const IncludeFiles & _includesFile
 ) const
 {
 	const FileType fileType = getFileType( _path );
-	File & file = _model.ensureFile( _path, fileType );
+	File & file = _context.takeModel().ensureFile( _path, fileType );
 	for( const parser::IncludeFile & includeFile : _includesFile )
 	{
-		analyzeIncludeFile( _project, _path, includeFile, file, _model, _ignoreFiles );
+		analyzeIncludeFile( _context, _path, includeFile, file );
 	}
 }
 
 //------------------------------------------------------------------------------
 
 void AnalyzerImpl::analyzeIncludeFile(
-	const Project & _project,
+	AnalyzerContext & _context,
 	const Path & _path,
-	const parser::IncludeFile & _includesFile,
-	File & _file,
-	Model & _model,
-	IgnoredFiles & _ignoreFiles
+	const parser::IncludeFile & _includeFile,
+	File & _file
 ) const
 {
-	if( _project.getIgnoreSystemIncludes() && _includesFile.isSystem() )
-	{
+	if( _context.isIgnoreIncludeFile( _includeFile ) )
 		return;
-	}
 
-	ResolvedPath pair = resolvePath( _project, _path, _includesFile );
+	ResolvedPath pair = resolvePath( _context, _path, _includeFile );
 
 	const auto & includedFilePath = pair.first;
-	if( isIgnoredFile( includedFilePath, _project, _model, _ignoreFiles ) )
+	if( _context.isIgnoredFile( includedFilePath ) )
 		return;
 
-	FileType fileType	= getFileType( includedFilePath );
-	File & includedFile	= _model.ensureFile( includedFilePath, fileType );
+	FileType fileType = getFileType( includedFilePath );
 
-	const parser::IncludeFileLocation & location = _includesFile.getLocation();
+	Model & model = _context.takeModel();
+	File & includedFile	= model.ensureFile( includedFilePath, fileType );
+
+	const parser::IncludeFileLocation & location = _includeFile.getLocation();
 	Model::IncludeLocationInfo locationInfo{
 		location.getLineNumber(),
 		location.getBegin(),
 		location.getEnd()
 	};
 
-	const IncludeType type		= getIncludeType( _includesFile );
+	const IncludeType type		= getIncludeType( _includeFile );
 	const IncludeStatus status	= getIncludeStatus( includedFile, pair );
-	_model.createInclude( locationInfo, _file, includedFile, status, type );
+	const auto & include = model.createInclude(
+		locationInfo,
+		_file,
+		includedFile,
+		status,
+		type
+	);
+
+	postProcesNewInclude( _context, include );
 }
 
 //------------------------------------------------------------------------------
 
-bool AnalyzerImpl::isCppFile( const Project & _project, const Path & _path ) const
+void AnalyzerImpl::postProcesNewInclude(
+	AnalyzerContext & _context,
+	const model_includes::Include & _include
+)
 {
-	if( !_project.hasCppFileExtensions() )
-		return true;
+	using namespace model_includes;
 
-	const Path extension = _path.extension();
+	if( !_context.isNeedAnalyzeResolvedIncludes() )
+		return;
 
-	if( extension.empty() && _project.getAnalyzeWithoutExtension() )
-		return true;
+	static_assert( static_cast< int >( IncludeStatus::Count ) == 2 );
+	const IncludeStatus includeStatus = _include.getStatus();
 
-	const bool result = _project.isExistsCppExtension( extension.string() );
-	return result;
+	switch( includeStatus )
+	{
+		case IncludeStatus::Unresolved :
+			return;
+
+		case IncludeStatus::Resolved :
+		{
+			const File & destinationFile = _include.getDestinationFile();
+
+			static_assert( static_cast< int >( FileType::Count ) == 2 );
+			const FileType type = destinationFile.getType();
+			switch( type )
+			{
+				case FileType::ProjectFile :
+				{
+					_context.addResolvedFile( destinationFile.getPath() );
+				}
+				break;
+
+				case FileType::StdLibraryFile :
+					return;
+
+				case FileType::Count :
+				{
+					INTERNAL_CHECK_WARRING( false );
+					return;
+				}
+			}
+		}
+		break;
+
+		case IncludeStatus::Count :
+		{
+			INTERNAL_CHECK_WARRING( false );
+			return;
+		}
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -231,32 +314,8 @@ IncludeStatus AnalyzerImpl::getIncludeStatus(
 
 //------------------------------------------------------------------------------
 
-bool AnalyzerImpl::isIgnoredFile(
-	const Path & _path,
-	const Project & _project,
-	const Model & _model,
-	IgnoredFiles & _ignoreFiles
-)
-{
-	if( _model.findFile( _path ) )
-		return false;
-
-	if( _ignoreFiles.count( _path ) )
-		return true;
-
-	if( _project.isIgnoredFile( _path ) )
-	{
-		_ignoreFiles.insert( _path );
-		return true;
-	}
-
-	return false;
-}
-
-//------------------------------------------------------------------------------
-
 AnalyzerImpl::ResolvedPath AnalyzerImpl::resolvePath(
-	const Project & _project,
+	const AnalyzerContext & _context,
 	const Path & _currentFile,
 	const parser::IncludeFile & _includeFile
 ) const
@@ -264,11 +323,14 @@ AnalyzerImpl::ResolvedPath AnalyzerImpl::resolvePath(
 	std::string_view includeFileName = _includeFile.getName();
 	Path filePath = includeFileName;
 	bool isResolved = false;
-	Resolver resolver{ m_fs, _project };
+	const Resolver & resolver = ensureResolver();
 
 	auto pathOpt = resolver.resolvePath(
+		_context.getProject(),
+		_context.getCMakeProject(),
 		_currentFile,
-		_includeFile.getName()
+		_includeFile.getName(),
+		_context.getCurrentCMakeSourceFile()
 	);
 
 	if( pathOpt )
@@ -276,7 +338,18 @@ AnalyzerImpl::ResolvedPath AnalyzerImpl::resolvePath(
 		filePath = *pathOpt;
 		isResolved = true;
 	}
+
 	return ResolvedPath{ filePath,isResolved };
+}
+
+//------------------------------------------------------------------------------
+
+Resolver & AnalyzerImpl::ensureResolver() const
+{
+	if( !m_resolver )
+		m_resolver.reset( new Resolver{ m_fs } );
+
+	return *m_resolver;
 }
 
 //------------------------------------------------------------------------------

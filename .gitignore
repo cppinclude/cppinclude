@@ -1,4 +1,4 @@
 *.user
-build/
-cppinclude
-cppinclude.exe
+/build/
+/cppinclude
+/cppinclude.exe

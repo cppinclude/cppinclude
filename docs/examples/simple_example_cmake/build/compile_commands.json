@@ -1,0 +1,27 @@
+[
+{
+  "directory": ".",
+  "command": "/usr/bin/c++    -o CMakeFiles/simple_example.dir/char_a.cpp.o -c ../char_a.cpp",
+  "file": "../char_a.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++    -o CMakeFiles/simple_example.dir/char_a_factory.cpp.o -c ../char_a_factory.cpp",
+  "file": "../char_a_factory.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++    -o CMakeFiles/simple_example.dir/char_b.cpp.o -c ../char_b.cpp",
+  "file": "../char_b.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++    -o CMakeFiles/simple_example.dir/char_b_factory.cpp.o -c ../char_b_factory.cpp",
+  "file": "../char_b_factory.cpp"
+},
+{
+  "directory": ".",
+  "command": "/usr/bin/c++    -o CMakeFiles/simple_example.dir/main.cpp.o -c ../main.cpp",
+  "file": "../main.cpp"
+}
+]

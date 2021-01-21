@@ -21,6 +21,7 @@ TEST PLAN:
 	1.1 Current directory
 	1.2 Include directory
 	1.3 File with std library name in project
+	1.4 Include in local file
 2. Include type
 	2.1 User
 	2.2 System
@@ -31,6 +32,8 @@ TEST PLAN:
 	3.3 Mix
 	3.4 Std lib
 4. Ignored folders
+	4.1 Regular project
+	4.2 CMake project
 5. Ignore system includes
 6. Ignore files
 	6.1 Ignore destination
@@ -280,6 +283,68 @@ BOOST_AUTO_TEST_CASE(t1_3_file_with_std_library_name_in_project)
 			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t1_4_include_in_local_folder)
+{
+	// Init
+	const std::string projectDir{ "/test_project/" };
+
+	const std::string includeDir{ "./i/" };
+
+	const std::string classIncludeHppName{ "class_i.hpp" };
+	const std::string classIncludeCppName{ "class_i.cpp" };
+
+	const std::string classIncludeHppPath{ projectDir + includeDir + classIncludeHppName };
+	const std::string classIncludeCppPath{ projectDir + includeDir + classIncludeCppName };
+
+	setProjectDir( projectDir );
+
+	addFile( classIncludeHppPath, "class I{ I(); };" );
+	addFile( classIncludeCppPath,
+		"#include \"" + includeDir + classIncludeHppName + "\""
+		"I::I(){}"
+	);
+
+	addIncludePath( "." );
+
+	// Run
+	ModelWrapper model = analyze();
+
+	// Check
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 2 ) );
+	{
+		FileWrapper file = model.findFile( classIncludeHppPath );
+		BOOST_REQUIRE( file.isAvailable() );
+		{
+			BOOST_REQUIRE( file.checkIncludesCount( 0 ) );
+
+			BOOST_REQUIRE( file.checkIncludedByCount( 1 ) );
+			IncludeWrapper include = file.getIncludedBy( classIncludeCppPath );
+			BOOST_CHECK( include.checkSource( classIncludeCppPath ) );
+			BOOST_CHECK( include.checkDestination( classIncludeHppPath ) );
+			BOOST_CHECK( include.checkType( IncludeType::User ) );
+			BOOST_CHECK( include.checkStatus( IncludeStatus::Resolved ) );
+		}
+	}
+	{
+		FileWrapper file = model.findFile( classIncludeCppPath );
+		BOOST_REQUIRE( file.isAvailable() );
+		{
+			BOOST_REQUIRE( file.checkIncludesCount( 1 ) );
+			IncludeWrapper include = file.getInclude( 0 );
+			BOOST_CHECK( include.checkSource( classIncludeCppPath ) );
+			BOOST_CHECK( include.checkDestination( classIncludeHppPath ) );
+			BOOST_CHECK( include.checkType( IncludeType::User ) );
+			BOOST_CHECK( include.checkStatus( IncludeStatus::Resolved ) );
+
+			BOOST_REQUIRE( file.checkIncludedByCount( 0 ) );
+
 		}
 	}
 }
@@ -715,7 +780,7 @@ BOOST_AUTO_TEST_CASE(t3_4_include_status_std_lib)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_ignored_folders)
+BOOST_AUTO_TEST_CASE(t4_1_ignored_folders_regular_project)
 {
 	// Init
 	const std::string projectDir{ "/test_project/" };
@@ -740,12 +805,83 @@ BOOST_AUTO_TEST_CASE(t4_ignored_folders)
 	addFile( classAHppPath, "class A{ A(){}  };" );
 	addFile( classIgnoreHppPath, "class I{ I(); };" );
 	addFile( classIgnoreCppPath,
-		"#include \"" + ignoredDir + classIgnoreHppName + "\""
+		"#include \"" + classIgnoreHppName + "\""
 		"I::I(){}"
 	);
 
 	// Run
 	ModelWrapper model = analyze();
+
+	// Check
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 2 ) );
+	{
+		FileWrapper mainCpp = model.findFile( mainCppPath );
+		BOOST_REQUIRE( mainCpp.isAvailable() );
+		{
+			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
+
+			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
+			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
+			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
+			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+		}
+	}
+	{
+		FileWrapper classAHeader = model.findFile( classAHppPath );
+		BOOST_REQUIRE( classAHeader.isAvailable() );
+		{
+			BOOST_REQUIRE( classAHeader.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
+
+			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
+			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
+			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
+			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE(t4_2_ignored_folders_cmake_project)
+{
+	// Init
+	const std::string projectDir{ "/test_project/" };
+
+	const std::string ignoredDir{ "./i/" };
+
+	const std::string classAHppName{ "class_a.hpp" };
+	const std::string mainCppName{ "main.cpp" };
+
+	const std::string classIgnoreHppName{ "class_i.hpp" };
+	const std::string classIgnoreCppName{ "class_i.cpp" };
+
+	const std::string classAHppPath{ projectDir + classAHppName };
+	const std::string mainCppPath{   projectDir + mainCppName };
+	const std::string classIgnoreHppPath{ projectDir + ignoredDir + classIgnoreHppName };
+	const std::string classIgnoreCppPath{ projectDir + ignoredDir + classIgnoreCppName };
+
+	setProjectDir( projectDir );
+	addIgnoredDir( ignoredDir );
+
+	addFileToProject( mainCppName, "#include \"" + classAHppName +"\"" );
+	addFile( classAHppPath, "class A{ A(){}  };" );
+	addFile( classIgnoreHppPath, "class I{ I(); };" );
+	addFile( classIgnoreCppPath,
+		"#include \"" + classIgnoreHppName + "\""
+		"I::I(){}"
+	);
+
+	addFileToCmake( mainCppPath );
+	addFileToCmake( classIgnoreCppPath );
+
+	// Run
+	ModelWrapper model = analyzeCmake();
 
 	// Check
 	BOOST_REQUIRE( model.isAvailable() );

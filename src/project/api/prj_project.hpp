@@ -51,7 +51,6 @@ public:
 	virtual void setIgnoreSystemIncludes( bool _ignore ) = 0;
 
 	virtual FileFilterIndex getFileFilterCount() const = 0;
-	virtual const std::regex & getFileFilter( FileFilterIndex _index ) const = 0;
 	virtual void addFileFilter( std::string_view _filter ) = 0;
 	virtual void addFileFilters( const Strings & _filters ) = 0;
 	virtual bool hasFileFilters() const = 0;

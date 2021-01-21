@@ -3,13 +3,10 @@ project(application)
 include_directories(.)
 include_directories(../3rd-part/cxxopts/include)
 
-file(GLOB all_sources
-    "*.cpp"
-    "tools/*.cpp"
-    "resources/*.cpp"
-	"exceptions/*.cpp"
-)
-add_library( ${PROJECT_NAME}_lib STATIC ${all_sources} )
+file(GLOB_RECURSE all_sources "*.cpp")
+list(FILTER all_sources EXCLUDE REGEX "test/*")
+
+add_library(${PROJECT_NAME}_lib STATIC ${all_sources})
 
 target_link_libraries(
     ${PROJECT_NAME}_lib
@@ -20,6 +17,8 @@ target_link_libraries(
     project_lib
     file_system_lib
     json_lib
+	cmake_project_lib
+	compilation_db_lib
 	fmt
 )
 

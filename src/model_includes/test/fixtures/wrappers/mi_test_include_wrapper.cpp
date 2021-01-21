@@ -109,8 +109,9 @@ BoostPredicate IncludeWrapper::checkFile(
 	std::string_view _path
 ) const
 {
-	const stdfs::path filePath = _file.getPath();
-	const stdfs::path excpectedPath{ std::string{ _path } };
+	const Path filePath = _file.getPath();
+	Path excpectedPath{ std::string{ _path } };
+	excpectedPath = toLexicallyNormal( excpectedPath );
     if( filePath == excpectedPath )
 		return true;
 
@@ -162,6 +163,13 @@ std::string IncludeWrapper::toString( IncludeStatus _status ) const
 
 	INTERNAL_CHECK_WARRING( false );
 	return "";
+}
+
+//------------------------------------------------------------------------------
+
+IncludeWrapper::Path IncludeWrapper::toLexicallyNormal( const Path & _path )
+{
+	return stdfs::lexically_normal( _path );
 }
 
 //------------------------------------------------------------------------------

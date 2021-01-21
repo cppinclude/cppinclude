@@ -18,7 +18,27 @@ Included by:
 	8 : "lapi.c" line 17, impact on 1 file(s)
 	9 : "lauxlib.c" line 25, impact on 1 file(s)
 	10 : "lbaselib.c" line 18, impact on 1 file(s)
-	... 10 of 44 details
+	11 : "lcode.c" line 17, impact on 1 file(s)
+	12 : "lcorolib.c" line 15, impact on 1 file(s)
+	13 : "ldblib.c" line 17, impact on 1 file(s)
+	14 : "ldebug.c" line 17, impact on 1 file(s)
+	15 : "ldo.c" line 17, impact on 1 file(s)
+	16 : "ldump.c" line 15, impact on 1 file(s)
+	17 : "lfunc.c" line 15, impact on 1 file(s)
+	18 : "lgc.c" line 16, impact on 1 file(s)
+	19 : "linit.c" line 32, impact on 1 file(s)
+	20 : "liolib.c" line 20, impact on 1 file(s)
+	21 : "llex.c" line 16, impact on 1 file(s)
+	22 : "lmathlib.c" line 19, impact on 1 file(s)
+	23 : "lmem.c" line 15, impact on 1 file(s)
+	24 : "loadlib.c" line 21, impact on 1 file(s)
+	25 : "lobject.c" line 20, impact on 1 file(s)
+	26 : "loslib.c" line 19, impact on 1 file(s)
+	27 : "lparser.c" line 16, impact on 1 file(s)
+	28 : "lstate.c" line 16, impact on 1 file(s)
+	29 : "lstring.c" line 15, impact on 1 file(s)
+	30 : "lstrlib.c" line 23, impact on 1 file(s)
+	... 30 of 44 details
 3 : "llimits.h" impact on 40 file(s)
 Included by:
 	1 : "lobject.h" line 15, impact on 34 file(s)
@@ -41,7 +61,27 @@ Included by:
 	8 : "ldebug.c" line 10, impact on 1 file(s)
 	9 : "ldo.c" line 10, impact on 1 file(s)
 	10 : "ldump.c" line 10, impact on 1 file(s)
-	... 10 of 35 details
+	11 : "lfunc.c" line 10, impact on 1 file(s)
+	12 : "lgc.c" line 10, impact on 1 file(s)
+	13 : "linit.c" line 27, impact on 1 file(s)
+	14 : "liolib.c" line 10, impact on 1 file(s)
+	15 : "llex.c" line 10, impact on 1 file(s)
+	16 : "lmathlib.c" line 10, impact on 1 file(s)
+	17 : "lmem.c" line 10, impact on 1 file(s)
+	18 : "loadlib.c" line 14, impact on 1 file(s)
+	19 : "lobject.c" line 10, impact on 1 file(s)
+	20 : "lopcodes.c" line 10, impact on 1 file(s)
+	21 : "loslib.c" line 10, impact on 1 file(s)
+	22 : "lparser.c" line 10, impact on 1 file(s)
+	23 : "lstate.c" line 10, impact on 1 file(s)
+	24 : "lstring.c" line 10, impact on 1 file(s)
+	25 : "lstrlib.c" line 10, impact on 1 file(s)
+	26 : "ltable.c" line 10, impact on 1 file(s)
+	27 : "ltablib.c" line 10, impact on 1 file(s)
+	28 : "ltm.c" line 10, impact on 1 file(s)
+	29 : "lua.c" line 9, impact on 1 file(s)
+	30 : "lundump.c" line 10, impact on 1 file(s)
+	... 30 of 35 details
 5 : "lobject.h" impact on 34 file(s)
 Included by:
 	1 : "ltm.h" line 11, impact on 27 file(s)
@@ -54,7 +94,24 @@ Included by:
 	8 : "lvm.h" line 12, impact on 9 file(s)
 	9 : "llex.h" line 10, impact on 8 file(s)
 	10 : "lparser.h" line 11, impact on 8 file(s)
-	... 10 of 28 details
+	11 : "lcode.h" line 11, impact on 5 file(s)
+	12 : "lundump.h" line 11, impact on 5 file(s)
+	13 : "lapi.c" line 25, impact on 1 file(s)
+	14 : "lcode.c" line 25, impact on 1 file(s)
+	15 : "ldebug.c" line 24, impact on 1 file(s)
+	16 : "ldo.c" line 25, impact on 1 file(s)
+	17 : "ldump.c" line 17, impact on 1 file(s)
+	18 : "lfunc.c" line 22, impact on 1 file(s)
+	19 : "lgc.c" line 23, impact on 1 file(s)
+	20 : "llex.c" line 23, impact on 1 file(s)
+	21 : "lmem.c" line 21, impact on 1 file(s)
+	22 : "lobject.c" line 26, impact on 1 file(s)
+	23 : "lparser.c" line 24, impact on 1 file(s)
+	24 : "lstring.c" line 20, impact on 1 file(s)
+	25 : "ltable.c" line 35, impact on 1 file(s)
+	26 : "ltm.c" line 20, impact on 1 file(s)
+	27 : "lundump.c" line 22, impact on 1 file(s)
+	28 : "lvm.c" line 25, impact on 1 file(s)
 6 : "ltm.h" impact on 27 file(s)
 Included by:
 	1 : "lstate.h" line 13, impact on 26 file(s)
@@ -78,7 +135,18 @@ Included by:
 	8 : "ldo.c" line 28, impact on 1 file(s)
 	9 : "ldump.c" line 18, impact on 1 file(s)
 	10 : "lfunc.c" line 23, impact on 1 file(s)
-	... 10 of 22 details
+	11 : "lgc.c" line 24, impact on 1 file(s)
+	12 : "llex.c" line 25, impact on 1 file(s)
+	13 : "lmem.c" line 22, impact on 1 file(s)
+	14 : "lobject.c" line 27, impact on 1 file(s)
+	15 : "lparser.c" line 27, impact on 1 file(s)
+	16 : "lstate.c" line 25, impact on 1 file(s)
+	17 : "lstring.c" line 21, impact on 1 file(s)
+	18 : "ltable.c" line 36, impact on 1 file(s)
+	19 : "ltm.c" line 21, impact on 1 file(s)
+	20 : "lvm.c" line 27, impact on 1 file(s)
+	21 : "lzio.c" line 19, impact on 1 file(s)
+	22 : "ltests.c" line 31
 8 : "ldo.h" impact on 19 file(s)
 Included by:
 	1 : "lvm.h" line 11, impact on 9 file(s)
@@ -91,7 +159,14 @@ Included by:
 	8 : "llex.c" line 20, impact on 1 file(s)
 	9 : "lmem.c" line 18, impact on 1 file(s)
 	10 : "lobject.c" line 24, impact on 1 file(s)
-	... 10 of 18 details
+	11 : "lparser.c" line 20, impact on 1 file(s)
+	12 : "lstate.c" line 20, impact on 1 file(s)
+	13 : "lstring.c" line 18, impact on 1 file(s)
+	14 : "ltable.c" line 32, impact on 1 file(s)
+	15 : "ltm.c" line 18, impact on 1 file(s)
+	16 : "lundump.c" line 19, impact on 1 file(s)
+	17 : "lvm.c" line 22, impact on 1 file(s)
+	18 : "ltests.c" line 26
 9 : "lgc.h" impact on 19 file(s)
 Included by:
 	1 : "lstring.h" line 10, impact on 16 file(s)
@@ -104,7 +179,8 @@ Included by:
 	8 : "lmem.c" line 19, impact on 1 file(s)
 	9 : "lstate.c" line 22, impact on 1 file(s)
 	10 : "ltable.c" line 33, impact on 1 file(s)
-	... 10 of 12 details
+	11 : "ltm.c" line 19, impact on 1 file(s)
+	12 : "lvm.c" line 24, impact on 1 file(s)
 10 : "lauxlib.h" impact on 18 file(s)
 Included by:
 	1 : "lauxlib.c" line 27, impact on 1 file(s)
@@ -117,5 +193,183 @@ Included by:
 	8 : "loadlib.c" line 23, impact on 1 file(s)
 	9 : "loslib.c" line 21, impact on 1 file(s)
 	10 : "lstrlib.c" line 25, impact on 1 file(s)
-	... 10 of 17 details
-... 10 of 59 files
+	11 : "ltablib.c" line 19, impact on 1 file(s)
+	12 : "lua.c" line 20, impact on 1 file(s)
+	13 : "lutf8lib.c" line 20, impact on 1 file(s)
+	14 : "ltests.c" line 22
+	15 : "testes\libs\lib1.c" line 2
+	16 : "testes\libs\lib2.c" line 2
+	17 : "testes\libs\lib22.c" line 2
+11 : "ldebug.h" impact on 18 file(s)
+Included by:
+	1 : "lapi.c" line 20, impact on 1 file(s)
+	2 : "lcode.c" line 20, impact on 1 file(s)
+	3 : "ldebug.c" line 21, impact on 1 file(s)
+	4 : "ldo.c" line 20, impact on 1 file(s)
+	5 : "lfunc.c" line 17, impact on 1 file(s)
+	6 : "lgc.c" line 18, impact on 1 file(s)
+	7 : "llex.c" line 19, impact on 1 file(s)
+	8 : "lmem.c" line 17, impact on 1 file(s)
+	9 : "lobject.c" line 23, impact on 1 file(s)
+	10 : "lparser.c" line 19, impact on 1 file(s)
+	11 : "lstate.c" line 19, impact on 1 file(s)
+	12 : "lstring.c" line 17, impact on 1 file(s)
+	13 : "ltable.c" line 31, impact on 1 file(s)
+	14 : "ltm.c" line 17, impact on 1 file(s)
+	15 : "lundump.c" line 18, impact on 1 file(s)
+	16 : "lvm.c" line 21, impact on 1 file(s)
+	17 : "ltests.c" line 25
+12 : "lstring.h" impact on 16 file(s)
+Included by:
+	1 : "lapi.c" line 27, impact on 1 file(s)
+	2 : "lcode.c" line 28, impact on 1 file(s)
+	3 : "ldebug.c" line 27, impact on 1 file(s)
+	4 : "ldo.c" line 29, impact on 1 file(s)
+	5 : "lgc.c" line 25, impact on 1 file(s)
+	6 : "llex.c" line 26, impact on 1 file(s)
+	7 : "lobject.c" line 28, impact on 1 file(s)
+	8 : "lparser.c" line 28, impact on 1 file(s)
+	9 : "lstate.c" line 26, impact on 1 file(s)
+	10 : "lstring.c" line 22, impact on 1 file(s)
+	11 : "ltable.c" line 37, impact on 1 file(s)
+	12 : "ltm.c" line 22, impact on 1 file(s)
+	13 : "lundump.c" line 23, impact on 1 file(s)
+	14 : "lvm.c" line 28, impact on 1 file(s)
+	15 : "ltests.c" line 32
+13 : "lmem.h" impact on 15 file(s)
+Included by:
+	1 : "lapi.c" line 24, impact on 1 file(s)
+	2 : "lcode.c" line 24, impact on 1 file(s)
+	3 : "ldo.c" line 24, impact on 1 file(s)
+	4 : "lfunc.c" line 21, impact on 1 file(s)
+	5 : "lgc.c" line 22, impact on 1 file(s)
+	6 : "lmem.c" line 20, impact on 1 file(s)
+	7 : "lobject.c" line 25, impact on 1 file(s)
+	8 : "lparser.c" line 23, impact on 1 file(s)
+	9 : "lstate.c" line 24, impact on 1 file(s)
+	10 : "lstring.c" line 19, impact on 1 file(s)
+	11 : "ltable.c" line 34, impact on 1 file(s)
+	12 : "lundump.c" line 21, impact on 1 file(s)
+	13 : "lzio.c" line 18, impact on 1 file(s)
+	14 : "ltests.c" line 28
+14 : "lualib.h" impact on 14 file(s)
+Included by:
+	1 : "lbaselib.c" line 21, impact on 1 file(s)
+	2 : "lcorolib.c" line 18, impact on 1 file(s)
+	3 : "ldblib.c" line 20, impact on 1 file(s)
+	4 : "linit.c" line 34, impact on 1 file(s)
+	5 : "liolib.c" line 23, impact on 1 file(s)
+	6 : "lmathlib.c" line 22, impact on 1 file(s)
+	7 : "loadlib.c" line 24, impact on 1 file(s)
+	8 : "loslib.c" line 22, impact on 1 file(s)
+	9 : "lstrlib.c" line 26, impact on 1 file(s)
+	10 : "ltablib.c" line 20, impact on 1 file(s)
+	11 : "lua.c" line 21, impact on 1 file(s)
+	12 : "lutf8lib.c" line 21, impact on 1 file(s)
+	13 : "ltests.c" line 34
+15 : "ltable.h" impact on 13 file(s)
+Included by:
+	1 : "lapi.c" line 28, impact on 1 file(s)
+	2 : "lcode.c" line 29, impact on 1 file(s)
+	3 : "ldebug.c" line 28, impact on 1 file(s)
+	4 : "ldo.c" line 30, impact on 1 file(s)
+	5 : "lgc.c" line 26, impact on 1 file(s)
+	6 : "llex.c" line 27, impact on 1 file(s)
+	7 : "lparser.c" line 29, impact on 1 file(s)
+	8 : "lstate.c" line 27, impact on 1 file(s)
+	9 : "ltable.c" line 38, impact on 1 file(s)
+	10 : "ltm.c" line 23, impact on 1 file(s)
+	11 : "lvm.c" line 29, impact on 1 file(s)
+	12 : "ltests.c" line 33
+16 : "lfunc.h" impact on 11 file(s)
+Included by:
+	1 : "lapi.c" line 22, impact on 1 file(s)
+	2 : "ldebug.c" line 23, impact on 1 file(s)
+	3 : "ldo.c" line 22, impact on 1 file(s)
+	4 : "lfunc.c" line 19, impact on 1 file(s)
+	5 : "lgc.c" line 20, impact on 1 file(s)
+	6 : "lparser.c" line 21, impact on 1 file(s)
+	7 : "lstate.c" line 21, impact on 1 file(s)
+	8 : "lundump.c" line 20, impact on 1 file(s)
+	9 : "lvm.c" line 23, impact on 1 file(s)
+	10 : "ltests.c" line 27
+17 : "lopcodes.h" impact on 9 file(s)
+Included by:
+	1 : "lcode.h" line 12, impact on 5 file(s)
+	2 : "lcode.c" line 26, impact on 1 file(s)
+	3 : "ldebug.c" line 25, impact on 1 file(s)
+	4 : "ldo.c" line 26, impact on 1 file(s)
+	5 : "lopcodes.c" line 13, impact on 1 file(s)
+	6 : "lparser.c" line 25, impact on 1 file(s)
+	7 : "lvm.c" line 26, impact on 1 file(s)
+	8 : "ltests.c" line 29
+18 : "lvm.h" impact on 9 file(s)
+Included by:
+	1 : "lapi.c" line 31, impact on 1 file(s)
+	2 : "lcode.c" line 30, impact on 1 file(s)
+	3 : "ldebug.c" line 30, impact on 1 file(s)
+	4 : "ldo.c" line 33, impact on 1 file(s)
+	5 : "lobject.c" line 29, impact on 1 file(s)
+	6 : "ltable.c" line 39, impact on 1 file(s)
+	7 : "ltm.c" line 25, impact on 1 file(s)
+	8 : "lvm.c" line 31, impact on 1 file(s)
+19 : "llex.h" impact on 8 file(s)
+Included by:
+	1 : "lcode.h" line 10, impact on 5 file(s)
+	2 : "lcode.c" line 23, impact on 1 file(s)
+	3 : "llex.c" line 22, impact on 1 file(s)
+	4 : "lparser.c" line 22, impact on 1 file(s)
+	5 : "lstate.c" line 23, impact on 1 file(s)
+20 : "lparser.h" impact on 8 file(s)
+Included by:
+	1 : "lcode.h" line 13, impact on 5 file(s)
+	2 : "lcode.c" line 27, impact on 1 file(s)
+	3 : "ldo.c" line 27, impact on 1 file(s)
+	4 : "llex.c" line 24, impact on 1 file(s)
+	5 : "lparser.c" line 26, impact on 1 file(s)
+21 : "lapi.h" impact on 6 file(s)
+Included by:
+	1 : "lapi.c" line 19, impact on 1 file(s)
+	2 : "ldebug.c" line 19, impact on 1 file(s)
+	3 : "ldo.c" line 19, impact on 1 file(s)
+	4 : "lstate.c" line 18, impact on 1 file(s)
+	5 : "ltests.c" line 21
+22 : "lcode.h" impact on 5 file(s)
+Included by:
+	1 : "lcode.c" line 19, impact on 1 file(s)
+	2 : "ldebug.c" line 20, impact on 1 file(s)
+	3 : "lparser.c" line 18, impact on 1 file(s)
+	4 : "ltests.c" line 23
+23 : "lctype.h" impact on 5 file(s)
+Included by:
+	1 : "lctype.c" line 13, impact on 1 file(s)
+	2 : "llex.c" line 18, impact on 1 file(s)
+	3 : "lobject.c" line 22, impact on 1 file(s)
+	4 : "ltests.c" line 24
+24 : "lundump.h" impact on 5 file(s)
+Included by:
+	1 : "lapi.c" line 30, impact on 1 file(s)
+	2 : "ldo.c" line 32, impact on 1 file(s)
+	3 : "ldump.c" line 19, impact on 1 file(s)
+	4 : "lundump.c" line 24, impact on 1 file(s)
+25 : "ljumptab.h" impact on 2 file(s)
+Included by:
+	1 : "lvm.c" line 1134, impact on 1 file(s)
+26 : "lapi.c" impact on 1 file(s)
+Included by:
+	1 : "onelua.c" line 79
+27 : "lauxlib.c" impact on 1 file(s)
+Included by:
+	1 : "onelua.c" line 82
+28 : "lbaselib.c" impact on 1 file(s)
+Included by:
+	1 : "onelua.c" line 86
+29 : "lcode.c" impact on 1 file(s)
+Included by:
+	1 : "onelua.c" line 69
+30 : "lcorolib.c" impact on 1 file(s)
+Included by:
+	1 : "onelua.c" line 87
+... 30 of 59 files
+Unincluded headers:
+1 : "ltests.h"

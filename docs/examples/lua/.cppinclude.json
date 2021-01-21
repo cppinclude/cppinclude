@@ -8,5 +8,8 @@
 		"luac.c",
 		"readline/.*",
 		"sys/.*"
-	]
+	],
+	
+	"report_limit" : 30,
+	"report_details_limit" : 30
 }

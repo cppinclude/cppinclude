@@ -3,6 +3,7 @@
 #include "project/api/prj_project.hpp"
 
 #include "tools/std_hash_fs_path.hpp"
+#include "tools/regex.hpp"
 
 #include <string>
 #include <std_fs>
@@ -49,7 +50,6 @@ public:
 	void setIgnoreSystemIncludes( bool _ignore ) override;
 
 	FileFilterIndex getFileFilterCount() const override;
-	const std::regex & getFileFilter( FileFilterIndex _index ) const override;
 	void addFileFilter( std::string_view _filter ) override;
 	void addFileFilters( const Strings & _filters ) override;
 	bool hasFileFilters() const override;
@@ -65,14 +65,15 @@ private:
 	void changeToAbsolute( const Path & currentDir, Path & _path );
 	void changeToProjectPath( Path & _path );
 
-	static bool isIgnoredFile( const Path & _path, const std::regex & _filter );
+	static bool isIgnoredFile( const Path & _path, const tools::Regex & _filter );
+	static bool checkFilter( const std::string & _str, const tools::Regex  & _filter );
 
 private:
 
 	std::vector< Path > m_includeDirs;
 	std::unordered_set< Path > m_ignoredDirs;
 	std::unordered_set< std::string > m_extensions;
-	std::vector< std::regex > m_fileFilters;
+	std::vector< tools::Regex > m_fileFilters;
 
 	Path m_projectDir;
 

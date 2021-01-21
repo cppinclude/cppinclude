@@ -4,6 +4,7 @@
 
 #include "reporter/api/rp_factory.hpp"
 #include "reporter/api/rp_reporter.hpp"
+#include "reporter/api/rp_settings.hpp"
 
 #include "model_includes/ih/mi_accessor_impl.hpp"
 #include "model_includes/api/mi_model.hpp"
@@ -23,16 +24,7 @@ namespace reporter::test {
 
 //------------------------------------------------------------------------------
 
-ReporterFixture::ReporterFixture()
-	:	m_maxFilesCount{ 0 }
-	,	m_maxDetailsCount{ 0 }
-	,	m_showStdFiles{ false }
-{
-
-}
-
-//------------------------------------------------------------------------------
-
+ReporterFixture::ReporterFixture() = default;
 ReporterFixture::~ReporterFixture() = default;
 
 //------------------------------------------------------------------------------
@@ -50,6 +42,26 @@ void ReporterFixture::addInclude(
 		_type,
 		{1,1,1}
 	);
+}
+
+//------------------------------------------------------------------------------
+
+void ReporterFixture::addUserInclude(
+	std::string_view _sourceFile,
+	std::string_view _destinationFile
+)
+{
+	addInclude( _sourceFile, _destinationFile, IncludeType::User );
+}
+
+//------------------------------------------------------------------------------
+
+void ReporterFixture::addSystemInclude(
+	std::string_view _sourceFile,
+	std::string_view _destinationFile
+)
+{
+	addInclude( _sourceFile, _destinationFile, IncludeType::System );
 }
 
 //------------------------------------------------------------------------------
@@ -91,23 +103,30 @@ void ReporterFixture::setProjectDir( std::string_view _dir )
 
 //------------------------------------------------------------------------------
 
+ReporterFixture::Path ReporterFixture::getProjectDir()
+{
+	return getModel().getProjectDir();
+}
+
+//------------------------------------------------------------------------------
+
 void ReporterFixture::setMaxFilesCount( int _count )
 {
-	m_maxFilesCount = _count;
+	ensureSettings().setMaxFilesCount( _count );
 }
 
 //------------------------------------------------------------------------------
 
 void ReporterFixture::setMaxDetailsCount( int _count )
 {
-	m_maxDetailsCount = _count;
+	ensureSettings().setMaxDetailsCount( _count );
 }
 
 //------------------------------------------------------------------------------
 
-void ReporterFixture::setShowStdFile( bool _enable )
+void ReporterFixture::setShowStdFiles( bool _enable )
 {
-	m_showStdFiles = _enable;
+	ensureSettings().setShowStdFiles( _enable );
 }
 
 //------------------------------------------------------------------------------
@@ -139,12 +158,40 @@ std::string ReporterFixture::runMostImpactReporter()
 
 //------------------------------------------------------------------------------
 
+std::string ReporterFixture::runUnincludedReporter()
+{
+	auto reporterPtr = getFactory().createUnincludedReporter();
+	INTERNAL_CHECK_ERROR( reporterPtr );
+	return runReporter( *reporterPtr );
+}
+
+//------------------------------------------------------------------------------
+
+std::string ReporterFixture::runDifferentTypeReport()
+{
+	auto reporterPtr = getFactory().createDifferentTypeReporter();
+	INTERNAL_CHECK_ERROR( reporterPtr );
+	return runReporter( *reporterPtr );
+}
+
+//------------------------------------------------------------------------------
+
 model_includes::File & ReporterFixture::addFile(
 	std::string_view _file,
 	FileType _type
 )
 {
 	return getModel().ensureFile( _file, _type );
+}
+
+//------------------------------------------------------------------------------
+
+model_includes::File & ReporterFixture::addFileToProject(
+	std::string_view _file
+)
+{
+	Path filePah = getProjectDir() / _file;
+	return addFile( filePah.string() );
 }
 
 //------------------------------------------------------------------------------
@@ -156,14 +203,13 @@ std::string ReporterFixture::toPath( std::string_view _str )
 
 //------------------------------------------------------------------------------
 
-std::string ReporterFixture::runReporter( Reporter & _reporter)
+std::string ReporterFixture::runReporter( Reporter & _reporter )
 {
 	std::stringstream stream;
 	const model_includes::Model & model = getModel();
 
-	_reporter.setMaxFilesCount( m_maxFilesCount );
-	_reporter.setMaxDetailsCount( m_maxDetailsCount );
-	_reporter.setShowStdFile( m_showStdFiles );
+	const Settings & settings = ensureSettings();
+	_reporter.copySettings( settings );
 	_reporter.report( model, stream );
 
 	return stream.str();
@@ -171,7 +217,7 @@ std::string ReporterFixture::runReporter( Reporter & _reporter)
 
 //------------------------------------------------------------------------------
 
-ReporterAccessor & ReporterFixture::getAccessor()
+ReporterAccessor & ReporterFixture::ensureReportAccessor()
 {
 	if( !m_accessor )
 		m_accessor.reset( new ReporterAccessorImpl );
@@ -183,7 +229,20 @@ ReporterAccessor & ReporterFixture::getAccessor()
 
 Factory & ReporterFixture::getFactory()
 {
-	return getAccessor().getReporterFactory();
+	return ensureReportAccessor().getReporterFactory();
+}
+
+//------------------------------------------------------------------------------
+
+Settings & ReporterFixture::ensureSettings()
+{
+	if( !m_settings )
+	{
+		auto newSettings = getFactory().createSettings();
+		m_settings.swap( newSettings );
+	}
+
+	return *m_settings;
 }
 
 //------------------------------------------------------------------------------

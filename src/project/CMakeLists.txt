@@ -2,10 +2,8 @@ project(project)
 
 include_directories(.)
 
-file(GLOB all_sources
-    "ih/*.cpp"
-    "impl/*.cpp"
-)
+file(GLOB_RECURSE all_sources "*.cpp")
+list(FILTER all_sources EXCLUDE REGEX "test/*")
 
 add_library( ${PROJECT_NAME}_lib STATIC ${all_sources} )
 

@@ -38,12 +38,16 @@ public:
 
 private:
 
+	using Path = stdfs::path;
+
 	const Include & getInclude() const;
 
 	BoostPredicate checkFile( const File & _file, std::string_view _path ) const;
 
 	std::string toString( IncludeType _type ) const;
 	std::string toString( IncludeStatus _status ) const;
+
+	static Path toLexicallyNormal( const Path & _path );
 
 private:
 

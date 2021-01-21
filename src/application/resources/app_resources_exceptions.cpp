@@ -42,19 +42,10 @@ namespace CantCreateReport {
 
 //------------------------------------------------------------------------------
 
-namespace CantCreateParser {
+namespace CantLoadReporterSettings {
 
-	const char * const Code			= "CREATE_PARSER";
-	const char * const Msg			= "Can't create parser";
-}
-
-//------------------------------------------------------------------------------
-
-namespace IncorrectReport {
-
-	const char * const Code			= "INCORRECT_REPORT";
-	const char * const MsgFmt		=
-		"Incorrect report name: {}, possible names: {}";
+	const char * const Code			= "LOAD_REPORTER_SETTINGS";
+	const char * const Msg			= "Can't load settings for reporters";
 }
 
 //------------------------------------------------------------------------------

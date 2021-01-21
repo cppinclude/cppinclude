@@ -26,4 +26,12 @@ namespace CantOpenFile
 
 //------------------------------------------------------------------------------
 
+namespace CheckingExistFileFail
+{
+	extern const char * const Code;
+	extern const char * const Msg;
+}
+
+//------------------------------------------------------------------------------
+
 }

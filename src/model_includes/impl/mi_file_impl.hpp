@@ -18,7 +18,7 @@ public:
 
 	FileImpl( const Path & _path, FileType _type );
 
-	Path getPath() const override;
+	const Path & getPath() const override;
 	FileType getType() const override;
 
 	void addInclude( const Include & _include ) override;

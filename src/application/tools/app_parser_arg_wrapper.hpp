@@ -24,6 +24,7 @@ public:
 	ParserArgWrapper();
 
 	void parse( int _argc, char * _argv[] );
+	void parse( const stdfwd::vector< std::string > & _arguments );
 	void init();
 
 	using Path				= stdfs::path;
@@ -65,6 +66,9 @@ public:
 
 	PathOpt getConfigurationFile() const;
 	Path getDefaultConfigurationFile() const;
+
+	PathOpt getCompileCommandsFile() const;
+	Path getDefaultCompileCommandsFile() const;
 
 	ReporterKindsOpt getReporterKinds() const;
 	ReporterKinds getDefaultReporterKinds() const;
@@ -128,6 +132,7 @@ private:
 	Argument m_ignoreFilesArg;
 
 	Argument m_configurationFileArg;
+	Argument m_compileCommandsFileArg;
 
 	Argument m_helpArg;
 	Argument m_verboseArg;

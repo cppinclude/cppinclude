@@ -2,7 +2,11 @@
 
 #include "application/tools/app_parser_arg_wrapper.hpp"
 #include "application/tools/app_project_builder.hpp"
+#include "application/tools/app_cmake_project_builder.hpp"
 #include "application/tools/app_log.hpp"
+#include "application/tools/app_configuration_file.hpp"
+#include "application/tools/app_configuration_file_loader.hpp"
+#include "application/tools/app_report_settings_loader.hpp"
 #include "application/resources/app_resources_messages.hpp"
 #include "application/resources/app_resources_version.hpp"
 
@@ -10,7 +14,7 @@
 #include "application/exceptions/app_cant_create_model_impl.hpp"
 #include "application/exceptions/app_cant_create_analyzer.hpp"
 #include "application/exceptions/app_cant_create_report_impl.hpp"
-#include "application/exceptions/app_cant_create_parser_impl.hpp"
+#include "application/exceptions/app_cant_load_reporter_settings.hpp"
 
 #include "project/ih/prj_project_accesso_impl.hpp"
 #include "project/api/prj_project.hpp"
@@ -28,8 +32,14 @@
 #include "reporter/ih/rp_accessor_impl.hpp"
 #include "reporter/api/rp_factory.hpp"
 #include "reporter/api/rp_reporter.hpp"
+#include "reporter/api/rp_settings.hpp"
 
 #include "json/ih/json_accessor_impl.hpp"
+
+#include "cmake_project/api/cprj_project.hpp"
+#include "cmake_project/ih/cprj_accessor_impl.hpp"
+
+#include "compilation_db/ih/cdb_accessor_impl.hpp"
 
 #include <fmt/format.h>
 
@@ -52,48 +62,62 @@ ConcoleApplication::~ConcoleApplication() = default;
 
 int ConcoleApplication::run( int _argc, char * _argv[] )
 {
-	ParserArgWrapper parser;
-	parser.init();
-	parser.parse( _argc, _argv );
+	ParserArgWrapper arguments;
+	arguments.init();
+	arguments.parse( _argc, _argv );
 
-	if( parser.isHelp() )
+	if( arguments.isHelp() )
 	{
-		parser.showHelp( std::cout );
+		arguments.showHelp( std::cout );
 		return EXIT_SUCCESS;
 	}
-	if( parser.isVersion() )
+	if( arguments.isVersion() )
 	{
 		showVersion();
 		return EXIT_SUCCESS;
 	}
 
-	auto kindsOpt = parser.getReporterKinds();
+	auto configurationFilePtr = loadConfigurationFile( arguments );
 
-	ProjectPtr projectPtr = createProject( parser );
+	ProjectPtr projectPtr = createProject( arguments, configurationFilePtr.get() );
 	if( !projectPtr )
 	{
-		throw CantCreateProjectImpl();
+		throw CantCreateProjectImpl{};
 	}
 
 	Project & project = *projectPtr;
-	if( parser.isVerbose() )
+	if( arguments.isVerbose() )
 		dump( project );
 
-	ModelPtr modelPtr = runAnalyzer( project );
+	CMakeProjectPtr cmakeProjectPtr =
+		createCMakeProject( arguments, configurationFilePtr.get() );
+
+	if( arguments.isVerbose() && cmakeProjectPtr )
+		dump( *cmakeProjectPtr );
+
+	ModelPtr modelPtr = runAnalyzer( project, cmakeProjectPtr.get() );
 	if( !modelPtr )
 	{
-		throw CantCreateModelImpl();
+		throw CantCreateModelImpl{};
 	}
 	Model & model = *modelPtr;
 
-	const int maxFiles = getReportLimit( parser );
-	const int maxDetails = getReportDetailsLimit( parser );
-	const bool showStdFile = getShowStdFile( parser );
+	ReportSettingsLoader reportSettingsLoader{ getReporterFactory() };
+	auto reports = reportSettingsLoader.loadReports(
+		arguments,
+		configurationFilePtr.get()
+	);
+	auto settingsPtr = reportSettingsLoader.load(
+		arguments,
+		configurationFilePtr.get()
+	);
 
-	if( kindsOpt )
-		runReporters( model, *kindsOpt, maxFiles, maxDetails, showStdFile );
-	else
-		runReporters( model, parser.getDefaultReporterKinds(), maxFiles, maxDetails, showStdFile );
+	if( !settingsPtr )
+	{
+		throw CantLoadReporterSettingsImpl{};
+	}
+
+	runReporters( model, reports, *settingsPtr );
 
 	return EXIT_SUCCESS;
 
@@ -102,23 +126,46 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 //------------------------------------------------------------------------------
 
 ConcoleApplication::ProjectPtr ConcoleApplication::createProject(
-	const ParserArgWrapper & _arguments
+	const ParserArgWrapper & _arguments,
+	const ConfigurationFile * _configurationFile
 )
+{
+	ProjectBuilder projectBuilder( ensureProjectAccessor(), ensureFileSystem() );
+	return projectBuilder.build( _arguments, _configurationFile );
+}
+
+//------------------------------------------------------------------------------
+
+ConcoleApplication::CMakeProjectPtr ConcoleApplication::createCMakeProject(
+	const ParserArgWrapper & _arguments,
+	const ConfigurationFile * _configurationFile
+)
+{
+	CMakeProjectBuilder projectBuilder{
+		ensureCMakeAccessor(),
+		ensureCompilationDbAccessor(),
+		ensureJsonAccessor(),
+		ensureFileSystem()
+	};
+	return projectBuilder.build( _arguments, _configurationFile );
+}
+
+//------------------------------------------------------------------------------
+
+ConcoleApplication::ConfigurationFilePtr
+ConcoleApplication::loadConfigurationFile( const ParserArgWrapper & _arguments )
 {
 	getLog().printLine( resources::messages::StartConfigurateProject );
 
-	ProjectBuilder projectBuilder(
-		ensureProjectAccessor(),
-		ensureJsonAccessor(),
-		ensureFileSystem()
-	);
-	return projectBuilder.build( _arguments );
+	ConfigurationFileLoader loader( ensureJsonAccessor(), ensureFileSystem() );
+	return loader.load( _arguments );
 }
 
 //------------------------------------------------------------------------------
 
 ConcoleApplication::ModelPtr ConcoleApplication::runAnalyzer(
-	const Project & _project
+	const Project & _project,
+	const CMakeProject * _cmakeProject
 )
 {
 	getLog().printLine( resources::messages::StartAnalyzeSources );
@@ -129,55 +176,11 @@ ConcoleApplication::ModelPtr ConcoleApplication::runAnalyzer(
 		throw CantCreateAnalyzerImpl();
 		return nullptr;
 	}
-	return analyzerPtr->analyze( _project );
-}
 
-//------------------------------------------------------------------------------
-
-int ConcoleApplication::getReportLimit( const ParserArgWrapper & _arg ) const
-{
-	int result = 0;
-	if( auto limitOpt = _arg.getReportLimit(); limitOpt )
-	{
-		result = *limitOpt;
-	}
+	if( _cmakeProject )
+		return analyzerPtr->analyze( _project, *_cmakeProject );
 	else
-	{
-		result = _arg.getDefaultReportLimit();
-	}
-	return result;
-}
-
-//------------------------------------------------------------------------------
-
-int ConcoleApplication::getReportDetailsLimit( const ParserArgWrapper & _arg ) const
-{
-	int result = 0;
-	if( auto limitOpt = _arg.getReportDetailsLimit(); limitOpt )
-	{
-		result = *limitOpt;
-	}
-	else
-	{
-		result = _arg.getDefaultReportDetailsLimit();
-	}
-	return result;
-}
-
-//------------------------------------------------------------------------------
-
-bool ConcoleApplication::getShowStdFile( const ParserArgWrapper & _arg ) const
-{
-	bool result = false;
-	if( auto valueOpt = _arg.getShowStdFile(); valueOpt )
-	{
-		result = *valueOpt;
-	}
-	else
-	{
-		result = _arg.getDefaultShowStdfile();
-	}
-	return result;
+		return analyzerPtr->analyze( _project );
 }
 
 //------------------------------------------------------------------------------
@@ -185,9 +188,7 @@ bool ConcoleApplication::getShowStdFile( const ParserArgWrapper & _arg ) const
 void ConcoleApplication::runReporters(
 	const Model & _model,
 	const ReporterKinds & _kinds,
-	int _limit,
-	int _maxDetails,
-	bool _showStdFile
+	const reporter::Settings & _reporterSettings
 )
 {
 	using namespace reporter;
@@ -206,9 +207,7 @@ void ConcoleApplication::runReporters(
 		}
 
 		Report & report = *reportPtr;
-		report.setMaxFilesCount( _limit );
-		report.setMaxDetailsCount( _maxDetails );
-		report.setShowStdFile( _showStdFile );
+		report.copySettings( _reporterSettings );
 		report.report( _model, std::cout );
 	}
 }
@@ -225,9 +224,9 @@ ConcoleApplication::ProjectAccessor & ConcoleApplication::ensureProjectAccessor(
 ConcoleApplication::ModelIncludesAccessor &
 ConcoleApplication::ensureModelIncludesAccessor()
 {
-	return m_modelIncludesAccessor.ensure<
-		model_includes::ModelIncludesAccessorImpl
-	>();
+	using namespace model_includes;
+
+	return m_modelIncludesAccessor.ensure< ModelIncludesAccessorImpl >();
 }
 
 //------------------------------------------------------------------------------
@@ -283,9 +282,31 @@ ConcoleApplication::ReporterAccessor & ConcoleApplication::ensureReporterAccesso
 
 //------------------------------------------------------------------------------
 
+reporter::Factory & ConcoleApplication::getReporterFactory()
+{
+	return ensureReporterAccessor().getReporterFactory();
+}
+
+//------------------------------------------------------------------------------
+
 ConcoleApplication::JsonAccessor & ConcoleApplication::ensureJsonAccessor()
 {
 	return m_jsonAccessor.ensure< json::JsonAccesorImpl >();
+}
+
+//------------------------------------------------------------------------------
+
+ConcoleApplication::CMakeAccessor & ConcoleApplication::ensureCMakeAccessor()
+{
+	return m_cmakeAccessor.ensure< cmake_project::AccessorImpl >();
+}
+
+//------------------------------------------------------------------------------
+
+ConcoleApplication::CompilationDbAccessor &
+ConcoleApplication::ensureCompilationDbAccessor()
+{
+	return m_compilationDbAccessor.ensure< compilation_db::AccessorImpl >();
 }
 
 //------------------------------------------------------------------------------
@@ -345,6 +366,31 @@ void ConcoleApplication::dump( const Project & _project ) const
 		}
 	);
 
+}
+
+//------------------------------------------------------------------------------
+
+void ConcoleApplication::dump( const CMakeProject & _project ) const
+{
+	std::cout << "cmake project dump:" << std::endl;
+	int fileNumber = 1;
+	_project.forEachFilePath( [&]( const CMakeProject::Path & _path )
+	{
+		std::cout << fileNumber << " : " << _path << std::endl;
+		std::cout << "includes:" << std::endl;
+		int includeNumber = 1;
+		_project.forEachIncludes( _path, [&]( const CMakeProject::Path & _include )
+		{
+
+			std::cout << '\t' << includeNumber << " : " << _include << std::endl;
+			++includeNumber;
+			return true;
+		}
+		);
+
+		++fileNumber;
+		return true;
+	});
 }
 
 //------------------------------------------------------------------------------

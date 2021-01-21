@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fs/api/exceptions/fs_exceptions.hpp"
+#include "fs/api/fs_exceptions.hpp"
 #include "fs/impl/exceptions/fs_base_exception_impl.hpp"
 
 #include <std_fs>
