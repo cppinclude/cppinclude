@@ -18,7 +18,6 @@ namespace parser {
 class Parser
 {
 public:
-
 	virtual ~Parser() = default;
 
 	using IncludeFiles = stdfwd::vector< IncludeFile >;

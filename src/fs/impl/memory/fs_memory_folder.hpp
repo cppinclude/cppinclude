@@ -2,10 +2,10 @@
 
 #include "fs/api/enums/fs_item_type.hpp"
 
+#include <functional>
+#include <memory>
 #include <string>
 #include <unordered_map>
-#include <memory>
-#include <functional>
 
 //------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ public:
 	FilePtr ensureFile( std::string_view _name );
 	FilePtr getFile( std::string_view _name ) const;
 
-	void forEachItem( ItemCallback _callback );
+	void forEachItem( const ItemCallback & _callback );
 
 private:
 

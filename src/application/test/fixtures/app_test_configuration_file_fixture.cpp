@@ -4,15 +4,15 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include "json/ih/json_accessor_impl.hpp"
 #include "json/api/json_object.hpp"
+#include "json/ih/json_accessor_impl.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 #include "reporter/tools/rp_reporter_kind_functins.hpp"
 
 #include <optional>
-#include <string>
 #include <sstream>
+#include <string>
 
 //------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ void ConfigurationfileFixture::loadFromJson( std::string_view _json )
 	std::stringstream stream;
 	stream << _json;
 	auto jsonPtr = getJsonAccessor().createJson( stream );
-	INTERNAL_CHECK_ERROR( jsonPtr );
+	INTERNAL_CHECK_ERROR( jsonPtr != nullptr );
 	const json::JsonObject & json = *jsonPtr;
 	ensureConfigurationFile().loadFromJson( json );
 }
@@ -135,14 +135,18 @@ ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::toStirng( const StringsOpt & _arrayOpt )
 {
 	if( !_arrayOpt )
+	{
 		return std::nullopt;
+	}
 
 	std::string result;
 
 	for( const std::string & str : *_arrayOpt )
 	{
 		if( !result.empty() )
+		{
 			result += ',';
+		}
 
 		result += str;
 	}
@@ -173,7 +177,9 @@ ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::arrayToString( const _ArrayTypeOpt & _arrayOpt )
 {
 	if( !_arrayOpt )
+	{
 		return std::nullopt;
+	}
 
 	Strings strings;
 
@@ -204,7 +210,7 @@ std::string ConfigurationfileFixture::toString( reporter::ReporterKind _kind )
 
 const ConfigurationFile & ConfigurationfileFixture::getConfigurationFile() const
 {
-	INTERNAL_CHECK_ERROR( m_file );
+	INTERNAL_CHECK_ERROR( m_file != nullptr );
 	return *m_file;
 }
 
@@ -213,7 +219,9 @@ const ConfigurationFile & ConfigurationfileFixture::getConfigurationFile() const
 ConfigurationFile & ConfigurationfileFixture::ensureConfigurationFile()
 {
 	if( !m_file )
-		m_file.reset( new ConfigurationFile );
+	{
+		m_file = std::make_unique< ConfigurationFile >();
+	}
 
 	return *m_file;
 }

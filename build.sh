@@ -1,6 +1,8 @@
+mkdir -p build
+
 cd build
 
-cmake ../src/ -DCMAKE_BUILD_TYPE=Release && \
+cmake .. -DCMAKE_BUILD_TYPE=Release && \
 cmake --build . --config Release
 
 cd -

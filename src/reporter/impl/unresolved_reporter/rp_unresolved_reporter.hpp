@@ -22,7 +22,6 @@ class UnresolvedReporter final : public BaseReporterImpl
 	using BaseClass = BaseReporterImpl;
 
 public:
-
 	explicit UnresolvedReporter( SettingsPtr && _settingsPtr );
 
 	void report(
@@ -33,7 +32,6 @@ public:
 	ReporterKind getKind() const override;
 
 private:
-
 	using UnorderedIncludes = stdfwd::vector< const model_includes::Include * >;
 	using OrderedIncludes = stdfwd::set<
 		const model_includes::Include *,

@@ -23,7 +23,6 @@ namespace model_includes::test {
 
 class ModelWrapper
 {
-
 public:
 
 	using ModelPtr	= stdfwd::unique_ptr< Model >;
@@ -53,14 +52,12 @@ public:
 	);
 
 private:
-
 	const Model & getModel() const;
 	Model & takeModel();
 
 	std::string dump() const;
 
 private:
-
 	ModelPtr m_modelPtr;
 };
 

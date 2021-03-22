@@ -38,10 +38,8 @@ JsonObjectImpl::JsonValuePtr JsonObjectImpl::getAttributeValue(
 		JsonImpl json = m_jsonImpl.at( _name.data() );
 		return JsonValuePtr{ new JsonValueImpl{ std::move( json ) } };
 	}
-	else
-	{
-		return nullptr;
-	}
+
+	return nullptr;
 }
 
 //------------------------------------------------------------------------------

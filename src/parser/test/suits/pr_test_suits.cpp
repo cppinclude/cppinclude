@@ -1,9 +1,9 @@
-#include "parser/test/fixtures/pr_test_fixture.hpp"
 #include "parser/test/fixtures/pr_test_file_wrapper.hpp"
+#include "parser/test/fixtures/pr_test_fixture.hpp"
 
 #include "parser/api/pr_include_file.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 /*------------------------------------------------------------------------------
 
@@ -25,23 +25,22 @@ TEST PLAN:
 14. Raw string
 15. Raw string with separator
 16. Brackets in comments
+17. File name in comments
 
 ------------------------------------------------------------------------------*/
 
 namespace parser::test {
 
 //------------------------------------------------------------------------------
-
-BOOST_FIXTURE_TEST_SUITE(ParserTests, ParserFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( ParserTests, ParserFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_simple_system_include)
+TEST_CASE( t1_simple_system_include )
 {
 	// Init
-	file()<<
-		"#include <iostream>"
-	;
+	file() << "#include <iostream>";
 
 	// Run
 	parse();
@@ -51,7 +50,7 @@ BOOST_AUTO_TEST_CASE(t1_simple_system_include)
 	BOOST_REQUIRE_EQUAL( files.size(), 1 );
 
 	const auto & file = files.at( 0 );
-	BOOST_CHECK_EQUAL( file.getName(), "iostream");
+	BOOST_CHECK_EQUAL( file.getName(), "iostream" );
 	BOOST_CHECK_EQUAL( file.isSystem(), true );
 
 	const auto & location = file.getLocation();
@@ -62,12 +61,10 @@ BOOST_AUTO_TEST_CASE(t1_simple_system_include)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_simple_user_include)
+TEST_CASE( t2_simple_user_include )
 {
 	// Init
-	file()<<
-		"#include \"user.hpp\""
-	;
+	file() << "#include \"user.hpp\"";
 
 	// Run
 	parse();
@@ -83,7 +80,7 @@ BOOST_AUTO_TEST_CASE(t2_simple_user_include)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_simple_user_and_system_include)
+TEST_CASE( t3_simple_user_and_system_include )
 {
 	// Init
 	file()
@@ -109,12 +106,10 @@ BOOST_AUTO_TEST_CASE(t3_simple_user_and_system_include)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_include_without_space)
+TEST_CASE( t4_include_without_space )
 {
 	// Init
-	file()<<
-		"#include<iostream>"
-	;
+	file() << "#include<iostream>";
 
 	// Run
 	parse();
@@ -130,7 +125,7 @@ BOOST_AUTO_TEST_CASE(t4_include_without_space)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_include_with_several_spaces)
+TEST_CASE( t5_include_with_several_spaces )
 {
 	// Init
 	file()<<
@@ -151,12 +146,10 @@ BOOST_AUTO_TEST_CASE(t5_include_with_several_spaces)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t6_include_after_comment)
+TEST_CASE( t6_include_after_comment )
 {
 	// Init
-	file()<<
-		" //#include <iostream>"
-	;
+	file() << " //#include <iostream>";
 
 	// Run
 	parse();
@@ -168,12 +161,10 @@ BOOST_AUTO_TEST_CASE(t6_include_after_comment)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t7_include_in_multiline_coment)
+TEST_CASE( t7_include_in_multiline_coment )
 {
 	// Init
-	file()<<
-		"/* include <memory> */"
-	;
+	file() << "/* include <memory> */";
 
 	// Run
 	parse();
@@ -185,12 +176,10 @@ BOOST_AUTO_TEST_CASE(t7_include_in_multiline_coment)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t8_include_in_string)
+TEST_CASE( t8_include_in_string )
 {
 	// Init
-	file()<<
-		"\" include <memory> \""
-	;
+	file() << "\" include <memory> \"";
 
 	// Run
 	parse();
@@ -202,10 +191,10 @@ BOOST_AUTO_TEST_CASE(t8_include_in_string)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t9_include_in_multiline_coment_with_several_lines)
+TEST_CASE( t9_include_in_multiline_coment_with_several_lines )
 {
 	// Init
-	file()<<
+	file() <<
 		R"(/* text
 		line #include "...".
 		*/
@@ -222,7 +211,7 @@ BOOST_AUTO_TEST_CASE(t9_include_in_multiline_coment_with_several_lines)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t10_include_after_multiline_coment_with_several_lines)
+TEST_CASE( t10_include_after_multiline_coment_with_several_lines )
 {
 	// Init
 	file()<<
@@ -245,7 +234,7 @@ BOOST_AUTO_TEST_CASE(t10_include_after_multiline_coment_with_several_lines)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t11_include_include_in_multiline_string)
+TEST_CASE( t11_include_include_in_multiline_string )
 {
 	// Init
 	file()<<
@@ -264,10 +253,10 @@ BOOST_AUTO_TEST_CASE(t11_include_include_in_multiline_string)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t12_first_line_new_line)
+TEST_CASE( t12_first_line_new_line )
 {
 	// Init
-	file()<<
+	file() <<
 		R"(
 		#include <boost/test/unit_test.hpp>
 		)"
@@ -281,7 +270,7 @@ BOOST_AUTO_TEST_CASE(t12_first_line_new_line)
 	BOOST_REQUIRE_EQUAL( files.size(), 1 );
 
 	const auto & file = files.at( 0 );
-	BOOST_CHECK_EQUAL( file.getName(), "boost/test/unit_test.hpp");
+	BOOST_CHECK_EQUAL( file.getName(), "boost/test/unit_test.hpp" );
 	BOOST_CHECK_EQUAL( file.isSystem(), true );
 
 	const auto & location = file.getLocation();
@@ -292,12 +281,10 @@ BOOST_AUTO_TEST_CASE(t12_first_line_new_line)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t13_string_with_quotation_marks)
+TEST_CASE( t13_string_with_quotation_marks )
 {
 	// Init
-	file()<<
-		R"(\" \"#include <iostream> ")"
-	;
+	file() << R"(\" \"#include <iostream> ")";
 
 	// Run
 	parse();
@@ -307,10 +294,9 @@ BOOST_AUTO_TEST_CASE(t13_string_with_quotation_marks)
 	BOOST_REQUIRE_EQUAL( files.size(), 0 );
 }
 
-
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t14_raw_string)
+TEST_CASE( t14_raw_string )
 {
 	// Init
 	file()<<
@@ -330,7 +316,7 @@ BOOST_AUTO_TEST_CASE(t14_raw_string)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t15_raw_string_with_seperator)
+TEST_CASE( t15_raw_string_with_seperator )
 {
 	// Init
 	file()<<
@@ -350,10 +336,10 @@ BOOST_AUTO_TEST_CASE(t15_raw_string_with_seperator)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t16_brackets_in_comments)
+TEST_CASE( t16_brackets_in_comments )
 {
 	// Init
-	file()<<
+	file() <<
 		R"(
 		#include "file.hpp" //  <->
 		)"
@@ -367,7 +353,7 @@ BOOST_AUTO_TEST_CASE(t16_brackets_in_comments)
 	BOOST_REQUIRE_EQUAL( files.size(), 1 );
 
 	const auto & file = files.at( 0 );
-	BOOST_CHECK_EQUAL( file.getName(), "file.hpp");
+	BOOST_CHECK_EQUAL( file.getName(), "file.hpp" );
 	BOOST_CHECK_EQUAL( file.isSystem(), false );
 
 	const auto & location = file.getLocation();
@@ -378,7 +364,48 @@ BOOST_AUTO_TEST_CASE(t16_brackets_in_comments)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_CASE( t17_file_name_in_comments )
+{
+	// Init
+	file() <<
+		R"(
+		#include /*<text1>*/ "filename1"
+		#include /*"text2"*/ <filename2>
+		)"
+	;
+
+	// Run
+	parse();
+
+	// Check
+	const auto & files = getResults();
+	BOOST_REQUIRE_EQUAL( files.size(), 2 );
+
+	{
+		const auto & file1 = files.at( 0 );
+		BOOST_CHECK_EQUAL( file1.getName(), "filename1" );
+		BOOST_CHECK_EQUAL( file1.isSystem(), false );
+
+		const auto & location1 = file1.getLocation();
+		BOOST_CHECK_EQUAL( location1.getLineNumber(), 2 );
+		BOOST_CHECK_EQUAL( location1.getBegin(), 25 );
+		BOOST_CHECK_EQUAL( location1.getEnd(), 34 );
+	}
+	{
+		const auto & file2 = files.at( 1 );
+		BOOST_CHECK_EQUAL( file2.getName(), "filename2" );
+		BOOST_CHECK_EQUAL( file2.isSystem(), true );
+
+		const auto & location2 = file2.getLocation();
+		BOOST_CHECK_EQUAL( location2.getLineNumber(), 3 );
+		BOOST_CHECK_EQUAL( location2.getBegin(), 25 );
+		BOOST_CHECK_EQUAL( location2.getEnd(), 34 );
+	}
+}
+
+//------------------------------------------------------------------------------
+
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

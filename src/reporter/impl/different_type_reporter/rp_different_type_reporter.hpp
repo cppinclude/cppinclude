@@ -23,7 +23,6 @@ class DifferentTypeReporter final : public BaseReporterImpl
 	using BaseClass = BaseReporterImpl;
 
 public:
-
 	explicit DifferentTypeReporter( SettingsPtr && _settingsPtr );
 
 	void report(
@@ -74,7 +73,6 @@ private:
 
 	static bool isIncludedByDifferentType( const File & _file );
 	bool isIgnoredFile( const File & _file ) const;
-
 };
 
 //------------------------------------------------------------------------------

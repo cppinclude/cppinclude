@@ -60,7 +60,6 @@ namespace application {
 class ConcoleApplication
 {
 public:
-
 	ConcoleApplication();
 	~ConcoleApplication();
 
@@ -149,7 +148,6 @@ private:
 	void showVersion();
 
 private:
-
 	PluginPtr< ProjectAccessor > m_projectAccessor;
 	PluginPtr< ModelIncludesAccessor > m_modelIncludesAccessor;
 	PluginPtr< fs::FileSystemAccessor > m_fileSystemAccessor;
@@ -161,7 +159,6 @@ private:
 
 	ParserPtr m_parser;
 	std::unique_ptr< Log > m_log;
-
 };
 
 //------------------------------------------------------------------------------

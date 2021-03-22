@@ -10,11 +10,10 @@ namespace fs {
 
 //------------------------------------------------------------------------------
 
-CantOpenFileImpl::CantOpenFileImpl( const Path & _path )
+CantOpenFileImpl::CantOpenFileImpl( Path _path )
 	:	BaseClass( resources::exceptions::CantOpenFile::Code )
-	,	m_path{ _path }
+	,	m_path{ std::move( _path ) }
 {
-
 }
 
 //------------------------------------------------------------------------------

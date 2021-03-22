@@ -11,7 +11,6 @@ SettingsImpl::SettingsImpl()
 	,	m_maxDetailsCount{ 0 }
 	,	m_showStdFiles{ true }
 {
-
 }
 
 //------------------------------------------------------------------------------

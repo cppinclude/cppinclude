@@ -29,7 +29,6 @@ namespace cmake_project::test {
 class LoaderFixture
 {
 public:
-
 	LoaderFixture();
 	~LoaderFixture();
 
@@ -56,7 +55,6 @@ public:
 	Strings toExceptedIncludes( const Strings & _dirs ) const;
 
 private:
-
 	using Path = stdfs::path;
 
 	std::string getDefaultFolder() const;
@@ -69,7 +67,6 @@ private:
 	compilation_db::Accessor & ensureCompilationDbAccessor();
 
 private:
-
 	std::unique_ptr< Project > m_projectPtr;
 	std::unique_ptr< Loader > m_loaderPtr;
 	std::unique_ptr< Accessor > m_cmakeProjectAccessorPtr;
@@ -84,4 +81,3 @@ private:
 }
 
 //------------------------------------------------------------------------------
-

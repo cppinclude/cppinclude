@@ -2,8 +2,8 @@
 
 #include "application/tools/app_plugin_ptr.hpp"
 
-#include <stdfwd.hpp>
 #include <memory>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ public:
 	std::string getIncludeDirs() const;
 	std::string getIgnoreDirs() const;
 
-    std::size_t getFileFiltersCount() const;
+	std::size_t getFileFiltersCount() const;
 
 	bool getIgnoreSystemIncludes() const;
 	std::string getFileExtensions() const;
@@ -72,7 +72,6 @@ public:
 	static std::string toString( const char * const _values[] );
 
 private:
-
 	template< class _Strings >
 	static std::string toString( const _Strings & _strings );
 
@@ -88,12 +87,10 @@ private:
 	fs::File & getDefaultConfigurationFile();
 
 private:
-
 	std::unique_ptr< project::Project > m_project;
 	std::unique_ptr< ParserArgWrapper > m_parser;
 	std::unique_ptr< ProjectBuilder > m_builder;
 	std::unique_ptr< ConfigurationFile > m_configurationFile;
-
 
 	PluginPtr< project::ProjectAccessor > m_projectAccessor;
 	PluginPtr< json::JsonAccessor > m_json;

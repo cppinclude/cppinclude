@@ -25,6 +25,8 @@ THE SOFTWARE.
 #ifndef CXXOPTS_HPP_INCLUDED
 #define CXXOPTS_HPP_INCLUDED
 
+// clazy:excludeall=non-pod-global-static
+
 #include <cstring>
 #include <cctype>
 #include <exception>

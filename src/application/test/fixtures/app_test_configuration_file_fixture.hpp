@@ -2,8 +2,8 @@
 
 #include "application/tools/app_plugin_ptr.hpp"
 
-#include <stdfwd.hpp>
 #include <memory>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -77,14 +77,12 @@ public:
 	static std::string toString( const Path & _path );
 
 private:
-
 	const ConfigurationFile & getConfigurationFile() const;
 	ConfigurationFile & ensureConfigurationFile();
 
 	json::JsonAccessor & getJsonAccessor();
 
 private:
-
 	std::unique_ptr< ConfigurationFile > m_file;
 
 	PluginPtr< json::JsonAccessor > m_json;

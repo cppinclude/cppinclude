@@ -59,12 +59,10 @@ private:
 	void reset();
 
 private:
-
 	ProjectAccessor & m_projectAccessor;
 	FileSystem & m_fs;
-	bool m_ignoreSystemIncludesChanged;
-	bool m_analyzeWithoutExtensionChanged;
-
+	bool m_ignoreSystemIncludesChanged{};
+	bool m_analyzeWithoutExtensionChanged{};
 };
 
 //------------------------------------------------------------------------------

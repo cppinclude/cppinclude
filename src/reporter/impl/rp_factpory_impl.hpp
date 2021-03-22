@@ -9,7 +9,6 @@ namespace reporter {
 class FactoryImpl final : public Factory
 {
 public:
-
 	ReporterPtr createReporter( ReporterKind _kind ) override;
 
 	ReporterPtr createDumpReporter() override;
@@ -19,7 +18,6 @@ public:
 	ReporterPtr createDifferentTypeReporter() override;
 
 	SettingsPtr createSettings() override;
-
 };
 
 //------------------------------------------------------------------------------

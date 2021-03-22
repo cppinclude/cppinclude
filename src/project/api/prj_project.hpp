@@ -24,7 +24,7 @@ public:
 	virtual ~Project() = default;
 
 	virtual void setProjectDir( const Path & _path ) = 0;
-    virtual const Path & getProjectDir() const = 0;
+	virtual const Path & getProjectDir() const = 0;
 
 	virtual IncludeDirIndex getIncludeDirsCount() const = 0;
 	virtual const Path & getIncludeDir( IncludeDirIndex _index ) const = 0;

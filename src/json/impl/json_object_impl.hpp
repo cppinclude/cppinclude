@@ -12,9 +12,7 @@ namespace json {
 
 class JsonObjectImpl final : public JsonObject
 {
-
 public:
-
 	using JsonObjectPtr = std::unique_ptr< JsonObject >;
 	using JsonImpl = nlohmann::json;
 
@@ -27,7 +25,6 @@ public:
 	JsonValuePtr asValue() const override;
 
 private:
-
 	JsonImpl m_jsonImpl;
 };
 

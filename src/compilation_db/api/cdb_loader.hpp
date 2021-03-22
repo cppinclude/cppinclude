@@ -18,7 +18,6 @@ namespace compilation_db {
 class Loader
 {
 public:
-
 	virtual ~Loader() = default;
 
 	using DatabasePtr = stdfwd::unique_ptr< Database >;

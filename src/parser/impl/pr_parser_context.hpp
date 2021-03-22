@@ -10,9 +10,7 @@ namespace parser {
 
 class ParserContext
 {
-
 public:
-
 	ParserContext();
 
 	const std::string & getCurrentLine() const noexcept;
@@ -31,14 +29,12 @@ public:
 	void seEnableRawString( bool _enable ) noexcept;
 
 private:
-
 	std::string m_currentLine;
 	std::size_t m_lineNumber;
 
 	bool m_isEnableMultilineComment;
 	bool m_isEnableMultilineString;
 	bool m_isEnableRawString;
-
 };
 
 //------------------------------------------------------------------------------

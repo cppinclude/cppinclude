@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdfwd.hpp>
 #include <memory>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -18,7 +18,6 @@ namespace application::test {
 class ParserArgumentsFixture
 {
 public:
-
 	ParserArgumentsFixture();
 	~ParserArgumentsFixture();
 
@@ -88,14 +87,11 @@ public:
 	static std::string toString( const Paths & _paths );
 
 private:
-
 	const ParserArg & getPatser() const;
 	ParserArg & getPatser();
 
 private:
-
 	std::unique_ptr< ParserArg > m_parserPtr;
-
 };
 
 //------------------------------------------------------------------------------

@@ -21,9 +21,8 @@ namespace application {
 class ReportSettingsLoader
 {
 public:
-
-	using SettingsPtr		= stdfwd::unique_ptr< reporter::Settings >;
-	using ReporterKinds		= stdfwd::vector< reporter::ReporterKind >;
+	using SettingsPtr = stdfwd::unique_ptr< reporter::Settings >;
+	using ReporterKinds = stdfwd::vector< reporter::ReporterKind >;
 
 	using CountType			= std::size_t;
 
@@ -40,7 +39,6 @@ public:
 	);
 
 private:
-
 	SettingsPtr createSettings();
 
 	static CountType loadMaxFilesCount(
@@ -68,7 +66,6 @@ private:
 	);
 
 private:
-
 	reporter::Factory & m_reporterFactory;
 };
 

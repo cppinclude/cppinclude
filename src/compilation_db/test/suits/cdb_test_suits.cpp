@@ -3,7 +3,7 @@
 #include "compilation_db/api/cdb_command_object.hpp"
 #include "compilation_db/api/cdb_database.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 #include <string_view>
 
 /*------------------------------------------------------------------------------
@@ -18,12 +18,12 @@ TEST PLAN:
 namespace compilation_db::test {
 
 //------------------------------------------------------------------------------
-
-BOOST_FIXTURE_TEST_SUITE(CompilationDbTests, CompilationDbFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( CompilationDbTests, CompilationDbFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_one_compilation_object)
+TEST_CASE( t1_one_compilation_object )
 {
 	// Run
 	const Database & db = parseJson(
@@ -47,12 +47,11 @@ BOOST_AUTO_TEST_CASE(t1_one_compilation_object)
 			"/usr/bin/c++ -I/home/user/temp/project file.o file.cpp"
 		);
 	}
-
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_several_compilation_objects)
+TEST_CASE( t2_several_compilation_objects )
 {
 	// Run
 	const Database & db = parseJson(
@@ -104,12 +103,11 @@ BOOST_AUTO_TEST_CASE(t2_several_compilation_objects)
 			"/usr/bin/c++ -I/home/user/temp/project file3.o file3.cpp"
 		);
 	}
-
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

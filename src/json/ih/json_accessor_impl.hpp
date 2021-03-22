@@ -9,7 +9,6 @@ namespace json {
 class JsonAccesorImpl : public JsonAccessor
 {
 public:
-
 	JsonAccesorImpl();
 	~JsonAccesorImpl() override;
 

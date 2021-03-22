@@ -10,11 +10,9 @@ namespace reporter {
 class ReporterAccessor
 {
 public:
-
 	virtual ~ReporterAccessor() = default;
 
 	virtual Factory & getReporterFactory() = 0;
-
 };
 
 //------------------------------------------------------------------------------

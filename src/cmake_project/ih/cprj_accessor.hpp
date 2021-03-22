@@ -12,13 +12,11 @@ namespace cmake_project {
 class Accessor
 {
 public:
-
 	using LoaderPtr = stdfwd::unique_ptr< Loader >;
 
 	virtual ~Accessor() = default;
 
 	virtual LoaderPtr createLoader() = 0;
-
 };
 
 //------------------------------------------------------------------------------

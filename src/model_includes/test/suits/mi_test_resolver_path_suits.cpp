@@ -1,9 +1,9 @@
 #include "model_includes/test/fixtures/mi_test_model_includes_fixture.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
-#include <std_fs>
 #include <optional>
+#include <std_fs>
 
 /*------------------------------------------------------------------------------
 
@@ -26,15 +26,15 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace model_includes::test {
+namespace model_includes::test
+{
+//------------------------------------------------------------------------------
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( ResolverPathTests, ModelIncludesFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_FIXTURE_TEST_SUITE(ResolverPathTests, ModelIncludesFixture)
-
-//------------------------------------------------------------------------------
-
-BOOST_AUTO_TEST_CASE(t1_current_directory)
+TEST_CASE( t1_current_directory )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -45,15 +45,15 @@ BOOST_AUTO_TEST_CASE(t1_current_directory)
 	PathOpt resolvedPath = resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/include.hpp" };
-	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
+	TEST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_subdirectory)
+TEST_CASE( t2_subdirectory )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(t2_subdirectory)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/sub_dir/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(t2_subdirectory)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_1_in_include_dir)
+TEST_CASE( t3_1_in_include_dir )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(t3_1_in_include_dir)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/lib/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(t3_1_in_include_dir)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_2_in_include_subdir)
+TEST_CASE( t3_2_in_include_subdir )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(t3_2_in_include_subdir)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/lib/sub/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_CASE(t3_2_in_include_subdir)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_3_in_include_out_of_project)
+TEST_CASE( t3_3_in_include_out_of_project )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(t3_3_in_include_out_of_project)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/lib/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_CASE(t3_3_in_include_out_of_project)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_not_found)
+TEST_CASE( t4_not_found )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -160,12 +160,12 @@ BOOST_AUTO_TEST_CASE(t4_not_found)
 	);
 
 	// Check
-	BOOST_REQUIRE( !resolvedPath.has_value() );
+	TEST_REQUIRE( !resolvedPath.has_value() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_1_cmake_project_one_file_in_include_dir)
+TEST_CASE( t5_1_cmake_project_one_file_in_include_dir )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(t5_1_cmake_project_one_file_in_include_dir)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/lib/include.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE(t5_1_cmake_project_one_file_in_include_dir)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_2_cmake_project_two_files_in_different_include_dirs)
+TEST_CASE( t5_2_cmake_project_two_files_in_different_include_dirs )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -209,20 +209,19 @@ BOOST_AUTO_TEST_CASE(t5_2_cmake_project_two_files_in_different_include_dirs)
 			"include.hpp"
 		);
 
-		BOOST_REQUIRE( resolvedPath.has_value() );
+		TEST_REQUIRE( resolvedPath.has_value() );
 
 		const Path exceptedPath{ "/test_project/lib1/include.hpp" };
 		BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
 	}
 	{
-
 		// Check
 		PathOpt resolvedPath = resolvePath(
 			"/test_project/file2.cpp",
 			"include.hpp"
 		);
 
-		BOOST_REQUIRE( resolvedPath.has_value() );
+		TEST_REQUIRE( resolvedPath.has_value() );
 
 		const Path exceptedPath{ "/test_project/lib2/include.hpp" };
 		BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -231,7 +230,7 @@ BOOST_AUTO_TEST_CASE(t5_2_cmake_project_two_files_in_different_include_dirs)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_3_cmake_project_not_found)
+TEST_CASE( t5_3_cmake_project_not_found )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -247,12 +246,12 @@ BOOST_AUTO_TEST_CASE(t5_3_cmake_project_not_found)
 	);
 
 	// Check
-	BOOST_REQUIRE( !resolvedPath.has_value() );
+	TEST_REQUIRE( !resolvedPath.has_value() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_4_cmake_project_mix_with_general_project)
+TEST_CASE( t5_4_cmake_project_mix_with_general_project )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -274,8 +273,8 @@ BOOST_AUTO_TEST_CASE(t5_4_cmake_project_mix_with_general_project)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath1.has_value() );
-	BOOST_REQUIRE( resolvedPath2.has_value() );
+	TEST_REQUIRE( resolvedPath1.has_value() );
+	TEST_REQUIRE( resolvedPath2.has_value() );
 
 	const Path exceptedPath1{ "/test_project/lib1/include1.hpp" };
 	const Path exceptedPath2{ "/test_project/lib2/include2.hpp" };
@@ -286,7 +285,7 @@ BOOST_AUTO_TEST_CASE(t5_4_cmake_project_mix_with_general_project)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_5_cmake_header_include_file_from_cmake_include)
+TEST_CASE( t5_5_cmake_header_include_file_from_cmake_include )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -304,7 +303,7 @@ BOOST_AUTO_TEST_CASE(t5_5_cmake_header_include_file_from_cmake_include)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/lib/base_class.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -312,7 +311,7 @@ BOOST_AUTO_TEST_CASE(t5_5_cmake_header_include_file_from_cmake_include)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_6_cmake_header_include_file_from_project_include)
+TEST_CASE( t5_6_cmake_header_include_file_from_project_include )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -332,7 +331,7 @@ BOOST_AUTO_TEST_CASE(t5_6_cmake_header_include_file_from_project_include)
 	);
 
 	// Check
-	BOOST_REQUIRE( resolvedPath.has_value() );
+	TEST_REQUIRE( resolvedPath.has_value() );
 
 	const Path exceptedPath{ "/test_project/lib/base_class.hpp" };
 	BOOST_CHECK_EQUAL( *resolvedPath, exceptedPath );
@@ -340,7 +339,7 @@ BOOST_AUTO_TEST_CASE(t5_6_cmake_header_include_file_from_project_include)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

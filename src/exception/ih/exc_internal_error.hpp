@@ -2,8 +2,8 @@
 
 #include "exception/ih/exc_exception_impl.hpp"
 
-#include <string>
 #include <iostream>
+#include <string>
 
 //------------------------------------------------------------------------------
 
@@ -38,7 +38,6 @@ public:
 	}
 
 private:
-
 	const std::string m_file;
 	const std::string m_function;
 	const int m_line;
@@ -50,11 +49,8 @@ private:
 
 //------------------------------------------------------------------------------
 
-#define INTERNAL_ERROR ::exception::InternalError(								\
-	__FILE__,																	\
-	__FUNCTION__,																\
-	__LINE__																	\
-)
+#define INTERNAL_ERROR \
+	::exception::InternalError( __FILE__, __FUNCTION__, __LINE__ )
 
 //------------------------------------------------------------------------------
 
@@ -62,15 +58,14 @@ private:
 
 //------------------------------------------------------------------------------
 
-#define INTERNAL_CHECK_ERROR( _condition )										\
-	if( !( _condition ) )														\
-		THROW_INTERNAL_ERROR
+#define INTERNAL_CHECK_ERROR( _condition ) \
+	if( !( _condition ) )                  \
+	THROW_INTERNAL_ERROR
 
 //------------------------------------------------------------------------------
 
-#define INTERNAL_CHECK_WARRING( _condition )									\
-	if( !( _condition ) )														\
-		std::cout << INTERNAL_ERROR.what() << std::endl;						\
+#define INTERNAL_CHECK_WARRING( _condition ) \
+	if( !( _condition ) )                    \
+		std::cout << INTERNAL_ERROR.what() << std::endl;
 
 //------------------------------------------------------------------------------
-

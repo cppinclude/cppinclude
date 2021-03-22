@@ -1,7 +1,7 @@
 #include "parser/test/fixtures/pr_test_fixture.hpp"
 
-#include "fs/impl/fs_factory_impl.hpp"
 #include "fs/api/fs_file_system.hpp"
+#include "fs/impl/fs_factory_impl.hpp"
 
 #include "parser/api/pr_include_file.hpp"
 #include "parser/impl/pr_parser_impl.hpp"
@@ -29,7 +29,7 @@ ParserFixture::~ParserFixture() = default;
 
 void ParserFixture::init()
 {
-	m_factory.reset( new fs::FactoryImpl );
+	m_factory = std::make_unique< fs::FactoryImpl >();
 	INTERNAL_CHECK_ERROR( m_factory );
 	fs::FileSystem & fs = m_factory->getMemoryFileSystem();
 

@@ -13,15 +13,13 @@ namespace reporter {
 class ReporterAccessorImpl final : public ReporterAccessor
 {
 public:
-
 	ReporterAccessorImpl();
+	~ReporterAccessorImpl() override;
 
 	Factory & getReporterFactory() override;
 
 private:
-
 	std::unique_ptr< Factory > m_factory;
-
 };
 
 //------------------------------------------------------------------------------

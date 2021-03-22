@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdfwd.hpp>
 #include <memory>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -34,13 +34,10 @@ public:
 	static std::string toString( const Path & _path );
 
 private:
-
 	IncludesParser & ensureParser();
 
 private:
-
 	std::unique_ptr< IncludesParser > m_parserPtr;
-
 };
 
 //------------------------------------------------------------------------------

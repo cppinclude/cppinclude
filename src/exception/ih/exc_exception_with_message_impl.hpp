@@ -14,7 +14,6 @@ class ExceptionWithMessageImpl : public ExceptionImpl< _BaseException >
 	using BaseClass = ExceptionImpl< _BaseException >;
 
 public:
-
 	ExceptionWithMessageImpl(
 		std::string_view _module,
 		std::string_view _code,
@@ -23,7 +22,6 @@ public:
 		:	BaseClass{ _module, _code }
 		,	m_message{ _message }
 	{
-
 	}
 
 	std::string getMessage() const noexcept override
@@ -32,7 +30,6 @@ public:
 	}
 
 private:
-
 	const std::string m_message;
 };
 

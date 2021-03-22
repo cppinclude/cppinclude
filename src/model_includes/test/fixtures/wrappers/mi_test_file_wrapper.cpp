@@ -24,7 +24,7 @@ FileWrapper::FileWrapper( const File * _file  )
 
 bool FileWrapper::isAvailable() const
 {
-	return m_file;
+	return m_file != nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -33,7 +33,9 @@ BoostPredicate FileWrapper::checkIncludesCount( int _exceptCount ) const
 {
 	const File::IncludeIndex count = getFile().getIncludesCount();
 	if( count == static_cast< File::IncludeIndex >( _exceptCount ) )
+	{
 		return true;
+	}
 
 	return dumpIncludes();
 }
@@ -44,7 +46,9 @@ BoostPredicate FileWrapper::checkIncludesCountRecursive( int _exceptCount ) cons
 {
 	const File::IncludeIndex count = getFile().getIncludeFilesCountRecursive();
 	if( count == static_cast< File::IncludeIndex >( _exceptCount ) )
+	{
 		return true;
+	}
 
 	return dumpIncludes();
 }
@@ -62,7 +66,9 @@ BoostPredicate FileWrapper::checkIncludedByCount( int _exceptCount ) const
 {
 	const File::IncludeIndex count = getFile().getIncludedByCount();
 	if( count == static_cast< File::IncludeIndex >( _exceptCount ) )
+	{
 		return true;
+	}
 
 	return dumpIncludedBy();
 }
@@ -73,7 +79,9 @@ BoostPredicate FileWrapper::checkIncludedByCountRecursive( int _exceptCount ) co
 {
 	const File::IncludeIndex count = getFile().getIncludedByFilesCountRecursive();
 	if( count == static_cast< File::IncludeIndex >( _exceptCount ) )
+	{
 		return true;
+	}
 
 	return dumpIncludedBy();
 }
@@ -90,8 +98,9 @@ IncludeWrapper FileWrapper::getIncludedBy( std::string_view _sourcePath ) const
 		const Include & include = file.getIncludedBy( i );
 		const File & sourceFile = include.getSourceFile();
 		if( sourceFile.getPath() == sourcePath )
+		{
 			return include;
-
+		}
 	}
 	return IncludeWrapper{};
 }

@@ -21,7 +21,6 @@ namespace reporter {
 class Reporter
 {
 public:
-
 	virtual ~Reporter() = default;
 
 	virtual ReporterKind getKind() const = 0;

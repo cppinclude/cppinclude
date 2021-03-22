@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 CantLoadReporterSettingsImpl::CantLoadReporterSettingsImpl()
@@ -14,7 +14,6 @@ CantLoadReporterSettingsImpl::CantLoadReporterSettingsImpl()
 			resources::exceptions::CantLoadReporterSettings::Msg
 	)
 {
-
 }
 
 //------------------------------------------------------------------------------

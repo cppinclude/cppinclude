@@ -27,7 +27,7 @@ bool PhysicalFile::eof() const
 std::string PhysicalFile::getLine() const
 {
 	std::string line;
-    std::getline( m_file, line );
+	std::getline( m_file, line );
 	return line;
 }
 

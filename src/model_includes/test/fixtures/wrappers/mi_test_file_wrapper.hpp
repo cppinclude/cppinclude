@@ -21,8 +21,7 @@ namespace model_includes::test {
 class FileWrapper
 {
 public:
-
-	FileWrapper( const File * _file  );
+	FileWrapper( const File * _file );
 
 	bool isAvailable() const;
 
@@ -35,8 +34,7 @@ public:
 	IncludeWrapper getIncludedBy( std::string_view _sourcePath ) const;
 
 private:
-
-	using Path	= stdfs::path;
+	using Path = stdfs::path;
 
 	const File & getFile() const;
 
@@ -45,7 +43,6 @@ private:
 	std::string dump( const Include & _include ) const;
 
 private:
-
 	const File * m_file;
 };
 

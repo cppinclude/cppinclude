@@ -13,7 +13,6 @@ namespace compilation_db {
 class CommandObjectImpl final : public CommandObject
 {
 public:
-
 	CommandObjectImpl(
 		std::string_view _directory,
 		std::string_view _command,
@@ -25,7 +24,6 @@ public:
 	const std::string & getFile() const override;
 
 private:
-
 	const std::string m_directory;
 	const std::string m_command;
 	const std::string m_file;

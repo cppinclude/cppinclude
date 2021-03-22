@@ -17,12 +17,10 @@ namespace compilation_db {
 class LoaderImpl final : public Loader
 {
 public:
-
 	DatabasePtr load( const json::JsonObject & _json ) override;
 	DatabasePtr createEmptyDb() override;
 
 private:
-
 	void loadItem( const json::JsonValue & _value, Database & _db );
 };
 

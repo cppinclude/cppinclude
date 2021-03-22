@@ -4,9 +4,9 @@
 
 #include "tools/path_string_tools.hpp"
 
-#include <vector>
-#include <string>
 #include <std_fs>
+#include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -48,7 +48,9 @@ IncldesParserFixture::Strings IncldesParserFixture::toPathStrings(
 IncludesParser & IncldesParserFixture::ensureParser()
 {
 	if( !m_parserPtr )
-		m_parserPtr.reset( new IncludesParser );
+	{
+		m_parserPtr = std::make_unique< IncludesParser >();
+	}
 
 	return *m_parserPtr;
 }

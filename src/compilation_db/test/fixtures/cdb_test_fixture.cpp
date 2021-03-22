@@ -9,8 +9,8 @@
 #include "json/api/json_object.hpp"
 #include "json/ih/json_accessor_impl.hpp"
 
-#include <string_view>
 #include <sstream>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 
@@ -50,7 +50,9 @@ CompilationDbFixture::JsonObjectPtr CompilationDbFixture::createJson(
 json::JsonAccessor & CompilationDbFixture::ensureJsonAccessor()
 {
 	if( !m_jsonAccessorPtr )
-		m_jsonAccessorPtr.reset( new json::JsonAccesorImpl );
+	{
+		m_jsonAccessorPtr = std::make_unique< json::JsonAccesorImpl >();
+	}
 
 	return *m_jsonAccessorPtr;
 }
@@ -60,7 +62,9 @@ json::JsonAccessor & CompilationDbFixture::ensureJsonAccessor()
 Loader & CompilationDbFixture::ensureLoader()
 {
 	if( !m_loaderPtr )
+	{
 		m_loaderPtr = ensureAccessor().createLoader();
+	}
 
 	return *m_loaderPtr;
 }
@@ -70,7 +74,9 @@ Loader & CompilationDbFixture::ensureLoader()
 Accessor & CompilationDbFixture::ensureAccessor()
 {
 	if( !m_accessorPtr )
-		m_accessorPtr.reset( new AccessorImpl );
+	{
+		m_accessorPtr = std::make_unique< AccessorImpl >();
+	}
 
 	return *m_accessorPtr;
 }

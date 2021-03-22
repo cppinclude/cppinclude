@@ -58,11 +58,9 @@ public:
 	static Paths toPaths( const Strings & _strings );
 
 private:
-
 	ProjectAccessor & getProjectAccessor();
 
 private:
-
 	std::unique_ptr< ProjectAccessor > m_accessor;
 	std::unique_ptr< Project > m_project;
 };

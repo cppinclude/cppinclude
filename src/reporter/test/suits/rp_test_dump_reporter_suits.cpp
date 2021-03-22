@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 /*------------------------------------------------------------------------------
 
@@ -15,12 +15,12 @@ TEST PLAN:
 namespace reporter::test {
 
 //------------------------------------------------------------------------------
-
-BOOST_FIXTURE_TEST_SUITE(DumpReporterTests, ReporterFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( DumpReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_includes)
+TEST_CASE( t1_includes )
 {
 	// Init
 	const std::string classA = toPath( "/test_project/class_a.hpp" );
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(t1_includes)
 
 	addInclude( main, classA, IncludeStatus::Resolved, IncludeType::User );
 	addInclude( main, classB, IncludeStatus::Resolved, IncludeType::User );
- 
+
 	// Run
 	std::string result = runDumpReporter();
 
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(t1_includes)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_unresolved_includes)
+TEST_CASE( t2_unresolved_includes )
 {
 	// Init
 	const std::string classA = "class_a.hpp";
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(t2_unresolved_includes)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_system_includes)
+TEST_CASE( t3_system_includes )
 {
 	// Init
 	const std::string main = toPath( "/test_project/main.cpp" );
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(t3_system_includes)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_relative_paths)
+TEST_CASE( t4_relative_paths )
 {
 	// Init
 	const std::string classA = toPath( "/test_project/class_a.hpp" );
@@ -124,7 +124,8 @@ BOOST_AUTO_TEST_CASE(t4_relative_paths)
 	std::string result = runDumpReporter();
 
 	// Check
-	BOOST_CHECK_EQUAL( result,
+	BOOST_CHECK_EQUAL(
+		result,
 		"1 : class_a.hpp ( type: project file )\n"
 		"\tIncluded by:\n"
 		"\t\t1 : main.cpp ( type : user include status : resolved )\n"
@@ -140,7 +141,7 @@ BOOST_AUTO_TEST_CASE(t4_relative_paths)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

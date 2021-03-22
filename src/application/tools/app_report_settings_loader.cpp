@@ -13,8 +13,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 ReportSettingsLoader::ReportSettingsLoader(
@@ -22,7 +22,6 @@ ReportSettingsLoader::ReportSettingsLoader(
 )
 	:	m_reporterFactory{ _reporterFactory }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -35,7 +34,9 @@ ReportSettingsLoader::SettingsPtr ReportSettingsLoader::load(
 	auto settingsPtr = createSettings();
 	INTERNAL_CHECK_WARRING( settingsPtr );
 	if( !settingsPtr )
+	{
 		return nullptr;
+	}
 
 	reporter::Settings & settings = *settingsPtr;
 
@@ -58,12 +59,16 @@ ReportSettingsLoader::ReporterKinds ReportSettingsLoader::loadReports(
 )
 {
 	if( auto reportsOpt = _arguments.getReporterKinds(); reportsOpt )
+	{
 		return *reportsOpt;
+	}
 
-	if( _configurationFile )
+	if( _configurationFile != nullptr )
 	{
 		if( auto kindOpt = _configurationFile->getReporterKinds(); kindOpt )
+		{
 			return *kindOpt;
+		}
 	}
 
 	return _arguments.getDefaultReporterKinds();
@@ -124,26 +129,29 @@ bool ReportSettingsLoader::loadShowStdFiles(
 	);
 }
 
-
 //------------------------------------------------------------------------------
 
 template< typename _ValueType >
 _ValueType ReportSettingsLoader::getValue(
 	const ParserArgWrapper & _arguments,
-	std::optional< _ValueType > (ParserArgWrapper::*_getValueFromArg)() const,
-	_ValueType (ParserArgWrapper::*_getDefaultValueFromArg)() const,
+	std::optional< _ValueType > ( ParserArgWrapper::*_getValueFromArg )() const,
+	_ValueType ( ParserArgWrapper::*_getDefaultValueFromArg )() const,
 	const ConfigurationFile * _configurationFile,
 	std::optional< _ValueType > (ConfigurationFile::*_getValueFromFile)() const
 )
 {
 	if( auto valueFromArgOpt = ( _arguments.*_getValueFromArg )(); valueFromArgOpt )
+	{
 		return *valueFromArgOpt;
+	}
 
 	if( _configurationFile )
 	{
 		auto valueFromFileOpt = ( *_configurationFile.*_getValueFromFile )();
 		if( valueFromFileOpt )
+		{
 			return *valueFromFileOpt;
+		}
 	}
 
 	return ( _arguments.*_getDefaultValueFromArg )();

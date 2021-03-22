@@ -18,7 +18,6 @@ namespace reporter {
 class MostImpactReporterDetail
 {
 public:
-
 	using CountType = FileWithCount::CountType;
 
 	MostImpactReporterDetail(
@@ -28,7 +27,6 @@ public:
 	);
 
 public:
-
 	const model_includes::File & getFile() const;
 	FileWithCount::CountType getIncludedByCount() const;
 	const model_includes::IncludeLocation & getIncludeLocation() const;
@@ -36,7 +34,6 @@ public:
 	const FileWithCount & getFileInfo() const;
 
 private:
-
 	const FileWithCount m_fileInfo;
 	const model_includes::IncludeLocation & m_includeLocation;
 };

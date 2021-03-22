@@ -9,17 +9,16 @@ namespace model_includes {
 ResolverContext::ResolverContext(
 	const project::Project & _project,
 	const cmake_project::Project * _cmakeProject,
-	const Path & _startFile,
+	Path _startFile,
 	stdfwd::string_view _fileName,
 	PathOpt _currentCMakeSourceFile
 )
 	:	m_project{ _project }
 	,	m_cmakeProject{ _cmakeProject }
-	,	m_startFile{ _startFile }
+	,	m_startFile{ std::move( _startFile ) }
 	,	m_fileName{ _fileName }
-	,	m_currentCMakeSourceFile{ _currentCMakeSourceFile }
+	,	m_currentCMakeSourceFile{ std::move( _currentCMakeSourceFile ) }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -58,6 +57,5 @@ ResolverContext::PathOpt ResolverContext::getCurrentCMakeSourceFile() const
 }
 
 //------------------------------------------------------------------------------
-
 
 }

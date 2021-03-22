@@ -2,13 +2,13 @@
 
 #include "project/api/prj_project.hpp"
 
-#include "tools/std_hash_fs_path.hpp"
 #include "tools/regex.hpp"
+#include "tools/std_hash_fs_path.hpp"
 
-#include <string>
 #include <std_fs>
-#include <vector>
+#include <string>
 #include <unordered_set>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -19,7 +19,6 @@ namespace project {
 class ProjectImpl final : public Project
 {
 public:
-
 	explicit ProjectImpl();
 
 	void setProjectDir( const Path & _path ) override;
@@ -59,7 +58,6 @@ public:
 	void changeAllPathsToAbsolute() override;
 
 private:
-
 	Path convertToDirPath( const Path & _path ) const;
 
 	void changeToAbsolute( const Path & currentDir, Path & _path );
@@ -69,7 +67,6 @@ private:
 	static bool checkFilter( const std::string & _str, const tools::Regex  & _filter );
 
 private:
-
 	std::vector< Path > m_includeDirs;
 	std::unordered_set< Path > m_ignoredDirs;
 	std::unordered_set< std::string > m_extensions;

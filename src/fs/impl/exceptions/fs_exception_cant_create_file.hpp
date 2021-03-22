@@ -16,15 +16,13 @@ class CantCreateFileImpl : public BaseExceptionImpl< CantCreateFile >
 	using BaseClass = BaseExceptionImpl< CantCreateFile >;
 
 public:
-
 	using Path = stdfs::path;
 
-	explicit CantCreateFileImpl( const Path & _path );
+	explicit CantCreateFileImpl( Path _path );
 
 	std::string getMessage() const noexcept override;
 
 private:
-
 	const Path m_path;
 };
 

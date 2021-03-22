@@ -1,8 +1,8 @@
 #pragma once
 
-#include <stdfwd.hpp>
-#include <sstream>
 #include <memory>
+#include <sstream>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -20,7 +20,6 @@ namespace json::test {
 class JsonFixture
 {
 public:
-
 	JsonFixture();
 	~JsonFixture();
 
@@ -28,11 +27,9 @@ public:
 	const JsonObject & loadJson();
 
 private:
-
 	JsonAccessor & ensureJsonAccessor();
 
 private:
-
 	std::unique_ptr< JsonAccessor > m_accessor;
 	std::unique_ptr< JsonObject > m_json;
 	std::stringstream m_text;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdfwd.hpp>
 #include <memory>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -18,7 +18,6 @@ namespace parser::test {
 class FileWrapper
 {
 public:
-
 	using FilePtr = std::shared_ptr< fs::File >;
 
 	~FileWrapper();
@@ -29,9 +28,7 @@ public:
 	const fs::File & getFile() const;
 
 private:
-
 	FilePtr m_file;
-
 };
 
 //------------------------------------------------------------------------------

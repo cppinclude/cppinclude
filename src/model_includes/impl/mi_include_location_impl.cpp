@@ -15,7 +15,6 @@ IncludeLocationImpl::IncludeLocationImpl(
 	,	m_begin { _begin }
 	,	m_end { _end }
 {
-
 }
 
 //------------------------------------------------------------------------------

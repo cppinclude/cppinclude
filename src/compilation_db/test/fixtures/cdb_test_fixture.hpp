@@ -24,14 +24,12 @@ namespace compilation_db::test {
 class CompilationDbFixture
 {
 public:
-
 	CompilationDbFixture();
 	~CompilationDbFixture();
 
 	const Database & parseJson( std::string_view _json );
 
 private:
-
 	using JsonObjectPtr = std::unique_ptr< json::JsonObject >;
 
 	JsonObjectPtr createJson( std::string_view _json );
@@ -41,7 +39,6 @@ private:
 	Accessor & ensureAccessor();
 
 private:
-
 	std::unique_ptr< Database > m_databasePtr;
 
 	std::unique_ptr< Loader > m_loaderPtr;

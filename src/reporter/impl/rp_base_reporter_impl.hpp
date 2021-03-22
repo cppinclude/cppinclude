@@ -13,7 +13,6 @@ namespace reporter {
 class BaseReporterImpl : public Reporter
 {
 public:
-
 	using SettingsPtr = std::unique_ptr< Settings >;
 
 	BaseReporterImpl( SettingsPtr && _settingsPtr );
@@ -23,7 +22,6 @@ public:
 	void copySettings( const Settings & _settings ) override;
 
 protected:
-
 	using Path = stdfs::path;
 	using CountType = size_t;
 
@@ -57,13 +55,10 @@ protected:
 	) const;
 
 private:
-
 	static bool isLimit( CountType _currentNumber, CountType _limit );
 
 private:
-
 	SettingsPtr m_settings;
-
 };
 
 //------------------------------------------------------------------------------

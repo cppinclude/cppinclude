@@ -22,6 +22,10 @@
         "ccomplex",
         "stdfs",
         "cmake",
-        "unincluded"
+        "unincluded",
+        "NOLINTNEXTLINE",
+        "hicpp",
+        "NOLINT",
+        "clazy"
     ],
 }

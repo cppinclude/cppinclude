@@ -69,22 +69,22 @@ inline std::size_t convert_rwcount(std::size_t count) { return count; }
 FMT_BEGIN_NAMESPACE
 
 buffered_file::~buffered_file() FMT_NOEXCEPT {
-  if (file_ && FMT_SYSTEM(fclose(file_)) != 0)
+  if (file_ && FMT_SYSTEM(fclose(file_)) != 0) // NOLINT
     report_system_error(errno, "cannot close file");
 }
 
-buffered_file::buffered_file(cstring_view filename, cstring_view mode) {
+buffered_file::buffered_file(cstring_view filename, cstring_view mode) { // NOLINT
   FMT_RETRY_VAL(file_, FMT_SYSTEM(fopen(filename.c_str(), mode.c_str())),
                 nullptr);
-  if (!file_)
+  if (!file_) // NOLINT
     FMT_THROW(system_error(errno, "cannot open file {}", filename.c_str()));
 }
 
 void buffered_file::close() {
-  if (!file_) return;
-  int result = FMT_SYSTEM(fclose(file_));
+  if (!file_) return; // NOLINT
+  int result = FMT_SYSTEM(fclose(file_)); // NOLINT
   file_ = nullptr;
-  if (result != 0) FMT_THROW(system_error(errno, "cannot close file"));
+  if (result != 0) FMT_THROW(system_error(errno, "cannot close file")); // NOLINT
 }
 
 // A macro used to prevent expansion of fileno on broken versions of MinGW.
@@ -92,40 +92,40 @@ void buffered_file::close() {
 
 int buffered_file::fileno() const {
   int fd = FMT_POSIX_CALL(fileno FMT_ARGS(file_));
-  if (fd == -1) FMT_THROW(system_error(errno, "cannot get file descriptor"));
+  if (fd == -1) FMT_THROW(system_error(errno, "cannot get file descriptor")); // NOLINT
   return fd;
 }
 
 #if FMT_USE_FCNTL
-file::file(cstring_view path, int oflag) {
-  int mode = S_IRUSR | S_IWUSR;
+file::file(cstring_view path, int oflag) { // NOLINT
+  int mode = S_IRUSR | S_IWUSR; // NOLINT
 #if defined(_WIN32) && !defined(__MINGW32__)
   fd_ = -1;
   FMT_POSIX_CALL(sopen_s(&fd_, path.c_str(), oflag, _SH_DENYNO, mode));
 #else
-  FMT_RETRY(fd_, FMT_POSIX_CALL(open(path.c_str(), oflag, mode)));
+  FMT_RETRY(fd_, FMT_POSIX_CALL(open(path.c_str(), oflag, mode))); // NOLINT
 #endif
-  if (fd_ == -1)
+  if (fd_ == -1) // NOLINT
     FMT_THROW(system_error(errno, "cannot open file {}", path.c_str()));
 }
 
 file::~file() FMT_NOEXCEPT {
   // Don't retry close in case of EINTR!
   // See http://linux.derkeiler.com/Mailing-Lists/Kernel/2005-09/3000.html
-  if (fd_ != -1 && FMT_POSIX_CALL(close(fd_)) != 0)
+  if (fd_ != -1 && FMT_POSIX_CALL(close(fd_)) != 0) // NOLINT
     report_system_error(errno, "cannot close file");
 }
 
 void file::close() {
-  if (fd_ == -1) return;
+  if (fd_ == -1) return; // NOLINT
   // Don't retry close in case of EINTR!
   // See http://linux.derkeiler.com/Mailing-Lists/Kernel/2005-09/3000.html
   int result = FMT_POSIX_CALL(close(fd_));
   fd_ = -1;
-  if (result != 0) FMT_THROW(system_error(errno, "cannot close file"));
+  if (result != 0) FMT_THROW(system_error(errno, "cannot close file")); // NOLINT
 }
 
-long long file::size() const {
+long long file::size() const { // NOLINT
 #ifdef _WIN32
   // Use GetFileSize instead of GetFileSizeEx for the case when _WIN32_WINNT
   // is less than 0x0500 as is the case with some default MinGW builds.
@@ -143,9 +143,9 @@ long long file::size() const {
 #else
   using Stat = struct stat;
   Stat file_stat = Stat();
-  if (FMT_POSIX_CALL(fstat(fd_, &file_stat)) == -1)
+  if (FMT_POSIX_CALL(fstat(fd_, &file_stat)) == -1) // NOLINT
     FMT_THROW(system_error(errno, "cannot get file attributes"));
-  static_assert(sizeof(long long) >= sizeof(file_stat.st_size),
+  static_assert(sizeof(long long) >= sizeof(file_stat.st_size), // NOLINT
                 "return type of file::size is not large enough");
   return file_stat.st_size;
 #endif
@@ -154,22 +154,22 @@ long long file::size() const {
 std::size_t file::read(void* buffer, std::size_t count) {
   RWResult result = 0;
   FMT_RETRY(result, FMT_POSIX_CALL(read(fd_, buffer, convert_rwcount(count))));
-  if (result < 0) FMT_THROW(system_error(errno, "cannot read from file"));
+  if (result < 0) FMT_THROW(system_error(errno, "cannot read from file")); // NOLINT
   return internal::to_unsigned(result);
 }
 
 std::size_t file::write(const void* buffer, std::size_t count) {
   RWResult result = 0;
   FMT_RETRY(result, FMT_POSIX_CALL(write(fd_, buffer, convert_rwcount(count))));
-  if (result < 0) FMT_THROW(system_error(errno, "cannot write to file"));
+  if (result < 0) FMT_THROW(system_error(errno, "cannot write to file")); // NOLINT
   return internal::to_unsigned(result);
 }
 
 file file::dup(int fd) {
   // Don't retry as dup doesn't return EINTR.
   // http://pubs.opengroup.org/onlinepubs/009695399/functions/dup.html
-  int new_fd = FMT_POSIX_CALL(dup(fd));
-  if (new_fd == -1)
+  int new_fd = FMT_POSIX_CALL(dup(fd)); // NOLINT
+  if (new_fd == -1) // NOLINT
     FMT_THROW(system_error(errno, "cannot duplicate file descriptor {}", fd));
   return file(new_fd);
 }
@@ -186,7 +186,7 @@ void file::dup2(int fd) {
 void file::dup2(int fd, error_code& ec) FMT_NOEXCEPT {
   int result = 0;
   FMT_RETRY(result, FMT_POSIX_CALL(dup2(fd_, fd)));
-  if (result == -1) ec = error_code(errno);
+  if (result == -1) ec = error_code(errno); // NOLINT
 }
 
 void file::pipe(file& read_end, file& write_end) {
@@ -194,7 +194,7 @@ void file::pipe(file& read_end, file& write_end) {
   // and there are no leaks.
   read_end.close();
   write_end.close();
-  int fds[2] = {};
+  int fds[2] = {}; // NOLINT
 #ifdef _WIN32
   // Make the default pipe capacity same as on Linux 2.6.11+.
   enum { DEFAULT_CAPACITY = 65536 };
@@ -202,9 +202,9 @@ void file::pipe(file& read_end, file& write_end) {
 #else
   // Don't retry as the pipe function doesn't return EINTR.
   // http://pubs.opengroup.org/onlinepubs/009696799/functions/pipe.html
-  int result = FMT_POSIX_CALL(pipe(fds));
+  int result = FMT_POSIX_CALL(pipe(fds)); // NOLINT
 #endif
-  if (result != 0) FMT_THROW(system_error(errno, "cannot create pipe"));
+  if (result != 0) FMT_THROW(system_error(errno, "cannot create pipe")); // NOLINT
   // The following assignments don't throw because read_fd and write_fd
   // are closed.
   read_end = file(fds[0]);
@@ -214,7 +214,7 @@ void file::pipe(file& read_end, file& write_end) {
 buffered_file file::fdopen(const char* mode) {
   // Don't retry as fdopen doesn't return EINTR.
   FILE* f = FMT_POSIX_CALL(fdopen(fd_, mode));
-  if (!f)
+  if (!f) // NOLINT
     FMT_THROW(
         system_error(errno, "cannot associate stream with file descriptor"));
   buffered_file bf(f);
@@ -222,14 +222,14 @@ buffered_file file::fdopen(const char* mode) {
   return bf;
 }
 
-long getpagesize() {
+long getpagesize() { // NOLINT
 #ifdef _WIN32
   SYSTEM_INFO si;
   GetSystemInfo(&si);
   return si.dwPageSize;
 #else
-  long size = FMT_POSIX_CALL(sysconf(_SC_PAGESIZE));
-  if (size < 0) FMT_THROW(system_error(errno, "cannot get memory page size"));
+  long size = FMT_POSIX_CALL(sysconf(_SC_PAGESIZE)); // NOLINT
+  if (size < 0) FMT_THROW(system_error(errno, "cannot get memory page size")); // NOLINT
   return size;
 #endif
 }

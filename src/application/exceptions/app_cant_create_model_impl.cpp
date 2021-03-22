@@ -3,8 +3,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 CantCreateModelImpl::CantCreateModelImpl()
@@ -13,7 +13,6 @@ CantCreateModelImpl::CantCreateModelImpl()
 			resources::exceptions::CantCreateModel::Msg
 	)
 {
-
 }
 
 //------------------------------------------------------------------------------

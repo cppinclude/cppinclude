@@ -23,8 +23,10 @@ void ProjectImpl::forEachFilePath( PathCallback _callback ) const
 {
 	for( const Path & path : m_files )
 	{
-		if( !_callback( path ))
+		if( !_callback( path ) )
+		{
 			break;
+		}
 	}
 }
 
@@ -35,20 +37,24 @@ void ProjectImpl::forEachIncludes(
 	PathCallback _callback
 ) const
 {
-	if( !m_includesByFiles.count( _file ) )
+	if( m_includesByFiles.count( _file ) == 0U )
+	{
 		return;
+	}
 
 	const IncludesForFile & includes = m_includesByFiles.at( _file );
 	for( const Path * include : includes )
 	{
-		if( !include )
+		if( include == nullptr )
 		{
-			INTERNAL_CHECK_WARRING(false);
+			INTERNAL_CHECK_WARRING( false );
 			continue;
 		}
 
 		if( !_callback( *include ) )
+		{
 			break;
+		}
 	}
 }
 
@@ -65,7 +71,7 @@ void ProjectImpl::addFilePath( const Path & _path )
 void ProjectImpl::addIncludeToFile( const Path & _file, const Path & _include )
 {
 	Path file = stdfs::lexically_normal( _file );
-	IncludesForFile & includes = m_includesByFiles[ file ];
+	IncludesForFile & includes = m_includesByFiles[file];
 
 	const Path & include = addInclude( _include );
 	includes.push_back( &include );

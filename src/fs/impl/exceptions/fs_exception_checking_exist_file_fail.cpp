@@ -9,14 +9,13 @@ namespace fs {
 //------------------------------------------------------------------------------
 
 CheckingExistFileFailImpl::CheckingExistFileFailImpl(
-	const Path & _path,
+	Path _path,
 	const std::error_code & _code
 )
 	:	BaseClass( resources::exceptions::CheckingExistFileFail::Code )
-	,	m_path{ _path }
+	,	m_path{ std::move( _path ) }
 	,	m_originMsg{ _code.message() }
 {
-
 }
 
 //------------------------------------------------------------------------------

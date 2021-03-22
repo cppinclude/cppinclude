@@ -13,15 +13,11 @@ namespace fs {
 FileSystemAccessorImpl::FileSystemAccessorImpl()
 	:	m_factoryPtr{ new FactoryImpl }
 {
-
 }
 
 //------------------------------------------------------------------------------
 
-FileSystemAccessorImpl::~FileSystemAccessorImpl()
-{
-
-};
+FileSystemAccessorImpl::~FileSystemAccessorImpl() = default;
 
 //------------------------------------------------------------------------------
 

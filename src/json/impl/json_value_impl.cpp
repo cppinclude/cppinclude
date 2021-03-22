@@ -1,7 +1,7 @@
 #include "json/impl/json_value_impl.hpp"
 
-#include "json/impl/json_object_impl.hpp"
 #include "json/impl/json_array_impl.hpp"
+#include "json/impl/json_object_impl.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
@@ -45,7 +45,7 @@ bool JsonValueImpl::asBool() const
 JsonValueImpl::JsonObjectPtr JsonValueImpl::asObject() const
 {
 	INTERNAL_CHECK_WARRING( m_jsonImpl.is_object() );
-	JsonImpl t( std::move( m_jsonImpl ));
+	JsonImpl t( m_jsonImpl );
 	INTERNAL_CHECK_WARRING( t.is_object() );
 
 	return JsonObjectPtr{ new JsonObjectImpl{ std::move( t ) } };
@@ -56,7 +56,7 @@ JsonValueImpl::JsonObjectPtr JsonValueImpl::asObject() const
 JsonValueImpl::JsonArrayPtr JsonValueImpl::asArray() const
 {
 	INTERNAL_CHECK_WARRING( m_jsonImpl.is_array() );
-	JsonImpl t( std::move( m_jsonImpl ) );
+	JsonImpl t( m_jsonImpl );
 	INTERNAL_CHECK_WARRING( t.is_array() );
 
 	return JsonArrayPtr{ new JsonArrayImpl{ std::move( t ) } };

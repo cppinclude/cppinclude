@@ -26,7 +26,7 @@ bool MemoryFile::eof() const
 std::string MemoryFile::getLine() const
 {
 	std::string result;
-	getline( m_buf, result);
+	getline( m_buf, result );
 	return result;
 }
 

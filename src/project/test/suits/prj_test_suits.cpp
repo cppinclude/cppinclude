@@ -2,8 +2,7 @@
 
 #include "project/api/prj_exceptions.hpp"
 
-#include <boost/test/unit_test.hpp>
-#include <boost/test/test_tools.hpp>
+#include "test_tools/test_macros.hpp"
 
 #include <std_fs>
 
@@ -34,30 +33,30 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace project::test {
+namespace project::test
+{
+//------------------------------------------------------------------------------
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( ProjectTests, ProjectFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_FIXTURE_TEST_SUITE(ProjectTests, ProjectFixture)
-
-//------------------------------------------------------------------------------
-
-BOOST_AUTO_TEST_CASE(t1_1_project_dir_absolute_path)
+TEST_CASE( t1_1_project_dir_absolute_path )
 {
 	// Init
 	const Path projectDirFullPath = "/home/user/project/";
 	setProjectDir( projectDirFullPath );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getProjectDir(), projectDirFullPath );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_2_project_dir_relative_path)
+TEST_CASE( t1_2_project_dir_relative_path )
 {
 	// Init
 	const Path projectRelativePath = "project/";
@@ -65,29 +64,29 @@ BOOST_AUTO_TEST_CASE(t1_2_project_dir_relative_path)
 
 	setProjectDir( projectRelativePath );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getProjectDir(), projectAbsolutePath );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_1_include_dirs_absolute_paths)
+TEST_CASE( t2_1_include_dirs_absolute_paths )
 {
 	// Init
 	setProjectDir( "/home/user/project/" );
 	addIncludeDirs( { "/usr/lib1", "/usr/lib2" } );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
+	// Check
 	Paths currentPaths = getIncludeDirs();
-	Paths exceptedPaths{ "/usr/lib1/","/usr/lib2/" };
+	Paths exceptedPaths{ "/usr/lib1/", "/usr/lib2/" };
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_REQUIRE_EQUAL_COLLECTIONS(
 		currentPaths.begin(),
 		currentPaths.end(),
 
@@ -99,20 +98,20 @@ BOOST_AUTO_TEST_CASE(t2_1_include_dirs_absolute_paths)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_2_include_dirs_relative_paths)
+TEST_CASE( t2_2_include_dirs_relative_paths )
 {
 	// Init
 	setProjectDir( "/project/" );
 	addIncludeDirs( { "lib1", "lib2" } );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
+	// Check
 	Paths currentPaths = getIncludeDirs();
-	Paths exceptedPaths{ "/project/lib1/","/project/lib2/" };
+	Paths exceptedPaths{ "/project/lib1/", "/project/lib2/" };
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_REQUIRE_EQUAL_COLLECTIONS(
 		currentPaths.begin(),
 		currentPaths.end(),
 
@@ -123,20 +122,20 @@ BOOST_AUTO_TEST_CASE(t2_2_include_dirs_relative_paths)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_1_ignore_dirs_absolute_paths)
+TEST_CASE( t3_1_ignore_dirs_absolute_paths )
 {
 	// Init
 	setProjectDir( "/home/user/project/" );
 	addIgnoreDirs( { "/usr/ignore1", "/usr/ignore2" } );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
+	// Check
 	Paths currentPaths = getIgnoreDirs();
 	Paths exceptedPaths{ "/usr/ignore1/", "/usr/ignore2/" };
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_REQUIRE_EQUAL_COLLECTIONS(
 		currentPaths.begin(),
 		currentPaths.end(),
 
@@ -147,20 +146,20 @@ BOOST_AUTO_TEST_CASE(t3_1_ignore_dirs_absolute_paths)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_2_ignore_dirs_relative_paths)
+TEST_CASE( t3_2_ignore_dirs_relative_paths )
 {
 	// Init
 	setProjectDir( "/project/" );
 	addIgnoreDirs( { "ignore1", "ignore2" } );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
+	// Check
 	Paths currentPaths = getIgnoreDirs();
 	Paths exceptedPaths{ "/project/ignore1/", "/project/ignore2/" };
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_REQUIRE_EQUAL_COLLECTIONS(
 		currentPaths.begin(),
 		currentPaths.end(),
 
@@ -171,119 +170,118 @@ BOOST_AUTO_TEST_CASE(t3_2_ignore_dirs_relative_paths)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_3_ignore_dirs_is_ignore)
+TEST_CASE( t3_3_ignore_dirs_is_ignore )
 {
 	// Init
 
 	setProjectDir( "/project/" );
 	addIgnoreDirs( { "ignore1", "/usr/ignore2" } );
 
-	//Run
+	// Run
 	changeAllPathsToAbsolute();
 
-	//Check
-	BOOST_CHECK( isIgnoreDir( "/project/ignore1" ) );
-	BOOST_CHECK( isIgnoreDir( "/usr/ignore2" ) );
+	// Check
+	TEST_CHECK( isIgnoreDir( "/project/ignore1" ) );
+	TEST_CHECK( isIgnoreDir( "/usr/ignore2" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_1_cpp_extension_is_cpp_extension)
+TEST_CASE( t4_1_cpp_extension_is_cpp_extension )
 {
 	// Run
 	addCppExtensions( { "*.cpp", "*.hpp" } );
 
-	//Check
-	BOOST_CHECK( isExistsCppExtension( "*.cpp" ) );
-	BOOST_CHECK( isExistsCppExtension( "*.hpp" ) );
-	BOOST_CHECK( isExistsCppExtension( ".hpp" ) );
-	BOOST_CHECK( !isExistsCppExtension( ".cxx" ) );
+	// Check
+	TEST_CHECK( isExistsCppExtension( "*.cpp" ) );
+	TEST_CHECK( isExistsCppExtension( "*.hpp" ) );
+	TEST_CHECK( isExistsCppExtension( ".hpp" ) );
+	TEST_CHECK( !isExistsCppExtension( ".cxx" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_1_ignore_files_empty)
+TEST_CASE( t5_1_ignore_files_empty )
 {
 	// Init
 	changeAllPathsToAbsolute(); // create project
 
-	//Check
-	BOOST_CHECK( !isIgnoredFile( "/tmp/file.cpp" ) );
+	// Check
+	TEST_CHECK( !isIgnoredFile( "/tmp/file.cpp" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_2_ignore_files_library)
+TEST_CASE( t5_2_ignore_files_library )
 {
 	// Init
 	addFileFilter( "boost/.*" );
 
-	//Check
-	BOOST_CHECK( isIgnoredFile( "boost/test/unit_test.hpp" ) );
-	BOOST_CHECK( isIgnoredFile( "boost\\test\\unit_test.hpp" ) );
-	BOOST_CHECK( !isIgnoredFile( "/tmp/file.cpp" ) );
+	// Check
+	TEST_CHECK( isIgnoredFile( "boost/test/unit_test.hpp" ) );
+	TEST_CHECK( isIgnoredFile( "boost\\test\\unit_test.hpp" ) );
+	TEST_CHECK( !isIgnoredFile( "/tmp/file.cpp" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_3_ignore_file_name)
+TEST_CASE( t5_3_ignore_file_name )
 {
 	// Init
 	addFileFilter( "Q.*" );
 
-	//Check
-	BOOST_CHECK( isIgnoredFile( "QWidget" ) );
-	BOOST_CHECK( !isIgnoredFile( "/tmp/q_file.cpp" ) );
+	// Check
+	TEST_CHECK( isIgnoredFile( "QWidget" ) );
+	TEST_CHECK( !isIgnoredFile( "/tmp/q_file.cpp" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_4_ignore_sub_string)
+TEST_CASE( t5_4_ignore_sub_string )
 {
 	// Init
 	addFileFilter( "/ui.*.h" );
 
-	//Check
-	BOOST_CHECK( isIgnoredFile( "/tmp/ui/file.h" ) );
-	BOOST_CHECK( !isIgnoredFile( "/tmp/gui/file.h" ) );
+	// Check
+	TEST_CHECK( isIgnoredFile( "/tmp/ui/file.h" ) );
+	TEST_CHECK( !isIgnoredFile( "/tmp/gui/file.h" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_5_ignore_only_begin_part)
+TEST_CASE( t5_5_ignore_only_begin_part )
 {
 	// Init
 	addFileFilter( "^ui.*.h" );
 
-	//Check
-	BOOST_CHECK( !isIgnoredFile( "/tmp/ui/file.h" ) );
-	BOOST_CHECK( !isIgnoredFile( "/tmp/gui/file.h" ) );
-	BOOST_CHECK( isIgnoredFile( "ui/file.h" ) );
+	// Check
+	TEST_CHECK( !isIgnoredFile( "/tmp/ui/file.h" ) );
+	TEST_CHECK( !isIgnoredFile( "/tmp/gui/file.h" ) );
+	TEST_CHECK( isIgnoredFile( "ui/file.h" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_6_invalid_regex)
+TEST_CASE( t5_6_invalid_regex )
 {
 	// Check
-	BOOST_CHECK_THROW( addFileFilter( "[" ), project::InvalidRegex );
-
+	TEST_CHECK_THROW( addFileFilter( "[" ), project::InvalidRegex );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_7_double_plus)
+TEST_CASE( t5_7_double_plus )
 {
 	// Init
 	addFileFilter( "lib\\+\\+v3/include/.*" );
 
-	//Check
-	BOOST_CHECK( isIgnoredFile( "lib++v3/include/folder/file.h" ) );
+	// Check
+	TEST_CHECK( isIgnoredFile( "lib++v3/include/folder/file.h" ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

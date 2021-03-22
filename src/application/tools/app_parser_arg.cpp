@@ -4,10 +4,10 @@
 
 #include <cxxopts.hpp>
 
-#include <string>
 #include <optional>
-#include <vector>
 #include <std_fs>
+#include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -20,6 +20,7 @@ ParserArg::~ParserArg() = default;
 
 //------------------------------------------------------------------------------
 
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 void ParserArg::parse( int _argc, char * _argv[] )
 {
 	try
@@ -114,7 +115,7 @@ void ParserArg::addArg(
 	const std::string description{ _description };
 
 	auto str{ toString( _defaultValues ) };
-	auto value{ cxxopts::value<_DefaultValue>()->default_value( str) };
+	auto value{ cxxopts::value< _DefaultValue >()->default_value( str ) };
 	getImpl().add_options()( fullName, description, value );
 }
 
@@ -168,7 +169,9 @@ ParserArg::BoolOpt ParserArg::getArgumentBoolValue( std::string_view _arg ) cons
 ParserArg::PathOpt ParserArg::getArgumentPathValue( std::string_view _arg ) const
 {
 	if( StringOpt stirngOpt = getArgumentStringValue( _arg ); stirngOpt )
+	{
 		return PathOpt{ *stirngOpt };
+	}
 
 	return std::nullopt;
 }
@@ -178,7 +181,9 @@ ParserArg::PathOpt ParserArg::getArgumentPathValue( std::string_view _arg ) cons
 ParserArg::PathsOpt ParserArg::getArgumentPathsValue( std::string_view _arg ) const
 {
 	if( StringsOpt stringsOpt = getArgumentStringsValue( _arg ); stringsOpt )
+	{
 		return toPaths( *stringsOpt );
+	}
 
 	return std::nullopt;
 }
@@ -188,7 +193,9 @@ ParserArg::PathsOpt ParserArg::getArgumentPathsValue( std::string_view _arg ) co
 cxxopts::Options & ParserArg::getImpl()
 {
 	if( !m_impl )
-		m_impl.reset( new cxxopts::Options{ "" } ) ;
+	{
+		m_impl = std::make_unique< cxxopts::Options >( "" );
+	}
 
 	return *m_impl;
 }
@@ -213,11 +220,11 @@ _TypeOpt ParserArg::getArgValue( std::string_view _arg ) const
 	if( isExistArgument( _arg ) )
 	{
 		std::string argumentName{ _arg };
-		value_type value = (*m_resultOpt)[argumentName].as< value_type >();
+		value_type value = ( *m_resultOpt )[argumentName].as< value_type >();
 		if constexpr(
 			std::is_same_v< _TypeOpt , StringOpt > ||
 			std::is_same_v< _TypeOpt , StringsOpt >
-		)
+		) // NOLINTNEXTLINE(google-readability-braces-around-statements)
 		{
 			return removeQuotes( value );
 		}
@@ -237,7 +244,7 @@ bool ParserArg::isExistArgument( std::string_view _arg ) const
 	if( m_resultOpt )
 	{
 		std::string argumentName{ _arg };
-		const bool found = m_resultOpt->count( argumentName );
+		const bool found = m_resultOpt->count( argumentName ) > 0;
 		return found;
 	}
 	return false;
@@ -254,13 +261,15 @@ void ParserArg::printHelp( std::ostream & _stream ) const
 
 std::string ParserArg::toString( const Strings & _stringArray )
 {
-	std::string result = "";
-	const size_t size = _stringArray.size();
-	for( size_t i = 0; i < size ; ++i)
+	std::string result;
+	const std::size_t size = _stringArray.size();
+	for( std::size_t i = 0; i < size; ++i )
 	{
 		result += _stringArray[i];
 		if( i != size - 1 )
+		{
 			result += ',';
+		}
 	}
 	return result;
 }
@@ -298,19 +307,18 @@ std::string ParserArg::toString( const Path & _path )
 std::string ParserArg::removeQuotes( std::string_view _str )
 {
 	if( _str.size() < 3 )
+	{
 		return std::string{ _str };
+	}
 
 	const char firstChar = _str.at( 0 );
 	const char lastChar = _str.at( _str.size() - 1 );
+	std::string result{ _str };
 	if( firstChar == lastChar && ( firstChar == '\'' || firstChar == '"' ) )
 	{
-		std::string_view result = _str.substr( 1, _str.size() - 2 );
-		return std::string{ result };
+		result = _str.substr( 1, _str.size() - 2 );
 	}
-	else
-	{
-		return std::string{ _str };
-	}
+	return result;
 }
 
 //------------------------------------------------------------------------------

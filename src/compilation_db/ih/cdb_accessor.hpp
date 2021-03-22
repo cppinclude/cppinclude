@@ -12,7 +12,6 @@ namespace compilation_db {
 class Accessor
 {
 public:
-
 	using LoaderPtr = stdfwd::unique_ptr< Loader >;
 
 	virtual ~Accessor() = default;

@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 /*------------------------------------------------------------------------------
 
@@ -20,12 +20,12 @@ TEST PLAN:
 namespace reporter::test {
 
 //------------------------------------------------------------------------------
-
-BOOST_FIXTURE_TEST_SUITE(UnincludedReporterTests, ReporterFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( UnincludedReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_empty)
+TEST_CASE( t1_empty )
 {
 	// Init
 	addInclude( "/test_project/main.cpp", "/test_project/classA.hpp" );
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(t1_empty)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_one_header)
+TEST_CASE( t2_one_header )
 {
 	// Init
 	setProjectDir( "/tmp/" );
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(t2_one_header)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_several_headers)
+TEST_CASE( t3_several_headers )
 {
 	// Init
 	setProjectDir( "/tmp/" );
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(t3_several_headers)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_1_extension_hpp)
+TEST_CASE( t4_1_extension_hpp )
 {
 	// Init
 	setProjectDir( "/tmp/" );
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(t4_1_extension_hpp)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_2_extension_h)
+TEST_CASE( t4_2_extension_h )
 {
 	// Init
 	setProjectDir( "/tmp/" );
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(t4_2_extension_h)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_3_mix_extensions)
+TEST_CASE( t4_3_mix_extensions )
 {
 	// Init
 	setProjectDir( "/tmp/" );
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_CASE(t4_3_mix_extensions)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_4_empty_extension)
+TEST_CASE( t4_4_empty_extension )
 {
 	// Init
 	addFileToProject( "main.cpp" );
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(t4_4_empty_extension)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_limit)
+TEST_CASE( t5_limit )
 {
 	// Init
 	setProjectDir( "/tmp/" );
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE(t5_limit)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

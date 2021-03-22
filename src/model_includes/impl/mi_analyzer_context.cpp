@@ -8,8 +8,8 @@
 
 #include <std_fs>
 
-#include <optional>
 #include <functional>
+#include <optional>
 
 //------------------------------------------------------------------------------
 
@@ -26,7 +26,6 @@ AnalyzerContext::AnalyzerContext(
 	,	m_model{ _model }
 	,	needAnalyzeResolvedIncludes{ false }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -41,7 +40,6 @@ AnalyzerContext::AnalyzerContext(
 	,	m_model{ _model }
 	,	needAnalyzeResolvedIncludes{ false }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -79,12 +77,16 @@ bool AnalyzerContext::isCppFile( const Path & _path ) const
 	const project::Project & project = getProject();
 
 	if( !project.hasCppFileExtensions() )
+	{
 		return true;
+	}
 
 	const Path extension = _path.extension();
 
 	if( extension.empty() && project.getAnalyzeWithoutExtension() )
+	{
 		return true;
+	}
 
 	const bool result = project.isExistsCppExtension( extension.string() );
 	return result;
@@ -94,11 +96,15 @@ bool AnalyzerContext::isCppFile( const Path & _path ) const
 
 bool AnalyzerContext::isIgnoredFile( const Path & _path ) const
 {
-	if( getModel().findFile( _path ) )
+	if( getModel().findFile( _path ) != nullptr )
+	{
 		return false;
+	}
 
-	if( m_ignoredFiles.count( _path ) )
+	if( m_ignoredFiles.count( _path ) > 0 )
+	{
 		return true;
+	}
 
 	if( getProject().isIgnoredFile( _path ) )
 	{
@@ -144,7 +150,9 @@ bool AnalyzerContext::isFolderHasFile( const Path & _dir, const Path & _path )
 	const std::size_t pathSize = pathStr.size();
 
 	if( dirSize >= pathSize )
+	{
 		return true;
+	}
 
 	const std::string pathSubStr = pathStr.substr( 0, dirSize );
 	const bool result = ( pathSubStr == dirStr );
@@ -167,7 +175,7 @@ const Model & AnalyzerContext::getModel() const
 
 //------------------------------------------------------------------------------
 
-void AnalyzerContext::setNeedAnalyzeResolvedIncludes( bool _enable)
+void AnalyzerContext::setNeedAnalyzeResolvedIncludes( bool _enable )
 {
 	needAnalyzeResolvedIncludes = _enable;
 }
@@ -185,7 +193,9 @@ void AnalyzerContext::addResolvedFile( const Path & _path )
 {
 	auto pair = m_resolvedFiles.insert( _path );
 	if( pair.second )
+	{
 		m_resolvedFilesStack.push( _path );
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -193,7 +203,9 @@ void AnalyzerContext::addResolvedFile( const Path & _path )
 AnalyzerContext::PathOpt AnalyzerContext::popResolvedFile()
 {
 	if( m_resolvedFilesStack.empty() )
+	{
 		return std::nullopt;
+	}
 
 	Path result = m_resolvedFilesStack.top();
 	m_resolvedFilesStack.pop();

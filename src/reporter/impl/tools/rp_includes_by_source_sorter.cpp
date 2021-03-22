@@ -21,7 +21,9 @@ bool IncludesBySourceSorter::operator()(
 	INTERNAL_CHECK_WARRING( _r );
 
 	if( _l == nullptr || _r == nullptr )
+	{
 		return false;
+	}
 
 	return operator()( *_l, *_r );
 }

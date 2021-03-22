@@ -21,7 +21,6 @@ public:
 	void insertInclude( const Include & _include );
 
 private:
-
 	Includes m_userIncludes;
 	Includes m_systemIncludes;
 };

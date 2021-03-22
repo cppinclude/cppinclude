@@ -14,7 +14,6 @@ namespace reporter {
 class Factory
 {
 public:
-
 	using ReporterPtr = stdfwd::unique_ptr< Reporter >;
 	using SettingsPtr = stdfwd::unique_ptr< Settings >;
 

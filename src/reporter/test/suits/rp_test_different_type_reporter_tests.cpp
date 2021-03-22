@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 /*------------------------------------------------------------------------------
 
@@ -23,12 +23,12 @@ TEST PLAN:
 namespace reporter::test {
 
 //------------------------------------------------------------------------------
-
-BOOST_FIXTURE_TEST_SUITE(DifferentTypeReporterTests, ReporterFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( DifferentTypeReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_empty)
+TEST_CASE( t1_empty )
 {
 	// Run
 	const std::string result = runDifferentTypeReport();
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(t1_empty)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_one_include)
+TEST_CASE( t2_one_include )
 {
 	// Init
 	addInclude( "/test_project/main.cpp", "/test_project/header.hpp" );
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(t2_one_include)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_1_several_includes_with_user_type)
+TEST_CASE( t3_1_several_includes_with_user_type )
 {
 	// Init
 	addUserInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(t3_1_several_includes_with_user_type)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_2_several_includes_with_system_type)
+TEST_CASE( t3_2_several_includes_with_system_type )
 {
 	// Init
 	addSystemInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
@@ -83,13 +83,13 @@ BOOST_AUTO_TEST_CASE(t3_2_several_includes_with_system_type)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_1_several_includes_system_and_user)
+TEST_CASE( t4_1_several_includes_system_and_user )
 {
 	// Init
 	setProjectDir( "/test_project/" );
 
-	addUserInclude(		"/test_project/file1.cpp", "/test_project/header.hpp" );
-	addSystemInclude(	"/test_project/file2.cpp", "/test_project/header.hpp" );
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
+	addSystemInclude( "/test_project/file2.cpp", "/test_project/header.hpp" );
 
 	// Run
 	const std::string result = runDifferentTypeReport();
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(t4_1_several_includes_system_and_user)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_2_several_includes_std)
+TEST_CASE( t4_2_several_includes_std )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -135,15 +135,15 @@ BOOST_AUTO_TEST_CASE(t4_2_several_includes_std)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_3_several_includes_hide_std)
+TEST_CASE( t4_3_several_includes_hide_std )
 {
 	// Init
 	setProjectDir( "/test_project/" );
 
 	addFile( "vector", model_includes::FileType::StdLibraryFile );
 
-	addUserInclude(		"/test_project/file1.cpp", "vector" );
-	addSystemInclude(	"/test_project/file2.cpp", "vector" );
+	addUserInclude( "/test_project/file1.cpp", "vector" );
+	addSystemInclude( "/test_project/file2.cpp", "vector" );
 
 	setShowStdFiles( false );
 
@@ -156,16 +156,16 @@ BOOST_AUTO_TEST_CASE(t4_3_several_includes_hide_std)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_1_limit_max_files)
+TEST_CASE( t5_1_limit_max_files )
 {
 	// Init
 	setProjectDir( "/test_project/" );
 
-	addUserInclude(		"/test_project/file1.cpp", "/test_project/header1.hpp" );
-	addSystemInclude(	"/test_project/file2.cpp", "/test_project/header1.hpp" );
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header1.hpp" );
+	addSystemInclude( "/test_project/file2.cpp", "/test_project/header1.hpp" );
 
-	addUserInclude(		"/test_project/file1.cpp", "/test_project/header2.hpp" );
-	addSystemInclude(	"/test_project/file2.cpp", "/test_project/header2.hpp" );
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header2.hpp" );
+	addSystemInclude( "/test_project/file2.cpp", "/test_project/header2.hpp" );
 
 	setMaxFilesCount( 1 );
 
@@ -187,21 +187,20 @@ BOOST_AUTO_TEST_CASE(t5_1_limit_max_files)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_2_limit_max_details)
+TEST_CASE( t5_2_limit_max_details )
 {
 	// Init
 	setProjectDir( "/test_project/" );
 
-	addUserInclude(		"/test_project/file1.cpp", "/test_project/header1.hpp" );
-	addUserInclude(		"/test_project/file2.cpp", "/test_project/header1.hpp" );
-	addSystemInclude(	"/test_project/file3.cpp", "/test_project/header1.hpp" );
-	addSystemInclude(	"/test_project/file4.cpp", "/test_project/header1.hpp" );
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header1.hpp" );
+	addUserInclude( "/test_project/file2.cpp", "/test_project/header1.hpp" );
+	addSystemInclude( "/test_project/file3.cpp", "/test_project/header1.hpp" );
+	addSystemInclude( "/test_project/file4.cpp", "/test_project/header1.hpp" );
 
-	addUserInclude(		"/test_project/file1.cpp", "/test_project/header2.hpp" );
-	addUserInclude(		"/test_project/file2.cpp", "/test_project/header2.hpp" );
-	addSystemInclude(	"/test_project/file3.cpp", "/test_project/header2.hpp" );
-	addSystemInclude(	"/test_project/file4.cpp", "/test_project/header2.hpp" );
-
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header2.hpp" );
+	addUserInclude( "/test_project/file2.cpp", "/test_project/header2.hpp" );
+	addSystemInclude( "/test_project/file3.cpp", "/test_project/header2.hpp" );
+	addSystemInclude( "/test_project/file4.cpp", "/test_project/header2.hpp" );
 
 	setMaxDetailsCount( 1 );
 
@@ -231,7 +230,7 @@ BOOST_AUTO_TEST_CASE(t5_2_limit_max_details)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

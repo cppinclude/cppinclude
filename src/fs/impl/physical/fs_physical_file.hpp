@@ -12,9 +12,7 @@ namespace fs::physical {
 
 class PhysicalFile final : public File
 {
-
 public:
-
 	explicit PhysicalFile( std::fstream && _file );
 
 	bool eof() const override;
@@ -23,9 +21,7 @@ public:
 	File & operator<<( std::string_view _str ) override;
 
 private:
-
 	mutable std::fstream m_file;
-
 };
 
 //------------------------------------------------------------------------------

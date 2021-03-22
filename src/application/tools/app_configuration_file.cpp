@@ -6,9 +6,9 @@
 
 #include "reporter/tools/rp_reporter_kind_functins.hpp"
 
+#include "json/api/json_array.hpp"
 #include "json/api/json_object.hpp"
 #include "json/api/json_value.hpp"
-#include "json/api/json_array.hpp"
 
 //------------------------------------------------------------------------------
 
@@ -33,7 +33,6 @@ void ConfigurationFile::loadFromJson( const json::JsonObject & _json )
 	loadReportLimit( _json );
 	loadReportDetailsLimit( _json );
 	loadShowStdFiles( _json );
-
 }
 
 //------------------------------------------------------------------------------
@@ -133,7 +132,7 @@ void ConfigurationFile::loadProjectDir( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadPathOpt( _json, configuration_file::ProjectDir, m_projectDir);
+	loadPathOpt( _json, configuration_file::ProjectDir, m_projectDir );
 }
 
 //------------------------------------------------------------------------------
@@ -220,11 +219,13 @@ void ConfigurationFile::loadReports( const json::JsonObject & _json )
 
 	loadArrayOpt( _json, configuration_file::Report, stringsOpt );
 	if( !stringsOpt )
+	{
 		return;
+	}
 
 	m_reports = ReporterKinds{};
 	m_reports->reserve( stringsOpt->size() );
-	for( const std::string str : *stringsOpt )
+	for( const std::string & str : *stringsOpt )
 	{
 		const reporter::ReporterKind kind = reporter::toReporterKind( str );
 		m_reports->push_back( kind );
@@ -272,7 +273,9 @@ void ConfigurationFile::loadStringValue(
 		const json::JsonValue & value = *valuePtr;
 		const std::string valueStr = value.asString();
 		if( !valueStr.empty() )
+		{
 			_valueOpt = valueStr;
+		}
 	}
 }
 
@@ -286,17 +289,23 @@ void ConfigurationFile::loadArrayOpt(
 {
 	auto valuePtr = _json.getAttributeValue( _name );
 	if( !valuePtr )
+	{
 		return;
+	}
 
 	const json::JsonValue & value = *valuePtr;
 	auto arrayPtr = value.asArray();
 	if( !arrayPtr )
+	{
 		return;
+	}
 
 	const json::JsonArray & array = *arrayPtr;
 
 	if( array.empty() )
+	{
 		return;
+	}
 
 	const json::JsonArray::ArrayIndex count = array.getSize();
 	if( !_arrayOpt )
@@ -310,7 +319,9 @@ void ConfigurationFile::loadArrayOpt(
 		auto arrayValuePtr = array.at( i );
 		INTERNAL_CHECK_WARRING( arrayValuePtr );
 		if( !arrayValuePtr )
+		{
 			continue;
+		}
 
 		const json::JsonValue & arrayValue = *arrayValuePtr;
 		const std::string arrayValueStr = arrayValue.asString();
@@ -327,7 +338,7 @@ void ConfigurationFile::loadPathOpt(
 )
 {
 	StringOpt pathStrOpt;
-	loadStringValue( _json, _name, pathStrOpt);
+	loadStringValue( _json, _name, pathStrOpt );
 
 	_valueOpt = pathStrOpt;
 }
@@ -343,15 +354,21 @@ void ConfigurationFile::loadPathsOpt(
 	StringsOpt stringsOpt;
 	loadArrayOpt( _json, _name, stringsOpt );
 	if( !stringsOpt )
+	{
 		return;
+	}
 
 	if( !_valueOpt )
+	{
 		_valueOpt = Paths{};
+	}
 
 	_valueOpt->reserve( stringsOpt->size() );
 
 	for( const std::string & string : *stringsOpt )
+	{
 		_valueOpt->push_back( string );
+	}
 }
 
 //------------------------------------------------------------------------------

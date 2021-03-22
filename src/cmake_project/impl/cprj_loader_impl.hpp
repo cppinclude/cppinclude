@@ -20,8 +20,7 @@ namespace cmake_project {
 class LoaderImpl final : public Loader
 {
 public:
-
-	using Path	= stdfs::path;
+	using Path = stdfs::path;
 
 	LoaderImpl();
 	~LoaderImpl();
@@ -31,7 +30,6 @@ public:
 	ProjectPtr createEmptyProject() override;
 
 private:
-
 	Path loadFile(
 		const compilation_db::CommandObject & _commnad,
 		Project & _project
@@ -46,9 +44,7 @@ private:
 	IncludesParser & ensureIncludesParser();
 
 private:
-
 	std::unique_ptr< IncludesParser > m_includeParser;
-
 };
 
 //------------------------------------------------------------------------------

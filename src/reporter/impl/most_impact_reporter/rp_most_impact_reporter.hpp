@@ -25,7 +25,6 @@ class MostImpcatReporter final : public BaseReporterImpl
 	using BaseClass = BaseReporterImpl;
 
 public:
-
 	explicit MostImpcatReporter( SettingsPtr && _settingsPtr );
 
 	void report(
@@ -36,7 +35,6 @@ public:
 	ReporterKind getKind() const override;
 
 private:
-
 	class DetailsSorter
 	{
 	public:

@@ -21,7 +21,6 @@ namespace reporter {
 
 class SortedIncludesBySourceContainer
 {
-
 public:
 
 	using Include			= model_includes::Include;
@@ -32,13 +31,12 @@ public:
 
 	void insert( const Include & _include );
 
-	void forEachInclude( IncludeCallback _callback ) const;
-	void forEachSource( FileCallback _callback ) const;
+	void forEachInclude( const IncludeCallback & _callback ) const;
+	void forEachSource( const FileCallback & _callback ) const;
 
 	std::size_t getCount() const;
 
 private:
-
 	using Includes = std::set< const Include *, IncludesBySourceSorter >;
 
 	Includes m_includes;

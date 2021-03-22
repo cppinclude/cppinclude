@@ -6,4 +6,3 @@ std::unique_ptr< BaseChar > CharBFactory::createObject()
 {
 	return std::unique_ptr< BaseChar >{ new CharB };
 }
-

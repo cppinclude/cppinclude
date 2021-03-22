@@ -2,9 +2,10 @@
 
 #include "cmake_project/impl/cprj_project_impl.hpp"
 #include "cmake_project/impl/cprj_includes_parser.hpp"
+#include "cmake_project/impl/cprj_project_impl.hpp"
 
-#include "compilation_db/api/cdb_database.hpp"
 #include "compilation_db/api/cdb_command_object.hpp"
+#include "compilation_db/api/cdb_database.hpp"
 
 #include <std_fs>
 
@@ -31,7 +32,7 @@ LoaderImpl::ProjectPtr LoaderImpl::load( const compilation_db::Database & _db )
 		const compilation_db::CommandObject & command = _db.getObject( i );
 
 		const Path file = loadFile( command, *result );
-		loadCommand( command, file,  *result );
+		loadCommand( command, file, *result );
 	}
 
 	return result;
@@ -70,9 +71,11 @@ LoaderImpl::Path LoaderImpl::loadFile(
 IncludesParser & LoaderImpl::ensureIncludesParser()
 {
 	if( !m_includeParser )
-		m_includeParser.reset( new IncludesParser );
+	{
+		m_includeParser = std::make_unique< IncludesParser >();
+	}
 
-	return  *m_includeParser;
+	return *m_includeParser;
 }
 
 //------------------------------------------------------------------------------

@@ -2,18 +2,18 @@
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 
-#include "reporter/resources/rp_most_impact_report_resources.hpp"
-#include "reporter/resources/rp_unresolved_report_resources.hpp"
-#include "reporter/resources/rp_unincluded_report_resources.hpp"
-#include "reporter/resources/rp_dump_resources.hpp"
 #include "reporter/resources/rp_different_type_report_resources.hpp"
+#include "reporter/resources/rp_dump_resources.hpp"
+#include "reporter/resources/rp_most_impact_report_resources.hpp"
+#include "reporter/resources/rp_unincluded_report_resources.hpp"
+#include "reporter/resources/rp_unresolved_report_resources.hpp"
 
 #include "reporter/exceptions/rp_incorrect_report_impl.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <string_view>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 
 //------------------------------------------------------------------------------
@@ -26,7 +26,8 @@ ReporterKind toReporterKind( std::string_view _str )
 {
 	using namespace resources;
 
-	static_assert( static_cast< int >( ReporterKind::Count ) == 5 );
+	constexpr int ReporterKindCount = 5;
+	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 
 	static std::unordered_map< std::string, reporter::ReporterKind > names{
 		{ unresolved_report::Name,		ReporterKind::Unresolved },
@@ -37,12 +38,12 @@ ReporterKind toReporterKind( std::string_view _str )
 	};
 
 	const std::string str{ _str };
-	if( !names.count( str ) )
+	if( names.count( str ) == 0U )
 	{
 		throw IncorrectReportImpl( str );
 	}
 
-	return names[ str ];
+	return names[str];
 }
 
 //------------------------------------------------------------------------------
@@ -51,7 +52,8 @@ std::string reporterKindToString( ReporterKind _kind )
 {
 	using namespace resources;
 
-	static_assert( static_cast< int >( ReporterKind::Count ) == 5 );
+	constexpr int ReporterKindCount = 5;
+	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 
 	switch( _kind )
 	{

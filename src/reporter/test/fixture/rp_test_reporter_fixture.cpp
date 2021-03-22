@@ -6,17 +6,17 @@
 #include "reporter/api/rp_reporter.hpp"
 #include "reporter/api/rp_settings.hpp"
 
-#include "model_includes/ih/mi_accessor_impl.hpp"
-#include "model_includes/api/mi_model.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
+#include "model_includes/api/mi_model.hpp"
+#include "model_includes/ih/mi_accessor_impl.hpp"
 
 #include "tools/path_string_tools.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <string>
 #include <sstream>
 #include <std_fs>
+#include <string>
 
 //------------------------------------------------------------------------------
 
@@ -220,7 +220,9 @@ std::string ReporterFixture::runReporter( Reporter & _reporter )
 ReporterAccessor & ReporterFixture::ensureReportAccessor()
 {
 	if( !m_accessor )
-		m_accessor.reset( new ReporterAccessorImpl );
+	{
+		m_accessor = std::make_unique< ReporterAccessorImpl >();
+	}
 
 	return *m_accessor;
 }
@@ -250,7 +252,9 @@ Settings & ReporterFixture::ensureSettings()
 model_includes::ModelIncludesAccessor & ReporterFixture::getModelAccessor()
 {
 	if( !m_modelAccessor )
-		m_modelAccessor.reset( new model_includes::ModelIncludesAccessorImpl );
+	{
+		m_modelAccessor = std::make_unique< model_includes::ModelIncludesAccessorImpl >();
+	}
 
 	return *m_modelAccessor;
 }

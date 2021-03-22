@@ -5,11 +5,11 @@
 
 #include "fs/api/fs_file.hpp"
 
-#include <fstream>
-#include <vector>
-#include <optional>
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+#include <fstream>
+#include <optional>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -41,39 +41,56 @@ Parser::IncludeFiles ParserImpl::parseFile( const fs::File & _file ) const
 
 ParserImpl::IncludeFileOpt ParserImpl::parseLine( ParserContext & _context )
 {
-	constexpr size_t minimumSize = std::string_view{"/*"}.size() - 1;
+	constexpr size_t minimumSize = std::string_view{ "/*" }.size() - 1;
 
 	IncludeFileOpt resutl;
 
 	const std::string & line = _context.getCurrentLine();
 	const size_t size = line.size();
 	if( size <= minimumSize )
+	{
 		return resutl;
+	}
 
-	size_t startPos = getStartPos( _context );
+	const size_t startPos = getStartPos( _context );
 
 	for( size_t i = startPos; i < size; ++i )
 	{
 		const char currentChar = line[i];
 		switch( currentChar )
 		{
-			case '/' :
-				i = findComentEnd( _context, i);
+			case '/':
+			{
+				i = findComentEnd( _context, i );
 				break;
+			}
 
 			case '"':
+			{
 				i = findEndOfString( _context, i );
 				break;
+			}
 
 			case 'R':
+			{
 				i = findEndOfRawString( _context, i );
 				break;
+			}
 
-			case '#' :
-			if( auto indexOpt = findInclude( line, i ); indexOpt )
-				return parseInclude( _context, *indexOpt );
-			else // if found # and it's not include it doesn't need analyze
+			case '#':
+			{
+				if( auto indexOpt = findInclude( line, i ); indexOpt )
+				{
+					return parseInclude( _context, *indexOpt );
+				}
+
+				// if found # and it's not include it doesn't need analyze
 				return resutl;
+
+				break;
+			}
+			default:
+				break;
 		}
 	}
 
@@ -87,15 +104,67 @@ std::size_t ParserImpl::getStartPos( ParserContext & _context ) noexcept
 	const std::size_t index = 0;
 
 	if( _context.isEnableMultilineComment() )
+	{
 		return findComentEnd( _context, index );
+	}
 
 	if( _context.isEnableMultilineString() )
+	{
 		return findEndOfString( _context, index );
+	}
 
 	if( _context.isEnableRawString() )
+	{
 		return findEndOfRawString( _context, index );
+	}
 
 	return 0;
+}
+
+//------------------------------------------------------------------------------
+
+std::size_t ParserImpl::getStartPosInInclude(
+	const ParserContext & _conext,
+	std::size_t _index,
+	char _char
+)
+{
+	const std::string & line = _conext.getCurrentLine();
+	const std::size_t count = line.size();
+	for( std::size_t i = _index; i < count; ++i )
+	{
+		const char currentChar = line[i];
+		if( currentChar == _char )
+		{
+			return i;
+		}
+
+		if( currentChar == '/' )
+		{
+			const std::size_t nextPos = i + 1;
+			if( nextPos >= count )
+			{
+				continue;
+			}
+
+			const char nextChar = line[nextPos];
+			if( nextChar == '/' )
+			{
+				return std::string::npos;
+			}
+
+			if( nextChar == '*' )
+			{
+				const auto endPos = line.find( "*/", nextPos );
+				if( endPos == std::string::npos )
+				{
+					return std::string::npos;
+				}
+				i = endPos + 1;
+			}
+		}
+	}
+	return std::string::npos;
 }
 
 //------------------------------------------------------------------------------
@@ -106,17 +175,23 @@ std::size_t ParserImpl::findComentEnd( ParserContext & _context, std::size_t _in
 	const std::string & line = _context.getCurrentLine();
 	const size_t size = line.size();
 	if( nextIndex >= size )
+	{
 		return size;
+	}
 
-	const char nextChar = line[ nextIndex ];
+	const char nextChar = line[nextIndex];
 
 	if( !_context.isEnableMultilineComment() )
 	{
 		if( nextChar == '/' )
+		{
 			return size;
+		}
 
 		if( nextChar != '*' )
+		{
 			return _index;
+		}
 
 		assert( nextChar == '*' );
 	}
@@ -136,15 +211,15 @@ std::size_t ParserImpl::findEndOfString(
 {
 	const std::string & line = _context.getCurrentLine();
 	const size_t size = line.size();
-	for( size_t i = _index + 1 ; i < size ; ++i )
+	for( size_t i = _index + 1; i < size; ++i )
 	{
 		const char currentChar = line[i];
-		switch ( currentChar )
+		switch( currentChar )
 		{
 			case '\"':
 			{
 				_context.setMultilineString( false );
-				return  i;
+				return i;
 			}
 
 			case '\\':
@@ -154,15 +229,18 @@ std::size_t ParserImpl::findEndOfString(
 					_context.setMultilineString( true );
 					return size;
 				}
-				else
-				{
-					const size_t nextPost = i + 1;
-					assert( nextPost < size );
-					if( nextPost < size && line[ nextPost ] == '\"' )
-						i = nextPost;
-				}
-			}
 
+				const size_t nextPost = i + 1;
+				assert( nextPost < size );
+				if( nextPost < size && line[nextPost] == '\"' )
+				{
+					i = nextPost;
+				}
+
+				break;
+			}
+			default:
+				break;
 		}
 	}
 
@@ -185,11 +263,9 @@ std::size_t ParserImpl::findEndOfRawString(
 		{
 			return _index;
 		}
-		else
-		{
-			_index += 3;
-			_context.seEnableRawString( true );
-		}
+
+		_index += 3;
+		_context.seEnableRawString( true );
 	}
 
 	const auto pos = line.find( ")\"", _index );
@@ -200,7 +276,6 @@ std::size_t ParserImpl::findEndOfRawString(
 	}
 
 	return line.size();
-
 }
 
 //------------------------------------------------------------------------------
@@ -219,11 +294,13 @@ std::optional< std::size_t > ParserImpl::findInclude(
 
 	for( size_t i = _index + 1; i < size; ++i )
 	{
-		const char currentChar = _line[ i ];
+		const char currentChar = _line[i];
 		if( currentChar == ' ' || currentChar == '\t' )
 		{
 			if( isStartedCheckPhase )
+			{
 				return std::nullopt;
+			}
 		}
 		else
 		{
@@ -233,7 +310,9 @@ std::optional< std::size_t > ParserImpl::findInclude(
 			{
 				++indexPhase;
 				if( indexPhase >= includePhaseSize )
+				{
 					return i;
+				}
 			}
 			else
 			{
@@ -253,8 +332,8 @@ ParserImpl::IncludeFileOpt ParserImpl::parseInclude(
 )
 {
 	const std::string & line = _context.getCurrentLine();
-	const size_t startPosSystem = line.find( '<', _index );
-	const size_t startPosUser	= line.find( '"', _index );
+	const size_t startPosSystem = getStartPosInInclude( _context, _index, '<' );
+	const size_t startPosUser = getStartPosInInclude( _context, _index, '"' );
 
 	if( startPosSystem == std::string::npos && startPosUser == std::string::npos )
 	{
@@ -265,10 +344,9 @@ ParserImpl::IncludeFileOpt ParserImpl::parseInclude(
 	const size_t startPos = std::min( startPosSystem, startPosUser );
 
 	const bool isSystem =
-			startPosSystem != std::string::npos
-		&&	startPosSystem == startPos
-	;
-	const size_t startPosName = ( isSystem ? startPosSystem : startPosUser ) + 1;
+		startPosSystem != std::string::npos && startPosSystem == startPos;
+	const size_t startPosName =
+		( isSystem ? startPosSystem : startPosUser ) + 1;
 
 	const char endChar = isSystem ? '>' : '"';
 
@@ -286,7 +364,8 @@ ParserImpl::IncludeFileOpt ParserImpl::parseInclude(
 
 	IncludeFileLocation location{
 		_context.getLineNumber(),
-		startPosName + 1, endPosName + 1
+		startPosName + 1, 
+		endPosName + 1
 	};
 	return IncludeFile{ location, name, isSystem };
 }

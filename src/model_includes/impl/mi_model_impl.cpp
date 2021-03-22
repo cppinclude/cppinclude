@@ -6,8 +6,8 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <memory>
 #include <functional>
+#include <memory>
 
 //------------------------------------------------------------------------------
 
@@ -33,10 +33,12 @@ void ModelImpl::forEachFile( FileCallback _callback ) const
 	{
 		const File * file = pair.second.get();
 		INTERNAL_CHECK_WARRING( file );
-		if( file )
+		if( file != nullptr )
 		{
 			if( !_callback( *file ) )
+			{
 				break;
+			}
 		}
 	}
 }
@@ -72,7 +74,9 @@ File & ModelImpl::ensureFile( const Path & _filePath, FileType _fileType )
 const File * ModelImpl::findFile( const Path & _filePath ) const
 {
 	if( auto it = m_files.find( _filePath ); it != m_files.end() )
+	{
 		return it->second.get();
+	}
 
 	return nullptr;
 }
@@ -85,10 +89,14 @@ void ModelImpl::forEachInclude( IncludeCallback _callback ) const
 	{
 		INTERNAL_CHECK_WARRING( includePtr );
 		if( !includePtr )
+		{
 			continue;
+		}
 
 		if( !_callback( *includePtr ) )
+		{
 			break;
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "application/tools/app_parser_arg.hpp"
 #include "application/tools/app_argument.hpp"
+#include "application/tools/app_parser_arg.hpp"
 
 #include <stdfwd.hpp>
 
@@ -20,7 +20,6 @@ namespace application {
 class ParserArgWrapper
 {
 public:
-
 	ParserArgWrapper();
 
 	void parse( int _argc, char * _argv[] );
@@ -119,7 +118,6 @@ private:
 	static reporter::ReporterKind toReporterKind( std::string_view _str );
 
 private:
-
 	ParserArg m_parser;
 
 	Argument m_projectDirArg;

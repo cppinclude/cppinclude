@@ -11,7 +11,6 @@ namespace model_includes {
 class IncludeLocation
 {
 public:
-
 	virtual ~IncludeLocation() = default;
 
 	using LineNumber	= std::size_t;

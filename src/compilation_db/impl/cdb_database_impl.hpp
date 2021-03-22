@@ -2,8 +2,8 @@
 
 #include "compilation_db/api/cdb_database.hpp"
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -13,9 +13,7 @@ namespace compilation_db {
 
 class DatabaseImpl final : public Database
 {
-
 public:
-
 	DatabaseImpl();
 	~DatabaseImpl() override;
 
@@ -29,7 +27,6 @@ public:
 	) override;
 
 private:
-
 	using CommandObjectPtr = std::unique_ptr< CommandObject >;
 
 	std::vector< CommandObjectPtr > m_objects;

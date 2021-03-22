@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 template< class _BaseException >
@@ -15,7 +15,6 @@ class BaseExceptionWithMessageImpl : public
 	::exception::ExceptionWithMessageImpl< _BaseException >
 {
 public:
-
 	using BaseClass = ::exception::ExceptionWithMessageImpl< _BaseException >;
 
 	BaseExceptionWithMessageImpl(
@@ -24,9 +23,7 @@ public:
 	)
 		:	BaseClass{ resources::exceptions::ModuleName, _code, _message }
 	{
-
 	}
-
 };
 
 //------------------------------------------------------------------------------

@@ -2,9 +2,9 @@
 
 #include "cmake_project/impl/cprj_includes_parser_context.hpp"
 
+#include <std_fs>
 #include <string_view>
 #include <vector>
-#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ IncludesParser::Includes IncludesParser::parse( std::string_view _command )
 		const char currentChar = command.at( i );
 		switch( currentChar )
 		{
-			case '\\' :
+			case '\\':
 			{
 				if( getIgnoreSpace( context, i ) )
 				{
@@ -32,14 +32,15 @@ IncludesParser::Includes IncludesParser::parse( std::string_view _command )
 				}
 			}
 			break;
-			case ' ' :
+			case ' ':
 			{
 				i = getNotSpacePos( context, i );
 				i = parseArgument( context, i );
 			}
 			break;
+			default:
+			break;
 		}
-
 	}
 	return context.getIncludes();
 }
@@ -59,14 +60,16 @@ IncludesParser::IndexType IncludesParser::parseArgument(
 	{
 		const char minusChar = command.at( minusPos );
 		const char prefixChar = command.at( prefixPos );
+		IndexType result;
 		if( minusChar == '-' && prefixChar == 'I' )
 		{
-			return parseInclude( _context, prefixPos + 1 );
+			result = parseInclude( _context, prefixPos + 1 );
 		}
 		else
 		{
-			return prefixPos + 1;
+			result = prefixPos + 1;
 		}
+		return result;
 	}
 
 	return size;
@@ -83,14 +86,14 @@ IncludesParser::IndexType IncludesParser::parseInclude(
 	const std::string & command = _context.getCommand();
 
 	std::string includeStr;
-	IndexType finishPos;
+	IndexType finishPos = size;
 	bool stopLoop = false;
 	for( IndexType i = startPos; i < size && !stopLoop; ++i )
 	{
 		const char currentChar = command.at( i );
 		switch( currentChar )
 		{
-			case '\\' :
+			case '\\':
 			{
 				if( getIgnoreSpace( _context, i ) )
 				{
@@ -106,7 +109,7 @@ IncludesParser::IndexType IncludesParser::parseInclude(
 				}
 			}
 			break;
-			case ' ' :
+			case ' ':
 			{
 				--i;
 				stopLoop = true;
@@ -120,7 +123,9 @@ IncludesParser::IndexType IncludesParser::parseInclude(
 	}
 
 	if( !includeStr.empty() )
+	{
 		_context.addInclude( includeStr );
+	}
 
 	return finishPos;
 }
@@ -136,7 +141,9 @@ bool IncludesParser::getIgnoreSpace(
 	const IndexType size = _context.getCommandSize();
 	const IndexType nextPos = currentPos + 1;
 	if( nextPos >= size )
+	{
 		return false;
+	}
 
 	const char nextChar = command.at( nextPos );
 	const bool result = nextChar == '"';
@@ -164,7 +171,9 @@ IncludesParser::IndexType IncludesParser::getFinishIgnoreSpace(
 			{
 				const char nextChar = command.at( nextPos );
 				if( nextChar == '"' )
+				{
 					return nextPos;
+				}
 			}
 		}
 	}
@@ -192,7 +201,9 @@ IncludesParser::IndexType IncludesParser::getNotSpacePos(
 	{
 		const char currentChar = command.at( i );
 		if( currentChar != ' ' )
+		{
 			return i;
+		}
 	}
 
 	return size;

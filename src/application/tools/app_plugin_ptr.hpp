@@ -8,12 +8,10 @@ namespace application {
 
 //------------------------------------------------------------------------------
 
-template< class _Plugin >
-class PluginPtr
+template< class _Plugin > class PluginPtr
 {
 public:
-	template< class _PluginImpl >
-	_Plugin & ensure()
+	template< class _PluginImpl > _Plugin & ensure()
 	{
 		if( !m_plugin )
 			m_plugin.reset( new _PluginImpl );
@@ -22,9 +20,7 @@ public:
 	}
 
 private:
-
 	std::unique_ptr< _Plugin > m_plugin;
-
 };
 
 //------------------------------------------------------------------------------

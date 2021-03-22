@@ -14,14 +14,12 @@ namespace fs {
 class FactoryImpl final : public Factory
 {
 public:
-
 	~FactoryImpl() override;
 
 	FileSystem & getPhysicalFileSystem() override;
 	FileSystem & getMemoryFileSystem() override;
 
 private:
-
 	using FsPtr = std::unique_ptr< FileSystem >;
 
 	FsPtr m_physicalFs;

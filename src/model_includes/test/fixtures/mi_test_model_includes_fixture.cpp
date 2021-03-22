@@ -2,32 +2,32 @@
 
 #include "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.hpp"
 
-#include "model_includes/api/mi_model.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
-#include "model_includes/impl/mi_resolver.hpp"
-#include "model_includes/impl/mi_analyzer_impl.hpp"
+#include "model_includes/api/mi_model.hpp"
 #include "model_includes/ih/mi_accessor_impl.hpp"
+#include "model_includes/impl/mi_analyzer_impl.hpp"
+#include "model_includes/impl/mi_resolver.hpp"
 
 #include "parser/api/pr_parser.hpp"
 #include "parser/ih/pr_accessor_impl.hpp"
 
-#include "fs/api/fs_file_system.hpp"
 #include "fs/api/fs_factory.hpp"
 #include "fs/api/fs_file.hpp"
+#include "fs/api/fs_file_system.hpp"
 #include "fs/ih/fs_accessor_impl.hpp"
 
 #include "project/api/prj_project.hpp"
 #include "project/ih/prj_project_accesso_impl.hpp"
 
-#include "cmake_project/api/cprj_project.hpp"
 #include "cmake_project/api/cprj_loader.hpp"
+#include "cmake_project/api/cprj_project.hpp"
 #include "cmake_project/ih/cprj_accessor_impl.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <string_view>
 #include <optional>
 #include <std_fs>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 
@@ -74,7 +74,7 @@ void ModelIncludesFixture::addFile(
 	filePath = stdfs::lexically_normal( filePath );
 	auto filePtr = ensureFileSystem().createFile( filePath );
 	INTERNAL_CHECK_ERROR( filePtr );
-	(*filePtr) << _text;
+	( *filePtr ) << _text;
 }
 
 //------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
 
 FileType ModelIncludesFixture::resolveFileType( stdfwd::string_view _file )
 {
-	return ensureResolver().resolveFileType( _file );
+	return Resolver::resolveFileType( _file );
 }
 
 //------------------------------------------------------------------------------
@@ -171,7 +171,9 @@ BoostPredicate ModelIncludesFixture::checkFileType(
 )
 {
 	if( _currentFileType == _excpectedFile )
+	{
 		return true;
+	}
 
 	std::stringstream stream;
 	stream
@@ -216,7 +218,9 @@ ModelWrapper ModelIncludesFixture::createModel()
 ModelIncludesAccessor & ModelIncludesFixture::ensureModelAccesddor()
 {
 	if( !m_modelAccessor )
-		m_modelAccessor.reset( new ModelIncludesAccessorImpl );
+	{
+		m_modelAccessor = std::make_unique< ModelIncludesAccessorImpl >();
+	}
 
 	return *m_modelAccessor;
 }
@@ -226,7 +230,9 @@ ModelIncludesAccessor & ModelIncludesFixture::ensureModelAccesddor()
 parser::ParserAccessor & ModelIncludesFixture::ensureParserAccessor()
 {
 	if( !m_parserAccessorPtr )
-		m_parserAccessorPtr.reset( new parser::ParserAccessorImpl );
+	{
+		m_parserAccessorPtr = std::make_unique< parser::ParserAccessorImpl >();
+	}
 
 	return *m_parserAccessorPtr;
 }
@@ -249,7 +255,9 @@ parser::Parser & ModelIncludesFixture::ensureParser()
 fs::FileSystemAccessor & ModelIncludesFixture::ensureFileAccessor()
 {
 	if( !m_fsAccessorPtr )
-		m_fsAccessorPtr.reset( new fs::FileSystemAccessorImpl );
+	{
+		m_fsAccessorPtr = std::make_unique< fs::FileSystemAccessorImpl >();
+	}
 
 	return *m_fsAccessorPtr;
 }
@@ -266,7 +274,9 @@ fs::FileSystem & ModelIncludesFixture::ensureFileSystem()
 Resolver & ModelIncludesFixture::ensureResolver()
 {
 	if( !m_resolverPtr )
-		m_resolverPtr.reset( new Resolver{ ensureFileSystem() } );
+	{
+		m_resolverPtr = std::make_unique< Resolver >( ensureFileSystem() );
+	}
 
 	return *m_resolverPtr;
 }
@@ -299,7 +309,9 @@ const ModelIncludesFixture::Path & ModelIncludesFixture::getProjectDir()
 project::ProjectAccessor & ModelIncludesFixture::ensureProjectAccessor()
 {
 	if( !m_projectAccessor )
-		m_projectAccessor.reset( new project::ProjectAccessorImpl );
+	{
+		m_projectAccessor = std::make_unique< project::ProjectAccessorImpl >();
+	}
 
 	return *m_projectAccessor;
 }
@@ -309,7 +321,9 @@ project::ProjectAccessor & ModelIncludesFixture::ensureProjectAccessor()
 project::Project & ModelIncludesFixture::ensureProject()
 {
 	if( !m_project )
+	{
 		m_project = ensureProjectAccessor().createProject();
+	}
 
 	return *m_project;
 }
@@ -319,7 +333,9 @@ project::Project & ModelIncludesFixture::ensureProject()
 cmake_project::Accessor & ModelIncludesFixture::ensureCmakeProjectAccessor()
 {
 	if( !m_cmakeProjectAccessor )
-		m_cmakeProjectAccessor.reset( new cmake_project::AccessorImpl );
+	{
+		m_cmakeProjectAccessor = std::make_unique< cmake_project::AccessorImpl >();
+	}
 
 	return *m_cmakeProjectAccessor;
 }
@@ -345,8 +361,10 @@ std::string ModelIncludesFixture::toString( FileType _fileType ) const
 	static_assert( static_cast< int >( FileType::Count ) == 2 );
 	switch( _fileType )
 	{
-		case FileType::ProjectFile		: return "ProjectFile";
-		case FileType::StdLibraryFile	: return "StdLibraryFile";
+		case FileType::ProjectFile:
+			return "ProjectFile";
+		case FileType::StdLibraryFile:
+			return "StdLibraryFile";
 		default:
 			INTERNAL_CHECK_WARRING( false );
 			return "";

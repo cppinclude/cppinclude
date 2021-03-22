@@ -1,9 +1,7 @@
 #pragma once
 
 #include "reporter/impl/rp_base_reporter_impl.hpp"
-
-#include <vector>
-#include <set>
+#include "reporter/impl/tools/rp_sorted_files_by_name_container.hpp"
 
 //------------------------------------------------------------------------------
 
@@ -27,8 +25,7 @@ class DumpReporter final : public BaseReporterImpl
 	using BaseClass = BaseReporterImpl;
 
 public:
-
-	explicit DumpReporter( SettingsPtr && _settingPtr );
+	explicit DumpReporter( SettingsPtr && _settingsPtr );
 
 	void report(
 		const model_includes::Model & _model,
@@ -38,34 +35,14 @@ public:
 	ReporterKind getKind() const override;
 
 private:
-
 	using Path = stdfs::path;
 
-	struct FileSorter
-	{
-		bool operator()(
-			const model_includes::File * _r,
-			const model_includes::File * _l
-		) const;
+	using Files = SortedFilesByNameContainer;
 
-		bool operator()(
-			const model_includes::File & _r,
-			const model_includes::File & _l
-		) const;
-	};
-
-	using SortedFilesContainer = std::set<
-		const model_includes::File *,
-		FileSorter
-	>;
-
-	void collectFiles(
-		const model_includes::Model & _model,
-		SortedFilesContainer & _files
-	) const;
+	void collectFiles( const model_includes::Model & _model, Files & _files ) const;
 
 	void dump(
-		const SortedFilesContainer & _files,
+		const Files & _files,
 		const Path & _dirPath,
 		std::ostream & _stream
 	) const;

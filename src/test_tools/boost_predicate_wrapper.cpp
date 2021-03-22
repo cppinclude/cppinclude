@@ -6,8 +6,8 @@ namespace tools {
 
 //------------------------------------------------------------------------------
 
-BoostPredicateWrapper::BoostPredicateWrapper( bool )
-	:	m_message{ "" }
+BoostPredicateWrapper::BoostPredicateWrapper( bool _result )
+	:	m_message{ _result ? "" : "error" }
 {
 }
 
@@ -20,8 +20,8 @@ BoostPredicateWrapper::BoostPredicateWrapper( std::string_view _message )
 
 //------------------------------------------------------------------------------
 
-BoostPredicateWrapper::BoostPredicateWrapper( const std::string & _message )
-	:	m_message{ _message }
+BoostPredicateWrapper::BoostPredicateWrapper( std::string _message )
+	:	m_message{ std::move( _message ) }
 {
 }
 

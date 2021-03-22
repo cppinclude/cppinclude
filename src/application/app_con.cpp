@@ -1,38 +1,38 @@
 #include "application/app_con.hpp"
 
-#include "application/tools/app_parser_arg_wrapper.hpp"
-#include "application/tools/app_project_builder.hpp"
-#include "application/tools/app_cmake_project_builder.hpp"
-#include "application/tools/app_log.hpp"
-#include "application/tools/app_configuration_file.hpp"
-#include "application/tools/app_configuration_file_loader.hpp"
-#include "application/tools/app_report_settings_loader.hpp"
 #include "application/resources/app_resources_messages.hpp"
 #include "application/resources/app_resources_version.hpp"
+#include "application/tools/app_cmake_project_builder.hpp"
+#include "application/tools/app_configuration_file.hpp"
+#include "application/tools/app_configuration_file_loader.hpp"
+#include "application/tools/app_log.hpp"
+#include "application/tools/app_parser_arg_wrapper.hpp"
+#include "application/tools/app_project_builder.hpp"
+#include "application/tools/app_report_settings_loader.hpp"
 
-#include "application/exceptions/app_cant_create_project_impl.hpp"
-#include "application/exceptions/app_cant_create_model_impl.hpp"
 #include "application/exceptions/app_cant_create_analyzer.hpp"
+#include "application/exceptions/app_cant_create_model_impl.hpp"
+#include "application/exceptions/app_cant_create_project_impl.hpp"
 #include "application/exceptions/app_cant_create_report_impl.hpp"
 #include "application/exceptions/app_cant_load_reporter_settings.hpp"
 
-#include "project/ih/prj_project_accesso_impl.hpp"
 #include "project/api/prj_project.hpp"
+#include "project/ih/prj_project_accesso_impl.hpp"
 
-#include "model_includes/ih/mi_accessor_impl.hpp"
 #include "model_includes/api/mi_analyzer.hpp"
 #include "model_includes/api/mi_model.hpp"
+#include "model_includes/ih/mi_accessor_impl.hpp"
 
-#include "fs/ih/fs_accessor_impl.hpp"
 #include "fs/api/fs_factory.hpp"
+#include "fs/ih/fs_accessor_impl.hpp"
 
-#include "parser/ih/pr_accessor_impl.hpp"
 #include "parser/api/pr_parser.hpp"
+#include "parser/ih/pr_accessor_impl.hpp"
 
-#include "reporter/ih/rp_accessor_impl.hpp"
 #include "reporter/api/rp_factory.hpp"
 #include "reporter/api/rp_reporter.hpp"
 #include "reporter/api/rp_settings.hpp"
+#include "reporter/ih/rp_accessor_impl.hpp"
 
 #include "json/ih/json_accessor_impl.hpp"
 
@@ -43,11 +43,11 @@
 
 #include <fmt/format.h>
 
-#include <iostream>
-#include <vector>
 #include <fstream>
-#include <std_fs>
 #include <functional>
+#include <iostream>
+#include <std_fs>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -60,6 +60,7 @@ ConcoleApplication::~ConcoleApplication() = default;
 
 //------------------------------------------------------------------------------
 
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 int ConcoleApplication::run( int _argc, char * _argv[] )
 {
 	ParserArgWrapper arguments;
@@ -87,13 +88,17 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 
 	Project & project = *projectPtr;
 	if( arguments.isVerbose() )
+	{
 		dump( project );
+	}
 
 	CMakeProjectPtr cmakeProjectPtr =
 		createCMakeProject( arguments, configurationFilePtr.get() );
 
 	if( arguments.isVerbose() && cmakeProjectPtr )
+	{
 		dump( *cmakeProjectPtr );
+	}
 
 	ModelPtr modelPtr = runAnalyzer( project, cmakeProjectPtr.get() );
 	if( !modelPtr )
@@ -120,7 +125,6 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 	runReporters( model, reports, *settingsPtr );
 
 	return EXIT_SUCCESS;
-
 }
 
 //------------------------------------------------------------------------------
@@ -177,10 +181,16 @@ ConcoleApplication::ModelPtr ConcoleApplication::runAnalyzer(
 		return nullptr;
 	}
 
-	if( _cmakeProject )
-		return analyzerPtr->analyze( _project, *_cmakeProject );
+	ModelPtr result;
+	if( _cmakeProject != nullptr)
+	{
+		result = analyzerPtr->analyze( _project, *_cmakeProject );
+	}
 	else
-		return analyzerPtr->analyze( _project );
+	{
+		result = analyzerPtr->analyze( _project );
+	}
+	return result;
 }
 
 //------------------------------------------------------------------------------
@@ -315,7 +325,7 @@ Log & ConcoleApplication::getLog()
 {
 	if( !m_log )
 	{
-		m_log.reset( new Log{ std::cout, std::cerr } );
+		m_log = std::make_unique< Log >( std::cout, std::cerr );
 	}
 	return *m_log;
 }
@@ -327,7 +337,7 @@ void ConcoleApplication::dump( const Project & _project ) const
 	std::cout << "project directory : " << _project.getProjectDir() << std::endl;
 
 	const Project::IncludeDirIndex includeDirsCount = _project.getIncludeDirsCount();
-	if( includeDirsCount )
+	if( includeDirsCount > 0 )
 	{
 		std::cout << "Include dirs:\n";
 		for( Project::IncludeDirIndex i = 0; i < includeDirsCount; ++i )

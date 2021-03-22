@@ -19,12 +19,10 @@ namespace reporter {
 
 class UnincludedReporter final : public BaseReporterImpl
 {
-
 	using BaseClass = BaseReporterImpl;
 
 public:
-
-	explicit UnincludedReporter( SettingsPtr && _settingPtr );
+	explicit UnincludedReporter( SettingsPtr && _settingsPtr );
 
 	void report(
 		const model_includes::Model & _model,
@@ -34,7 +32,6 @@ public:
 	ReporterKind getKind() const override;
 
 private:
-
 	using Path = stdfs::path;
 
 	using FilesContainer = SortedFilesByNameContainer;
@@ -52,4 +49,3 @@ private:
 //------------------------------------------------------------------------------
 
 }
-

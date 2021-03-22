@@ -48,13 +48,12 @@ public:
 	) const override;
 
 private:
-
 	using Path = stdfs::path;
 	using IncludeFiles = stdfwd::vector< parser::IncludeFile >;
 
 	static ModelPtr initModel( const project::Project & _project );
 
-	void analyzeFolder( AnalyzerContext & _context, const Path & _path ) const;
+	void analyzeFolder( AnalyzerContext & _context, const Path & _folderPath ) const;
 	
 	void analyzeFile( AnalyzerContext & _context, const Path & _path ) const;
 
@@ -96,7 +95,6 @@ private:
 	Resolver & ensureResolver() const;
 
 private:
-
 	const fs::FileSystem & m_fs;
 	const parser::Parser & m_parser;
 	mutable std::unique_ptr< Resolver > m_resolver;

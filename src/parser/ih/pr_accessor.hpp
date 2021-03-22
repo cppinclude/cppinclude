@@ -12,7 +12,6 @@ namespace parser {
 class ParserAccessor
 {
 public:
-
 	virtual ~ParserAccessor() = default;
 
 	using ParserPtr = stdfwd::unique_ptr< Parser >;

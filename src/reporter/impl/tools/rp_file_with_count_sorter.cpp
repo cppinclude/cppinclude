@@ -1,7 +1,7 @@
 #include "reporter/impl/tools/rp_file_with_count_sorter.hpp"
 
-#include "reporter/impl/tools/rp_file_with_count.hpp"
 #include "reporter/impl/tools/rp_file_sorter.hpp"
+#include "reporter/impl/tools/rp_file_with_count.hpp"
 
 //------------------------------------------------------------------------------
 
@@ -19,10 +19,8 @@ bool FileWithCountSorter::operator()(
 		// max is first
 		return _l.getCount() > _r.getCount();
 	}
-	else
-	{
-		return FileSorter()( _l.getFile(), _r.getFile() );
-	}
+
+	return FileSorter()( _l.getFile(), _r.getFile() );
 }
 
 //------------------------------------------------------------------------------

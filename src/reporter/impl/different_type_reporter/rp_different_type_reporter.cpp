@@ -6,19 +6,19 @@
 #include "reporter/impl/tools/rp_sorted_includes_by_source_container.hpp"
 #include "reporter/resources/rp_different_type_report_resources.hpp"
 
-#include "model_includes/api/mi_model.hpp"
+#include "model_includes/api/enums/mi_file_type.hpp"
 #include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/mi_include.hpp"
 #include "model_includes/api/mi_include_location.hpp"
-#include "model_includes/api/enums/mi_file_type.hpp"
+#include "model_includes/api/mi_model.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <fmt/format.h>
 
 #include <functional>
-#include <ostream>
 #include <optional>
+#include <ostream>
 
 //------------------------------------------------------------------------------
 
@@ -29,7 +29,6 @@ namespace reporter {
 DifferentTypeReporter::DifferentTypeReporter( SettingsPtr && _settingsPtr )
 	:	BaseClass{ std::move( _settingsPtr ) }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -57,7 +56,9 @@ void DifferentTypeReporter::printFiles(
 ) const
 {
 	if( _files.isEmpty() )
+	{
 		return;
+	}
 
 	_stream << resources::different_type_report::Header;
 
@@ -78,8 +79,9 @@ void DifferentTypeReporter::printFiles(
 	});
 
 	if( isLimitFilesWithOriginSize( currentNumber, _originSize ) )
+	{
 		printFileLimitLine( _originSize, _stream );
-
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -186,10 +188,14 @@ DifferentTypeReporter::Files DifferentTypeReporter::collectFiles(
 		[&]( const model_includes::File & _file )
 		{
 			if( isIgnoredFile( _file ) )
+			{
 				return true;
+			}
 
 			if( isIncludedByDifferentType( _file ) )
+			{
 				result.insert( { _file, _file.getIncludedByCount() } );
+			}
 
 			return true;
 		}
@@ -216,8 +222,10 @@ DifferentTypeReporter::Details DifferentTypeReporter::collectDetails(
 
 bool DifferentTypeReporter::isIncludedByDifferentType( const File & _file )
 {
-	if( _file.getIncludedByCount() < 2)
+	if( _file.getIncludedByCount() < 2 )
+	{
 		return false;
+	}
 
 	const auto firstType = _file.getIncludedBy( 0 ).getType();
 
@@ -225,7 +233,9 @@ bool DifferentTypeReporter::isIncludedByDifferentType( const File & _file )
 	{
 		const auto currentType = _file.getIncludedBy( i ).getType();
 		if( firstType != currentType )
+		{
 			return true;
+		}
 	}
 
 	return false;
@@ -238,14 +248,18 @@ bool DifferentTypeReporter::isIgnoredFile( const File & _file ) const
 	using namespace model_includes;
 
 	if( getShowStdFiles() )
+	{
 		return false;
+	}
 
 	const FileType type = _file.getType();
 	static_assert( static_cast< int >( FileType::Count ) == 2 );
 	switch( type )
 	{
-		case FileType::ProjectFile		: return false;
-		case FileType::StdLibraryFile	: return true;
+		case FileType::ProjectFile:
+			return false;
+		case FileType::StdLibraryFile:
+			return true;
 		default:
 			INTERNAL_CHECK_WARRING( false );
 			return false;

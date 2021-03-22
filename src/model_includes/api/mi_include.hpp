@@ -13,7 +13,6 @@ namespace model_includes {
 class Include
 {
 public:
-
 	virtual ~Include() = default;
 
 	virtual const IncludeLocation & getLocation() const = 0;

@@ -28,7 +28,6 @@ namespace model_includes {
 class Resolver
 {
 public:
-
 	using Path = stdfs::path;
 	using PathOpt = std::optional< Path >;
 
@@ -42,11 +41,10 @@ public:
 		PathOpt currentCMakeSourceFile
 	) const;
 
-	static FileType resolveFileType( const Path & _startFile );
+	static FileType resolveFileType( const Path & _file );
 
 private:
-
-	PathOpt checkInCurrentDir( const ResolverContext & _context	) const;
+	PathOpt checkInCurrentDir( const ResolverContext & _context ) const;
 
 	PathOpt findInIncludeFolders( const ResolverContext & _context ) const;
 	PathOpt findInIncludeFoldersInProject(
@@ -67,7 +65,6 @@ private:
 	static const StdLibrary & getStdLibrary();
 
 private:
-
 	const fs::FileSystem & m_fs;
 };
 

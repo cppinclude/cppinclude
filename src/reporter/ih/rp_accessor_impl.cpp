@@ -17,6 +17,10 @@ ReporterAccessorImpl::ReporterAccessorImpl()
 
 //------------------------------------------------------------------------------
 
+ReporterAccessorImpl::~ReporterAccessorImpl() = default;
+
+//------------------------------------------------------------------------------
+
 Factory & ReporterAccessorImpl::getReporterFactory()
 {
 	INTERNAL_CHECK_ERROR( m_factory );

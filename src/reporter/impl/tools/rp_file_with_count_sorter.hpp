@@ -9,7 +9,7 @@ namespace reporter {
 
 struct FileWithCountSorter
 {
-	bool operator()( const FileWithCount & _l, const FileWithCount & _r	) const;
+	bool operator()( const FileWithCount & _l, const FileWithCount & _r ) const;
 };
 
 //------------------------------------------------------------------------------

@@ -44,7 +44,6 @@ namespace model_includes::test {
 
 class ModelIncludesFixture
 {
-
 public:
 
 	using Path		= stdfs::path;
@@ -61,7 +60,7 @@ public:
 	void addFileToProject(	std::string_view _file, std::string_view _text = "" );
 	void addFileToCmake(	std::string_view _file );
 
-	void addIncludePath(	std::string_view _file );
+	void addIncludePath(	std::string_view _path );
 	void addIgnoredDir(		std::string_view _dir );
 	void addFileFilter(		std::string_view _filter );
 
@@ -79,7 +78,7 @@ public:
 	PathOpt resolvePath(
 		const Path & _startFile,
 		std::string_view _fileName,
-		const PathOpt & _currentCMakeSource
+		const PathOpt & _currentCMakeFile
 	);
 
 	FileType resolveFileType( stdfwd::string_view _file );
@@ -95,7 +94,6 @@ public:
 	ModelWrapper createModel();
 
 private:
-
 	const Path & getProjectDir();
 
 	ModelIncludesAccessor & ensureModelAccesddor();
@@ -118,7 +116,6 @@ private:
 	std::string toString( FileType _fileType ) const;
 
 private:
-
 	std::unique_ptr< ModelIncludesAccessor > m_modelAccessor;
 
 	std::unique_ptr< fs::FileSystemAccessor > m_fsAccessorPtr;

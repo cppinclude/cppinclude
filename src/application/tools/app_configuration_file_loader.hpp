@@ -42,7 +42,6 @@ public:
 	ConfigurationFilePtr load( fs::File & _file );
 
 private:
-
 	JsonAccessor & m_jsonAccessor;
 	const fs::FileSystem & m_fs;
 };

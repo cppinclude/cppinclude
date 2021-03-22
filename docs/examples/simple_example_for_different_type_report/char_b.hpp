@@ -5,6 +5,5 @@
 class CharB : public BaseChar
 {
 public:
-
 	CharKind getKind() const noexcept override;
 };

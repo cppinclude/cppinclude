@@ -1,7 +1,7 @@
 #include "model_includes/test/fixtures/wrappers/mi_test_include_wrapper.hpp"
 
-#include "model_includes/api/mi_include.hpp"
 #include "model_includes/api/mi_file.hpp"
+#include "model_includes/api/mi_include.hpp"
 
 #include "model_includes/api/enums/mi_include_status.hpp"
 #include "model_includes/api/enums/mi_include_type.hpp"
@@ -47,7 +47,7 @@ std::string IncludeWrapper::dump() const
 
 bool IncludeWrapper::isAvaliable() const
 {
-	return m_include;
+	return m_include != nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -70,7 +70,9 @@ BoostPredicate IncludeWrapper::checkType( IncludeType _exceptType ) const
 {
 	const IncludeType type = getInclude().getType();
 	if( type == _exceptType )
+	{
 		return true;
+	}
 
 	std::stringstream stream;
 	stream
@@ -89,7 +91,9 @@ BoostPredicate IncludeWrapper::checkStatus( IncludeStatus _exceptStatus ) const
 {
 	const IncludeStatus status = getInclude().getStatus();
 	if( status == _exceptStatus )
+	{
 		return true;
+	}
 
 	std::stringstream stream;
 	stream
@@ -109,19 +113,16 @@ BoostPredicate IncludeWrapper::checkFile(
 	std::string_view _path
 ) const
 {
-	const Path filePath = _file.getPath();
+	const Path & filePath = _file.getPath();
 	Path excpectedPath{ std::string{ _path } };
 	excpectedPath = toLexicallyNormal( excpectedPath );
-    if( filePath == excpectedPath )
+	if( filePath == excpectedPath )
+	{
 		return true;
+	}
 
 	std::stringstream stream;
-	stream
-		<< "current file: "
-        << filePath
-		<< " but except :"
-        << excpectedPath
-	;
+	stream << "current file: " << filePath << " but except :" << excpectedPath;
 	return stream.str();
 }
 
@@ -138,11 +139,14 @@ const Include & IncludeWrapper::getInclude() const
 std::string IncludeWrapper::toString( IncludeType _type ) const
 {
 	static_assert( static_cast< int >( IncludeType::Count ) == 2 );
-	switch ( _type )
+	switch( _type )
 	{
-		case IncludeType::User		: return "user";
-		case IncludeType::System	: return "system";
-		case IncludeType::Count		: return "<count>";
+		case IncludeType::User:
+			return "user";
+		case IncludeType::System:
+			return "system";
+		case IncludeType::Count:
+			return "<count>";
 	}
 
 	INTERNAL_CHECK_WARRING( false );
@@ -156,9 +160,12 @@ std::string IncludeWrapper::toString( IncludeStatus _status ) const
 	static_assert( static_cast< int >( IncludeStatus::Count ) == 2 );
 	switch( _status )
 	{
-		case IncludeStatus::Resolved	: return "resolved";
-		case IncludeStatus::Unresolved	: return "unresolved";
-		case IncludeStatus::Count		: return "<count>";
+		case IncludeStatus::Resolved:
+			return "resolved";
+		case IncludeStatus::Unresolved:
+			return "unresolved";
+		case IncludeStatus::Count:
+			return "<count>";
 	}
 
 	INTERNAL_CHECK_WARRING( false );

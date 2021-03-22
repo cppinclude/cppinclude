@@ -60,7 +60,6 @@ public:
 	);
 
 private:
-
 	static Path getPathToCmake(
 		const ParserArgWrapper & _arguments,
 		const ConfigurationFile * _configurationFile
@@ -77,13 +76,11 @@ private:
 	JsonPtr loadJson( const Path & _path ) const;
 
 private:
-
 	cmake_project::Accessor & m_cmakeAccessor;
 	compilation_db::Accessor & m_compilationDbAccessor;
 	json::JsonAccessor & m_jsonAccessor;
 
 	fs::FileSystem & m_fs;
-
 };
 
 //------------------------------------------------------------------------------

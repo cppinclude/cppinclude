@@ -1,8 +1,8 @@
 #pragma once
 
-#include <stdfwd.hpp>
 #include <memory>
 #include <optional>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -20,7 +20,6 @@ namespace application {
 class ParserArg
 {
 public:
-
 	ParserArg();
 	~ParserArg();
 
@@ -74,20 +73,19 @@ public:
 		std::string_view _description
 	);
 
-	StringOpt  getArgumentStringValue ( std::string_view _arg ) const;
+	StringOpt getArgumentStringValue( std::string_view _arg ) const;
 	StringsOpt getArgumentStringsValue( std::string_view _arg ) const;
 
-	IntOpt  getArgumentIntValue ( std::string_view _arg ) const;
+	IntOpt getArgumentIntValue( std::string_view _arg ) const;
 	BoolOpt getArgumentBoolValue( std::string_view _arg ) const;
 
-	PathOpt  getArgumentPathValue ( std::string_view _arg ) const;
+	PathOpt getArgumentPathValue( std::string_view _arg ) const;
 	PathsOpt getArgumentPathsValue( std::string_view _arg ) const;
 
 	bool isExistArgument( std::string_view _arg ) const;
 	void printHelp( std::ostream & _stream ) const;
 
 private:
-
 	cxxopts::Options & getImpl();
 	const cxxopts::Options & getImpl() const;
 
@@ -114,10 +112,8 @@ private:
 	static Paths toPaths( const Strings & _strings );
 
 private:
-
 	std::unique_ptr< cxxopts::Options > m_impl;
 	std::unique_ptr< cxxopts::ParseResult > m_resultOpt;
-
 };
 
 //------------------------------------------------------------------------------

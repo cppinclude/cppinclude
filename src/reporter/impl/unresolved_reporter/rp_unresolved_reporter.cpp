@@ -1,25 +1,25 @@
 #include "reporter/impl/unresolved_reporter/rp_unresolved_reporter.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
-#include "reporter/resources/rp_unresolved_report_resources.hpp"
-#include "reporter/resources/rp_report_resources.hpp"
 #include "reporter/impl/tools/rp_file_sorter.hpp"
-#include "reporter/impl/tools/rp_includes_by_source_sorter.hpp"
-#include "reporter/impl/tools/rp_file_with_count_container.hpp"
 #include "reporter/impl/tools/rp_file_with_count.hpp"
+#include "reporter/impl/tools/rp_file_with_count_container.hpp"
+#include "reporter/impl/tools/rp_includes_by_source_sorter.hpp"
+#include "reporter/resources/rp_report_resources.hpp"
+#include "reporter/resources/rp_unresolved_report_resources.hpp"
 
-#include "model_includes/api/mi_model.hpp"
+#include "model_includes/api/enums/mi_include_status.hpp"
 #include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/mi_include.hpp"
 #include "model_includes/api/mi_include_location.hpp"
-#include "model_includes/api/enums/mi_include_status.hpp"
+#include "model_includes/api/mi_model.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <fmt/format.h>
 
-#include <set>
 #include <functional>
+#include <set>
 #include <std_fs>
 #include <unordered_map>
 #include <vector>
@@ -33,7 +33,6 @@ namespace reporter {
 UnresolvedReporter::UnresolvedReporter( SettingsPtr && _settingsPtr )
 	:	BaseClass{ std::move( _settingsPtr ) }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -116,7 +115,9 @@ void UnresolvedReporter::report(
 	using namespace model_includes;
 
 	if( _unorderedIncludesByDestination.empty() )
+	{
 		return;
+	}
 
 	_stream << resources::unresolved_report::Header;
 
@@ -134,7 +135,7 @@ void UnresolvedReporter::report(
 
 		reportDestinationFile( destinationFile, currentNumber, _projectDir, _stream );
 
-		if( !_unorderedIncludesByDestination.count( &destinationFile ) )
+		if( _unorderedIncludesByDestination.count( &destinationFile ) == 0U )
 		{
 			INTERNAL_CHECK_WARRING( false );
 			continue;
@@ -145,7 +146,6 @@ void UnresolvedReporter::report(
 		reportSourceFiles( includes, _projectDir, _stream );
 
 		++currentNumber;
-
 	}
 }
 
@@ -189,8 +189,10 @@ void UnresolvedReporter::reportSourceFiles(
 		}
 
 		INTERNAL_CHECK_WARRING( includePtr );
-		if( !includePtr )
+		if( includePtr == nullptr )
+		{
 			continue;
+		}
 		reportSourceFile( *includePtr, currentNumber, _projectDir, _stream );
 
 		++currentNumber;
@@ -239,8 +241,10 @@ bool UnresolvedReporter::isUnresolvedInclude(
 	static_assert( static_cast< int >( IncludeStatus::Count ) == 2 );
 	switch( status )
 	{
-		case IncludeStatus::Resolved	: return false;
-		case IncludeStatus::Unresolved	: return true;
+		case IncludeStatus::Resolved:
+			return false;
+		case IncludeStatus::Unresolved:
+			return true;
 		default:
 			INTERNAL_CHECK_WARRING( false );
 			return false;

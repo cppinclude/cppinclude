@@ -34,8 +34,7 @@ namespace application::test {
 class ReportSettingsLoaderFixture
 {
 public:
-
-	using CountType	= std::size_t;
+	using CountType = std::size_t;
 
 	ReportSettingsLoaderFixture();
 	~ReportSettingsLoaderFixture();
@@ -58,8 +57,7 @@ public:
 	std::string getDefaultReports() const;
 
 private:
-
-	using ReporterKinds	= std::vector< reporter::ReporterKind >;
+	using ReporterKinds = std::vector< reporter::ReporterKind >;
 
 	ConfigurationFile * getConfigurationFile() const;
 	ConfigurationFile & ensureConfigurationFile();
@@ -78,7 +76,6 @@ private:
 	static std::string toString( const ReporterKinds & _reports );
 
 private:
-
 	std::unique_ptr< reporter::ReporterAccessor > m_reporterAccessor;
 	std::unique_ptr< ReportSettingsLoader > m_loader;
 	std::unique_ptr< ParserArgWrapper > m_arguments;
@@ -89,7 +86,6 @@ private:
 	std::unique_ptr< ConfigurationFile > m_configurationFile;
 
 	ReporterKinds m_reportKinds;
-
 };
 
 //------------------------------------------------------------------------------

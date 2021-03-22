@@ -10,17 +10,11 @@ Regex::Regex( const std::string & _str )
 	:	m_regex{ _str }
 	,	m_str{ _str }
 {
-
 }
 
 //------------------------------------------------------------------------------
 
-Regex::Regex( const Regex & _other )
-	:	m_regex{ _other.m_regex }
-	,	m_str{ _other.m_str }
-{
-
-}
+Regex::Regex( const Regex & _other ) = default;
 
 //------------------------------------------------------------------------------
 

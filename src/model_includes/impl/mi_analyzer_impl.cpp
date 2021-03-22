@@ -1,22 +1,22 @@
 #include "model_includes/impl/mi_analyzer_impl.hpp"
 
-#include "model_includes/api/mi_model.hpp"
-#include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
-#include "model_includes/api/enums/mi_include_type.hpp"
 #include "model_includes/api/enums/mi_include_status.hpp"
-#include "model_includes/impl/mi_model_impl.hpp"
-#include "model_includes/impl/mi_std_library.hpp"
-#include "model_includes/impl/mi_resolver.hpp"
+#include "model_includes/api/enums/mi_include_type.hpp"
+#include "model_includes/api/mi_file.hpp"
+#include "model_includes/api/mi_model.hpp"
 #include "model_includes/impl/mi_analyzer_context.hpp"
+#include "model_includes/impl/mi_model_impl.hpp"
+#include "model_includes/impl/mi_resolver.hpp"
+#include "model_includes/impl/mi_std_library.hpp"
 
-#include "parser/api/pr_parser.hpp"
 #include "parser/api/pr_include_file.hpp"
+#include "parser/api/pr_parser.hpp"
 
-#include "fs/api/fs_file_system.hpp"
-#include "fs/api/fs_file.hpp"
 #include "fs/api/enums/fs_item_type.hpp"
 #include "fs/api/fs_exceptions.hpp"
+#include "fs/api/fs_file.hpp"
+#include "fs/api/fs_file_system.hpp"
 
 #include "project/api/prj_project.hpp"
 
@@ -24,11 +24,11 @@
 
 #include "cmake_project/api/cprj_project.hpp"
 
+#include <functional>
 #include <memory>
+#include <optional>
 #include <string_view>
 #include <vector>
-#include <functional>
-#include <optional>
 
 //------------------------------------------------------------------------------
 
@@ -74,7 +74,9 @@ AnalyzerImpl::ModelPtr AnalyzerImpl::analyze(
 		[&]( const Path & _path )
 		{
 			if( context.isFileInIgnoreDir( _path ) )
+			{
 				return true;
+			}
 
 			context.setCurrentCMakeSourceFile( _path );
 
@@ -112,20 +114,22 @@ void AnalyzerImpl::analyzeFolder(
 ) const
 {
 	if( _context.isIgnoredDir( _folderPath ) )
+	{
 		return;
+	}
 
 	m_fs.forEachItem(
 		_folderPath,
 		[&]( const Path & _path, fs::ItemType _type )
 		{
 			static_assert( static_cast< int >( fs::ItemType::Count ) == 2 );
-			switch ( _type )
+			switch( _type )
 			{
-				case fs::ItemType::Folder :
+				case fs::ItemType::Folder:
 					analyzeFolder( _context, _path );
 					break;
 
-				case fs::ItemType::File :
+				case fs::ItemType::File:
 					analyzeFile( _context, _path );
 					break;
 
@@ -144,17 +148,23 @@ void AnalyzerImpl::analyzeFile(
 ) const
 {
 	if( !_context.isCppFile( _path ) )
+	{
 		return;
+	}
 
 	if( _context.isIgnoredFile( _path ) )
+	{
 		return;
+	}
 
 	try
 	{
 		auto filePtr = m_fs.openFile( _path );
 		INTERNAL_CHECK_WARRING( filePtr );
 		if( !filePtr )
+		{
 			return;
+		}
 
 		auto includesFiles = m_parser.parseFile( *filePtr );
 		analyzeIncludeFiles( _context, _path, includesFiles );
@@ -164,7 +174,6 @@ void AnalyzerImpl::analyzeFile(
 		std::cout << _exception.what() << std::endl;
 		return;
 	}
-
 }
 
 //------------------------------------------------------------------------------
@@ -193,18 +202,22 @@ void AnalyzerImpl::analyzeIncludeFile(
 ) const
 {
 	if( _context.isIgnoreIncludeFile( _includeFile ) )
+	{
 		return;
+	}
 
 	ResolvedPath pair = resolvePath( _context, _path, _includeFile );
 
 	const auto & includedFilePath = pair.first;
 	if( _context.isIgnoredFile( includedFilePath ) )
+	{
 		return;
+	}
 
 	FileType fileType = getFileType( includedFilePath );
 
 	Model & model = _context.takeModel();
-	File & includedFile	= model.ensureFile( includedFilePath, fileType );
+	File & includedFile = model.ensureFile( includedFilePath, fileType );
 
 	const parser::IncludeFileLocation & location = _includeFile.getLocation();
 	Model::IncludeLocationInfo locationInfo{
@@ -213,8 +226,8 @@ void AnalyzerImpl::analyzeIncludeFile(
 		location.getEnd()
 	};
 
-	const IncludeType type		= getIncludeType( _includeFile );
-	const IncludeStatus status	= getIncludeStatus( includedFile, pair );
+	const IncludeType type = getIncludeType( _includeFile );
+	const IncludeStatus status = getIncludeStatus( includedFile, pair );
 	const auto & include = model.createInclude(
 		locationInfo,
 		_file,
@@ -236,17 +249,19 @@ void AnalyzerImpl::postProcesNewInclude(
 	using namespace model_includes;
 
 	if( !_context.isNeedAnalyzeResolvedIncludes() )
+	{
 		return;
+	}
 
 	static_assert( static_cast< int >( IncludeStatus::Count ) == 2 );
 	const IncludeStatus includeStatus = _include.getStatus();
 
 	switch( includeStatus )
 	{
-		case IncludeStatus::Unresolved :
+		case IncludeStatus::Unresolved:
 			return;
 
-		case IncludeStatus::Resolved :
+		case IncludeStatus::Resolved:
 		{
 			const File & destinationFile = _include.getDestinationFile();
 
@@ -254,16 +269,16 @@ void AnalyzerImpl::postProcesNewInclude(
 			const FileType type = destinationFile.getType();
 			switch( type )
 			{
-				case FileType::ProjectFile :
+				case FileType::ProjectFile:
 				{
 					_context.addResolvedFile( destinationFile.getPath() );
 				}
 				break;
 
-				case FileType::StdLibraryFile :
+				case FileType::StdLibraryFile:
 					return;
 
-				case FileType::Count :
+				case FileType::Count:
 				{
 					INTERNAL_CHECK_WARRING( false );
 					return;
@@ -272,7 +287,7 @@ void AnalyzerImpl::postProcesNewInclude(
 		}
 		break;
 
-		case IncludeStatus::Count :
+		case IncludeStatus::Count:
 		{
 			INTERNAL_CHECK_WARRING( false );
 			return;
@@ -294,7 +309,7 @@ IncludeType AnalyzerImpl::getIncludeType(
 ) const
 {
 	static_assert( static_cast< int >( IncludeType::Count ) == 2 );
-	return _includesFile.isSystem() ? IncludeType::System : IncludeType::User ;
+	return _includesFile.isSystem() ? IncludeType::System : IncludeType::User;
 }
 
 //------------------------------------------------------------------------------
@@ -306,7 +321,9 @@ IncludeStatus AnalyzerImpl::getIncludeStatus(
 {
 	static_assert( static_cast< int >( FileType::Count ) == 2 );
 	if( _file.getType() == FileType::StdLibraryFile )
+	{
 		return IncludeStatus::Resolved;
+	}
 
 	const bool isResolved = _pair.second;
 	return isResolved ? IncludeStatus::Resolved : IncludeStatus::Unresolved;
@@ -339,7 +356,7 @@ AnalyzerImpl::ResolvedPath AnalyzerImpl::resolvePath(
 		isResolved = true;
 	}
 
-	return ResolvedPath{ filePath,isResolved };
+	return ResolvedPath{ filePath, isResolved };
 }
 
 //------------------------------------------------------------------------------
@@ -347,7 +364,9 @@ AnalyzerImpl::ResolvedPath AnalyzerImpl::resolvePath(
 Resolver & AnalyzerImpl::ensureResolver() const
 {
 	if( !m_resolver )
-		m_resolver.reset( new Resolver{ m_fs } );
+	{
+		m_resolver = std::make_unique< Resolver >( m_fs );
+	}
 
 	return *m_resolver;
 }

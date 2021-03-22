@@ -1,14 +1,14 @@
 #include "fs/impl/physical/fs_physical_file_system.hpp"
 
-#include "fs/impl/physical/fs_physical_file.hpp"
 #include "fs/api/enums/fs_item_type.hpp"
+#include "fs/impl/physical/fs_physical_file.hpp"
 
-#include "fs/impl/exceptions/fs_exception_cant_open_file_impl.hpp"
 #include "fs/impl/exceptions/fs_exception_cant_create_file.hpp"
+#include "fs/impl/exceptions/fs_exception_cant_open_file_impl.hpp"
 #include "fs/impl/exceptions/fs_exception_checking_exist_file_fail.hpp"
 
-#include <memory>
 #include <functional>
+#include <memory>
 
 //------------------------------------------------------------------------------
 
@@ -51,7 +51,9 @@ bool PhysicalFileSystem::isExistFile( const Path & _path ) const
 	std::error_code errorCode;
 	const bool result = stdfs::exists( _path, errorCode );
 	if( errorCode )
+	{
 		throw CheckingExistFileFailImpl( _path, errorCode );
+	}
 
 	return result;
 }
@@ -90,7 +92,7 @@ void PhysicalFileSystem::forEachItem(
 	ItemCallback _callback
 ) const
 {
-	for(auto& item : stdfs::directory_iterator( _ditPath ) )
+	for(const auto & item : stdfs::directory_iterator( _ditPath ) )
 	{
 		static_assert( static_cast< int >( ItemType::Count ) == 2 );
 		ItemType type =

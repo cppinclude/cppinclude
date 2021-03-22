@@ -11,7 +11,6 @@ namespace model_includes {
 class ModelIncludesAccessorImpl final : public ModelIncludesAccessor
 {
 public:
-
 	ModelIncludesAccessorImpl();
 	~ModelIncludesAccessorImpl() override;
 
@@ -23,8 +22,7 @@ public:
 	ModelPtr createEmptyModel() override;
 
 private:
-
-	std::unique_ptr< Analyzer >	m_analyzer;
+	std::unique_ptr< Analyzer > m_analyzer;
 };
 
 //------------------------------------------------------------------------------

@@ -11,7 +11,6 @@ namespace compilation_db {
 class AccessorImpl final : public Accessor
 {
 public:
-
 	LoaderPtr createLoader() override;
 };
 

@@ -1,7 +1,7 @@
 #include "reporter/impl/different_type_reporter/rp_different_type_reporter_details.hpp"
 
-#include "model_includes/api/mi_include.hpp"
 #include "model_includes/api/enums/mi_include_type.hpp"
+#include "model_includes/api/mi_include.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
@@ -35,12 +35,12 @@ void DifferentTypeReporterDetails::insertInclude( const Include & _include )
 	const auto type = _include.getType();
 	switch( type )
 	{
-		case IncludeType::User :
+		case IncludeType::User:
 			m_userIncludes.insert( _include );
-		break;
-		case IncludeType::System :
+			break;
+		case IncludeType::System:
 			m_systemIncludes.insert( _include );
-		break;
+			break;
 
 		default:
 			INTERNAL_CHECK_WARRING( false );

@@ -22,8 +22,7 @@ namespace model_includes {
 class Analyzer
 {
 public:
-
-	using ModelPtr	= stdfwd::unique_ptr< Model >;
+	using ModelPtr = stdfwd::unique_ptr< Model >;
 
 	virtual ~Analyzer() = default;
 

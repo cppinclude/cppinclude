@@ -14,9 +14,9 @@
 
 #include <std_fs>
 
-#include <string_view>
-#include <set>
 #include <functional>
+#include <set>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 
@@ -55,7 +55,9 @@ void LoaderFixture::addComandWithIncludes(
 {
 	std::string includesArg;
 	for( const auto & include : _includes )
+	{
 		includesArg += " -I" + include;
+	}
 
 	addCommand( getDefaultFolder(), "/usr/bin/c++" + includesArg, _file );
 }
@@ -142,7 +144,9 @@ std::string LoaderFixture::getDefaultFolder() const
 Loader & LoaderFixture::ensureLoader()
 {
 	if( !m_loaderPtr )
+	{
 		m_loaderPtr = ensureCmakeProjectAccessor().createLoader();
+	}
 
 	return *m_loaderPtr;
 }
@@ -152,7 +156,9 @@ Loader & LoaderFixture::ensureLoader()
 Accessor & LoaderFixture::ensureCmakeProjectAccessor()
 {
 	if( !m_cmakeProjectAccessorPtr )
-		m_cmakeProjectAccessorPtr.reset( new AccessorImpl );
+	{
+		m_cmakeProjectAccessorPtr = std::make_unique< AccessorImpl >();
+	}
 
 	return *m_cmakeProjectAccessorPtr;
 }
@@ -162,7 +168,9 @@ Accessor & LoaderFixture::ensureCmakeProjectAccessor()
 compilation_db::Database & LoaderFixture::ensureCompilationDb()
 {
 	if( !m_dbPtr )
+	{
 		m_dbPtr = ensureCompilationDbLoader().createEmptyDb();
+	}
 
 	return *m_dbPtr;
 }
@@ -172,7 +180,9 @@ compilation_db::Database & LoaderFixture::ensureCompilationDb()
 compilation_db::Loader & LoaderFixture::ensureCompilationDbLoader()
 {
 	if( !m_dbLoaderPtr )
+	{
 		m_dbLoaderPtr = ensureCompilationDbAccessor().createLoader();
+	}
 
 	return *m_dbLoaderPtr;
 }
@@ -182,7 +192,9 @@ compilation_db::Loader & LoaderFixture::ensureCompilationDbLoader()
 compilation_db::Accessor & LoaderFixture::ensureCompilationDbAccessor()
 {
 	if( !m_dbAccessorPtr )
-		m_dbAccessorPtr.reset( new compilation_db::AccessorImpl );
+	{
+		m_dbAccessorPtr = std::make_unique< compilation_db::AccessorImpl >();
+	}
 
 	return *m_dbAccessorPtr;
 }

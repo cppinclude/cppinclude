@@ -2,11 +2,11 @@
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 
+#include "reporter/impl/different_type_reporter/rp_different_type_reporter.hpp"
 #include "reporter/impl/dump_reporter/rp_dump_reporter.hpp"
-#include "reporter/impl/unresolved_reporter/rp_unresolved_reporter.hpp"
 #include "reporter/impl/most_impact_reporter/rp_most_impact_reporter.hpp"
 #include "reporter/impl/unincluded_reporter/rp_unincluded_reporter.hpp"
-#include "reporter/impl/different_type_reporter/rp_different_type_reporter.hpp"
+#include "reporter/impl/unresolved_reporter/rp_unresolved_reporter.hpp"
 
 #include "reporter/impl/rp_settings_impl.hpp"
 
@@ -22,7 +22,8 @@ namespace reporter {
 
 FactoryImpl::ReporterPtr FactoryImpl::createReporter( ReporterKind _kind )
 {
-	static_assert( static_cast< int >( ReporterKind::Count ) == 5 );
+	constexpr int ReporterKindCount = 5;
+	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 	switch( _kind )
 	{
 		case ReporterKind::Unresolved		: return createUnresolvedReporter();
@@ -32,7 +33,7 @@ FactoryImpl::ReporterPtr FactoryImpl::createReporter( ReporterKind _kind )
 		case ReporterKind::DifferentType	: return createDifferentTypeReporter();
 		case ReporterKind::Count		:
 		{
-			INTERNAL_CHECK_WARRING(false);
+			INTERNAL_CHECK_WARRING( false );
 			return nullptr;
 		}
 	}

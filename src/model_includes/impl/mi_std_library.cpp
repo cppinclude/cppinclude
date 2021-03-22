@@ -24,7 +24,6 @@ const StdLibrary & StdLibrary::getInstance()
 	}
 
 	return *m_instance;
-
 }
 
 //------------------------------------------------------------------------------
@@ -32,7 +31,7 @@ const StdLibrary & StdLibrary::getInstance()
 bool StdLibrary::isExists( std::string_view _name ) const
 {
 	std::string str{ _name };
-	return m_stdFiles.count( str );
+	return m_stdFiles.count( str ) > 0;
 }
 
 //------------------------------------------------------------------------------
@@ -75,14 +74,14 @@ void StdLibrary::initCppLibraties()
 
 void StdLibrary::initConceptsLibrary()
 {
-	addHeaders({ "concepts" });
+	addHeaders( { "concepts" } );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initCoroutinesLibrary()
 {
-	addHeaders({ "coroutine" });
+	addHeaders( { "coroutine" } );
 }
 
 //------------------------------------------------------------------------------
@@ -118,45 +117,45 @@ void StdLibrary::initUtilitiesLibrary()
 
 void StdLibrary::initDynamicMemoryLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"new",
 		"memory",
 		"scoped_allocator",
 		"memory_resource",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initNumberLimitLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"climits",
 		"cfloat",
 		"cstdint",
 		"cinttypes",
 		"limits",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initErrorHandlingLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"exception",
 		"stdexcept",
 		"cassert",
 		"system_error",
 		"cerrno",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initStringLibraryLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"cctype",
 		"cwctype",
 		"cstring",
@@ -166,14 +165,14 @@ void StdLibrary::initStringLibraryLibrary()
 		"string_view",
 		"charconv",
 		"format",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initContainersLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"array",
 		"vector",
 		"deque",
@@ -186,52 +185,52 @@ void StdLibrary::initContainersLibrary()
 		"stack",
 		"queue",
 		"span",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initIteratorsLibrary()
 {
-	addHeaders({ "iterator" });
+	addHeaders( { "iterator" } );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initRangesLibrary()
 {
-	addHeaders({ "ranges" });
+	addHeaders( { "ranges" } );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initAlgorithmsLibrary()
 {
-	addHeaders({ "algorithm", "execution" });
+	addHeaders( { "algorithm", "execution" } );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initNumericsLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"cmath",
 		"complex",
 		"valarray",
 		"random",
 		"numeric",
-		"ratio ",
+		"ratio",
 		"cfenv",
 		"bit",
 		"numbers",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initIOLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"iosfwd",
 		"ios",
 		"istream",
@@ -244,39 +243,39 @@ void StdLibrary::initIOLibrary()
 		"iomanip",
 		"streambuf",
 		"cstdio",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initLocalizationLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"locale",
 		"clocale",
 		"codecvt",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initRegexLibrary()
 {
-	addHeaders({ "regex" });
+	addHeaders( { "regex" } );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initAtomicLibrary()
 {
-	addHeaders({ "atomic" });
+	addHeaders( { "atomic" } );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initThreadLibrary()
 {
-	addHeaders({
+	addHeaders( {
 		"thread",
 		"stop_token",
 		"mutex",
@@ -286,14 +285,14 @@ void StdLibrary::initThreadLibrary()
 		"semaphore",
 		"latch",
 		"barrier",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initFsLibrary()
 {
-	addHeaders({ "filesystem" });
+	addHeaders( { "filesystem" } );
 }
 
 //------------------------------------------------------------------------------
@@ -329,46 +328,42 @@ void StdLibrary::initCCompatibilityLibraries()
 
 void StdLibrary::initEmptyCHeaders()
 {
-	addHeaders({
+	addHeaders( {
 		"ccomplex",
 		"complex.h",
 		"ctgmath",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initMeaninglessCHeaders()
 {
-	addHeaders({
+	addHeaders( {
 		"ciso646",
 		"iso646.h",
 		"cstdalign",
 		"cstdbool",
 		"stdbool.h",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initUnsupportedCHeaders()
 {
-	addHeaders({
+	addHeaders( {
 		"stdatomic.h",
 		"stdnoreturn.h",
 		"threads.h",
-	});
-
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void StdLibrary::initCLibraries()
 {
-	addHeaders({
-		"stdalign.h",
-		"tgmath.h"
-	});
+	addHeaders( { "stdalign.h", "tgmath.h" } );
 }
 
 //------------------------------------------------------------------------------
@@ -377,7 +372,7 @@ void StdLibrary::addHeaders( const Headers & _headers )
 {
 	for( const std::string & name : _headers )
 	{
-		if(auto pair = m_stdFiles.insert( name ); !pair.second)
+		if( auto pair = m_stdFiles.insert( name ); !pair.second )
 		{
 			INTERNAL_CHECK_WARRING( false );
 		}

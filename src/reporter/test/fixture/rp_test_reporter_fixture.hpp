@@ -1,11 +1,11 @@
 #pragma once
 
+#include "model_includes/api/enums/mi_file_type.hpp"
 #include "model_includes/api/enums/mi_include_status.hpp"
 #include "model_includes/api/enums/mi_include_type.hpp"
-#include "model_includes/api/enums/mi_file_type.hpp"
 
-#include <stdfwd.hpp>
 #include <memory>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -33,7 +33,6 @@ namespace reporter::test {
 class ReporterFixture
 {
 public:
-
 	ReporterFixture();
 	~ReporterFixture();
 
@@ -88,12 +87,11 @@ public:
 		model_includes::FileType _type = FileType::ProjectFile
 	);
 
-	model_includes::File & addFileToProject(  std::string_view _file );
+	model_includes::File & addFileToProject( std::string_view _file );
 
 	static std::string toPath( std::string_view _str );
 
 private:
-
 	ReporterAccessor & ensureReportAccessor();
 	Factory & getFactory();
 	Settings & ensureSettings();
@@ -104,7 +102,6 @@ private:
 	model_includes::Model & getModel();
 
 private:
-
 	std::unique_ptr< ReporterAccessor > m_accessor;
 	std::unique_ptr< Settings > m_settings;
 	std::unique_ptr< model_includes::ModelIncludesAccessor > m_modelAccessor;

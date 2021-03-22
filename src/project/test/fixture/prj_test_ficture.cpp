@@ -6,12 +6,12 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
+#include <algorithm>
+#include <functional>
+#include <std_fs>
 #include <string>
 #include <string_view>
-#include <std_fs>
 #include <vector>
-#include <functional>
-#include <algorithm>
 
 //------------------------------------------------------------------------------
 
@@ -166,10 +166,12 @@ std::string ProjectFixture::toString( const Strings & _strings )
 	const std::string seperator = ",";
 	std::string result;
 
-	for( const std::string str : _strings )
+	for( const std::string & str : _strings )
 	{
 		if( !result.empty() )
+		{
 			result += seperator;
+		}
 
 		result += str;
 	}
@@ -195,7 +197,7 @@ ProjectAccessor & ProjectFixture::getProjectAccessor()
 {
 	if( !m_accessor )
 	{
-		m_accessor.reset( new ProjectAccessorImpl );
+		m_accessor = std::make_unique< ProjectAccessorImpl >();
 	}
 	return *m_accessor;
 }

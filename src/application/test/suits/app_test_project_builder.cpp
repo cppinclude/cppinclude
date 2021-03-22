@@ -2,7 +2,7 @@
 
 #include "application/resources/app_resources_arguments.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 #include <regex>
 
@@ -33,28 +33,29 @@ namespace application::test {
 
 //------------------------------------------------------------------------------
 
-BOOST_FIXTURE_TEST_SUITE(ProjectBuildersTets, ProjectBuilderFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( ProjectBuildersTets, ProjectBuilderFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_empty_arguments_and_configuration_file)
+TEST_CASE( t1_empty_arguments_and_configuration_file )
 {
-	//Run
+	// Run
 	parserArguments( {} );
 	buildProject();
 
-	//Check
-	BOOST_CHECK_EQUAL( getProjectDir(),		toAbsolutePath("./") );
-	BOOST_CHECK_EQUAL( getIncludeDirs(),	toAbsolutePath("./") );
-	BOOST_CHECK_EQUAL( getIgnoreDirs(),		"" );
-	BOOST_CHECK_EQUAL( getFileExtensions(),	"*.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx" );
+	// Check
+	BOOST_CHECK_EQUAL( getProjectDir(), toAbsolutePath( "./" ) );
+	BOOST_CHECK_EQUAL( getIncludeDirs(), toAbsolutePath( "./" ) );
+	BOOST_CHECK_EQUAL( getIgnoreDirs(), "" );
+	BOOST_CHECK_EQUAL( getFileExtensions(), "*.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_only_arguments)
+TEST_CASE( t2_only_arguments )
 {
-	//Init
+	// Init
 	using namespace resources::arguments;
 
 	const std::string argPrefix = "--";
@@ -71,7 +72,7 @@ BOOST_AUTO_TEST_CASE(t2_only_arguments)
 	const std::string fileExtensionsArgName = argPrefix + fileExtensions::FullName;
 	const std::string fileExtensionsArgValue = "*.cpp,*.hpp";
 
-	//Run
+	// Run
 	parserArguments( {
 		projectArgName,
 		projectArgValue,
@@ -87,8 +88,8 @@ BOOST_AUTO_TEST_CASE(t2_only_arguments)
 	} );
 	buildProject();
 
-	//Check
-	BOOST_CHECK_EQUAL( getProjectDir(),		toAbsolutePath( projectArgValue ) );
+	// Check
+	BOOST_CHECK_EQUAL( getProjectDir(), toAbsolutePath( projectArgValue ) );
 	BOOST_CHECK_EQUAL(
 		getIncludeDirs(),
 		toAbsolutePath("test_project/lib1/") +
@@ -107,9 +108,9 @@ BOOST_AUTO_TEST_CASE(t2_only_arguments)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_only_configuration_file)
+TEST_CASE( t3_only_configuration_file )
 {
-	//Init
+	// Init
 	createDefaultConfigurationFile(
 	R"({
 		"project_dir" : "./src",
@@ -119,12 +120,12 @@ BOOST_AUTO_TEST_CASE(t3_only_configuration_file)
 	})"
 	);
 
-	//Run
+	// Run
 	parserArguments( {} );
 	buildProject();
 
-	//Check
-	BOOST_CHECK_EQUAL( getProjectDir(),		toAbsolutePath("src/") );
+	// Check
+	BOOST_CHECK_EQUAL( getProjectDir(), toAbsolutePath( "src/" ) );
 	BOOST_CHECK_EQUAL(
 		getIncludeDirs(),
 		toAbsolutePath("src/include1/") +
@@ -143,44 +144,44 @@ BOOST_AUTO_TEST_CASE(t3_only_configuration_file)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_1_ignore_system_includes_from_configuration_file)
+TEST_CASE( t5_1_ignore_system_includes_from_configuration_file )
 {
-	//Init
+	// Init
 	createDefaultConfigurationFile(
 	R"({
 		"ignore_system_includes" : true
 	})"
 	);
 
-	//Run
+	// Run
 	parserArguments( {} );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getIgnoreSystemIncludes(), true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_2_ignore_system_includes_from_arguments)
+TEST_CASE( t5_2_ignore_system_includes_from_arguments )
 {
-	//Run
-	parserArguments({ "--ignore_system_includes=true" });
+	// Run
+	parserArguments( { "--ignore_system_includes=true" } );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getIgnoreSystemIncludes(), true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_3_ignore_system_includes_default)
+TEST_CASE( t5_3_ignore_system_includes_default )
 {
-	//Run
-	parserArguments({});
+	// Run
+	parserArguments( {} );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL(
 		getIgnoreSystemIncludes(),
 		resources::arguments::ignoreSystemIncludes::DefaultValue
@@ -189,41 +190,40 @@ BOOST_AUTO_TEST_CASE(t5_3_ignore_system_includes_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t6_1_ignore_files_from_configuration_file)
+TEST_CASE( t6_1_ignore_files_from_configuration_file )
 {
-	//Init
+	// Init
 	createDefaultConfigurationFile(
-	R"({
+		R"({
 		"ignore_files" : [ "boost.*" ]
-	})"
-	);
+	})" );
 
-	//Run
+	// Run
 	parserArguments( {} );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_REQUIRE_EQUAL( getFileFiltersCount(), 1 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t6_2_ignore_files_from_arguments)
+TEST_CASE( t6_2_ignore_files_from_arguments )
 {
-	//Run
-	parserArguments({ "--ignore_files=boost.*" });
+	// Run
+	parserArguments( { "--ignore_files=boost.*" } );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_REQUIRE_EQUAL( getFileFiltersCount(), 1 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t6_3_ignore_files_default)
+TEST_CASE( t6_3_ignore_files_default )
 {
-	//Run
-	parserArguments({});
+	// Run
+	parserArguments( {} );
 	buildProject();
 
 	//Check
@@ -234,41 +234,41 @@ BOOST_AUTO_TEST_CASE(t6_3_ignore_files_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t7_1_analyze_without_extension_from_configuration_file)
+TEST_CASE( t7_1_analyze_without_extension_from_configuration_file )
 {
-	//Init
+	// Init
 	createDefaultConfigurationFile(
 	R"({
 		"analyze_without_extension" : true
 	})"
 	);
 
-	//Run
+	// Run
 	parserArguments( {} );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_REQUIRE_EQUAL( getAnalyzeWithoutExtension(), true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t7_2_analyze_without_extension_from_arguments)
+TEST_CASE( t7_2_analyze_without_extension_from_arguments )
 {
-	//Run
-	parserArguments({ "--analyze_without_extension=true" });
+	// Run
+	parserArguments( { "--analyze_without_extension=true" } );
 	buildProject();
 
-	//Check
+	// Check
 	BOOST_REQUIRE_EQUAL( getAnalyzeWithoutExtension(), true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t7_3_analyze_without_extension_default)
+TEST_CASE( t7_3_analyze_without_extension_default )
 {
-	//Run
-	parserArguments({});
+	// Run
+	parserArguments( {} );
 	buildProject();
 
 	//Check
@@ -279,7 +279,7 @@ BOOST_AUTO_TEST_CASE(t7_3_analyze_without_extension_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

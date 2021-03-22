@@ -18,14 +18,12 @@ namespace cmake_project {
 class Loader
 {
 public:
-
 	using ProjectPtr = stdfwd::unique_ptr< Project >;
 
 	virtual ~Loader() = default;
 
 	virtual ProjectPtr load( const compilation_db::Database & _db ) = 0;
 	virtual ProjectPtr createEmptyProject() = 0;
-
 };
 
 //------------------------------------------------------------------------------

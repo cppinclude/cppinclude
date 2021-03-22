@@ -11,7 +11,6 @@ namespace cmake_project {
 class AccessorImpl final : public Accessor
 {
 public:
-
 	LoaderPtr createLoader() override;
 };
 

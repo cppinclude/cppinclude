@@ -24,7 +24,6 @@ IncorrectReportImpl::IncorrectReportImpl( std::string_view _name )
 	:	BaseClass( resources::exceptions::IncorrectReport::Code )
 	,	m_name( _name )
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -44,7 +43,8 @@ std::string IncorrectReportImpl::getMessage() const noexcept
 
 std::string IncorrectReportImpl::getPossiblesValues()
 {
-	static_assert( static_cast< int >( ReporterKind::Count ) == 5 );
+	constexpr int ReporterKindCount = 5;
+	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 
 	static const std::string seperator = ", ";
 

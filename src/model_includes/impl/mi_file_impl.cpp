@@ -4,9 +4,9 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <std_fs>
 #include <functional>
 #include <list>
+#include <std_fs>
 #include <unordered_set>
 
 //------------------------------------------------------------------------------
@@ -15,8 +15,8 @@ namespace model_includes {
 
 //------------------------------------------------------------------------------
 
-FileImpl::FileImpl( const Path & _path, FileType _type )
-	:	m_path{ _path }
+FileImpl::FileImpl( Path _path, FileType _type )
+	:	m_path{ std::move( _path ) }
 	,	m_type{ _type }
 {
 }
@@ -40,9 +40,13 @@ FileType FileImpl::getType() const
 void FileImpl::addInclude( const Include & _include )
 {
 	if( &_include.getSourceFile() == this )
+	{
 		m_includes.push_back( &_include );
+	}
 	else if( &_include.getDestinationFile() == this )
+	{
 		m_includedBy.push_back( &_include );
+	}
 	else
 		INTERNAL_CHECK_WARRING( false );
 }
@@ -122,13 +126,15 @@ FileImpl::IncludeIndex FileImpl::getCountRecursive(
 		const File * currentFilePtr = files.front();
 		files.pop_front();
 		INTERNAL_CHECK_WARRING( currentFilePtr );
-		if( !currentFilePtr )
+		if( currentFilePtr == nullptr )
+		{
 			continue;
+		}
 
-		const IncludeIndex count = (*currentFilePtr.*_getCount)();
+		const IncludeIndex count = ( *currentFilePtr.*_getCount )();
 		for( IncludeIndex i = 0; i < count; ++i )
 		{
-			const Include & include = (*currentFilePtr.*_getInclude)( i );
+			const Include & include = ( *currentFilePtr.*_getInclude )( i );
 			const File & file = ( include.*_getFile )();
 
 			if( auto pair = uniqFiles.insert( &file ); pair.second )

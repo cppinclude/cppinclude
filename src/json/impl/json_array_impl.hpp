@@ -13,7 +13,6 @@ namespace json {
 class JsonArrayImpl final : public JsonArray
 {
 public:
-
 	using JsonImpl = nlohmann::json;
 
 	JsonArrayImpl( JsonImpl && _jsonImpl );
@@ -23,7 +22,6 @@ public:
 	JsonValuePtr at( ArrayIndex _index ) const override;
 
 private:
-
 	JsonImpl m_jsonImpl;
 };
 

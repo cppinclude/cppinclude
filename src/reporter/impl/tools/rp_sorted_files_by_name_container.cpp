@@ -32,18 +32,20 @@ bool SortedFilesByNameContainer::isEmpty() const
 
 //------------------------------------------------------------------------------
 
-void SortedFilesByNameContainer::forEachFile( FileCallback _callback ) const
+void SortedFilesByNameContainer::forEachFile( const FileCallback & _callback ) const
 {
 	for( const File * filePtr : m_files )
 	{
-		if( !filePtr )
+		if( filePtr == nullptr )
 		{
 			INTERNAL_CHECK_WARRING( false );
 			continue;
 		}
 
 		if( !_callback( *filePtr ) )
+		{
 			break;
+		}
 	}
 }
 

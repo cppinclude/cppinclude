@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 /*------------------------------------------------------------------------------
 
@@ -20,12 +20,12 @@ TEST PLAN:
 namespace reporter::test {
 
 //------------------------------------------------------------------------------
-
-BOOST_FIXTURE_TEST_SUITE(UnresolvedReporterTests, ReporterFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( UnresolvedReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_model_not_have_unresolved_includes)
+TEST_CASE( t1_model_not_have_unresolved_includes )
 {
 	// Init
 	addInclude( "/test_project/main.cpp", "/test_project/classA.hpp" );
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(t1_model_not_have_unresolved_includes)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_several_includes)
+TEST_CASE( t2_several_includes )
 {
 	// Init
 	const auto unresolvedStatus = IncludeStatus::Unresolved;
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(t2_several_includes)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_relative_paths)
+TEST_CASE( t3_relative_paths )
 {
 	// Init
 	const auto unresolvedStatus = IncludeStatus::Unresolved;
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(t3_relative_paths)
 	const std::string classAFileName = "classA.hpp";
 	const std::string classAFile = projectDir + classAFileName;
 	const std::string classBFileName = "classB.hpp";
-	const std::string classBFile = projectDir + classBFileName;;
+	const std::string classBFile = projectDir + classBFileName;
 
 	const std::string runA1fileName = "runA1.cpp";
 	const std::string runA1file = projectDir + runA1fileName;
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(t3_relative_paths)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_1_limit_max_files)
+TEST_CASE( t4_1_limit_max_files )
 {
 	// Init
 	const int limit = 1;
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(t4_1_limit_max_files)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_2_limit_max_details)
+TEST_CASE( t4_2_limit_max_details )
 {
 	// Init
 	const int limit = 1;
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(t4_2_limit_max_details)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_3_limit_equal_to_files_count)
+TEST_CASE( t4_3_limit_equal_to_files_count )
 {
 	// Init
 	const int limit = 2;
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(t4_3_limit_equal_to_files_count)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_4_limit_equal_to_details_count)
+TEST_CASE( t4_4_limit_equal_to_details_count )
 {
 	// Init
 	const int limit = 2;
@@ -264,7 +264,7 @@ BOOST_AUTO_TEST_CASE(t4_4_limit_equal_to_details_count)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_ordering)
+TEST_CASE( t5_ordering )
 {
 	// Init
 	const auto unresolvedStatus = IncludeStatus::Unresolved;
@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_CASE(t5_ordering)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

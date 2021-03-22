@@ -19,7 +19,7 @@ FileWrapper::~FileWrapper() = default;
 FileWrapper & FileWrapper::operator<<( std::string_view _str )
 {
 	INTERNAL_CHECK_ERROR( m_file );
-	(*m_file) << _str << "\n";
+	( *m_file ) << _str << "\n";
 	return *this;
 }
 
@@ -41,5 +41,3 @@ const fs::File & FileWrapper::getFile() const
 //------------------------------------------------------------------------------
 
 }
-
-

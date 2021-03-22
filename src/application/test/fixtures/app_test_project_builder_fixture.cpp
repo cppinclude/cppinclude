@@ -1,28 +1,28 @@
 #include "application/test/fixtures/app_test_project_builder_fixture.hpp"
 
-#include "application/tools/app_parser_arg_wrapper.hpp"
-#include "application/tools/app_project_builder.hpp"
+#include "application/resources/app_resources_arguments.hpp"
 #include "application/tools/app_configuration_file.hpp"
 #include "application/tools/app_configuration_file_loader.hpp"
-#include "application/resources/app_resources_arguments.hpp"
+#include "application/tools/app_parser_arg_wrapper.hpp"
+#include "application/tools/app_project_builder.hpp"
 
 #include "project/api/prj_project.hpp"
 #include "project/ih/prj_project_accesso_impl.hpp"
 
 #include "json/ih/json_accessor_impl.hpp"
 
-#include "fs/ih/fs_accessor_impl.hpp"
-#include "fs/api/fs_file_system.hpp"
 #include "fs/api/fs_factory.hpp"
 #include "fs/api/fs_file.hpp"
+#include "fs/api/fs_file_system.hpp"
+#include "fs/ih/fs_accessor_impl.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <vector>
-#include <string>
-#include <std_fs>
 #include <functional>
 #include <set>
+#include <std_fs>
+#include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ ProjectBuilderFixture::~ProjectBuilderFixture() = default;
 void ProjectBuilderFixture::parserArguments( const Arguments & _arguments )
 {
 	Arguments arguments{ _arguments };
-	arguments.insert( arguments.begin(),  "./application" );
+	arguments.insert( arguments.begin(), "./application" );
 
 	getArgumentParser().parse( arguments );
 }
@@ -156,7 +156,7 @@ ProjectBuilderFixture::Path ProjectBuilderFixture::getProjectPath() const
 
 std::string ProjectBuilderFixture::toAbsolutePath( std::string_view _path )
 {
-	const Path currentPath =  getFileSystem().getCurrentPath();
+	const Path currentPath = getFileSystem().getCurrentPath();
 	Path path = currentPath / _path;
 	path = stdfs::lexically_normal( path );
 	return path.string();
@@ -181,12 +181,15 @@ std::string ProjectBuilderFixture::toString( const _Strings & _strings )
 	for( const std::string & str : _strings )
 	{
 		if( first )
+		{
 			first = false;
+		}
 		else
+		{
 			result += ',';
+		}
 
 		result += str;
-
 	}
 	return result;
 }
@@ -194,12 +197,13 @@ std::string ProjectBuilderFixture::toString( const _Strings & _strings )
 //------------------------------------------------------------------------------
 
 ProjectBuilderFixture::Strings ProjectBuilderFixture::toStrings(
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 	const char * const _values[]
 )
 {
 	Strings result;
 	const char * const * it = _values;
-	while( *it )
+	while( *it != nullptr )
 	{
 		const std::string str{ *it };
 		result.push_back( str );
@@ -209,6 +213,7 @@ ProjectBuilderFixture::Strings ProjectBuilderFixture::toStrings(
 
 //------------------------------------------------------------------------------
 
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 std::string ProjectBuilderFixture::toString( const char * const _values[] )
 {
 	return toString( toStrings( _values ) );
@@ -220,7 +225,7 @@ ParserArgWrapper & ProjectBuilderFixture::getArgumentParser()
 {
 	if( !m_parser )
 	{
-		m_parser.reset( new ParserArgWrapper );
+		m_parser = std::make_unique< ParserArgWrapper >();
 		m_parser->init();
 	}
 	return *m_parser;
@@ -232,8 +237,9 @@ ProjectBuilder & ProjectBuilderFixture::getBuilder()
 {
 	if( !m_builder )
 	{
-		m_builder.reset(
-			new ProjectBuilder( getProjectAccessor(), getFileSystem() )
+		m_builder = std::make_unique<ProjectBuilder>(
+			getProjectAccessor(),
+			getFileSystem()
 		);
 	}
 	return *m_builder;
@@ -258,7 +264,8 @@ json::JsonAccessor & ProjectBuilderFixture::getJsonAccessor()
 fs::FileSystem & ProjectBuilderFixture::getFileSystem()
 {
 	return m_fs.ensure< fs::FileSystemAccessorImpl >()
-		.getFactory().getMemoryFileSystem();
+		.getFactory()
+		.getMemoryFileSystem();
 }
 
 //------------------------------------------------------------------------------

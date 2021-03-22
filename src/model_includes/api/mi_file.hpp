@@ -13,7 +13,6 @@ namespace model_includes {
 class File
 {
 public:
-
 	using IncludeIndex = std::size_t;
 	using Path = stdfs::path;
 

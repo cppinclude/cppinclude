@@ -12,7 +12,6 @@ namespace parser {
 class ParserAccessorImpl final : public ParserAccessor
 {
 public:
-
 	ParserPtr createParser() override;
 };
 

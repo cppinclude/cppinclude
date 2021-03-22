@@ -13,7 +13,6 @@ namespace fs::memory {
 class MemoryFile final : public File
 {
 public:
-
 	MemoryFile();
 
 	bool eof() const override;
@@ -22,7 +21,6 @@ public:
 	File & operator<<( std::string_view _str ) override;
 
 private:
-
 	mutable std::stringstream m_buf;
 };
 
@@ -31,4 +29,3 @@ private:
 }
 
 //------------------------------------------------------------------------------
-

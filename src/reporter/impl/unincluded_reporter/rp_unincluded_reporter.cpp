@@ -1,11 +1,11 @@
 #include "reporter/impl/unincluded_reporter/rp_unincluded_reporter.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
-#include "reporter/resources/rp_unincluded_report_resources.hpp"
 #include "reporter/impl/tools/rp_sorted_files_by_name_container.hpp"
+#include "reporter/resources/rp_unincluded_report_resources.hpp"
 
-#include "model_includes/api/mi_model.hpp"
 #include "model_includes/api/mi_file.hpp"
+#include "model_includes/api/mi_model.hpp"
 
 #include <fmt/format.h>
 #include <std_fs>
@@ -22,7 +22,6 @@ namespace reporter {
 UnincludedReporter::UnincludedReporter( SettingsPtr && _settingsPtr )
 	:	BaseClass{ std::move( _settingsPtr ) }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -45,7 +44,7 @@ UnincludedReporter::FilesContainer UnincludedReporter::collectFiles(
 	FilesContainer files;
 	_model.forEachFile( [&]( const model_includes::File & _file )
 	{
-		if( isHeader( _file ) && !_file.getIncludedByCount() )
+		if( isHeader( _file ) && _file.getIncludedByCount() == 0u )
 		{
 			files.insert( _file );
 		}
@@ -66,10 +65,12 @@ ReporterKind UnincludedReporter::getKind() const
 
 bool UnincludedReporter::isHeader( const model_includes::File & _file ) const
 {
-	const std::string extensionStr =_file.getPath().extension().string();
+	const std::string extensionStr = _file.getPath().extension().string();
 
-	if(extensionStr.empty())
+	if( extensionStr.empty() )
+	{
 		return true;
+	}
 
 	if( extensionStr.size() > 1 )
 	{
@@ -88,7 +89,9 @@ void UnincludedReporter::printFiles(
 ) const
 {
 	if( _files.isEmpty() )
+	{
 		return;
+	}
 
 	_stream << resources::unincluded_report::Header;
 
@@ -122,6 +125,5 @@ void UnincludedReporter::printFiles(
 }
 
 //------------------------------------------------------------------------------
-
 
 }

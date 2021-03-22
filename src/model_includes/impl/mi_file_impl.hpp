@@ -1,7 +1,7 @@
 #pragma once
 
-#include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
+#include "model_includes/api/mi_file.hpp"
 
 #include <std_fs>
 #include <vector>
@@ -15,8 +15,7 @@ namespace model_includes {
 class FileImpl final : public File
 {
 public:
-
-	FileImpl( const Path & _path, FileType _type );
+	FileImpl( Path _path, FileType _type );
 
 	const Path & getPath() const override;
 	FileType getType() const override;
@@ -32,9 +31,8 @@ public:
 	const Include & getIncludedBy( IncludeIndex _index ) const override;
 
 private:
-
 	using IncludesContainer = std::vector< const Include * >;
-	using IncludeCallback = std::function< void ( const Include & ) >;
+	using IncludeCallback = std::function< void( const Include & ) >;
 
 	IncludeIndex getCountRecursive(
 		IncludeIndex ( File::*_getCount )() const,
@@ -43,7 +41,6 @@ private:
 	) const;
 
 private:
-
 	IncludesContainer m_includes;
 	IncludesContainer m_includedBy;
 

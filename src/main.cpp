@@ -5,7 +5,7 @@
 
 //------------------------------------------------------------------------------
 
-int main(int _argc, char * _argv[])
+int main( int _argc, char * _argv[] )
 {
 	try
 	{
@@ -22,8 +22,6 @@ int main(int _argc, char * _argv[])
 		std::cout << "Something wrong happens" << std::endl;
 		return EXIT_FAILURE;
 	}
-
 }
 
 //------------------------------------------------------------------------------
-

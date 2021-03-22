@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdfwd.hpp>
 #include <exception>
+#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -12,7 +12,6 @@ namespace application {
 class Log
 {
 public:
-
 	Log();
 	Log( std::ostream & _stream, std::ostream & _errorStream );
 
@@ -20,7 +19,6 @@ public:
 	void printWarning( const std::exception & _exception );
 
 private:
-
 	std::ostream & m_stream;
 	std::ostream & m_errorStream;
 };

@@ -1,20 +1,20 @@
 #include "model_includes/impl/mi_resolver.hpp"
 
-#include "model_includes/impl/mi_std_library.hpp"
-#include "model_includes/impl/mi_resolver_context.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
+#include "model_includes/impl/mi_resolver_context.hpp"
+#include "model_includes/impl/mi_std_library.hpp"
 
-#include "fs/api/fs_file_system.hpp"
 #include "fs/api/fs_exceptions.hpp"
+#include "fs/api/fs_file_system.hpp"
 
-#include "project/api/prj_project.hpp"
 #include "cmake_project/api/cprj_project.hpp"
+#include "project/api/prj_project.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
+#include <functional>
 #include <optional>
 #include <std_fs>
-#include <functional>
 
 //------------------------------------------------------------------------------
 
@@ -42,12 +42,14 @@ Resolver::PathOpt Resolver::resolvePath(
 		_cmakeProject,
 		_startFile,
 		_fileName,
-		_currentCMakeSourceFile
+		std::move( _currentCMakeSourceFile )
 	};
 
 	PathOpt pathOpt = checkInCurrentDir( context );
 	if( pathOpt )
+	{
 		return pathOpt;
+	}
 
 	pathOpt = findInIncludeFolders( context );
 
@@ -61,7 +63,9 @@ FileType Resolver::resolveFileType( const Path & _file )
 	FileType result = FileType::ProjectFile;
 
 	if( _file.has_parent_path() )
+	{
 		return result;
+	}
 
 	const std::string name = _file.string();
 	const StdLibrary & library = getStdLibrary();
@@ -69,7 +73,6 @@ FileType Resolver::resolveFileType( const Path & _file )
 	result = isStdLib ? FileType::StdLibraryFile : FileType::ProjectFile;
 
 	return result;
-
 }
 
 //------------------------------------------------------------------------------
@@ -80,14 +83,17 @@ Resolver::PathOpt Resolver::checkInCurrentDir(
 {
 	Path startDir = _context.getStartFile().parent_path();
 	if( startDir.is_relative() )
+	{
 		startDir = _context.getProject().getProjectDir() / startDir;
+	}
 
 	const Path file = startDir / _context.getFileName();
 	if( isExistFile( file ) )
+	{
 		return PathOpt{ file };
+	}
 
 	return std::nullopt;
-
 }
 
 //------------------------------------------------------------------------------
@@ -98,14 +104,17 @@ Resolver::PathOpt Resolver::findInIncludeFolders(
 {
 	PathOpt pathOpt = findInIncludeFoldersInProject( _context );
 	if( pathOpt )
+	{
 		return pathOpt;
+	}
 
-	if( _context.getCMakeProject() )
+	if( _context.getCMakeProject() != nullptr )
+	{
 		pathOpt = findInIncludeFoldersInCMakeProject( _context );
+	}
 
 	return pathOpt;
 }
-
 
 //------------------------------------------------------------------------------
 
@@ -116,15 +125,17 @@ Resolver::PathOpt Resolver::findInIncludeFoldersInProject(
 	const std::string & fileName = _context.getFileName();
 	const project::Project & project = _context.getProject();
 	const project::Project::IncludeDirIndex count = project.getIncludeDirsCount();
-	const auto projectDir = project.getProjectDir();
+	const auto & projectDir = project.getProjectDir();
 
 	for( project::Project::IncludeDirIndex i = 0; i < count; ++i )
 	{
-		Path includeDir = project.getIncludeDir( i );
+		const Path & includeDir = project.getIncludeDir( i );
 
 		PathOpt fileOpt = findFile( projectDir, includeDir, fileName );
 		if( fileOpt )
+		{
 			return fileOpt;
+		}
 	}
 
 	return std::nullopt;
@@ -137,7 +148,7 @@ Resolver::PathOpt Resolver::findInIncludeFoldersInCMakeProject(
 ) const
 {
 	const cmake_project::Project * projectOpt = _context.getCMakeProject();
-	if( !projectOpt )
+	if( projectOpt == nullptr )
 	{
 		INTERNAL_CHECK_WARRING( false );
 		return std::nullopt;
@@ -151,7 +162,9 @@ Resolver::PathOpt Resolver::findInIncludeFoldersInCMakeProject(
 
 	PathOpt sourceFile = _context.getCurrentCMakeSourceFile();
 	if( !sourceFile )
+	{
 		sourceFile = startFile;
+	}
 
 	PathOpt result;
 
@@ -177,14 +190,18 @@ Resolver::PathOpt Resolver::findFile(
 {
 	Path includeDir{ _includeDir };
 	if( includeDir.is_relative() )
+	{
 		includeDir = _projectDir / includeDir;
+	}
 
 	Path file = includeDir / _fileName;
 
 	file = stdfs::lexically_normal( file );
 
 	if( isExistFile( file ) )
+	{
 		return PathOpt{ file };
+	}
 
 	return std::nullopt;
 }

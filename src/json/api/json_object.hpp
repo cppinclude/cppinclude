@@ -12,7 +12,6 @@ namespace json {
 class JsonObject
 {
 public:
-
 	using JsonValuePtr = stdfwd::unique_ptr< JsonValue >;
 
 	virtual ~JsonObject() = default;

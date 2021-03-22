@@ -17,6 +17,7 @@ namespace application::resources::arguments {
 
 namespace projectDir {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::ProjectDir;
 	const char * const Description		= "Project directory";
 	const char * const DefaultValue		= ".";
@@ -26,15 +27,18 @@ namespace projectDir {
 
 namespace fileExtensions {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::FileExtensions;
 	const char * const Description		= "Extensions C++ files";
-	const char * const DefaultValue[]	= {"*.cpp", "*.hpp", "*.c", "*.h", "*.cxx", "*.hxx", nullptr};
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+	const char * const DefaultValue[]	= { "*.cpp", "*.hpp", "*.c", "*.h", "*.cxx", "*.hxx", nullptr };
 }
 
 //------------------------------------------------------------------------------
 
 namespace analyze_without_extension {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::AnalyzeWithoutExtension;
 	const char * const Description		= "Analyze files without extension (default: false)";
 	const bool DefaultValue				= false;
@@ -44,24 +48,29 @@ namespace analyze_without_extension {
 
 namespace includeDirs {
 
-	const char * const FullName			= configuration_file::IncludeDirs ;
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
+	const char * const FullName			= configuration_file::IncludeDirs;
 	const char * const Description		= "Include directories";
-	const char * const DefaultValue[]	= {".", nullptr};
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+	const char * const DefaultValue[]	= { ".", nullptr };
 }
 
 //------------------------------------------------------------------------------
 
 namespace ignoreDirs {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::IgnoreDirs;
 	const char * const Description		= "Directories that will be ignored";
-	const char * const DefaultValue[]	= {nullptr};
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+	const char * const DefaultValue[]	= { nullptr };
 }
 
 //------------------------------------------------------------------------------
 
 namespace ignoreSystemIncludes {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::IgnoreSystemIncludes;
 	const char * const Description		= "Ignore headers in <> (default: false)";
 	const bool DefaultValue				= false;
@@ -71,9 +80,11 @@ namespace ignoreSystemIncludes {
 
 namespace ignoreFiles {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::IgnoreFiles;
 	const char * const Description		= "Files will be ignored by regexp";
-	const char * const DefaultValue[]	= {nullptr};
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+	const char * const DefaultValue[]	= { nullptr };
 }
 
 //------------------------------------------------------------------------------
@@ -89,6 +100,7 @@ namespace configurationFile {
 
 namespace compileCommands {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::CompileCommands;
 	const char * const Description		= "Path to JSON Compilation Database";
 	const char * const DefaultValue		= "compile_commands.json";
@@ -124,9 +136,11 @@ namespace report {
 
 	using namespace reporter::resources;
 
-	const char * const FullName			= configuration_file::Report;
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
+	const char * const FullName	= configuration_file::Report;
 
-	static_assert( static_cast< int >( reporter::ReporterKind::Count ) == 5 );
+	constexpr int ReporterKindCount = 5;
+	static_assert( static_cast< int >( reporter::ReporterKind::Count ) == ReporterKindCount );
 	const char * const Description		=
 		"List of reports. Name of reports: "
 		"unresolved, "
@@ -135,6 +149,7 @@ namespace report {
 		"different_type"
 		;
 
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays, cppcoreguidelines-interfaces-global-init)
 	const char * const DefaultValue[]	= {
 		unresolved_report::Name,
 		most_impact_report::Name,
@@ -148,6 +163,7 @@ namespace report {
 
 namespace report_limit {
 
+	 // NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)	
 	const char * const FullName			= configuration_file::ReportLimit;
 	const char * const Description		= "Maximum elements in report, 0 - unlimited";
 	const int DefaultValue				= 10;
@@ -157,6 +173,7 @@ namespace report_limit {
 
 namespace report_details_limit {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::ReportDetailsLimit;
 	const char * const Description		= "Maximum details in report, 0 - unlimited";
 	const int DefaultValue				= 10;
@@ -166,6 +183,7 @@ namespace report_details_limit {
 
 namespace show_std_files {
 
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::ShowStdFiles;
 	const char * const Description		= "Show standard library headers in output (default: false)";
 	const bool DefaultValue				= false;

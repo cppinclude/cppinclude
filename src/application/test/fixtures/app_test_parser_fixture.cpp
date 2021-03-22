@@ -4,10 +4,10 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <string>
 #include <sstream>
-#include <vector>
 #include <std_fs>
+#include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -99,12 +99,14 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::parseArguments( const Strings & _arguments )
 {
 	Strings argument{ _arguments };
-	argument.insert( argument.begin(),  " " );
+	argument.insert( argument.begin(), " " );
 
 	std::vector< char * > arg;
 	arg.reserve( _arguments.size() );
 	for( std::string & str : argument )
+	{
 		arg.push_back( str.data() );
+	}
 
 	getPatser().parse( static_cast< int >( arg.size() ), arg.data() );
 }
@@ -124,7 +126,9 @@ ParserArgumentsFixture::getArgumentStringsValue( std::string_view _arg ) const
 {
 	StringsOpt stringsOpt{ getPatser().getArgumentStringsValue( _arg ) };
 	if( stringsOpt )
+	{
 		return toString( *stringsOpt );
+	}
 
 	return std::nullopt;
 }
@@ -155,7 +159,9 @@ ParserArgumentsFixture::StringOpt ParserArgumentsFixture::getArgumentPathValue(
 {
 	PathOpt pathOpt{ getPatser().getArgumentPathValue( _arg ) };
 	if( pathOpt )
+	{
 		return pathOpt->string();
+	}
 
 	return std::nullopt;
 }
@@ -168,7 +174,9 @@ ParserArgumentsFixture::StringOpt ParserArgumentsFixture::getArgumentPathsValue(
 {
 	PathsOpt pathsOpt{ getPatser().getArgumentPathsValue( _arg ) };
 	if( pathsOpt )
+	{
 		return toString( *pathsOpt );
+	}
 
 	return std::nullopt;
 }
@@ -191,7 +199,9 @@ std::string ParserArgumentsFixture::toString( const Strings & _strings )
 	for( const std::string & str : _strings )
 	{
 		if( !result.empty() )
+		{
 			result += seperator;
+		}
 		result += str;
 	}
 	return result;
@@ -206,7 +216,9 @@ std::string ParserArgumentsFixture::toString( const Paths & _paths )
 	for( const Path & path : _paths )
 	{
 		if( !result.empty() )
+		{
 			result += seperator;
+		}
 		result += path.string();
 	}
 	return result;
@@ -232,7 +244,9 @@ const ParserArg & ParserArgumentsFixture::getPatser() const
 ParserArg & ParserArgumentsFixture::getPatser()
 {
 	if( !m_parserPtr )
-		m_parserPtr.reset( new ParserArg );
+	{
+		m_parserPtr = std::make_unique< ParserArg >();
+	}
 
 	return *m_parserPtr;
 }

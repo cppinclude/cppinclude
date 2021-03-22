@@ -20,7 +20,6 @@ namespace reporter {
 
 class SortedFilesByNameContainer
 {
-
 public:
 
 	using File			= model_includes::File;
@@ -31,12 +30,11 @@ public:
 	void insert( const File & _file );
 	bool isEmpty() const;
 
-	void forEachFile( FileCallback _callback ) const;
+	void forEachFile( const FileCallback & _callback ) const;
 
 	std::size_t getSize() const;
 
 private:
-
 	using Path = stdfs::path;
 
 	using FilesContainer = std::set< const File *, FileSorter >;

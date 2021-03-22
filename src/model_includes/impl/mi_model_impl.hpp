@@ -18,7 +18,6 @@ namespace model_includes {
 class ModelImpl final : public Model
 {
 public:
-
 	ModelImpl();
 	~ModelImpl() override;
 
@@ -42,14 +41,12 @@ public:
 	) override;
 
 private:
-
 	using IncludeLocationPtr = std::unique_ptr< IncludeLocation >;
 	IncludeLocationPtr createIncludeLocation(
 		const IncludeLocationInfo & _location
 	) const;
 
 private:
-
 	using FilePtr = std::unique_ptr< File >;
 	using Files = std::unordered_map< Path, FilePtr >;
 
@@ -60,7 +57,6 @@ private:
 	Includes m_includes;
 
 	Path m_projectDir;
-
 };
 
 //------------------------------------------------------------------------------

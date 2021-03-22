@@ -26,7 +26,6 @@ namespace parser::test {
 class ParserFixture
 {
 public:
-
 	using IncludeFiles = std::vector< IncludeFile >;
 
 	ParserFixture();
@@ -39,16 +38,13 @@ public:
 	std::string getTempFileName() const;
 
 private:
-
 	void init();
 
 private:
-
 	FileWrapper m_fileWrapper;
 	std::unique_ptr< fs::Factory > m_factory;
 
 	IncludeFiles m_files;
-
 };
 
 //------------------------------------------------------------------------------

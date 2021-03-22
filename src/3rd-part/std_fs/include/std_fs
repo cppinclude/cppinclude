@@ -3,211 +3,242 @@
 //------------------------------------------------------------------------------
 
 #if __has_include(<filesystem>)
-	#include <filesystem>
+#include <filesystem>
 #elif __has_include(<experimental/filesystem>)
-	#include <experimental/filesystem>
+#include <experimental/filesystem>
 #else
-	#error Compiler does not have <filesystem> or <experimental/filesystem>
+#error Compiler does not have <filesystem> or <experimental/filesystem>
 #endif
 
 //------------------------------------------------------------------------------
 
 #if defined(__GLIBCXX__)
-	#define STDFS_IS_LIBSTDCPP
+#define STDFS_IS_LIBSTDCPP
 #endif
 
 #if defined(STDFWD_IS_LIBSTDCPP)
-	#define STDFS_NAMESPACE_VISIBILITY _GLIBCXX_VISIBILITY(default)
+#define STDFS_NAMESPACE_VISIBILITY _GLIBCXX_VISIBILITY(default)
 #else
-	#define STDFS_NAMESPACE_VISIBILITY
+#define STDFS_NAMESPACE_VISIBILITY
+#endif
+
+//------------------------------------------------------------------------------
+
+#if __has_include(<filesystem>)
+#ifdef __GNUC__
+#if ( __GNUC__ == 8 )
+#define STDFS_USE_ALTERNATIVE_COMAPRE
+#endif
+#endif
+#else
+#define STDFS_USE_ALTERNATIVE_COMAPRE
 #endif
 
 //------------------------------------------------------------------------------
 
 namespace stdfs STDFS_NAMESPACE_VISIBILITY
 {
-	#if __has_include(<filesystem>)
-		namespace fs_real = std::filesystem;
-	#elif __has_include(<experimental/filesystem>)
-		namespace fs_real = std::experimental::filesystem;
-	#endif
+#if __has_include(<filesystem>)
+namespace fs_real = std::filesystem;
+#elif __has_include(<experimental/filesystem>)
+namespace fs_real = std::experimental::filesystem;
+#endif
 
-	using path = fs_real::path;
-	using directory_iterator = fs_real::directory_iterator;
-	static decltype( auto ) hash_value = &fs_real::hash_value;
-	static bool (*exists)( const path&, std::error_code & ) = &fs_real::exists;
-	static bool (*is_directory)( const path& ) = &fs_real::is_directory;
-	static path (*current_path)() = &fs_real::current_path;
+#if __cpp_lib_filesystem >= 201606
+#endif
+
+using path = fs_real::path;
+using directory_iterator = fs_real::directory_iterator;
+#ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
+static decltype( auto ) hash_value = &fs_real::hash_value;
+static bool (*exists)( const path&, std::error_code & ) = &fs_real::exists;
+static bool (*is_directory)( const path& ) = &fs_real::is_directory;
+static path (*current_path)() = &fs_real::current_path;
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 
 #if __has_include(<filesystem>)
-	static path lexically_relative( const path & _path, const path & _dir )
-	{
-		return _path.lexically_relative( _dir );
-	}
+static path lexically_relative( const path & _path, const path & _dir )
+{
+    return _path.lexically_relative( _dir );
+}
 
-	static path lexically_normal( const path & _path )
-	{
-		return _path.lexically_normal();
-	}
+static path lexically_normal( const path & _path )
+{
+    return _path.lexically_normal();
+}
 
-	static path absolute( const path & _path )
-	{
-		return fs_real::absolute( _path );
-	}
+static path absolute( const path & _path )
+{
+    return fs_real::absolute( _path );
+}
 
-	static bool is_dir_filename( const path & _path )
-	{
-		return _path.filename().empty();
-	}
+static bool is_dir_filename( const path & _path )
+{
+    return _path.filename().empty();
+}
 
-	static int compare( const path & _l, const path & _r )
-	{
-		return _l.compare( _r );
-	}
-
-	static bool less( const path & _l, const path & _r )
-	{
-		return _l < _r;
-	}
 
 #elif __has_include(<experimental/filesystem>)
 
-	static path lexically_relative( const path & _path, const path & _dir )
-	{
-		fs_real::path path = fs_real::absolute( _path );
-		fs_real::path dir = fs_real::absolute( _dir );
+static path lexically_relative( const path & _path, const path & _dir )
+{
+    fs_real::path path = fs_real::absolute( _path );
+    fs_real::path dir = fs_real::absolute( _dir );
 
-		if( path.root_path() != dir.root_path() )
-		   return dir;
+    if( path.root_path() != dir.root_path() )
+        return dir;
 
-		fs_real::path result;
+    fs_real::path result;
 
-		auto itPath = path.begin();
-		auto itDir  = dir.begin();
-		while(
-			itPath != path.end() &&
-			itDir  !=  dir.end() &&
-			*itPath == *itDir
-		)
-		{
-			++itPath;
-			++itDir;
-		}
+    auto itPath = path.begin();
+    auto itDir  = dir.begin();
+    while(
+        itPath != path.end() &&
+        itDir  !=  dir.end() &&
+        *itPath == *itDir
+        )
+    {
+        ++itPath;
+        ++itDir;
+    }
 
-		if( itDir != dir.end() )
-		{
-		   ++itDir;
-		   while( itDir != dir.end() )
-		   {
-			   result /= "..";
-			   ++itDir;
-		   }
-		}
+    if( itDir != dir.end() )
+    {
+        ++itDir;
+        while( itDir != dir.end() )
+        {
+            result /= "..";
+            ++itDir;
+        }
+    }
 
-		while( itPath != path.end() )
-		{
-			result /= *itPath;
-			++itPath;
-		}
+    while( itPath != path.end() )
+    {
+        result /= *itPath;
+        ++itPath;
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	static path lexically_normal( const path & _path )
-	{
-		if( _path.empty() )
-			return _path;
+static path lexically_normal( const path & _path )
+{
+    if( _path.empty() )
+        return _path;
 
-		std::vector< std::string > items{ _path.begin(), _path.end() };
-		std::string & lastItem = items.back();
-		// path { "/tmp/" } has ele,emts: { "/", "tmp", "." }
-		if( lastItem == "." )
-			lastItem = std::string{ path::preferred_separator };
+    std::vector< std::string > items{ _path.begin(), _path.end() };
+    std::string & lastItem = items.back();
+    // path { "/tmp/" } has ele,emts: { "/", "tmp", "." }
+    if( lastItem == "." )
+        lastItem = std::string{ path::preferred_separator };
 
-		std::vector< std::string > resultItems;
-		for( std::string s : items )
-		{
-			if (s == ".")
-				continue;
+    std::vector< std::string > resultItems;
+    for( std::string s : items )
+    {
+        if (s == ".")
+            continue;
 
-			if (s == ".." && !resultItems.empty())
-			{
-				resultItems.pop_back();
-				continue;
-			}
+        if (s == ".." && !resultItems.empty())
+        {
+            resultItems.pop_back();
+            continue;
+        }
 
-			resultItems.push_back( s );
-		}
+        resultItems.push_back( s );
+    }
 
-		path result;
-		for( std::string s : resultItems )
-		{
-			result /= s;
-		}
+    path result;
+    for( std::string s : resultItems )
+    {
+        result /= s;
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	static path absolute( const path & _path )
-	{
-		return fs_real::absolute( _path, fs_real::current_path() );
-	}
+static path absolute( const path & _path )
+{
+    return fs_real::absolute( _path, fs_real::current_path() );
+}
 
-	static bool is_dir_filename( const path & _path )
-	{
-		if( _path.empty() )
-			return false;
+static bool is_dir_filename( const path & _path )
+{
+    if( _path.empty() )
+        return false;
 
-		const std::string pathStr = _path.string();
+    const std::string pathStr = _path.string();
 
-		return pathStr.back() == path::preferred_separator || pathStr == ".";
-	}
+    return pathStr.back() == path::preferred_separator || pathStr == ".";
+}
 
-	static int compare( const path & _l, const path & _r )
-	{
-		int result = 1;
 
-		if( _l.has_root_directory() != _r.has_root_directory() )
-		{
-			if( !_l.has_root_directory() )
-				return +result;
-			else
-				return -result;
-		}
-
-		auto leftBegin = _l.begin();
-		auto leftEnd = _l.end();
-
-		auto rightBegin = _r.begin();
-		auto rightEnd = _r.end();
-
-		while( rightBegin != rightEnd && leftBegin != leftEnd )
-		{
-			if( rightBegin->native() < leftBegin->native() )
-				return -result;
-
-			if( rightBegin->native() > leftBegin->native() )
-				return +result;
-
-			++rightBegin;
-			++leftBegin;
-			++result;
-		}
-		if( rightBegin == rightEnd)
-		{
-			if (leftBegin == leftEnd)
-				return 0;
-			return -result;
-		}
-		return +result;
-	}
-
-	static bool less( const path & _l, const path & _r )
-	{
-		return compare( _l, _r ) > 0;
-	}
 
 
 #endif
 
+#ifndef STDFS_USE_ALTERNATIVE_COMAPRE
+static int compare( const path & _l, const path & _r )
+{
+    return _l.compare( _r );
 }
+
+static bool less( const path & _l, const path & _r )
+{
+    return _l < _r;
+}
+#else
+
+static int compare( const path & _l, const path & _r )
+{
+    int result = 1;
+
+    if( _l.has_root_directory() != _r.has_root_directory() )
+    {
+        if( !_l.has_root_directory() )
+            return +result;
+        else
+            return -result;
+    }
+
+    auto leftBegin = _l.begin();
+    auto leftEnd = _l.end();
+
+    auto rightBegin = _r.begin();
+    auto rightEnd = _r.end();
+
+    while( rightBegin != rightEnd && leftBegin != leftEnd )
+    {
+        if( rightBegin->native() < leftBegin->native() )
+            return -result;
+
+        if( rightBegin->native() > leftBegin->native() )
+            return +result;
+
+        ++rightBegin;
+        ++leftBegin;
+        ++result;
+    }
+    if( rightBegin == rightEnd)
+    {
+        if (leftBegin == leftEnd)
+            return 0;
+        return -result;
+    }
+    return +result;
+}
+
+static bool less( const path & _l, const path & _r )
+{
+    return compare( _l, _r ) > 0;
+}
+
+#endif
+
+}
+
+#undef STDFS_VARIABLE_IS_NOT_USED

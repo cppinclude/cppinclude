@@ -24,41 +24,41 @@ int format_float(char* buf, std::size_t size, const char* format, int precision,
                        : snprintf_ptr(buf, size, format, precision, value);
 }
 struct sprintf_specs {
-  int precision;
-  char type;
-  bool alt : 1;
+  int precision; // NOLINT
+  char type;// NOLINT
+  bool alt : 1; // NOLINT
 
   template <typename Char>
-  constexpr sprintf_specs(basic_format_specs<Char> specs)
+  constexpr sprintf_specs(basic_format_specs<Char> specs) // NOLINT
       : precision(specs.precision), type(specs.type), alt(specs.alt) {}
 
-  constexpr bool has_precision() const { return precision >= 0; }
+  constexpr bool has_precision() const { return precision >= 0; } // NOLINT
 };
 
 // This is deprecated and is kept only to preserve ABI compatibility.
 template <typename Double>
-char* sprintf_format(Double value, internal::buffer<char>& buf,
+char* sprintf_format(Double value, internal::buffer<char>& buf, // NOLINT
                      sprintf_specs specs) {
   // Buffer capacity must be non-zero, otherwise MSVC's vsnprintf_s will fail.
   FMT_ASSERT(buf.capacity() != 0, "empty buffer");
 
   // Build format string.
   enum { max_format_size = 10 };  // longest format: %#-*.*Lg
-  char format[max_format_size];
+  char format[max_format_size]; // NOLINT
   char* format_ptr = format;
-  *format_ptr++ = '%';
-  if (specs.alt || !specs.type) *format_ptr++ = '#';
+  *format_ptr++ = '%'; // NOLINT
+  if (specs.alt || !specs.type) *format_ptr++ = '#'; // NOLINT
   if (specs.precision >= 0) {
-    *format_ptr++ = '.';
-    *format_ptr++ = '*';
+	*format_ptr++ = '.'; // NOLINT
+	*format_ptr++ = '*'; // NOLINT
   }
-  if (std::is_same<Double, long double>::value) *format_ptr++ = 'L';
+  if (std::is_same<Double, long double>::value) *format_ptr++ = 'L'; // NOLINT
 
   char type = specs.type;
 
-  if (type == '%')
+  if (type == '%') // NOLINT
     type = 'f';
-  else if (type == 0 || type == 'n')
+  else if (type == 0 || type == 'n') // NOLINT
     type = 'g';
 #if FMT_MSC_VER
   if (type == 'F') {
@@ -66,7 +66,7 @@ char* sprintf_format(Double value, internal::buffer<char>& buf,
     type = 'f';
   }
 #endif
-  *format_ptr++ = type;
+  *format_ptr++ = type; // NOLINT
   *format_ptr = '\0';
 
   // Format using snprintf.
@@ -81,21 +81,21 @@ char* sprintf_format(Double value, internal::buffer<char>& buf,
       unsigned n = internal::to_unsigned(result);
       if (n < buf.capacity()) {
         // Find the decimal point.
-        auto p = buf.data(), end = p + n;
-        if (*p == '+' || *p == '-') ++p;
+		auto p = buf.data(), end = p + n; // NOLINT
+		if (*p == '+' || *p == '-') ++p; // NOLINT
         if (specs.type != 'a' && specs.type != 'A') {
-          while (p < end && *p >= '0' && *p <= '9') ++p;
+		  while (p < end && *p >= '0' && *p <= '9') ++p; // NOLINT
           if (p < end && *p != 'e' && *p != 'E') {
             decimal_point_pos = p;
             if (!specs.type) {
               // Keep only one trailing zero after the decimal point.
               ++p;
-              if (*p == '0') ++p;
-              while (p != end && *p >= '1' && *p <= '9') ++p;
+			  if (*p == '0') ++p; // NOLINT
+			  while (p != end && *p >= '1' && *p <= '9') ++p; // NOLINT
               char* where = p;
-              while (p != end && *p == '0') ++p;
+			  while (p != end && *p == '0') ++p; // NOLINT
               if (p == end || *p < '0' || *p > '9') {
-                if (p != end) std::memmove(where, p, to_unsigned(end - p));
+				if (p != end) std::memmove(where, p, to_unsigned(end - p)); // NOLINT
                 n -= static_cast<unsigned>(p - where);
               }
             }

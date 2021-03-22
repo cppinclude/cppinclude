@@ -5,9 +5,9 @@
 #include <std_fs>
 #include <stdfwd.hpp>
 
-#include <unordered_set>
-#include <stack>
 #include <optional>
+#include <stack>
+#include <unordered_set>
 
 //------------------------------------------------------------------------------
 
@@ -76,7 +76,6 @@ public:
 	PathOpt getCurrentCMakeSourceFile() const;
 
 private:
-
 	const project::Project & m_project;
 	const cmake_project::Project * m_cmakeProject;
 	Model & m_model;
@@ -89,7 +88,6 @@ private:
 	ResolvedFilesStack m_resolvedFilesStack;
 
 	std::optional< Path > m_currentCMakeSourceFile;
-
 };
 
 //------------------------------------------------------------------------------

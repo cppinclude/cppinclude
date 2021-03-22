@@ -17,15 +17,22 @@ public:
 		,	m_begin{ _begin }
 		,	m_end{ _end }
 	{
-
 	}
 
-	std::size_t getLineNumber() const { return m_line; }
-	std::size_t getBegin() const { return m_begin; }
-	std::size_t getEnd() const { return m_end; }
+	std::size_t getLineNumber() const
+	{
+		return m_line;
+	}
+	std::size_t getBegin() const
+	{
+		return m_begin;
+	}
+	std::size_t getEnd() const
+	{
+		return m_end;
+	}
 
 private:
-
 	const std::size_t m_line;
 	const std::size_t m_begin;
 	const std::size_t m_end;

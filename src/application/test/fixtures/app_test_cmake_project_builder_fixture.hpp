@@ -30,7 +30,6 @@ namespace json {
 	class JsonAccessor;
 }
 
-
 //------------------------------------------------------------------------------
 
 namespace application::test {
@@ -40,7 +39,6 @@ namespace application::test {
 class CMakeProjectBuilderFixture
 {
 public:
-
 	using Strings = stdfwd::set< std::string >;
 	using Path = stdfs::path;
 
@@ -59,7 +57,6 @@ public:
 	Strings toExceptedFiles( const Strings & _strings );
 
 private:
-
 	Path toRelativePath( std::string_view _path );
 
 	CMakeProjectBuilder & ensureBuilder();
@@ -75,7 +72,6 @@ private:
 	json::JsonAccessor & ensureJsonAccessor();
 
 private:
-
 	std::unique_ptr< CMakeProjectBuilder > m_builder;
 	std::unique_ptr< ParserArgWrapper > m_arguments;
 	std::unique_ptr< ConfigurationFile > m_configurationFile;

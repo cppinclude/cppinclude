@@ -2,15 +2,15 @@
 
 #include "model_includes/test/fixtures/wrappers/mi_test_file_wrapper.hpp"
 
-#include "model_includes/api/mi_model.hpp"
-#include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/enums/mi_file_type.hpp"
+#include "model_includes/api/mi_file.hpp"
+#include "model_includes/api/mi_model.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <memory>
-#include <std_fs>
 #include <set>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ ModelWrapper::~ModelWrapper() = default;
 
 bool ModelWrapper::isAvailable() const
 {
-	return m_modelPtr.get();
+	return m_modelPtr != nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -39,7 +39,9 @@ bool ModelWrapper::isAvailable() const
 BoostPredicate ModelWrapper::checkFilesCount( std::size_t _expectCount ) const
 {
 	if( getModel().getFilesCount() == _expectCount )
+	{
 		return true;
+	}
 
 	return dump();
 }

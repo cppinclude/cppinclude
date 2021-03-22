@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 CantCreateAnalyzerImpl::CantCreateAnalyzerImpl()
@@ -14,7 +14,6 @@ CantCreateAnalyzerImpl::CantCreateAnalyzerImpl()
 			resources::exceptions::CantCreateAnalyzer::Msg
 	)
 {
-
 }
 
 //------------------------------------------------------------------------------

@@ -11,7 +11,6 @@ namespace fs {
 class File
 {
 public:
-
 	virtual ~File() = default;
 
 	virtual bool eof() const = 0;

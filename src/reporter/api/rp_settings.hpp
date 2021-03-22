@@ -11,7 +11,6 @@ namespace reporter {
 class Settings
 {
 public:
-
 	virtual ~Settings() = default;
 
 	using CountType = std::size_t;

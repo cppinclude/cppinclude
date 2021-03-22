@@ -16,7 +16,9 @@ FactoryImpl::~FactoryImpl() = default;
 FileSystem & FactoryImpl::getPhysicalFileSystem()
 {
 	if( !m_physicalFs )
-		m_physicalFs.reset( new physical::PhysicalFileSystem );
+	{
+		m_physicalFs = std::make_unique< physical::PhysicalFileSystem >();
+	}
 
 	return *m_physicalFs;
 }
@@ -26,7 +28,9 @@ FileSystem & FactoryImpl::getPhysicalFileSystem()
 FileSystem & FactoryImpl::getMemoryFileSystem()
 {
 	if( !m_memoryFs )
-		m_memoryFs.reset( new memory::MemoryFileSystem );
+	{
+		m_memoryFs = std::make_unique< memory::MemoryFileSystem >();
+	}
 
 	return *m_memoryFs;
 }

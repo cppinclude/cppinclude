@@ -18,18 +18,13 @@ class CheckingExistFileFailImpl : public BaseExceptionImpl< CheckingExistFileFai
 	using BaseClass = BaseExceptionImpl< CheckingExistFileFail >;
 
 public:
-
 	using Path = stdfs::path;
 
-	CheckingExistFileFailImpl(
-		const Path & _path,
-		const std::error_code & _code
-	);
+	CheckingExistFileFailImpl( Path _path, const std::error_code & _code );
 
 	std::string getMessage() const noexcept override;
 
 private:
-
 	const Path m_path;
 	const std::string m_originMsg;
 };

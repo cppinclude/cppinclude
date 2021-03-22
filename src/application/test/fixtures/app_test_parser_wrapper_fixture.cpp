@@ -1,7 +1,7 @@
 #include "application/test/fixtures/app_test_parser_wrapper_fixture.hpp"
 
-#include "application/tools/app_parser_arg_wrapper.hpp"
 #include "application/resources/app_resources_arguments.hpp"
+#include "application/tools/app_parser_arg_wrapper.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 #include "reporter/tools/rp_reporter_kind_functins.hpp"
@@ -35,9 +35,9 @@ void ParserWrapperFixture::parse( std::string_view _argument )
 void ParserWrapperFixture::parse( const Arguments & _arguments )
 {
 	Arguments arguments{ _arguments };
-	arguments.insert( arguments.begin(),  "./application" );
+	arguments.insert( arguments.begin(), "./application" );
 
-    ParserArgWrapper & parser = getParser();
+	ParserArgWrapper & parser = getParser();
 	parser.parse( arguments );
 }
 
@@ -45,26 +45,27 @@ void ParserWrapperFixture::parse( const Arguments & _arguments )
 
 std::string ParserWrapperFixture::getProjectDir() const
 {
-    auto valueOpt = getParser().getProjectDir();
-    if( valueOpt )
-    {
-        return valueOpt->string();
-    }
-    else
-    {
-        return "";
-    }
+	auto valueOpt = getParser().getProjectDir();
+	if( valueOpt )
+	{
+		return valueOpt->string();
+	}
+
+	return "";
 }
 
 //------------------------------------------------------------------------------
 
-ParserWrapperFixture::StringsArray ParserWrapperFixture::getFileExtensions() const
+ParserWrapperFixture::StringsArray
+ParserWrapperFixture::getFileExtensions() const
 {
 	auto valueOpt = getParser().getFileExtensions();
-    if( valueOpt )
-        return *valueOpt;
+	if( valueOpt )
+	{
+		return *valueOpt;
+	}
 
-    return StringsArray{};
+	return StringsArray{};
 }
 
 //------------------------------------------------------------------------------
@@ -98,43 +99,47 @@ bool ParserWrapperFixture::getDefaultAnalyzeWithoutExtension() const
 
 std::string ParserWrapperFixture::getDefaultProjectDir() const
 {
-    return getParser().getDefaultProjectDir().string();
+	return getParser().getDefaultProjectDir().string();
 }
 
 //------------------------------------------------------------------------------
 
 ParserWrapperFixture::Paths ParserWrapperFixture::getIncludeDirs() const
 {
-    auto valueOpt = getParser().getIncludeDirs();
-    if( valueOpt )
-        return *valueOpt;
+	auto valueOpt = getParser().getIncludeDirs();
+	if( valueOpt )
+	{
+		return *valueOpt;
+	}
 
-    return Paths{};
+	return Paths{};
 }
 
 //------------------------------------------------------------------------------
 
 ParserWrapperFixture::Paths ParserWrapperFixture::getDefaultIncludeDirs() const
 {
-    return getParser().getDefaultIncludeDirs();
+	return getParser().getDefaultIncludeDirs();
 }
 
 //------------------------------------------------------------------------------
 
 ParserWrapperFixture::Paths ParserWrapperFixture::getIgnoreDirs() const
 {
-    auto valueOpt = getParser().getIgnoreDirs();
-    if( valueOpt )
-        return *valueOpt;
+	auto valueOpt = getParser().getIgnoreDirs();
+	if( valueOpt )
+	{
+		return *valueOpt;
+	}
 
-    return Paths{};
+	return Paths{};
 }
 
 //------------------------------------------------------------------------------
 
 ParserWrapperFixture::Paths ParserWrapperFixture::getDefaultIgnoreDirs() const
 {
-    return getParser().getDefaultIgnoreDirs();
+	return getParser().getDefaultIgnoreDirs();
 }
 
 //------------------------------------------------------------------------------
@@ -143,7 +148,9 @@ std::string ParserWrapperFixture::getIgnoreFiles() const
 {
 	auto valueOpt = getParser().getIgnoreFiles();
 	if( valueOpt )
+	{
 		return toString( *valueOpt );
+	}
 
 	return std::string{};
 }
@@ -174,11 +181,13 @@ bool ParserWrapperFixture::getDefaultIgnoreSystemIncludes() const
 
 ParserWrapperFixture::Path ParserWrapperFixture::getConfigurationFile() const
 {
-    auto valueOpt = getParser().getConfigurationFile();
-    if( valueOpt )
-        return *valueOpt;
+	auto valueOpt = getParser().getConfigurationFile();
+	if( valueOpt )
+	{
+		return *valueOpt;
+	}
 
-    return Path{};
+	return Path{};
 }
 
 //------------------------------------------------------------------------------
@@ -187,7 +196,9 @@ ParserWrapperFixture::Path ParserWrapperFixture::getCompileCommandsFile() const
 {
 	auto valueOpt = getParser().getCompileCommandsFile();
 	if( valueOpt )
+	{
 		return *valueOpt;
+	}
 
 	return Path{};
 }
@@ -212,7 +223,9 @@ ParserWrapperFixture::ReporterKinds ParserWrapperFixture::getReporterKinds() con
 {
 	auto kindsOpt = getParser().getReporterKinds();
 	if( kindsOpt )
+	{
 		return *kindsOpt;
+	}
 
 	return ReporterKinds{};
 }
@@ -230,7 +243,9 @@ int ParserWrapperFixture::getReportLimit() const
 {
 	auto numberOpt = getParser().getReportLimit();
 	if( numberOpt )
+	{
 		return *numberOpt;
+	}
 	return -1;
 }
 
@@ -247,7 +262,9 @@ int ParserWrapperFixture::getReportDetailsLimit() const
 {
 	auto numberOpt = getParser().getReportDetailsLimit();
 	if( numberOpt )
+	{
 		return *numberOpt;
+	}
 	return -1;
 }
 
@@ -276,7 +293,7 @@ bool ParserWrapperFixture::getDefaultShowStdFile() const
 
 bool ParserWrapperFixture::isHelp() const
 {
-    return getParser().isHelp();
+	return getParser().isHelp();
 }
 
 //------------------------------------------------------------------------------
@@ -297,30 +314,34 @@ bool ParserWrapperFixture::isVersion() const
 
 std::string ParserWrapperFixture::toString( const StringsArray & _array ) const
 {
-    std::string result;
-    for( std::size_t i = 0; i < _array.size(); ++i )
-    {
-        const std::string str = _array[i];
-        result += str;
-        if( i != _array.size() - 1 )
-            result += ',';
-    }
-    return result;
+	std::string result;
+	for( std::size_t i = 0; i < _array.size(); ++i )
+	{
+		const std::string str = _array[i];
+		result += str;
+		if( i != _array.size() - 1 )
+		{
+			result += ',';
+		}
+	}
+	return result;
 }
 
 //------------------------------------------------------------------------------
 
 std::string ParserWrapperFixture::toString( const Paths & _array ) const
 {
-    std::string result;
-    for( std::size_t i = 0; i < _array.size(); ++i )
-    {
-        const std::string str = _array[i].string();
-        result += str;
-        if( i != _array.size() - 1 )
-            result += ',';
-    }
-    return result;
+	std::string result;
+	for( std::size_t i = 0; i < _array.size(); ++i )
+	{
+		const std::string str = _array[i].string();
+		result += str;
+		if( i != _array.size() - 1 )
+		{
+			result += ',';
+		}
+	}
+	return result;
 }
 
 //------------------------------------------------------------------------------
@@ -347,33 +368,36 @@ std::string ParserWrapperFixture::toString( reporter::ReporterKind _kind ) const
 
 //------------------------------------------------------------------------------
 
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 std::string ParserWrapperFixture::toString( const char * const _values[] ) const
 {
-    std::string result;
-    const char * const * it = _values;
-    while( *it )
-    {
-        if( !result.empty() )
-            result += ',' ;
+	std::string result;
+	const char * const * it = _values;
+	while( *it != nullptr )
+	{
+		if( !result.empty() )
+		{
+			result += ',';
+		}
 
-        const std::string str{ *it };
-        ++it;
-        result += str;
-
-    }
-    return result;
+		const std::string str{ *it };
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+		++it;
+		result += str;
+	}
+	return result;
 }
 
 //------------------------------------------------------------------------------
 
 ParserArgWrapper & ParserWrapperFixture::getParser() const
 {
-    if( !m_parser )
-    {
-        m_parser.reset( new ParserArgWrapper );
+	if( !m_parser )
+	{
+		m_parser = std::make_unique< ParserArgWrapper >();
 		m_parser->init();
-    }
-    return *m_parser;
+	}
+	return *m_parser;
 }
 
 //------------------------------------------------------------------------------

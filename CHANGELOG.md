@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.3.1](docs/versions/VERSION_0.3.1.md)
+
+### Fixed (v0.3.1)
+
+* Fixed detect file name after comments /**/ in include
+
 ## [v0.3.0](docs/versions/VERSION_0.3.0.md)
 
 ### Added (v0.3.0)

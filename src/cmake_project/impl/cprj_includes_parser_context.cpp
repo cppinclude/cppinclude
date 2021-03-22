@@ -12,7 +12,6 @@ IncludeParserContext::IncludeParserContext( std::string_view _command )
 	:	m_size{ _command.size() }
 	,	m_command{ _command }
 {
-
 }
 
 //------------------------------------------------------------------------------

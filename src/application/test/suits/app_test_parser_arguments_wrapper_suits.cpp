@@ -1,15 +1,15 @@
 #include "application/test/fixtures/app_test_parser_wrapper_fixture.hpp"
 
-#include "application/resources/app_resources_arguments.hpp"
 #include "application/exceptions/app_exceptions.hpp"
+#include "application/resources/app_resources_arguments.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 #include "reporter/exceptions/rp_exceptions.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
-#include <std_fs>
 #include <optional>
+#include <std_fs>
 
 /*------------------------------------------------------------------------------
 
@@ -67,11 +67,12 @@ namespace application::test {
 
 //------------------------------------------------------------------------------
 
-BOOST_FIXTURE_TEST_SUITE( ParserWrapperTets, ParserWrapperFixture )
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( ParserWrapperTets, ParserWrapperFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_1_project_dir_from_argument)
+TEST_CASE( t1_1_project_dir_from_argument )
 {
 	// Run
 	parse( "--project_dir=test_value" );
@@ -82,21 +83,20 @@ BOOST_AUTO_TEST_CASE(t1_1_project_dir_from_argument)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_2_project_dir_default)
+TEST_CASE( t1_2_project_dir_default )
 {
-    // Run
+	// Run
 	parse( "" );
 
-    // Check
-    BOOST_CHECK_EQUAL(
-        resources::arguments::projectDir::DefaultValue,
-        getDefaultProjectDir()
-    );
+	// Check
+	BOOST_CHECK_EQUAL(
+		resources::arguments::projectDir::DefaultValue,
+		getDefaultProjectDir() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_3_project_dir_from_argument_without_full_name)
+TEST_CASE( t1_3_project_dir_from_argument_without_full_name )
 {
 	// Init
 	parse( "project_dir" );
@@ -107,149 +107,149 @@ BOOST_AUTO_TEST_CASE(t1_3_project_dir_from_argument_without_full_name)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_1_file_extensions_from_argument)
+TEST_CASE( t2_1_file_extensions_from_argument )
 {
-    // Run
+	// Run
 	parse( "--file_extensions=*.cpp,*.hpp" );
 
-    // Check
+	// Check
 	auto fileExtensions = getFileExtensions();
 	BOOST_REQUIRE_EQUAL( fileExtensions.size(), 2 );
-	BOOST_CHECK_EQUAL( fileExtensions.at( 0 ), "*.cpp");
-	BOOST_CHECK_EQUAL( fileExtensions.at( 1 ), "*.hpp");
+	BOOST_CHECK_EQUAL( fileExtensions.at( 0 ), "*.cpp" );
+	BOOST_CHECK_EQUAL( fileExtensions.at( 1 ), "*.hpp" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_2_file_extensions_default)
+TEST_CASE( t2_2_file_extensions_default )
 {
-    // Run
+	// Run
 	parse( "" );
 
-    // Check
-    BOOST_CHECK_EQUAL(
+	// Check
+	BOOST_CHECK_EQUAL(
 		toString( resources::arguments::fileExtensions::DefaultValue ),
 		toString( getDefaultFileExtensions() )
-    );
+	);
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_1_include_dirs_from_argument)
+TEST_CASE( t3_1_include_dirs_from_argument )
 {
-    // Run
+	// Run
 	parse( "--include_dirs=/include/dir1,/include/dir2" );
 
-    // Check
-    auto includeDirs = getIncludeDirs();
-    BOOST_REQUIRE_EQUAL( includeDirs.size(), 2 );
+	// Check
+	auto includeDirs = getIncludeDirs();
+	BOOST_REQUIRE_EQUAL( includeDirs.size(), 2 );
 	BOOST_CHECK_EQUAL( includeDirs.at( 0 ), "/include/dir1" );
 	BOOST_CHECK_EQUAL( includeDirs.at( 1 ), "/include/dir2" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_2_include_dirs_default)
+TEST_CASE( t3_2_include_dirs_default )
 {
-    // Run
+	// Run
 	parse( "" );
 
-    // Check
-    BOOST_CHECK_EQUAL(
-        toString( resources::arguments::includeDirs::DefaultValue ),
-        toString( getDefaultIncludeDirs() )
-    );
+	// Check
+	BOOST_CHECK_EQUAL(
+		toString( resources::arguments::includeDirs::DefaultValue ),
+		toString( getDefaultIncludeDirs() )
+	);
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_1_ignore_dirs_from_argument)
+TEST_CASE( t4_1_ignore_dirs_from_argument )
 {
-    // Run
+	// Run
 	parse( "--ignore_dirs=/include/dir1,/include/dir2" );
 
-    // Check
-    auto includeDirs = getIgnoreDirs();
-    BOOST_REQUIRE_EQUAL( includeDirs.size(), 2 );
-    BOOST_CHECK_EQUAL(includeDirs.at( 0 ), "/include/dir1");
-    BOOST_CHECK_EQUAL(includeDirs.at( 1 ), "/include/dir2");
+	// Check
+	auto includeDirs = getIgnoreDirs();
+	BOOST_REQUIRE_EQUAL( includeDirs.size(), 2 );
+	BOOST_CHECK_EQUAL( includeDirs.at( 0 ), "/include/dir1" );
+	BOOST_CHECK_EQUAL( includeDirs.at( 1 ), "/include/dir2" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_2_ignore_dirs_default)
+TEST_CASE( t4_2_ignore_dirs_default )
 {
-    // Run
+	// Run
 	parse( "" );
 
-    // Check
-    BOOST_CHECK_EQUAL(
-        toString( resources::arguments::ignoreDirs::DefaultValue ),
-        toString( getDefaultIgnoreDirs() )
-    );
+	// Check
+	BOOST_CHECK_EQUAL(
+		toString( resources::arguments::ignoreDirs::DefaultValue ),
+		toString( getDefaultIgnoreDirs() )
+	);
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_1_configuration_file_from_arguments)
+TEST_CASE( t5_1_configuration_file_from_arguments )
 {
-    // Run
+	// Run
 	parse( "--configuration_file=./file" );
 
-    // Check
-	BOOST_CHECK_EQUAL(getConfigurationFile().string(), "./file" );
+	// Check
+	BOOST_CHECK_EQUAL( getConfigurationFile().string(), "./file" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_2_configuration_file_default)
+TEST_CASE( t5_2_configuration_file_default )
 {
-    // Run
+	// Run
 	parse( "" );
 
-    // Check
-    BOOST_CHECK_EQUAL(
-        resources::arguments::configurationFile::DefaultValue,
-        getDefaultConfigurationFile().string()
-    );
+	// Check
+	BOOST_CHECK_EQUAL(
+		resources::arguments::configurationFile::DefaultValue,
+		getDefaultConfigurationFile().string()
+	);
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t6_1_help_from_arguments)
+TEST_CASE( t6_1_help_from_arguments )
 {
-    // Run
+	// Run
 	parse( "--help" );
 
-    // Check
-    BOOST_CHECK( isHelp() );
+	// Check
+	TEST_CHECK( isHelp() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t7_verbose)
+TEST_CASE( t7_verbose )
 {
 	// Run
 	parse( "--verbose" );
 
 	// Check
-	BOOST_CHECK( isVerbose() );
+	TEST_CHECK( isVerbose() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t8_1_report_from_argument)
+TEST_CASE( t8_1_report_from_argument )
 {
 	// Run
 	parse( "--report=unresolved" );
 
 	// Check
-	BOOST_CHECK_EQUAL( "unresolved" , toString( getReporterKinds() ) );
+	BOOST_CHECK_EQUAL( "unresolved", toString( getReporterKinds() ) );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t8_2_report_default)
+TEST_CASE( t8_2_report_default )
 {
 	// Run
 	parse( "" );
@@ -263,17 +263,17 @@ BOOST_AUTO_TEST_CASE(t8_2_report_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t8_3_report_incorrect_name)
+TEST_CASE( t8_3_report_incorrect_name )
 {
 	// Check
 	parse( "--report=incorrect_name" );
 
-	BOOST_CHECK_THROW( getReporterKinds(), reporter::IncorrectReport );
+	TEST_CHECK_THROW( getReporterKinds(), reporter::IncorrectReport );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t9_1_report_limit_from_argument)
+TEST_CASE( t9_1_report_limit_from_argument )
 {
 	// Run
 	parse( "--report_limit=42" );
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(t9_1_report_limit_from_argument)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t9_2_report_limit_default)
+TEST_CASE( t9_2_report_limit_default )
 {
 	// Run
 	parse( "" );
@@ -298,20 +298,20 @@ BOOST_AUTO_TEST_CASE(t9_2_report_limit_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t10_1_ignore_system_includes_from_arguments)
+TEST_CASE( t10_1_ignore_system_includes_from_arguments )
 {
 	// Run
 	parse( "--ignore_system_includes=true" );
 
 	// Check
 	auto valueOpt = getIgnoreSystemIncludes();
-	BOOST_REQUIRE( valueOpt.has_value() );
-	BOOST_CHECK_EQUAL( *valueOpt, true );
+	TEST_REQUIRE( valueOpt.has_value() );
+	TEST_CHECK_EQUAL( *valueOpt, true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t10_2_ignore_system_includes_default)
+TEST_CASE( t10_2_ignore_system_includes_default )
 {
 	// Run
 	parse( "" );
@@ -325,7 +325,7 @@ BOOST_AUTO_TEST_CASE(t10_2_ignore_system_includes_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t11_1_ignore_files_from_argument)
+TEST_CASE( t11_1_ignore_files_from_argument )
 {
 	// Run
 	parse( "--ignore_files=lib1_*,lib2_*" );
@@ -337,7 +337,7 @@ BOOST_AUTO_TEST_CASE(t11_1_ignore_files_from_argument)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t11_2_ignore_files_default)
+TEST_CASE( t11_2_ignore_files_default )
 {
 	// Run
 	parse( "" );
@@ -351,22 +351,22 @@ BOOST_AUTO_TEST_CASE(t11_2_ignore_files_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t12_version)
+TEST_CASE( t12_version )
 {
 	// Run
 	parse( "--version" );
 
 	// Check
 
-	BOOST_CHECK( isVersion() );
+	TEST_CHECK( isVersion() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t13_1_report_details_limit_from_argument)
+TEST_CASE( t13_1_report_details_limit_from_argument )
 {
 	// Run
-	parse( "--report_details_limit=42");
+	parse( "--report_details_limit=42" );
 
 	// Check
 	BOOST_CHECK_EQUAL( getReportDetailsLimit(), 42 );
@@ -374,7 +374,7 @@ BOOST_AUTO_TEST_CASE(t13_1_report_details_limit_from_argument)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t13_2_report_details_limit_default)
+TEST_CASE( t13_2_report_details_limit_default )
 {
 	// Run
 	parse( "" );
@@ -388,7 +388,7 @@ BOOST_AUTO_TEST_CASE(t13_2_report_details_limit_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t14_1_analyze_without_extension_from_argument)
+TEST_CASE( t14_1_analyze_without_extension_from_argument )
 {
 	// Run
 	parse( "--analyze_without_extension=true" );
@@ -399,7 +399,7 @@ BOOST_AUTO_TEST_CASE(t14_1_analyze_without_extension_from_argument)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t14_2_analyze_without_extension_default)
+TEST_CASE( t14_2_analyze_without_extension_default )
 {
 	// Run
 	parse( "" );
@@ -413,20 +413,20 @@ BOOST_AUTO_TEST_CASE(t14_2_analyze_without_extension_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t15_1_show_std_files_from_argument)
+TEST_CASE( t15_1_show_std_files_from_argument )
 {
 	// Run
 	parse( "--show_std_files=true" );
 
 	// Check
 	auto valueOpt = getShowStdFile();
-	BOOST_REQUIRE( valueOpt.has_value() );
-	BOOST_CHECK_EQUAL( *valueOpt, true );
+	TEST_REQUIRE( valueOpt.has_value() );
+	TEST_CHECK_EQUAL( *valueOpt, true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t15_1_show_std_files_default)
+TEST_CASE( t15_1_show_std_files_default )
 {
 	// Run
 	parse( "" );
@@ -440,7 +440,7 @@ BOOST_AUTO_TEST_CASE(t15_1_show_std_files_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t16_1_compile_commands_from_arguments)
+TEST_CASE( t16_1_compile_commands_from_arguments )
 {
 	// Run
 	parse( "--compile_commands=build/compile_commands.json" );
@@ -451,7 +451,7 @@ BOOST_AUTO_TEST_CASE(t16_1_compile_commands_from_arguments)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t16_2_compile_commands_default)
+TEST_CASE( t16_2_compile_commands_default )
 {
 	// Run
 	parse( "" );
@@ -465,7 +465,7 @@ BOOST_AUTO_TEST_CASE(t16_2_compile_commands_default)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

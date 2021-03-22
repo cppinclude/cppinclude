@@ -2,8 +2,8 @@
 
 #include <stdfwd.hpp>
 
-#include <unordered_set>
 #include <string>
+#include <unordered_set>
 
 //------------------------------------------------------------------------------
 
@@ -14,13 +14,11 @@ namespace model_includes {
 class StdLibrary
 {
 public:
-
 	static const StdLibrary & getInstance();
 
 	bool isExists( std::string_view _name ) const;
 
 private:
-
 	StdLibrary();
 
 	void init();
@@ -55,9 +53,7 @@ private:
 	void addHeaders( const Headers & _headers );
 
 private:
-
 	std::unordered_set< std::string > m_stdFiles;
-
 };
 
 //------------------------------------------------------------------------------

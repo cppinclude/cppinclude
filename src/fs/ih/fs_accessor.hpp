@@ -11,11 +11,9 @@ class Factory;
 class FileSystemAccessor
 {
 public:
-
 	virtual ~FileSystemAccessor() = default;
 
 	virtual Factory & getFactory() = 0;
-
 };
 
 //------------------------------------------------------------------------------

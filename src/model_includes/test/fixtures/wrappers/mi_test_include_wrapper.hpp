@@ -23,21 +23,19 @@ namespace model_includes::test {
 class IncludeWrapper
 {
 public:
-
 	IncludeWrapper();
 	IncludeWrapper( const Include & _include );
 
 	std::string dump() const;
 	bool isAvaliable() const;
 
-	BoostPredicate checkSource( std::string_view  _path ) const;
+	BoostPredicate checkSource( std::string_view _path ) const;
 	BoostPredicate checkDestination( std::string_view _path ) const;
 
 	BoostPredicate checkType( IncludeType _exceptType ) const;
 	BoostPredicate checkStatus( IncludeStatus _exceptStatus ) const;
 
 private:
-
 	using Path = stdfs::path;
 
 	const Include & getInclude() const;
@@ -50,7 +48,6 @@ private:
 	static Path toLexicallyNormal( const Path & _path );
 
 private:
-
 	const Include * m_include;
 };
 

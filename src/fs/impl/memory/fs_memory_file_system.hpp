@@ -16,13 +16,12 @@ class MemoryFolder;
 class MemoryFileSystem final : public FileSystem
 {
 public:
-
 	FilePtr openFile( const Path & _path ) const override;
 	FilePtr createFile( const Path & _path ) override;
 	bool isExistFile( const Path & _path ) const override;
 
 	void forEachItem(
-		const Path & _ditPath,
+		const Path & _dirPath,
 		ItemCallback _callback
 	) const override;
 
@@ -30,7 +29,6 @@ public:
 	Path toAbsolute( const Path & _path ) const override;
 
 private:
-
 	using FolderPtr = std::shared_ptr< MemoryFolder >;
 
 	FolderPtr getRoot( const Path & _path ) const;
@@ -42,7 +40,6 @@ private:
 	Path toAbsolutePath( const Path & _path ) const;
 
 private:
-
 	using Roots = std::unordered_map< Path, FolderPtr >;
 	Roots m_roots;
 };

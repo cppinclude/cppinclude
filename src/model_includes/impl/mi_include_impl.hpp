@@ -13,7 +13,6 @@ namespace model_includes {
 class IncludeImpl final : public Include
 {
 public:
-
 	using IncludeLocationPtr = std::unique_ptr< IncludeLocation >;
 
 	IncludeImpl(
@@ -35,7 +34,6 @@ public:
 	IncludeType getType() const override;
 
 private:
-
 	IncludeLocationPtr m_location;
 
 	const File & m_sourceFile;

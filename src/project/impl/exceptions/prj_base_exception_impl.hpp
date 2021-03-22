@@ -10,13 +10,12 @@ namespace project {
 
 //------------------------------------------------------------------------------
 
-template < class _BaseException >
+template< class _BaseException >
 class BaseExceptionImpl : public ::exception::ExceptionImpl< _BaseException >
 {
 	using BaseClass = ::exception::ExceptionImpl< _BaseException >;
 
 public:
-
 	explicit BaseExceptionImpl( std::string_view _code )
 		:	BaseClass( resources::exceptions::ModuleName, _code )
 	{

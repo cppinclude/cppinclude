@@ -11,7 +11,6 @@ namespace model_includes {
 class IncludeLocationImpl : public IncludeLocation
 {
 public:
-
 	IncludeLocationImpl(
 		LineNumber _line,
 		ColumNumber _begin,
@@ -23,7 +22,6 @@ public:
 	ColumNumber getFileNameEndPos() const override;
 
 private:
-
 	LineNumber m_line;
 	ColumNumber m_begin;
 	ColumNumber m_end;

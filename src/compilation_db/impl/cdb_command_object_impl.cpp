@@ -15,7 +15,6 @@ CommandObjectImpl::CommandObjectImpl(
 	,	m_command{ _command }
 	,	m_file{ _file }
 {
-
 }
 
 //------------------------------------------------------------------------------

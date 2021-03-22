@@ -1,7 +1,7 @@
 #include "application/exceptions/app_cant_create_report_impl.hpp"
 
-#include "application/resources/app_resources_exceptions.hpp"
 #include "application/resources/app_resources_arguments.hpp"
+#include "application/resources/app_resources_exceptions.hpp"
 
 #include "reporter/tools/rp_reporter_kind_functins.hpp"
 
@@ -9,15 +9,14 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 CantCreateReportImpl::CantCreateReportImpl( reporter::ReporterKind _kind )
 	:	BaseClass( resources::exceptions::CantCreateReport::Code )
 	,	m_kind{ _kind }
 {
-
 }
 
 //------------------------------------------------------------------------------

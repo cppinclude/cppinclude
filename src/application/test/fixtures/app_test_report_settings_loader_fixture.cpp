@@ -1,8 +1,8 @@
 #include "application/test/fixtures/app_test_report_settings_loader_fixture.hpp"
 
+#include "application/tools/app_configuration_file.hpp"
 #include "application/tools/app_parser_arg_wrapper.hpp"
 #include "application/tools/app_report_settings_loader.hpp"
-#include "application/tools/app_configuration_file.hpp"
 
 #include "reporter/api/rp_settings.hpp"
 #include "reporter/ih/rp_accessor_impl.hpp"
@@ -10,12 +10,12 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include "json/ih/json_accessor_impl.hpp"
 #include "json/api/json_object.hpp"
+#include "json/ih/json_accessor_impl.hpp"
 
-#include <string>
 #include <set>
 #include <sstream>
+#include <string>
 
 //------------------------------------------------------------------------------
 
@@ -31,8 +31,8 @@ ReportSettingsLoaderFixture::~ReportSettingsLoaderFixture() = default;
 void ReportSettingsLoaderFixture::parserArguments( std::string_view _argument )
 {
 	std::vector< std::string > arguments;
-	arguments.push_back( "./application" );
-	arguments.push_back( std::string{ _argument.data() } );
+	arguments.emplace_back( "./application" );
+	arguments.emplace_back( _argument.data() );
 
 	ParserArgWrapper & parserArguments = ensureParserArguments();
 	parserArguments.parse( arguments );
@@ -135,7 +135,9 @@ ConfigurationFile * ReportSettingsLoaderFixture::getConfigurationFile() const
 ConfigurationFile & ReportSettingsLoaderFixture::ensureConfigurationFile()
 {
 	if( !m_configurationFile )
-		m_configurationFile.reset( new ConfigurationFile );
+	{
+		m_configurationFile = std::make_unique< ConfigurationFile >();
+	}
 
 	return *m_configurationFile;
 }
@@ -161,7 +163,9 @@ ParserArgWrapper & ReportSettingsLoaderFixture::getArguments() const
 ReportSettingsLoader & ReportSettingsLoaderFixture::ensureLoader()
 {
 	if( !m_loader )
-		m_loader.reset( new ReportSettingsLoader{ ensureReportFactory() } );
+	{
+		m_loader = std::make_unique<ReportSettingsLoader>( ensureReportFactory() );
+	}
 
 	return *m_loader;
 }
@@ -171,7 +175,9 @@ ReportSettingsLoader & ReportSettingsLoaderFixture::ensureLoader()
 json::JsonAccessor & ReportSettingsLoaderFixture::ensureJsonAccessor()
 {
 	if( !m_json )
-		m_json.reset( new json::JsonAccesorImpl );
+	{
+		m_json = std::make_unique< json::JsonAccesorImpl >();
+	}
 
 	return *m_json;
 }
@@ -182,7 +188,7 @@ ParserArgWrapper & ReportSettingsLoaderFixture::ensureParserArguments()
 {
 	if( !m_arguments )
 	{
-		m_arguments.reset( new ParserArgWrapper );
+		m_arguments = std::make_unique< ParserArgWrapper >();
 		m_arguments->init();
 	}
 
@@ -201,7 +207,9 @@ reporter::Factory & ReportSettingsLoaderFixture::ensureReportFactory()
 reporter::ReporterAccessor & ReportSettingsLoaderFixture::ensureReporterAccessor()
 {
 	if( !m_reporterAccessor )
-		m_reporterAccessor.reset( new reporter::ReporterAccessorImpl );
+	{
+		m_reporterAccessor = std::make_unique< reporter::ReporterAccessorImpl >( );
+	}
 
 	return *m_reporterAccessor;
 }
@@ -223,7 +231,9 @@ std::string ReportSettingsLoaderFixture::toString(
 	for( const std::string & name : names )
 	{
 		if( !result.empty() )
+		{
 			result += ',';
+		}
 
 		result += name;
 	}

@@ -9,14 +9,13 @@ namespace project {
 //------------------------------------------------------------------------------
 
 InvalidRegexImpl::InvalidRegexImpl(
-	const std::string & _filter,
+	std::string _filter,
 	const std::exception & _originException
 )
 	:	BaseClass{ resources::exceptions::InvalidRegex::Code }
-	,	m_filter{ _filter }
+	,	m_filter{ std::move( _filter ) }
 	,	m_originMsg{ _originException.what() }
 {
-
 }
 
 //------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #include "application/test/fixtures/app_test_report_settings_loader_fixture.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
 
 /*------------------------------------------------------------------------------
 
@@ -30,13 +30,14 @@ namespace application::test {
 
 //------------------------------------------------------------------------------
 
-BOOST_FIXTURE_TEST_SUITE(ReportSettingsLoaderTests, ReportSettingsLoaderFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( ReportSettingsLoaderTests, ReportSettingsLoaderFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_empty_arguments_and_configuration_file)
+TEST_CASE( t1_empty_arguments_and_configuration_file )
 {
-	//Run
+	// Run
 	parserArguments( "" );
 	load();
 
@@ -50,155 +51,155 @@ BOOST_AUTO_TEST_CASE(t1_empty_arguments_and_configuration_file)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_1_1_load_max_files_from_arguments)
+TEST_CASE( t2_1_1_load_max_files_from_arguments )
 {
-	//Run
+	// Run
 	parserArguments( "--report_limit=42" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getMaxFilesCount(), 42 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_1_2_load_max_files_from_configuration_file)
+TEST_CASE( t2_1_2_load_max_files_from_configuration_file )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "report_limit" : 42 })" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getMaxFilesCount(), 42 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_1_3_load_max_files_from_mix)
+TEST_CASE( t2_1_3_load_max_files_from_mix )
 {
-	//Run
-	createConfigurationFile( R"({ "report_limit" : 1 })"  );
+	// Run
+	createConfigurationFile( R"({ "report_limit" : 1 })" );
 	parserArguments( "--report_limit=2" );
 	load();
 
-	//Check
-	BOOST_CHECK_EQUAL( getMaxFilesCount(), 2);
+	// Check
+	BOOST_CHECK_EQUAL( getMaxFilesCount(), 2 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_2_1_load_max_details_from_arguments)
+TEST_CASE( t2_2_1_load_max_details_from_arguments )
 {
-	//Run
+	// Run
 	parserArguments( "--report_details_limit=42" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getMaxDetailsCount(), 42 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_2_2_load_max_details_from_configuration_file)
+TEST_CASE( t2_2_2_load_max_details_from_configuration_file )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "report_details_limit" : 42 })" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getMaxDetailsCount(), 42 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_2_2_load_max_details_from_mix)
+TEST_CASE( t2_2_2_load_max_details_from_mix )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "report_details_limit" : 1 })" );
 	parserArguments( "--report_details_limit=2" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getMaxDetailsCount(), 2 );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_3_1_load_show_std_files_from_arguments)
+TEST_CASE( t2_3_1_load_show_std_files_from_arguments )
 {
-	//Run
+	// Run
 	parserArguments( "--show_std_files=true" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getShowStdFiles(), true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_3_2_load_show_std_files_from_configuration_file)
+TEST_CASE( t2_3_2_load_show_std_files_from_configuration_file )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "show_std_files" : true })" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getShowStdFiles(), true );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_3_3_load_show_std_files_from_mix)
+TEST_CASE( t2_3_3_load_show_std_files_from_mix )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "show_std_files" : true })" );
 	parserArguments( "--show_std_files=false" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getShowStdFiles(), false );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_3_1_load_reports_from_arguments)
+TEST_CASE( t3_3_1_load_reports_from_arguments )
 {
-	//Run
+	// Run
 	parserArguments( "--report=most_impact,unresolved" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getReports(), "most_impact,unresolved" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_3_2_load_reports_from_configuration_file)
+TEST_CASE( t3_3_2_load_reports_from_configuration_file )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "report" : [ "most_impact","unresolved" ] })" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getReports(), "most_impact,unresolved" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_3_3_load_reports_from_mix)
+TEST_CASE( t3_3_3_load_reports_from_mix )
 {
-	//Run
+	// Run
 	createConfigurationFile( R"({ "report" : [ "most_impact" ] })" );
 	parserArguments( "--report=unresolved" );
 	load();
 
-	//Check
+	// Check
 	BOOST_CHECK_EQUAL( getReports(), "unresolved" );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 

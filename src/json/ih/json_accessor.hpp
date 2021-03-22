@@ -12,7 +12,6 @@ namespace json {
 class JsonAccessor
 {
 public:
-
 	using JsonObjectPtr = stdfwd::unique_ptr< JsonObject >;
 
 	virtual ~JsonAccessor() = default;

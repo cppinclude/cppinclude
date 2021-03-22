@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 CantCreateProjectImpl::CantCreateProjectImpl()
@@ -14,7 +14,6 @@ CantCreateProjectImpl::CantCreateProjectImpl()
 			resources::exceptions::CantCreateProject::Msg
 	)
 {
-
 }
 
 //------------------------------------------------------------------------------

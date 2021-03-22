@@ -1,10 +1,10 @@
 #pragma once
 
-#include <stdfwd.hpp>
 #include <std_fs>
+#include <stdfwd.hpp>
 
-#include <vector>
 #include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -30,12 +30,10 @@ public:
 	void addInclude( const Path & _path );
 
 private:
-
 	IndexType m_size;
 	std::string m_command;
 
 	Includes m_includes;
-
 };
 
 //------------------------------------------------------------------------------

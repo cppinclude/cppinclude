@@ -3,9 +3,9 @@
 #include "compilation_db/impl/cdb_database_impl.hpp"
 #include "compilation_db/resources/cdb_resources.hpp"
 
+#include "json/api/json_array.hpp"
 #include "json/api/json_object.hpp"
 #include "json/api/json_value.hpp"
-#include "json/api/json_array.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
@@ -52,7 +52,7 @@ LoaderImpl::DatabasePtr LoaderImpl::load( const json::JsonObject & _json )
 
 LoaderImpl::DatabasePtr LoaderImpl::createEmptyDb()
 {
-	return DatabasePtr { new DatabaseImpl };
+	return DatabasePtr{ new DatabaseImpl };
 }
 
 //------------------------------------------------------------------------------

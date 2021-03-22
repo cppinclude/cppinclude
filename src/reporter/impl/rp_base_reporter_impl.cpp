@@ -6,8 +6,8 @@
 
 #include "exception/ih/exc_internal_error.hpp"
 
-#include <std_fs>
 #include <fmt/format.h>
+#include <std_fs>
 
 #include <string>
 
@@ -71,18 +71,22 @@ std::string BaseReporterImpl::getPathWithoutProject(
 )
 {
 	if( _dirPath.empty() )
-		return _filePath.string();
-
-	if( !isFromSameDirectory( _filePath, _dirPath ) )
-		return _filePath.string();
-
-	Path result = stdfs::lexically_relative( _filePath, _dirPath );
-	if( ( !result.empty() ) )
-		return result.string();
-	else
 	{
 		return _filePath.string();
 	}
+
+	if( !isFromSameDirectory( _filePath, _dirPath ) )
+	{
+		return _filePath.string();
+	}
+
+	Path result = stdfs::lexically_relative( _filePath, _dirPath );
+	if( ( !result.empty() ) )
+	{
+		return result.string();
+	}
+
+	return _filePath.string();
 }
 
 //------------------------------------------------------------------------------
@@ -94,7 +98,9 @@ bool BaseReporterImpl::isFromSameDirectory(
 {
 	const Path root = _path1.root_path();
 	if( root != _path2.root_path() )
+	{
 		return false;
+	}
 
 	Path commonPath = getCommonPath( _path1, _path2 );
 	const bool result = commonPath != root;
@@ -122,7 +128,7 @@ BaseReporterImpl::Path BaseReporterImpl::getCommonPath(
 		*itCurrentFirst == *itCurrentSecond
 	)
 	{
-	   resutl /= *itCurrentFirst;
+		resutl /= *itCurrentFirst;
 
 		++itCurrentFirst;
 		++itCurrentSecond;
@@ -145,7 +151,7 @@ bool BaseReporterImpl::isLimitFilesWithOriginSize(
 	CountType _originSize
 ) const
 {
-	return isLimitFiles( _currentNumber ) && _currentNumber - 1 !=  _originSize;
+	return isLimitFiles( _currentNumber ) && _currentNumber - 1 != _originSize;
 }
 
 //------------------------------------------------------------------------------
@@ -181,7 +187,7 @@ void BaseReporterImpl::printDetailsLimitLine(
 
 bool BaseReporterImpl::isLimit( CountType _currentNumber, CountType _limit )
 {
-	return _limit && _currentNumber > _limit;
+	return ( _limit > 0 ) && ( _currentNumber > _limit );
 }
 
 //------------------------------------------------------------------------------

@@ -12,13 +12,10 @@ class ParserContext;
 
 class ParserImpl final : public Parser
 {
-
 public:
-
 	IncludeFiles parseFile( const fs::File & _file ) const override;
 
 private:
-
 	using IncludeFileOpt = std::optional< IncludeFile >;
 
 	static IncludeFileOpt parseLine( ParserContext & _context );
@@ -28,6 +25,11 @@ private:
 	);
 
 	static std::size_t getStartPos( ParserContext & _context ) noexcept;
+	static std::size_t getStartPosInInclude(
+		const ParserContext & _conext,
+		std::size_t _index,
+		char _char
+	);
 
 	static std::size_t findComentEnd(
 		ParserContext & _context,
@@ -46,7 +48,6 @@ private:
 		std::string_view _line,
 		std::size_t _index
 	);
-
 
 };
 

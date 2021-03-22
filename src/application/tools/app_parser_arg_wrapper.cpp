@@ -2,16 +2,15 @@
 
 #include "application/resources/app_resources_arguments.hpp"
 
-#include "reporter/api/enums/rp_reporter_kind.hpp"
 #include "exception/ih/exc_internal_error.hpp"
+#include "reporter/api/enums/rp_reporter_kind.hpp"
 #include "tools/is_vector.hpp"
 
 #include "reporter/tools/rp_reporter_kind_functins.hpp"
 
-#include <string>
 #include <optional>
 #include <std_fs>
-#include <vector>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -100,19 +99,20 @@ ParserArgWrapper::ParserArgWrapper()
 			resources::arguments::show_std_files::DefaultValue
 		}
 {
-
 }
 
 //------------------------------------------------------------------------------
 
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 void ParserArgWrapper::parse( int _argc, char * _argv[] )
 {
 	m_parser.parse( _argc, _argv );
 
 	if( _argc == 2 )
 	{
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		const std::string str = _argv[1];
-		if( str.size() >= 1 && str[0] != '-' )
+		if( !str.empty() && str[0] != '-' )
 		{
 			m_projectDirArg.setValue< Path >( Path{ str } );
 			return;
@@ -141,13 +141,15 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 
 void ParserArgWrapper::parse( const stdfwd::vector< std::string > & _arguments )
 {
-	std::vector< std::string >arguments{ _arguments };
+	std::vector< std::string > arguments{ _arguments };
 
 	std::vector< char * > arg;
 	arg.reserve( arguments.size() );
 
 	for( std::string & str : arguments )
+	{
 		arg.push_back( str.data() );
+	}
 
 	parse( static_cast< int >( arg.size() ), arg.data() );
 }
@@ -156,23 +158,23 @@ void ParserArgWrapper::parse( const stdfwd::vector< std::string > & _arguments )
 
 void ParserArgWrapper::init()
 {
-	addArgument< Strings >(			m_reportArg );
+	addArgument< Strings >( m_reportArg );
 
-	addArgument< Path >(			m_configurationFileArg );
-	addArgument< Path >(			m_compileCommandsFileArg );
+	addArgument< Path >( m_configurationFileArg );
+	addArgument< Path >( m_compileCommandsFileArg );
 
-	addArgument< Path >(			m_projectDirArg );
-	addArgument< Strings >(			m_fileExtensionsArg );
-	addArgument< bool >(			m_analyzeWithoutextension );
-	addArgument< Paths >(			m_includeDirsArg );
+	addArgument< Path >( m_projectDirArg );
+	addArgument< Strings >( m_fileExtensionsArg );
+	addArgument< bool >( m_analyzeWithoutextension );
+	addArgument< Paths >( m_includeDirsArg );
 
-	addArgument< Paths >(			m_ignoreDirsArg );
-	addArgument< bool >(			m_ignoreSystemIncludes );
-	addArgument< Strings >(			m_ignoreFilesArg );
+	addArgument< Paths >( m_ignoreDirsArg );
+	addArgument< bool >( m_ignoreSystemIncludes );
+	addArgument< Strings >( m_ignoreFilesArg );
 
-	addArgument< int >(				m_reportLimitArg );
-	addArgument< int >(				m_reportDetailsLimitArg );
-	addArgument< bool >(			m_showStdFilesArg );
+	addArgument< int >( m_reportLimitArg );
+	addArgument< int >( m_reportDetailsLimitArg );
+	addArgument< bool >( m_showStdFilesArg );
 
 	addArgument( m_helpArg );
 	addArgument( m_verboseArg );
@@ -195,8 +197,7 @@ ParserArgWrapper::PathOpt ParserArgWrapper::getProjectDir() const
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::Strings
-ParserArgWrapper::getDefaultFileExtensions() const
+ParserArgWrapper::Strings ParserArgWrapper::getDefaultFileExtensions() const
 {
 	return getDefaultValue< Strings >( m_fileExtensionsArg );
 }
@@ -282,7 +283,7 @@ ParserArgWrapper::PathsOpt ParserArgWrapper::getIgnoreDirs() const
 
 ParserArgWrapper::ReporterKinds ParserArgWrapper::getDefaultReporterKinds() const
 {
-	Strings strings = getDefaultValue< Strings >( m_reportArg );
+	auto strings = getDefaultValue< Strings >( m_reportArg );
 	return toReporterKinds( strings );
 }
 
@@ -291,7 +292,9 @@ ParserArgWrapper::ReporterKinds ParserArgWrapper::getDefaultReporterKinds() cons
 ParserArgWrapper::ReporterKindsOpt ParserArgWrapper::getReporterKinds() const
 {
 	if( StringsOpt strings = m_reportArg.getValue< Strings >(); strings )
+	{
 		return toReporterKinds( *strings );
+	}
 
 	return std::nullopt;
 }
@@ -482,14 +485,16 @@ void ParserArgWrapper::showHelp( std::ostream & _stream ) const
 //------------------------------------------------------------------------------
 
 ParserArgWrapper::Strings ParserArgWrapper::toStrings(
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 	const char * const _values[]
 )
 {
 	Strings array;
 	const char * const * it = _values;
-	while( *it )
+	while( *it != nullptr )
 	{
-        const std::string str{ *it };
+		const std::string str{ *it };
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		++it;
 		array.push_back( str );
 	}
@@ -497,7 +502,7 @@ ParserArgWrapper::Strings ParserArgWrapper::toStrings(
 }
 
 //------------------------------------------------------------------------------
-
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
 ParserArgWrapper::Paths ParserArgWrapper::toPaths( const char * const _values[] )
 {
 	Strings strings{ toStrings( _values ) };
@@ -509,10 +514,10 @@ ParserArgWrapper::Paths ParserArgWrapper::toPaths( const char * const _values[] 
 template< class _Value >
 void ParserArgWrapper::setArgumentValue(
 	Argument & _argument,
-	std::optional< _Value >( ParserArgWrapper::*_getter)( const Argument & ) const
+	std::optional< _Value > ( ParserArgWrapper::*_getter )( const Argument & ) const
 )
 {
-	if( auto valueOpt = (this->*_getter)( _argument ); valueOpt )
+	if( auto valueOpt = ( this->*_getter )( _argument ); valueOpt )
 	{
 		_argument.setValue< _Value >( *valueOpt );
 	}

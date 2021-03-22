@@ -12,7 +12,6 @@ namespace compilation_db {
 class Database
 {
 public:
-
 	using IndexType = std::size_t;
 
 	virtual ~Database() = default;

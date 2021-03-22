@@ -20,23 +20,29 @@ void SortedIncludesBySourceContainer::insert( const Include & _include )
 //------------------------------------------------------------------------------
 
 void SortedIncludesBySourceContainer::forEachInclude(
-	IncludeCallback _callback
+	const IncludeCallback & _callback
 ) const
 {
 	for( const Include * include : m_includes )
 	{
 		INTERNAL_CHECK_WARRING( include );
-		if( !include )
+		if( include == nullptr )
+		{
 			continue;
+		}
 
 		if( !_callback( *include ) )
+		{
 			break;
+		}
 	}
 }
 
 //------------------------------------------------------------------------------
 
-void SortedIncludesBySourceContainer::forEachSource( FileCallback _callback ) const
+void SortedIncludesBySourceContainer::forEachSource(
+	const FileCallback & _callback
+) const
 {
 	forEachInclude(
 		[&]( const Include & _include )

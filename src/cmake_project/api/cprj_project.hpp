@@ -28,7 +28,6 @@ public:
 
 	virtual void addFilePath( const Path & _file ) = 0;
 	virtual void addIncludeToFile( const Path & _file, const Path & _include ) = 0;
-
 };
 
 //------------------------------------------------------------------------------

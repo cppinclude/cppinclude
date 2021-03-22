@@ -11,7 +11,6 @@ namespace reporter {
 class SettingsImpl final : public Settings
 {
 public:
-
 	SettingsImpl();
 
 	CountType getMaxFilesCount() const override;
@@ -26,7 +25,6 @@ public:
 	void copy( const Settings & _other ) override;
 
 private:
-
 	CountType m_maxFilesCount;
 	CountType m_maxDetailsCount;
 	bool m_showStdFiles;

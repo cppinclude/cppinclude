@@ -4,8 +4,8 @@
 
 #include <optional>
 #include <std_fs>
-#include <vector>
 #include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -63,7 +63,6 @@ public:
 	BoolOpt getShowStdFiles() const;
 
 private:
-
 	void loadProjectDir( const json::JsonObject & _json );
 	void loadFileExtensions( const json::JsonObject & _json );
 	void loadAnalyzeWithoutExtension( const json::JsonObject & _json );
@@ -89,7 +88,7 @@ private:
 	void loadArrayOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		StringsOpt & _valueOpt
+		StringsOpt & _arrayOpt
 	);
 
 	void loadPathOpt(
@@ -117,7 +116,6 @@ private:
 	);
 
 private:
-
 	PathOpt m_projectDir;
 	StringsOpt m_fileExtensions;
 	BoolOpt m_analyzeWithoutExtension;

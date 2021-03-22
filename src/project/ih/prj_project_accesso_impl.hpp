@@ -11,7 +11,6 @@ namespace project {
 class ProjectAccessorImpl final : public ProjectAccessor
 {
 public:
-
 	ProjectAccessorImpl();
 	~ProjectAccessorImpl() override;
 

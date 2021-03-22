@@ -4,8 +4,8 @@
 
 #include "tools/std_hash_fs_path.hpp"
 
-#include <unordered_set>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 //------------------------------------------------------------------------------
@@ -17,7 +17,6 @@ namespace cmake_project {
 class ProjectImpl final : public Project
 {
 public:
-
 	CountType getFilePathsCount() const override;
 	void forEachFilePath( PathCallback _callback ) const override;
 	void forEachIncludes(
@@ -29,7 +28,6 @@ public:
 	void addIncludeToFile( const Path & _file, const Path & _include ) override;
 
 private:
-
 	const Path & addInclude( const Path & _include );
 
 private:
@@ -42,7 +40,6 @@ private:
 	Files m_files;
 	Includes m_includes;
 	IncludesByFiles m_includesByFiles;
-
 };
 
 //------------------------------------------------------------------------------

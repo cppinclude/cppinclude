@@ -4,7 +4,9 @@
 
 #include "application/resources/app_resources_arguments.hpp"
 
-#include <boost/test/unit_test.hpp>
+#include "test_tools/test_macros.hpp"
+
+#include "test_tools/test_macros.hpp"
 
 #include <memory>
 #include <set>
@@ -26,22 +28,23 @@ namespace application::test {
 
 //------------------------------------------------------------------------------
 
-BOOST_FIXTURE_TEST_SUITE(CMakeProjectBuildersTets, CMakeProjectBuilderFixture)
+// clazy:excludeall=non-pod-global-static
+TEST_GROUP_NAME( CMakeProjectBuildersTets, CMakeProjectBuilderFixture )
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t1_file_not_exist)
+TEST_CASE( t1_file_not_exist )
 {
-	//Run
+	// Run
 	buildProject();
 
-	//Check
-	BOOST_CHECK( !isInitializedProject() );
+	// Check
+	TEST_CHECK( !isInitializedProject() );
 }
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t2_default_compilation_file_exist)
+TEST_CASE( t2_default_compilation_file_exist )
 {
 	// Init
 	addCMakeFile(
@@ -60,11 +63,11 @@ BOOST_AUTO_TEST_CASE(t2_default_compilation_file_exist)
 		])"
 	);
 
-	//Run
+	// Run
 	buildProject();
 
-	//Check
-	BOOST_REQUIRE( isInitializedProject() );
+	// Check
+	TEST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
 	const auto exceptedFiles = toExceptedFiles( {
@@ -72,7 +75,7 @@ BOOST_AUTO_TEST_CASE(t2_default_compilation_file_exist)
 		"/tmp/project/file2.cpp"
 	} );
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_CHECK_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -82,7 +85,7 @@ BOOST_AUTO_TEST_CASE(t2_default_compilation_file_exist)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t3_compilation_file_from_arguments)
+TEST_CASE( t3_compilation_file_from_arguments )
 {
 	// Init
 	std::string compilationFile = "build/compile_commands.json";
@@ -103,12 +106,12 @@ BOOST_AUTO_TEST_CASE(t3_compilation_file_from_arguments)
 		])"
 	);
 
-	//Run
+	// Run
 	parserArgument( "--compile_commands=" + compilationFile );
 	buildProject();
 
-	//Check
-	BOOST_REQUIRE( isInitializedProject() );
+	// Check
+	TEST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
 	const auto exceptedFiles = toExceptedFiles( {
@@ -116,7 +119,7 @@ BOOST_AUTO_TEST_CASE(t3_compilation_file_from_arguments)
 		"/tmp/project/file2.cpp"
 	} );
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_CHECK_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -126,9 +129,9 @@ BOOST_AUTO_TEST_CASE(t3_compilation_file_from_arguments)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t4_compilation_file_from_configuration_file)
+TEST_CASE( t4_compilation_file_from_configuration_file )
 {
-	//Init
+	// Init
 	std::string compilationFile = "build/compile_commands.json";
 
 	addCMakeFile(
@@ -147,12 +150,12 @@ BOOST_AUTO_TEST_CASE(t4_compilation_file_from_configuration_file)
 		])"
 	);
 
-	//Run
+	// Run
 	setCompilationFileInConfigurationFile( compilationFile );
 	buildProject();
 
-	//Check
-	BOOST_REQUIRE( isInitializedProject() );
+	// Check
+	TEST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
 	const auto exceptedFiles = toExceptedFiles( {
@@ -160,7 +163,7 @@ BOOST_AUTO_TEST_CASE(t4_compilation_file_from_configuration_file)
 		"/tmp/project/file2.cpp"
 	} );
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_CHECK_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -170,9 +173,9 @@ BOOST_AUTO_TEST_CASE(t4_compilation_file_from_configuration_file)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_1_include_files_several_includes)
+TEST_CASE( t5_1_include_files_several_includes )
 {
-	//Init
+	// Init
 	addCMakeFile(
 		resources::arguments::compileCommands::DefaultValue,
 		R"([
@@ -184,16 +187,16 @@ BOOST_AUTO_TEST_CASE(t5_1_include_files_several_includes)
 		])"
 	);
 
-	//Run
+	// Run
 	buildProject();
 
-	//Check
-	BOOST_REQUIRE( isInitializedProject() );
+	// Check
+	TEST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
-	const auto exceptedFiles = toExceptedFiles( { "/tmp/project/file1.cpp"	} );
+	const auto exceptedFiles = toExceptedFiles( { "/tmp/project/file1.cpp" } );
 
-	BOOST_REQUIRE_EQUAL_COLLECTIONS(
+	TEST_REQUIRE_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -203,7 +206,7 @@ BOOST_AUTO_TEST_CASE(t5_1_include_files_several_includes)
 	const auto resultIncludesFile = getResultIncludes( "/tmp/project/file1.cpp" );
 	const auto exceptedIncludes = toExceptedFiles( { "./lib1/" , "./lib2/" } );
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
+	TEST_CHECK_EQUAL_COLLECTIONS(
 		resultIncludesFile.begin(),
 		resultIncludesFile.end(),
 		exceptedIncludes.begin(),
@@ -213,9 +216,9 @@ BOOST_AUTO_TEST_CASE(t5_1_include_files_several_includes)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_CASE(t5_2_include_files_different_includes_in_different_files)
+TEST_CASE( t5_2_include_files_different_includes_in_different_files )
 {
-	//Init
+	// Init
 	addCMakeFile(
 		resources::arguments::compileCommands::DefaultValue,
 		R"([
@@ -232,11 +235,11 @@ BOOST_AUTO_TEST_CASE(t5_2_include_files_different_includes_in_different_files)
 		])"
 	);
 
-	//Run
+	// Run
 	buildProject();
 
-	//Check
-	BOOST_REQUIRE( isInitializedProject() );
+	// Check
+	TEST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
 	const auto exceptedFiles = toExceptedFiles( {
@@ -244,7 +247,7 @@ BOOST_AUTO_TEST_CASE(t5_2_include_files_different_includes_in_different_files)
 		"/tmp/project/file2.cpp"
 	} );
 
-	BOOST_REQUIRE_EQUAL_COLLECTIONS(
+	TEST_REQUIRE_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -255,7 +258,7 @@ BOOST_AUTO_TEST_CASE(t5_2_include_files_different_includes_in_different_files)
 		const auto resultIncludesFile = getResultIncludes( "/tmp/project/file1.cpp" );
 		const auto exceptedIncludes = toExceptedFiles( { "./lib1/" } );
 
-		BOOST_CHECK_EQUAL_COLLECTIONS(
+		TEST_CHECK_EQUAL_COLLECTIONS(
 			resultIncludesFile.begin(),
 			resultIncludesFile.end(),
 			exceptedIncludes.begin(),
@@ -266,7 +269,7 @@ BOOST_AUTO_TEST_CASE(t5_2_include_files_different_includes_in_different_files)
 		const auto resultIncludesFile = getResultIncludes( "/tmp/project/file2.cpp" );
 		const auto exceptedIncludes = toExceptedFiles( { "./lib2/" } );
 
-		BOOST_CHECK_EQUAL_COLLECTIONS(
+		TEST_CHECK_EQUAL_COLLECTIONS(
 			resultIncludesFile.begin(),
 			resultIncludesFile.end(),
 			exceptedIncludes.begin(),
@@ -277,9 +280,8 @@ BOOST_AUTO_TEST_CASE(t5_2_include_files_different_includes_in_different_files)
 
 //------------------------------------------------------------------------------
 
-BOOST_AUTO_TEST_SUITE_END()
+TEST_GROUP_END
 
 //------------------------------------------------------------------------------
 
 }
-

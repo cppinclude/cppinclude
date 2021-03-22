@@ -11,7 +11,6 @@ namespace cmake_project {
 
 class IncludesParser
 {
-
 public:
 
 	using Path		= stdfs::path;

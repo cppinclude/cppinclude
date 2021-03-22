@@ -7,13 +7,13 @@ namespace application {
 //------------------------------------------------------------------------------
 
 Argument::Argument(
-	const std::string & _fullName,
-	const std::string & _description,
+	std::string _fullName,
+	std::string _description,
 	ValueOpt _defaultValue
 )
-	:	m_fullName{ _fullName }
-	,	m_description{ _description }
-	,	m_defaultValue{ _defaultValue }
+	:	m_fullName{ std::move( _fullName ) }
+	,	m_description{ std::move( _description )}
+	,	m_defaultValue{ std::move(_defaultValue) }
 {
 }
 

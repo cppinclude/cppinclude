@@ -1,24 +1,24 @@
 #include "reporter/impl/most_impact_reporter/rp_most_impact_reporter.hpp"
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
-#include "reporter/impl/tools/rp_file_with_count.hpp"
 #include "reporter/impl/most_impact_reporter/rp_most_impact_reporter_detail.hpp"
-#include "reporter/resources/rp_most_impact_report_resources.hpp"
+#include "reporter/impl/tools/rp_file_with_count.hpp"
 #include "reporter/impl/tools/rp_file_with_count_container.hpp"
 #include "reporter/impl/tools/rp_file_with_count_sorter.hpp"
+#include "reporter/resources/rp_most_impact_report_resources.hpp"
 
-#include "model_includes/api/mi_model.hpp"
+#include "model_includes/api/enums/mi_file_type.hpp"
 #include "model_includes/api/mi_file.hpp"
 #include "model_includes/api/mi_include.hpp"
 #include "model_includes/api/mi_include_location.hpp"
-#include "model_includes/api/enums/mi_file_type.hpp"
+#include "model_includes/api/mi_model.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
 #include <fmt/format.h>
 
-#include <std_fs>
 #include <functional>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 
@@ -27,11 +27,11 @@ namespace reporter {
 //------------------------------------------------------------------------------
 
 bool MostImpcatReporter::DetailsSorter::operator()(
-	const MostImpactReporterDetail & _r,
-	const MostImpactReporterDetail & _l
+	const MostImpactReporterDetail & _l,
+	const MostImpactReporterDetail & _r
 ) const
 {
-	return FileWithCountSorter()( _r.getFileInfo(), _l.getFileInfo() );
+	return FileWithCountSorter()( _l.getFileInfo(), _r.getFileInfo() );
 }
 
 //------------------------------------------------------------------------------
@@ -39,7 +39,6 @@ bool MostImpcatReporter::DetailsSorter::operator()(
 MostImpcatReporter::MostImpcatReporter( SettingsPtr && _settingsPtr )
 	:	BaseClass{ std::move( _settingsPtr ) }
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -78,11 +77,15 @@ void MostImpcatReporter::collectFiles(
 		[&]( const File & _file )
 		{
 			if( !isCollectFile( _file ) )
+			{
 				return true;
+			}
 
 			const File::IncludeIndex count = _file.getIncludedByFilesCountRecursive();
-			if( count )
+			if( count > 0)
+			{
 				_files.insert( { _file, count } );
+			}
 
 			return true;
 		}
@@ -101,7 +104,9 @@ void MostImpcatReporter::printIncludesByFiles(
 	using namespace model_includes;
 
 	if( _files.isEmpty() )
+	{
 		return;
+	}
 
 	_stream << resources::most_impact_report::Header;
 
@@ -129,7 +134,9 @@ void MostImpcatReporter::printIncludesByFiles(
 	}
 
 	if( isLimitFilesWithOriginSize( currentNumber, _originSize ) )
+	{
 		printFileLimitLine( _originSize, _stream );
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -146,13 +153,15 @@ void MostImpcatReporter::printDetails(
 	collectDetails( _includedByFile, details );
 
 	if( details.empty() )
+	{
 		return;
+	}
 
 	_stream << resources::most_impact_report::HeaderForDetails;
 
 	CountType currentNumber = 1;
 
-	for( const MostImpactReporterDetail & detail : details )
+	for( const MostImpactReporterDetail & detail: details )
 	{
 		if( isLimitDetails( currentNumber ) )
 		{
@@ -186,7 +195,7 @@ void MostImpcatReporter::printDetail(
 
 	const auto line = _detail.getIncludeLocation().getLineNumber();
 
-	if( count )
+	if( count > 0 )
 	{
 		_stream << fmt::format(
 			resources::most_impact_report::LineForDetailFmt,
@@ -205,7 +214,6 @@ void MostImpcatReporter::printDetail(
 			line
 		);
 	}
-
 }
 
 //------------------------------------------------------------------------------
@@ -240,8 +248,10 @@ bool MostImpcatReporter::isCollectFile( const model_includes::File & _file ) con
 	static_assert( static_cast< int >( FileType::Count ) == 2 );
 	switch( type )
 	{
-		case FileType::ProjectFile		: return true;
-		case FileType::StdLibraryFile	: return getShowStdFiles();
+		case FileType::ProjectFile:
+			return true;
+		case FileType::StdLibraryFile:
+			return getShowStdFiles();
 		default:
 			INTERNAL_CHECK_WARRING( false );
 			return false;

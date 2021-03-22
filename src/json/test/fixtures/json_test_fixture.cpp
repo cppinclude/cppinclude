@@ -38,7 +38,9 @@ const JsonObject & JsonFixture::loadJson()
 JsonAccessor & JsonFixture::ensureJsonAccessor()
 {
 	if( !m_accessor )
-		m_accessor.reset( new JsonAccesorImpl );
+	{
+		m_accessor = std::make_unique< JsonAccesorImpl >();
+	}
 
 	return *m_accessor;
 }

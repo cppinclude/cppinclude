@@ -11,9 +11,9 @@ namespace tools {
 std::string toPath( const std::string & _originStr )
 {
 #ifdef _WIN32
-    return toWindowsPath( _originStr );
+	return toWindowsPath( _originStr );
 #else
-    return toUnixPath( _originStr );
+	return toUnixPath( _originStr );
 #endif
 }
 
@@ -21,37 +21,29 @@ std::string toPath( const std::string & _originStr )
 
 std::string toUnixPath( const std::string & _originStr )
 {
-    return changeSeperatorInPath( _originStr, '\\', '/' );
+	return changeSeperatorInPath( _originStr, '\\', '/' );
 }
-
 
 //------------------------------------------------------------------------------
 
 std::string toWindowsPath( const std::string & _originStr )
 {
-    return changeSeperatorInPath( _originStr, '/', '\\' );
+	return changeSeperatorInPath( _originStr, '/', '\\' );
 }
 
 //------------------------------------------------------------------------------
 
 std::string changeSeperatorInPath(
-    const std::string & _originStr,
-    char _oldSeperator,
-    char _newSeperator
-)
+	const std::string & _originStr, char _oldSeperator, char _newSeperator )
 {
-    std::string result{ _originStr };
+	std::string result{ _originStr };
 
-    std::replace_if(
-        result.begin(),
-        result.end(),
-        [&]( char _c ){ return _c == _oldSeperator; },
-        _newSeperator
-    );
+	std::replace_if(
+		result.begin(), result.end(),
+		[&]( char _c ) { return _c == _oldSeperator; }, _newSeperator );
 
-    return result;
+	return result;
 }
-
 
 //------------------------------------------------------------------------------
 

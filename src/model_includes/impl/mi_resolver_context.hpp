@@ -2,9 +2,9 @@
 
 #include <stdfwd.hpp>
 
+#include <optional>
 #include <std_fs>
 #include <string>
-#include <optional>
 
 //------------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ public:
 	ResolverContext(
 		const project::Project & _project,
 		const cmake_project::Project * _cmakeProject,
-		const Path & _startFile,
+		Path _startFile,
 		stdfwd::string_view _fileName,
 		PathOpt _currentCMakeSourceFile
 	);
@@ -46,7 +46,6 @@ public:
 	PathOpt getCurrentCMakeSourceFile() const;
 
 private:
-
 	const project::Project & m_project;
 	const cmake_project::Project * m_cmakeProject;
 

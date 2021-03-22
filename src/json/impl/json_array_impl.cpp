@@ -31,7 +31,7 @@ bool JsonArrayImpl::empty() const
 
 JsonArrayImpl::JsonValuePtr JsonArrayImpl::at( ArrayIndex _index ) const
 {
-	JsonImpl json = m_jsonImpl[ _index ];
+	JsonImpl json = m_jsonImpl[_index];
 	return JsonValuePtr{ new JsonValueImpl{ std::move( json ) } };
 }
 

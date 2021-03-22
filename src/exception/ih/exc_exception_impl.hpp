@@ -10,17 +10,14 @@ namespace exception {
 
 //------------------------------------------------------------------------------
 
-template < class _BaseException >
-class ExceptionImpl : public _BaseException
+template< class _BaseException > class ExceptionImpl : public _BaseException
 {
-
 public:
 
 	ExceptionImpl( std::string_view _module, std::string_view _code	)
 		:	m_module{ _module }
 		,	m_code{ _code }
 	{
-
 	}
 
 	std::string getModuleName() const noexcept override
@@ -50,12 +47,10 @@ public:
 	}
 
 private:
-
 	mutable std::string m_msg;
 
 	const std::string m_module;
 	const std::string m_code;
-
 };
 
 //------------------------------------------------------------------------------
