@@ -1,8 +1,8 @@
 # CPPINCLUDE
 
 Tool for analyzing includes in C++.
-One of the problem in C++ is that if header file was changed all files that
-include the file will be recompiled and sometime it takes a lot of time.
+One of the problems in C++ is that if a header file was changed all files that
+include that file will be recompiled and sometime it takes a lot of time.
 
 ## Table of Contents
 
@@ -69,9 +69,10 @@ public:
 
 ```
 
-If file *char_kind.hpp* is changed all files that include *base_char_factory.hpp*
-and *base_char.hpp* will be recompile and it will take time. This tool helps to find
-file in top of include hierarchy:
+If file *char_kind.hpp* is changed all files that
+include *base_char_factory.hpp* and *base_char.hpp* will be recompiled and
+it will take time. This tool helps to find the file at the top of
+the include hierarchy:
 
 ```
 cppinclude
@@ -123,8 +124,8 @@ Name|Short description
 
 ### configuration_file
 
-The tool read setting from *.cppinclude.json* in work directory or
-you can set file in argument *configuration_file*.
+The tool reads settings from *.cppinclude.json* located in the work directory or
+you can pass a configuration file in the argument *configuration_file*.
 For example:
 
 `cppinclude --configuration_file=project.json`
@@ -138,7 +139,7 @@ Path to generated *compile_commands.json* file by CMake with argument
 
 `cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
 
-You can set path in configuration file:
+You can set the path for the compile_command.json file in the configuration file:
 
 ```json
 {
@@ -146,7 +147,7 @@ You can set path in configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --compile_commands=build/compile_commands.json`
 
@@ -154,9 +155,9 @@ or in arguments:
 
 ### project_dir
 
-Path to folder with sources. Often source files are located in *src* or
-*sources* folder, not in root folder of project.
-You can set in configuration file:
+PPath to a folder that contains sources. Often source files are located
+in *src* or *sources* folder, not in the root folder of project.
+You can set it in configuration file with:
 
 ```json
 {
@@ -164,7 +165,7 @@ You can set in configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --project_dir=src`
 
@@ -172,8 +173,8 @@ or in arguments:
 
 ### file_extensions
 
-If you use file extensions for C++ that aren’t in default values. You can set in
-configuration file:
+If you use other file extensions than default values *file_extensions*
+for C++ sources you can specify them in the configuration file with:
 
 ```json
 {
@@ -181,7 +182,7 @@ configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --file_extensions=*.cc,*hh`
 
@@ -189,8 +190,8 @@ or in arguments:
 
 ### analyze_without_extension
 
-Analyze files in project directory without extension, default: false.
-You can set in configuration file:
+Analyze files without extension in the project directory, default: false.
+You can set this option in the configuration file with:
 
 ```json
 {
@@ -198,7 +199,7 @@ You can set in configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --analyze_without_extension=true`
 
@@ -206,8 +207,8 @@ or in arguments:
 
 ### include_dirs
 
-Add folders where search included files. Default value is project folder.
-You can set in configuration file:
+Add paths to the header search directories. Default value is project folder.
+You can set it in the configuration file with:
 
 ```json
 {
@@ -215,7 +216,7 @@ You can set in configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --include_dirs=lib1,lib2`
 
@@ -223,9 +224,10 @@ or in arguments:
 
 ### ignore_dirs
 
-Folders that will be ignored during analyzing project’s files.
-It can be third-party libraries that are located in project directory
-but don't need to analyze. You can set in configuration file:
+Folders to be ignored during project analysis.
+For example: third-party libraries that are located under the project directory
+but should not be analyzed.
+You can set it in the configuration file with:
 
 ```json
 {
@@ -233,7 +235,7 @@ but don't need to analyze. You can set in configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --ignore_dirs=./3rd-part,gtest`
 
@@ -242,7 +244,7 @@ or in arguments:
 ### ignore_system_includes
 
 Ignore includes with *\<\>*, example *#include \<iostream\>* will be ignored.
-You can set in configuration file:
+You can set it in the configuration file with:
 
 ```json
 {
@@ -250,7 +252,7 @@ You can set in configuration file:
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --ignore_system_includes=true`
 
@@ -268,7 +270,7 @@ or generated files (*.gen). You can set in configuration file
 }
 ```
 
-or in arguments:
+or, pass as an argument:
 
 `cppinclude --ignore_files=boost/.*,.*\\.def`
 
@@ -278,10 +280,12 @@ or in arguments:
 
 Name of report. Possible values:
 
-* *unresolved* -- show included files that are not found in project folder;
+* *unresolved* -- show included files that are not found within the project folder;
 * *most_impact* -- show files that most impact on other files;
 * *unincluded* -- show unincluded headers;
 * *different_type* -- show headers that are included in #include <...> and #include "..." .
+
+As arguments:
 
 ```
 cppinclude --report=unresolved
@@ -289,7 +293,7 @@ cppinclude --report=most_impact
 cppinclude --report=unresolved,most_impact
 ```
 
-Also you can set in configuration file:
+As a configuration file setting:
 
 ```json
 {
@@ -301,9 +305,10 @@ Also you can set in configuration file:
 
 #### unresolved
 
-Show files that are found in includes but didn't found in file system.
-One of the resean is missing includes files, for example:
-There is file *main.cpp*, folder *include* that store file *header.hpp* :
+Show headers that are included but not found in the given search paths.
+One possible reason is missing include files, for example:
+iven a *main.cpp* file and a *include* folder that stores
+the *header.hpp* header:
 
 ```
 tree
@@ -314,7 +319,7 @@ tree
 
 ```
 
-If run *cppinclude* result will be:
+When *cppinclude* is run, the result will be:
 
 ```
 cppinclude --report=unresolved
@@ -327,7 +332,8 @@ Unresolved files:
 
 ```
 
-But if add folder *include* to *include_dirs* resultat will be empty:
+Adding the *include* folder to *include_dirs* will remove the
+unresolved files entry:
 
 ```
 cppinclude --report=unresolved --include_dirs=include
@@ -337,7 +343,7 @@ cppinclude --report=unresolved --include_dirs=include
 
 #### most_impact
 
-Show how many files will be recompiled with header will be changed.
+Show how many files will be recompiled when a given header is changed.
 Example from [docs/examples/simple_example/](docs/examples/simple_example/)
 
 ```
@@ -359,14 +365,17 @@ Included by:
 ...
 ```
 
-It means if file char_kind.hpp will be changed 11 files are recompiled.
+The above output means that a change in char_kind.hpp will force 11
+files to recompile.
 
 [Back to top](#cppinclude)
 
 #### unincluded
 
-Show files that are found in file system but didn't found in includes.
-It often happens after refactoring when file that include header was deleted.
+Show headers that are found in the search directories but that were not
+included in the source code.
+It often happens after refactoring when headers when include directives
+were removed from code and thefiles remained in place.
 Example from [docs/examples/simple_example_with_unincluded_headers/](docs/examples/simple_example_with_unincluded_headers/)
 
 ```
@@ -382,18 +391,19 @@ Unincluded headers:
 
 **Limitations:**
 
-* Header with same names: 
+* Headers with same names:
 
-If headers have same name but are located in different folders will be found 
-only first header and other will be unincluded. 
-For example: *lib1/header.hpp*, *lib2/header.hpp* and
-*main.cpp* : 
+If headers have the same name but are located in different paths only one
+occurrence will be counted.
+only first header and other will be unincluded.
+For example: *lib1/header.hpp*, *lib2/header.hpp* and *main.cpp* :
 
 ```c++
 #include "header.hpp"
 ...
 ```
-Result will be:
+
+The result will be:
 
 ```
 cppinclude --include_dirs=lib1,lib2 --report=unincluded
@@ -406,23 +416,22 @@ Unincluded headers:
 
 ```
 
-* Empty result for CMake project: 
+* Empty result for CMake project:
 
-If analyze CMake project ( generated file compile_commands.json ) 
-result will be empty. Because in current implementation *cppinclude* analyze 
-source files on file system or files from compile_commands.json
+The current implementation ignores CMake project files.
+Only source files are analyzed currently that are either specified
+in compile_commands.json or that are found on the filesystem.
 
 * Header files are files that have extension started with *h* letter
 
-***All limitations will be fixed in future releases ***
-
+***All limitations will be fixed in future releases***
 
 [Back to top](#cppinclude)
 
 #### different_type
 
 Show headers that are included in different ways.
-It helps to follow code style in project,
+It helps to follow code styles in project,
 for example include third party libraries in <...> and project header in "...".
 Example from [docs/examples/simple_example_for_different_type_report/](docs/examples/simple_example_for_different_type_report/)
 
