@@ -1,0 +1,35 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	#ifdef STDFWD_IS_LIBCPP
+	template<class ... Alloc>
+	class scoped_allocator_adaptor;
+	#else
+	template<class OuterAlloc, class... InnerAlloc>
+	class scoped_allocator_adaptor;
+	#endif
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	#ifdef STDFWD_IS_LIBCPP
+	template<class ... Alloc>
+	using scoped_allocator_adaptor = std::scoped_allocator_adaptor< Alloc ... >;
+	#else
+	template<class OuterAlloc, class... InnerAlloc>
+	using scoped_allocator_adaptor = std::scoped_allocator_adaptor<
+		OuterAlloc,
+		InnerAlloc ...
+	>;
+	#endif
+}
+
+//------------------------------------------------------------------------------

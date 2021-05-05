@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 /*------------------------------------------------------------------------------
 
@@ -17,6 +17,7 @@ TEST PLAN:
 5. Limits
 	5.1 max files
 	5.2 max details
+6. Show only std headers
 
 ------------------------------------------------------------------------------*/
 
@@ -24,11 +25,12 @@ namespace reporter::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( DifferentTypeReporterTests, ReporterFixture )
+
+BOOST_FIXTURE_TEST_SUITE( DifferentTypeReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_empty )
+BOOST_AUTO_TEST_CASE( t1_empty )
 {
 	// Run
 	const std::string result = runDifferentTypeReport();
@@ -39,7 +41,7 @@ TEST_CASE( t1_empty )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_one_include )
+BOOST_AUTO_TEST_CASE( t2_one_include )
 {
 	// Init
 	addInclude( "/test_project/main.cpp", "/test_project/header.hpp" );
@@ -53,7 +55,7 @@ TEST_CASE( t2_one_include )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_1_several_includes_with_user_type )
+BOOST_AUTO_TEST_CASE( t3_1_several_includes_with_user_type )
 {
 	// Init
 	addUserInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
@@ -68,7 +70,7 @@ TEST_CASE( t3_1_several_includes_with_user_type )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_2_several_includes_with_system_type )
+BOOST_AUTO_TEST_CASE( t3_2_several_includes_with_system_type )
 {
 	// Init
 	addSystemInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
@@ -83,7 +85,7 @@ TEST_CASE( t3_2_several_includes_with_system_type )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_1_several_includes_system_and_user )
+BOOST_AUTO_TEST_CASE( t4_1_several_includes_system_and_user )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -108,7 +110,7 @@ TEST_CASE( t4_1_several_includes_system_and_user )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_2_several_includes_std )
+BOOST_AUTO_TEST_CASE( t4_2_several_includes_std )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -119,6 +121,7 @@ TEST_CASE( t4_2_several_includes_std )
 	addSystemInclude(	"/test_project/file2.cpp", "vector" );
 
 	// Run
+	setShowStdFiles( true );
 	const std::string result = runDifferentTypeReport();
 
 	// Check
@@ -135,7 +138,7 @@ TEST_CASE( t4_2_several_includes_std )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_3_several_includes_hide_std )
+BOOST_AUTO_TEST_CASE( t4_3_several_includes_hide_std )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -156,7 +159,7 @@ TEST_CASE( t4_3_several_includes_hide_std )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_1_limit_max_files )
+BOOST_AUTO_TEST_CASE( t5_1_limit_max_files )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -187,7 +190,7 @@ TEST_CASE( t5_1_limit_max_files )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_2_limit_max_details )
+BOOST_AUTO_TEST_CASE( t5_2_limit_max_details )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -230,7 +233,40 @@ TEST_CASE( t5_2_limit_max_details )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_CASE( t6_show_only_std_headers )
+{
+	// Init
+	setProjectDir( "/test_project/" );
+
+	addFile( "vector", model_includes::FileType::StdLibraryFile );
+	addFile( "/test_project/header.hpp", model_includes::FileType::ProjectFile );
+
+	addUserInclude( "/test_project/file1.cpp", "vector" );
+	addSystemInclude( "/test_project/file2.cpp", "vector" );
+
+	addUserInclude(	"/test_project/file1.cpp", "/test_project/header.hpp" );
+	addSystemInclude( "/test_project/file2.cpp", "/test_project/header.hpp" );
+
+	setShowOnlyStdHeaders( true );
+
+	// Run
+	const std::string result = runDifferentTypeReport();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result,
+		"Files that are included by different ways:\n"
+		"1. vector\n"
+		"With double quotation marks ( #include \"...\" ) in files:\n"
+			"\t1. file1.cpp line 1\n"
+		"With angle brackets ( #include <...> ) in files:\n"
+			"\t1. file2.cpp line 1\n"
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

@@ -42,12 +42,7 @@ ConfigurationFileLoader::ConfigurationFilePtr ConfigurationFileLoader::load(
 		configurationPathOpt = _arguments.getDefaultConfigurationFile();
 	}
 
-	INTERNAL_CHECK_WARRING( configurationPathOpt );
-	if( !configurationPathOpt )
-	{
-		return nullptr;
-	}
-
+	INTERNAL_CHECK_ERROR( configurationPathOpt );
 	if( !m_fs.isExistFile( *configurationPathOpt ) )
 	{
 		return nullptr;
@@ -55,12 +50,12 @@ ConfigurationFileLoader::ConfigurationFilePtr ConfigurationFileLoader::load(
 
 	auto filePtr = m_fs.openFile( *configurationPathOpt );
 	INTERNAL_CHECK_WARRING( filePtr )
-	if( !filePtr )
+	if( filePtr )
 	{
-		return nullptr;
+		return load( *filePtr );
 	}
 
-	return load( *filePtr );
+	return nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -71,20 +66,15 @@ ConfigurationFileLoader::ConfigurationFilePtr ConfigurationFileLoader::load(
 {
 	auto jsonObjectPtr = m_jsonAccessor.createJson( _file.toInputStream() );
 	INTERNAL_CHECK_WARRING( jsonObjectPtr )
-	if( !jsonObjectPtr )
+	if( jsonObjectPtr )
 	{
-		return nullptr;
+		ConfigurationFilePtr resultPtr{ new ConfigurationFile };
+		INTERNAL_CHECK_ERROR( resultPtr )
+		resultPtr->loadFromJson( *jsonObjectPtr );
+		return resultPtr;
 	}
 
-	ConfigurationFilePtr resultPtr{ new ConfigurationFile };
-	INTERNAL_CHECK_WARRING( resultPtr )
-	if( !resultPtr )
-	{
-		return nullptr;
-	}
-
-	resultPtr->loadFromJson( *jsonObjectPtr );
-	return resultPtr;
+	return nullptr;
 }
 
 //------------------------------------------------------------------------------

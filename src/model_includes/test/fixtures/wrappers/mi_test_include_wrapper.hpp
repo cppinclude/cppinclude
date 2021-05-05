@@ -2,7 +2,7 @@
 
 #include "test_tools/boost_predicate_wrapper.hpp"
 
-#include <stdfwd.hpp>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 

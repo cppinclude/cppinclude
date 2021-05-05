@@ -1,2 +1,57 @@
-Checks: '-*,abseil-*,android-*,boost-*,bugprone-*,cert-*,clang-*,cppcoreguidelines-avoid-*,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-usage,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-non-private-member-variables-in-classes,cppcoreguidelines-pro-bounds-constant-array-index,cppcoreguidelines-pro-bounds-pointer-arithmetic,cppcoreguidelines-pro-type-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,darwin-*,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-build-explicit-make-pair,google-build-namespaces,google-default-arguments,google-explicit-constructor,google-global-names-in-headers,google-objc-*,google-readability-braces-around-statements,google-readability-casting,google-readability-function-size,google-readability-todo,google-runtime-*,hicpp-avoid-*,hicpp-braces-around-statements,hicpp-deprecated-headers,hicpp-exception-baseclass,hicpp-explicit-conversions,hicpp-function-size,hicpp-invalid-access-moved,hicpp-member-init,hicpp-move-const-arg,hicpp-multiway-paths-covered,hicpp-named-parameter,hicpp-new-delete-operators,hicpp-no-assembler,hicpp-no-malloc,hicpp-noexcept-move,hicpp-signed-bitwise,hicpp-special-member-functions,hicpp-static-assert,hicpp-undelegated-constructor,hicpp-uppercase-literal-suffix,hicpp-use-*,hicpp-vararg,linuxkernel-*,llvm-header-guard,llvm-twine-local,misc-*,modernize-avoid-*,modernize-concat-nested-namespaces,modernize-deprecated-*,modernize-loop-convert,modernize-make-*,modernize-pass-by-value,modernize-raw-string-literal,modernize-redundant-void-arg,modernize-replace-*,modernize-return-braced-init-list,modernize-shrink-to-fit,modernize-unary-static-assert,modernize-use-auto,modernize-use-bool-literals,modernize-use-default-member-init,modernize-use-emplace,modernize-use-equals-*,modernize-use-nodiscard,modernize-use-noexcept,modernize-use-nullptr,modernize-use-override,modernize-use-transparent-functors,modernize-use-uncaught-exceptions,modernize-use-using,mpi-*,objc-*,openmp-*,performance-*,portability-*,readability-avoid-const-params-in-decls,readability-braces-around-statements,readability-const-return-type,readability-container-size-empty,readability-delete-null-pointer,readability-deleted-default,readability-else-after-return,readability-function-size,readability-identifier-naming,readability-implicit-bool-conversion,readability-inconsistent-declaration-parameter-name,readability-isolate-declaration,readability-magic-numbers,readability-misleading-indentation,readability-misplaced-array-index,readability-named-parameter,readability-non-const-parameter,readability-qualified-auto,readability-redundant-*,readability-simplify-*,readability-static-*,readability-string-compare,readability-uniqueptr-delete-release,readability-uppercase-literal-suffix,zircon-*'
+---
+Checks: "-*\,
+abseil-*,\android-*,\
+boost-*,\
+bugprone-*,
+cert-*,\
+clang-*,\
+cppcoreguidelines-avoid-*,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,\
+cppcoreguidelines-macro-usage,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,\
+cppcoreguidelines-non-private-member-variables-in-classes,cppcoreguidelines-pro-bounds-constant-array-index,\
+cppcoreguidelines-pro-bounds-pointer-arithmetic,cppcoreguidelines-pro-type-*,\
+cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,\
+darwin-*,\
+fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-restrict-system-includes,\
+fuchsia-statically-constructed-objects,fuchsia-trailing-return,\
+fuchsia-virtual-inheritance,\
+google-build-explicit-make-pair,google-build-namespaces,google-default-arguments,\
+google-explicit-constructor,google-global-names-in-headers,google-objc-*,\
+google-readability-braces-around-statements,google-readability-casting,\
+google-readability-function-size,google-readability-todo,google-runtime-*,\
+hicpp-avoid-*,hicpp-braces-around-statements,hicpp-deprecated-headers,\
+hicpp-exception-baseclass,hicpp-explicit-conversions,hicpp-function-size,\
+hicpp-invalid-access-moved,hicpp-member-init,hicpp-move-const-arg,\
+hicpp-multiway-paths-covered,hicpp-named-parameter,hicpp-new-delete-operators,\
+hicpp-no-assembler,hicpp-no-malloc,hicpp-noexcept-move,hicpp-signed-bitwise,\
+hicpp-special-member-functions,hicpp-static-assert,\
+hicpp-undelegated-constructor,hicpp-uppercase-literal-suffix,hicpp-use-*,hicpp-vararg,\
+linuxkernel-*,\
+llvm-header-guard,llvm-twine-local,\
+misc-*,\
+modernize-avoid-*,modernize-concat-nested-namespaces,modernize-deprecated-*,\
+modernize-loop-convert,modernize-make-*,modernize-pass-by-value,modernize-raw-string-literal,\
+modernize-redundant-void-arg,modernize-replace-*,\
+modernize-return-braced-init-list,modernize-shrink-to-fit,\
+modernize-unary-static-assert,modernize-use-auto,modernize-use-bool-literals,\
+modernize-use-default-member-init,modernize-use-emplace,modernize-use-equals-*,\
+modernize-use-nodiscard,modernize-use-noexcept,modernize-use-nullptr,modernize-use-override,\
+modernize-use-transparent-functors,modernize-use-uncaught-exceptions,modernize-use-using,\
+mpi-*,\
+objc-*,\
+openmp-*,\
+performance-*,\
+portability-*,\
+readability-avoid-const-params-in-decls,readability-braces-around-statements,\
+readability-const-return-type,readability-container-size-empty,readability-delete-null-pointer,\
+readability-deleted-default,readability-else-after-return,readability-function-size,\
+readability-identifier-naming,readability-implicit-bool-conversion,\
+readability-inconsistent-declaration-parameter-name,readability-isolate-declaration,\
+readability-magic-numbers,readability-misleading-indentation,readability-misplaced-array-index,\
+readability-named-parameter,readability-non-const-parameter,readability-qualified-auto,\
+readability-redundant-*,readability-simplify-*,readability-static-*,readability-string-compare,\
+readability-uniqueptr-delete-release,readability-uppercase-literal-suffix,\
+zircon-*"
 FormatStyle: 'file'
+HeaderFilterRegex: 'boost/test'
+AnalyzeTemporaryDtors: false
+---

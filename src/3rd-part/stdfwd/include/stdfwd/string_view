@@ -1,0 +1,63 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_CPP20
+	#define STDFWD_IS_U8STRING
+#endif
+
+#ifdef STDFWD_IS_CPP11
+	#define STDFWD_IS_U16STRING
+	#define STDFWD_IS_U32STRING
+#endif
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class Char >
+	struct char_traits;
+
+	template< class CharT, class Traits >
+	class basic_string_view;
+
+	using string_view    = basic_string_view<char, char_traits<char>>;
+	using wstring_view   = basic_string_view<wchar_t, char_traits<wchar_t>>;
+	#ifdef STDFWD_IS_U8STRING
+	using u8string_view  = basic_string_view<char8_t, char_traits<char8_t>>;
+	#endif
+
+	#ifdef STDFWD_IS_U16STRING
+	using u16string_view = basic_string_view<char16_t, char_traits<char16_t>>;
+	#endif
+
+	#ifdef STDFWD_IS_U32STRING
+	using u32string_view = basic_string_view<char32_t, char_traits<char32_t>>;
+	#endif
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class CharT, class Traits = std::char_traits< CharT > >
+	using basic_string_view = std::basic_string_view< CharT, Traits >;
+
+	using std::string_view;
+	using std::wstring_view;
+
+	#ifdef STDFWD_IS_U8STRING
+		using std::u8string_view;
+	#endif
+
+	#ifdef STDFWD_IS_U16STRING
+		using std::u16string_view;
+	#endif
+
+	#ifdef STDFWD_IS_U32STRING
+		using std::u32string_view;
+	#endif
+}

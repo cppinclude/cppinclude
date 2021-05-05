@@ -1,0 +1,25 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	#if defined(STDFWD_IS_MSVC)
+
+	#ifdef _WIN64
+	typedef unsigned __int64 size_t;
+	#else
+	typedef unsigned int     size_t;
+	#endif
+
+	#elif defined(STDFWD_IS_LIBCPP)
+
+	typedef __SIZE_TYPE__ size_t;
+
+	#endif
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------

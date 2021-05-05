@@ -1,0 +1,28 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T > class allocator;
+
+	STDFWD_CPP11_INLINE_BEGIN
+
+	template< class T, class Allocator >
+	class list;
+
+	STDFWD_CPP11_END
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class T, class Allocator = std::allocator< T > >
+	using list = std::list< T, Allocator >;
+}
+
+//------------------------------------------------------------------------------

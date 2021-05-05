@@ -1,0 +1,23 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+#include "size_t"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T, std::size_t N>
+	struct array;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::array;
+}
+
+//------------------------------------------------------------------------------

@@ -1,0 +1,29 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+#include "size_t"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_PURE_BEGIN
+
+	class bad_alloc;
+	class bad_array_new_length;
+
+	struct nothrow_t;
+	enum class align_val_t : std::size_t;
+
+STDFWD_STD_PURE_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::bad_alloc;
+	using std::bad_array_new_length;
+	using std::nothrow_t;
+	using std::align_val_t;
+}
+
+//------------------------------------------------------------------------------

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdfwd.hpp>
-
 #include <string>
 #include <unordered_set>
 

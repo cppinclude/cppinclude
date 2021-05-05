@@ -1,0 +1,45 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	class mutex;
+	class timed_mutex;
+	class recursive_mutex;
+	class recursive_timed_mutex;
+
+	template< class Mutex >	class lock_guard;
+	template< class Mutex >	class unique_lock;
+
+	struct defer_lock_t;
+	struct try_to_lock_t;
+	struct adopt_lock_t;
+
+	class once_flag;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::mutex;
+	using std::timed_mutex;
+	using std::recursive_mutex;
+	using std::recursive_timed_mutex;
+
+	template< class Mutex >
+	using lock_guard = std::lock_guard< Mutex >;
+	template< class Mutex >
+	using unique_lock = std::unique_lock< Mutex >;
+
+	using std::defer_lock_t;
+	using std::try_to_lock_t;
+	using std::adopt_lock_t;
+	using std::once_flag;
+}
+
+//------------------------------------------------------------------------------

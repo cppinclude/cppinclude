@@ -2,7 +2,8 @@
 
 #include "application/tools/app_plugin_ptr.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/memory>
+#include <stdfwd/vector>
 
 //------------------------------------------------------------------------------
 

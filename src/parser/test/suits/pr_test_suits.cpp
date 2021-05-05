@@ -3,7 +3,7 @@
 
 #include "parser/api/pr_include_file.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 /*------------------------------------------------------------------------------
 
@@ -33,11 +33,13 @@ namespace parser::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( ParserTests, ParserFixture )
+
+BOOST_FIXTURE_TEST_SUITE( ParserTests, ParserFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_simple_system_include )
+
+BOOST_AUTO_TEST_CASE( t1_simple_system_include )
 {
 	// Init
 	file() << "#include <iostream>";
@@ -61,7 +63,8 @@ TEST_CASE( t1_simple_system_include )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_simple_user_include )
+
+BOOST_AUTO_TEST_CASE( t2_simple_user_include )
 {
 	// Init
 	file() << "#include \"user.hpp\"";
@@ -80,7 +83,8 @@ TEST_CASE( t2_simple_user_include )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_simple_user_and_system_include )
+
+BOOST_AUTO_TEST_CASE( t3_simple_user_and_system_include )
 {
 	// Init
 	file()
@@ -106,7 +110,8 @@ TEST_CASE( t3_simple_user_and_system_include )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_include_without_space )
+
+BOOST_AUTO_TEST_CASE( t4_include_without_space )
 {
 	// Init
 	file() << "#include<iostream>";
@@ -125,7 +130,8 @@ TEST_CASE( t4_include_without_space )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_include_with_several_spaces )
+
+BOOST_AUTO_TEST_CASE( t5_include_with_several_spaces )
 {
 	// Init
 	file()<<
@@ -146,7 +152,8 @@ TEST_CASE( t5_include_with_several_spaces )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_include_after_comment )
+
+BOOST_AUTO_TEST_CASE( t6_include_after_comment )
 {
 	// Init
 	file() << " //#include <iostream>";
@@ -161,7 +168,8 @@ TEST_CASE( t6_include_after_comment )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_include_in_multiline_coment )
+
+BOOST_AUTO_TEST_CASE( t7_include_in_multiline_coment )
 {
 	// Init
 	file() << "/* include <memory> */";
@@ -176,7 +184,8 @@ TEST_CASE( t7_include_in_multiline_coment )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t8_include_in_string )
+
+BOOST_AUTO_TEST_CASE( t8_include_in_string )
 {
 	// Init
 	file() << "\" include <memory> \"";
@@ -191,7 +200,8 @@ TEST_CASE( t8_include_in_string )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t9_include_in_multiline_coment_with_several_lines )
+
+BOOST_AUTO_TEST_CASE( t9_include_in_multiline_coment_with_several_lines )
 {
 	// Init
 	file() <<
@@ -211,7 +221,8 @@ TEST_CASE( t9_include_in_multiline_coment_with_several_lines )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t10_include_after_multiline_coment_with_several_lines )
+
+BOOST_AUTO_TEST_CASE( t10_include_after_multiline_coment_with_several_lines )
 {
 	// Init
 	file()<<
@@ -234,7 +245,8 @@ TEST_CASE( t10_include_after_multiline_coment_with_several_lines )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t11_include_include_in_multiline_string )
+
+BOOST_AUTO_TEST_CASE( t11_include_include_in_multiline_string )
 {
 	// Init
 	file()<<
@@ -253,7 +265,8 @@ TEST_CASE( t11_include_include_in_multiline_string )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t12_first_line_new_line )
+
+BOOST_AUTO_TEST_CASE( t12_first_line_new_line )
 {
 	// Init
 	file() <<
@@ -281,7 +294,8 @@ TEST_CASE( t12_first_line_new_line )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t13_string_with_quotation_marks )
+
+BOOST_AUTO_TEST_CASE( t13_string_with_quotation_marks )
 {
 	// Init
 	file() << R"(\" \"#include <iostream> ")";
@@ -296,7 +310,8 @@ TEST_CASE( t13_string_with_quotation_marks )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t14_raw_string )
+
+BOOST_AUTO_TEST_CASE( t14_raw_string )
 {
 	// Init
 	file()<<
@@ -316,7 +331,8 @@ TEST_CASE( t14_raw_string )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t15_raw_string_with_seperator )
+
+BOOST_AUTO_TEST_CASE( t15_raw_string_with_seperator )
 {
 	// Init
 	file()<<
@@ -336,7 +352,8 @@ TEST_CASE( t15_raw_string_with_seperator )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t16_brackets_in_comments )
+
+BOOST_AUTO_TEST_CASE( t16_brackets_in_comments )
 {
 	// Init
 	file() <<
@@ -364,7 +381,8 @@ TEST_CASE( t16_brackets_in_comments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t17_file_name_in_comments )
+
+BOOST_AUTO_TEST_CASE( t17_file_name_in_comments )
 {
 	// Init
 	file() <<
@@ -405,7 +423,8 @@ TEST_CASE( t17_file_name_in_comments )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

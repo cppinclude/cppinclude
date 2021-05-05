@@ -286,7 +286,21 @@ ParserWrapperFixture::BoolOpt ParserWrapperFixture::getShowStdFile() const
 
 bool ParserWrapperFixture::getDefaultShowStdFile() const
 {
-	return getParser().getDefaultShowStdfile();
+	return getParser().getDefaultShowStdFile();
+}
+
+//------------------------------------------------------------------------------
+
+ParserWrapperFixture::BoolOpt ParserWrapperFixture::getShowOnlyStdHeaders() const
+{
+	return getParser().getShowOnlyStdHeaders();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserWrapperFixture::getDefaultShowOnlyStdHeaders() const
+{
+	return getParser().getDefaultShowOnlyStdHeaders();
 }
 
 //------------------------------------------------------------------------------

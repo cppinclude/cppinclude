@@ -1,0 +1,27 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T1, class T2 > struct pair;
+
+	template< class Tp, Tp... Idx >
+	struct integer_sequence;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::pair;
+
+	using std::integer_sequence;
+
+}
+
+//------------------------------------------------------------------------------
+

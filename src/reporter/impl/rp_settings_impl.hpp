@@ -22,12 +22,16 @@ public:
 	bool getShowStdFiles() const override;
 	void setShowStdFiles( bool _enable ) override;
 
+	bool getShowOnlyStdHeaders() const override;
+	void setShowOnlyStdHeaders( bool _enable ) override;
+
 	void copy( const Settings & _other ) override;
 
 private:
 	CountType m_maxFilesCount;
 	CountType m_maxDetailsCount;
 	bool m_showStdFiles;
+	bool m_showOnlyStdHeaders;
 };
 
 //------------------------------------------------------------------------------

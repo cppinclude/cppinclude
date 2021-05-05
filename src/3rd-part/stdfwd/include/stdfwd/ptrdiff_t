@@ -1,0 +1,25 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	#if defined(STDFWD_IS_MSVC)
+
+	#ifdef _WIN64
+	typedef __int64 ptrdiff_t;
+	#else
+	typedef int ptrdiff_t;
+	#endif
+
+	#elif defined(STDFWD_IS_LIBCPP)
+
+	typedef __PTRDIFF_TYPE__ ptrdiff_t;
+
+	#endif
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------

@@ -1,0 +1,73 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_CPP20
+	#define STDFWD_IS_U8STRING
+#endif
+
+#ifdef STDFWD_IS_CPP11
+	#define STDFWD_IS_U16STRING
+	#define STDFWD_IS_U32STRING
+#endif
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T > class allocator;
+
+	template< class Char >
+	struct char_traits;
+
+	STDFWD_CPP11_INLINE_BEGIN
+
+	template< class Char, class Traits, class Allocator >
+	class STDFWD_TEMPLATE_VISIBILITY basic_string;
+
+	using string	= basic_string<char,	 char_traits<char>,		allocator<char>>;
+	using wstring	= basic_string<wchar_t,	 char_traits<wchar_t>,	allocator<wchar_t>>;
+
+	#ifdef STDFWD_IS_U8STRING
+	using u8string = basic_string<char8_t, char_traits<char8_t>, allocator<char8_t>>;
+	#endif
+
+	#ifdef STDFWD_IS_U16STRING
+	using u16string = basic_string<char16_t, char_traits<char16_t>, allocator<char16_t>>;
+	#endif
+
+	#ifdef STDFWD_IS_U32STRING
+	using u32string = basic_string<char32_t, char_traits<char32_t>, allocator<char32_t>>;
+	#endif
+
+	STDFWD_CPP11_END
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template<
+		class Char,
+		class Traits		= std::char_traits<Char>,
+		class Allocator		= std::allocator<Char>
+	> using basic_string	= std::basic_string<Char, Traits, Allocator>;
+
+	using std::string;
+	using std::wstring;
+
+	#ifdef STDFWD_IS_U8STRING
+	using std::u8string;
+	#endif
+
+	#ifdef STDFWD_IS_U16STRING
+	using std::u16string;
+	#endif
+
+	#ifdef STDFWD_IS_U32STRING
+	using std::u32string;
+	#endif
+}

@@ -25,6 +25,8 @@ include that file will be recompiled and sometime it takes a lot of time.
   * [ignore_files](#ignore_files)
   * [report_limit](#report_limit)
   * [report_details_limit](#report_details_limit)
+  * [show_std_files](#show_std_files)
+  * [show_only_std_headers](#show_only_std_headers)
 * [Build](#build)
 * [Presentations](#presentations)
 * [Tips for optimization includes](#tips-for-optimization-includes)
@@ -116,6 +118,7 @@ Name|Short description
 --[report_limit](#report_limit)=42|Maximum elements in report, 0 - unlimited (default: 10)
 --[report_details_limit](#report_details_limit)=42|Maximum details in report, 0 - unlimited (default: 10)
 --[show_std_files](#show_std_files)|Show standard library headers in output (default: false)
+--[show_only_std_headers](#show_only_std_headers)|Show only standard library headers in output (default: false)
 --help|Show usage
 --verbose|Verbose mode
 --version|Show application version
@@ -506,6 +509,22 @@ Also you can set in configuration file:
 
 [Back to top](#cppinclude)
 
+### show_only_std_headers
+
+Show only standard library headers in output.
+
+`cppinclude --show_only_std_headers=true`
+
+Also you can set in configuration file:
+
+```json
+{
+    "show_only_std_headers" : true
+}
+```
+
+[Back to top](#cppinclude)
+
 ## Build
 
 Requirements:
@@ -552,7 +571,7 @@ on Unix:
 
 ## Third-party libraries
 
-* [cpp-std-fwd](https://github.com/Philip-Trettner/cpp-std-fwd)
+* [stdfwd](https://github.com/olegpublicprofile/stdfwd)
 * [cxxopts](https://github.com/jarro2783/cxxopts)
 * [{fmt}](https://github.com/fmtlib/fmt)
 * [json for modern C++](https://github.com/nlohmann/json)

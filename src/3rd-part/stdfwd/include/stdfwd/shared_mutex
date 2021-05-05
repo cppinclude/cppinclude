@@ -1,0 +1,28 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	class shared_mutex;
+	class shared_timed_mutex;
+	template<class Mutex> class shared_lock;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+
+	using std::shared_mutex;
+	using std::shared_timed_mutex;
+
+	template<class Mutex>
+	using shared_lock = std::shared_lock< Mutex >;
+
+}
+
+//------------------------------------------------------------------------------

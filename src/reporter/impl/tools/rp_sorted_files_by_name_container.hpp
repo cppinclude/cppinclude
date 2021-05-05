@@ -2,7 +2,8 @@
 
 #include "reporter/impl/tools/rp_file_sorter.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/functional>
+#include <std_fs>
 
 #include <set>
 

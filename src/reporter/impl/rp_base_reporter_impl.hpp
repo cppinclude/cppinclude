@@ -2,6 +2,8 @@
 
 #include "reporter/api/rp_reporter.hpp"
 
+#include <std_fs>
+
 #include <memory>
 
 //------------------------------------------------------------------------------
@@ -28,6 +30,7 @@ protected:
 	CountType getMaxFilesCount() const;
 	CountType getMaxDetailsCount() const;
 	bool getShowStdFiles() const;
+	bool getShowOnlyStdHeaders() const;
 
 	static std::string getPathWithoutProject(
 		const Path & _filePath,

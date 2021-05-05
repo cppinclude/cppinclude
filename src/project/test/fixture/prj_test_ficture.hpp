@@ -2,7 +2,8 @@
 
 #include "test_tools/boost_predicate_wrapper.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/vector>
+#include <std_fs>
 
 #include <memory>
 

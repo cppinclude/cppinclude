@@ -1,0 +1,57 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T > struct atomic;
+
+	using atomic_bool           = atomic<bool>;
+	using atomic_char           = atomic<char>;
+	using atomic_schar          = atomic<signed char>;
+	using atomic_uchar          = atomic<unsigned char>;
+	using atomic_short          = atomic<short>;
+	using atomic_ushort         = atomic<unsigned short>;
+	using atomic_int            = atomic<int>;
+	using atomic_uint           = atomic<unsigned int>;
+	using atomic_long           = atomic<long>;
+	using atomic_ulong          = atomic<unsigned long>;
+	using atomic_llong          = atomic<long long>;
+	using atomic_ullong         = atomic<unsigned long long>;
+	using atomic_char16_t       = atomic<char16_t>;
+	using atomic_char32_t       = atomic<char32_t>;
+	using atomic_wchar_t        = atomic<wchar_t>;
+
+	class atomic_flag;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd {
+
+	template< class T >
+	using atomic = std::atomic< T >;
+
+	using std::atomic_bool;
+	using std::atomic_char;
+	using std::atomic_schar;
+	using std::atomic_uchar;
+	using std::atomic_short;
+	using std::atomic_ushort;
+	using std::atomic_int;
+	using std::atomic_uint;
+	using std::atomic_long;
+	using std::atomic_ulong;
+	using std::atomic_llong;
+	using std::atomic_ullong;
+	using std::atomic_char16_t;
+	using std::atomic_char32_t;
+	using std::atomic_wchar_t;
+
+	using std::atomic_flag;
+}
+
+//------------------------------------------------------------------------------

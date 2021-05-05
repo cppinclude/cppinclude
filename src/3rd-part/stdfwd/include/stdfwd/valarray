@@ -1,0 +1,44 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	class slice;
+	class gslice;
+
+	template<class T> class valarray;
+	template<class T> class slice_array;
+	template<class T> class gslice_array;
+	template<class T> class mask_array;
+	template<class T> class indirect_array;
+
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::slice;
+	using std::gslice;
+
+	template<class T>
+	using valarray = std::valarray<T>;
+
+	template<class T>
+	using slice_array = std::slice_array<T>;
+
+	template<class T>
+	using gslice_array = std::gslice_array<T>;
+
+	template<class T>
+	using mask_array = std::mask_array<T>;
+
+	template<class T>
+	using indirect_array = std::indirect_array<T>;
+}
+
+//------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #include "application/test/fixtures/app_test_parser_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 #include <optional>
 #include <std_fs>
@@ -35,11 +35,12 @@ namespace application::test {
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( ParserArgumentsTets, ParserArgumentsFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( ParserArgumentsTets, ParserArgumentsFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_argument_with_value )
+BOOST_AUTO_TEST_CASE( t1_argument_with_value )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -56,13 +57,13 @@ TEST_CASE( t1_argument_with_value )
 	// Check
 	auto valueOpt = getArgumentStringValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
-	TEST_CHECK_EQUAL( argumentValue, *valueOpt );
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_argument_with_only_default_value )
+BOOST_AUTO_TEST_CASE( t2_argument_with_only_default_value )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -76,12 +77,12 @@ TEST_CASE( t2_argument_with_only_default_value )
 
 	// Check
 	auto valueOpt = getArgumentStringValue( argumentName );
-	TEST_REQUIRE( !valueOpt.has_value() );
+	BOOST_REQUIRE( !valueOpt.has_value() );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_argument_with_value_and_default_value )
+BOOST_AUTO_TEST_CASE( t3_argument_with_value_and_default_value )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -98,13 +99,13 @@ TEST_CASE( t3_argument_with_value_and_default_value )
 	// Check
 	auto valueOpt = getArgumentStringValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_unrecognized_argument )
+BOOST_AUTO_TEST_CASE( t4_unrecognized_argument )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -114,12 +115,12 @@ TEST_CASE( t4_unrecognized_argument )
 	const std::string argument = "--" + argumentName + "=" + argumentValue;
 
 	// Run
-	TEST_CHECK_THROW( parseArguments( { argument } ), std::logic_error );
+	BOOST_CHECK_THROW( parseArguments( { argument } ), std::logic_error );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_help )
+BOOST_AUTO_TEST_CASE( t5_help )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -144,7 +145,7 @@ TEST_CASE( t5_help )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_value_with_quotation_mark )
+BOOST_AUTO_TEST_CASE( t6_value_with_quotation_mark )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -165,13 +166,13 @@ TEST_CASE( t6_value_with_quotation_mark )
 	// Check
 	auto valueOpt = getArgumentStringValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_value_with_apostrophe )
+BOOST_AUTO_TEST_CASE( t7_value_with_apostrophe )
 {
 	// Init
 	const std::string argumentName = "dir";
@@ -190,13 +191,13 @@ TEST_CASE( t7_value_with_apostrophe )
 	// Check
 	auto valueOpt = getArgumentStringValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t8_several_arguments )
+BOOST_AUTO_TEST_CASE( t8_several_arguments )
 {
 	// Init
 	const std::string argumentNewName = "new";
@@ -222,18 +223,18 @@ TEST_CASE( t8_several_arguments )
 	// Check
 	auto valueNewOpt = getArgumentStringValue( argumentNewName );
 
-	TEST_REQUIRE( valueNewOpt.has_value() );
+	BOOST_REQUIRE( valueNewOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentNewValue, *valueNewOpt );
 
 	auto valueOldOpt = getArgumentStringValue( argumentOldName );
 
-	TEST_REQUIRE( valueOldOpt.has_value() );
+	BOOST_REQUIRE( valueOldOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentOldValue, *valueOldOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t9_check_exist_argument )
+BOOST_AUTO_TEST_CASE( t9_check_exist_argument )
 {
 	// Init
 	const std::string argumentName = "help";
@@ -246,12 +247,12 @@ TEST_CASE( t9_check_exist_argument )
 	parseArguments( { argument } );
 
 	// Check
-	TEST_CHECK( isExistArgument( argumentName ) );
+	BOOST_CHECK( isExistArgument( argumentName ) );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t10_1_array_simple )
+BOOST_AUTO_TEST_CASE( t10_1_array_simple )
 {
 	// Init
 	const std::string argumentName = "array";
@@ -270,13 +271,13 @@ TEST_CASE( t10_1_array_simple )
 
 	auto valueOpt = getArgumentStringsValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t10_2_array_with_default_value )
+BOOST_AUTO_TEST_CASE( t10_2_array_with_default_value )
 {
 	// Init
 	const std::string argumentName = "array";
@@ -294,12 +295,12 @@ TEST_CASE( t10_2_array_with_default_value )
 
 	auto valueOpt = getArgumentStringValue( argumentName );
 
-	TEST_REQUIRE( !valueOpt.has_value() );
+	BOOST_REQUIRE( !valueOpt.has_value() );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t10_3_array_with_quotes )
+BOOST_AUTO_TEST_CASE( t10_3_array_with_quotes )
 {
 	// Init
 	const std::string argumentName = "array";
@@ -318,13 +319,13 @@ TEST_CASE( t10_3_array_with_quotes )
 
 	auto valueOpt = getArgumentStringsValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( "a,b,c", *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t11_int )
+BOOST_AUTO_TEST_CASE( t11_int )
 {
 	// Init
 	const std::string argumentName = "number";
@@ -343,13 +344,13 @@ TEST_CASE( t11_int )
 	// Check
 	auto valueOpt = getArgumentIntValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t12_bool )
+BOOST_AUTO_TEST_CASE( t12_bool )
 {
 	// Init
 	const std::string argumentName = "skip";
@@ -368,13 +369,13 @@ TEST_CASE( t12_bool )
 	// Check
 	auto valueOpt = getArgumentBoolValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValue, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t13_path )
+BOOST_AUTO_TEST_CASE( t13_path )
 {
 	// Init
 	const std::string argumentName = "number";
@@ -393,13 +394,13 @@ TEST_CASE( t13_path )
 	// Check
 	auto valueOpt = getArgumentPathValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValueStr, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t14_paths )
+BOOST_AUTO_TEST_CASE( t14_paths )
 {
 	// Init
 	const std::string argumentName = "number";
@@ -418,13 +419,13 @@ TEST_CASE( t14_paths )
 	// Check
 	auto valueOpt = getArgumentPathsValue( argumentName );
 
-	TEST_REQUIRE( valueOpt.has_value() );
+	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( argumentValueStr, *valueOpt );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

@@ -131,6 +131,15 @@ void ReporterFixture::setShowStdFiles( bool _enable )
 
 //------------------------------------------------------------------------------
 
+void ReporterFixture::setShowOnlyStdHeaders( bool _enable )
+{
+	ensureSettings().setShowOnlyStdHeaders( _enable );
+	if( _enable )
+		setShowStdFiles( true );
+}
+
+//------------------------------------------------------------------------------
+
 std::string ReporterFixture::runDumpReporter()
 {
 	auto reporterPtr = getFactory().createDumpReporter();

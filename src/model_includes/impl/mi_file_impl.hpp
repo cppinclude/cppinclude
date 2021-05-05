@@ -3,6 +3,8 @@
 #include "model_includes/api/enums/mi_file_type.hpp"
 #include "model_includes/api/mi_file.hpp"
 
+#include <stdfwd/functional>
+
 #include <std_fs>
 #include <vector>
 

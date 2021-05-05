@@ -1,6 +1,7 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/size_t>
+#include <stdfwd/string_view>
 
 //------------------------------------------------------------------------------
 

@@ -3,7 +3,10 @@
 #include "application/tools/app_plugin_ptr.hpp"
 
 #include <memory>
-#include <stdfwd.hpp>
+#include <stdfwd/optional>
+#include <stdfwd/vector>
+#include <std_fs>
+#include <stdfwd/string_view>
 
 //------------------------------------------------------------------------------
 
@@ -65,6 +68,7 @@ public:
 	IntOpt getReportLimit() const;
 	IntOpt getReportDetailsLimit() const;
 	BoolOpt getShowStdFile() const;
+	BoolOpt getShowOnlyStdHeaders() const;
 
 	static StringOpt toStirng( const StringsOpt & _arrayOpt );
 	static StringOpt toStirng( const PathsArrayOpt & _arrayOpt );

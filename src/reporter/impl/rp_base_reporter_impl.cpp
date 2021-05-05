@@ -65,6 +65,13 @@ bool BaseReporterImpl::getShowStdFiles() const
 
 //------------------------------------------------------------------------------
 
+bool BaseReporterImpl::getShowOnlyStdHeaders() const
+{
+	return getSettings().getShowOnlyStdHeaders();
+}
+
+//------------------------------------------------------------------------------
+
 std::string BaseReporterImpl::getPathWithoutProject(
 	const Path & _filePath,
 	const Path & _dirPath

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/functional>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 

@@ -2,7 +2,7 @@
 
 #include "application/resources/app_resources_arguments.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 #include <regex>
 
@@ -34,11 +34,13 @@ namespace application::test {
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( ProjectBuildersTets, ProjectBuilderFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( ProjectBuildersTets, ProjectBuilderFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_empty_arguments_and_configuration_file )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t1_empty_arguments_and_configuration_file )
 {
 	// Run
 	parserArguments( {} );
@@ -53,7 +55,7 @@ TEST_CASE( t1_empty_arguments_and_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_only_arguments )
+BOOST_AUTO_TEST_CASE( t2_only_arguments )
 {
 	// Init
 	using namespace resources::arguments;
@@ -108,7 +110,7 @@ TEST_CASE( t2_only_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_only_configuration_file )
+BOOST_AUTO_TEST_CASE( t3_only_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
@@ -144,7 +146,7 @@ TEST_CASE( t3_only_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_1_ignore_system_includes_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t5_1_ignore_system_includes_from_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
@@ -163,7 +165,7 @@ TEST_CASE( t5_1_ignore_system_includes_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_2_ignore_system_includes_from_arguments )
+BOOST_AUTO_TEST_CASE( t5_2_ignore_system_includes_from_arguments )
 {
 	// Run
 	parserArguments( { "--ignore_system_includes=true" } );
@@ -175,7 +177,7 @@ TEST_CASE( t5_2_ignore_system_includes_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_3_ignore_system_includes_default )
+BOOST_AUTO_TEST_CASE( t5_3_ignore_system_includes_default )
 {
 	// Run
 	parserArguments( {} );
@@ -190,7 +192,7 @@ TEST_CASE( t5_3_ignore_system_includes_default )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_1_ignore_files_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t6_1_ignore_files_from_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
@@ -208,7 +210,7 @@ TEST_CASE( t6_1_ignore_files_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_2_ignore_files_from_arguments )
+BOOST_AUTO_TEST_CASE( t6_2_ignore_files_from_arguments )
 {
 	// Run
 	parserArguments( { "--ignore_files=boost.*" } );
@@ -220,21 +222,21 @@ TEST_CASE( t6_2_ignore_files_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_3_ignore_files_default )
+BOOST_AUTO_TEST_CASE( t6_3_ignore_files_default )
 {
 	// Run
 	parserArguments( {} );
 	buildProject();
 
 	//Check
-	auto defaultValues = toStrings( resources::arguments::ignoreFiles::DefaultValue );
+	auto defaultValues = toStrings( resources::arguments::ignoreFiles::DefaultValues );
 
 	BOOST_REQUIRE_EQUAL( getFileFiltersCount(), defaultValues.size() );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_1_analyze_without_extension_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t7_1_analyze_without_extension_from_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
@@ -253,7 +255,7 @@ TEST_CASE( t7_1_analyze_without_extension_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_2_analyze_without_extension_from_arguments )
+BOOST_AUTO_TEST_CASE( t7_2_analyze_without_extension_from_arguments )
 {
 	// Run
 	parserArguments( { "--analyze_without_extension=true" } );
@@ -265,7 +267,7 @@ TEST_CASE( t7_2_analyze_without_extension_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_3_analyze_without_extension_default )
+BOOST_AUTO_TEST_CASE( t7_3_analyze_without_extension_default )
 {
 	// Run
 	parserArguments( {} );
@@ -279,7 +281,7 @@ TEST_CASE( t7_3_analyze_without_extension_default )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

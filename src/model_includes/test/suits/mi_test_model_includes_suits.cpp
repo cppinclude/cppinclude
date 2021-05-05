@@ -3,7 +3,7 @@
 #include "model_includes/test/fixtures/wrappers/mi_test_file_wrapper.hpp"
 #include "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 /*------------------------------------------------------------------------------
 
@@ -19,11 +19,12 @@ namespace model_includes::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( ModelIncludesTests, ModelIncludesFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( ModelIncludesTests, ModelIncludesFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_1_file_includes_count_recursive )
+BOOST_AUTO_TEST_CASE( t1_1_file_includes_count_recursive )
 {
 	// Init
 	const std::string baseFile = "/test_project/base.hpp";
@@ -34,7 +35,7 @@ TEST_CASE( t1_1_file_includes_count_recursive )
 
 	// Run
 	auto model = createModel();
-	TEST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.isAvailable() );
 
 	model.addInclude( classAFile, baseFile );
 	model.addInclude( classBFile, baseFile );
@@ -45,14 +46,14 @@ TEST_CASE( t1_1_file_includes_count_recursive )
 	// Check
 
 	auto file = model.findFile( mainFile );
-	TEST_REQUIRE( file.isAvailable() );
+	BOOST_REQUIRE( file.isAvailable() );
 
-	TEST_CHECK( file.checkIncludesCountRecursive( 3 ) );
+	BOOST_CHECK( file.checkIncludesCountRecursive( 3 ) );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_2_file_includes_by_count_recursive )
+BOOST_AUTO_TEST_CASE( t1_2_file_includes_by_count_recursive )
 {
 	// Init
 	const std::string baseFile = "/test_project/base.hpp";
@@ -68,7 +69,7 @@ TEST_CASE( t1_2_file_includes_by_count_recursive )
 
 	// Run
 	auto model = createModel();
-	TEST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.isAvailable() );
 
 	model.addInclude( classAFile, baseFile );
 	model.addInclude( runA1File, classAFile );
@@ -83,14 +84,14 @@ TEST_CASE( t1_2_file_includes_by_count_recursive )
 	// Check
 
 	auto file = model.findFile( baseFile );
-	TEST_REQUIRE( file.isAvailable() );
+	BOOST_REQUIRE( file.isAvailable() );
 
-	TEST_CHECK( file.checkIncludedByCountRecursive( 6 ) );
+	BOOST_CHECK( file.checkIncludedByCountRecursive( 6 ) );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

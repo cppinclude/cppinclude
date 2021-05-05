@@ -73,18 +73,16 @@ AnalyzerImpl::ModelPtr AnalyzerImpl::analyze(
 	_cmakeProject.forEachFilePath(
 		[&]( const Path & _path )
 		{
-			if( context.isFileInIgnoreDir( _path ) )
+			if( !context.isFileInIgnoreDir( _path ) )
 			{
-				return true;
-			}
+				context.setCurrentCMakeSourceFile( _path );
 
-			context.setCurrentCMakeSourceFile( _path );
+				analyzeFile( context, _path );
 
-			analyzeFile( context, _path );
-
-			while( auto pathOpt = context.popResolvedFile() )
-			{
-				analyzeFile( context, *pathOpt );
+				while( auto pathOpt = context.popResolvedFile() )
+				{
+					analyzeFile( context, *pathOpt );
+				}
 			}
 
 			return true;

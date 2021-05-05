@@ -2,7 +2,7 @@
 
 #include "reporter/impl/tools/rp_includes_by_source_sorter.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/functional>
 
 #include <set>
 

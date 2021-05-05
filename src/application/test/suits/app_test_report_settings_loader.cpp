@@ -1,6 +1,6 @@
 #include "application/test/fixtures/app_test_report_settings_loader_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 /*------------------------------------------------------------------------------
 
@@ -16,10 +16,15 @@ TEST PLAN:
 		2.2.1 from arguments
 		2.2.2 from configuration file
 		2.2.3 mix
-	3.3 show std files
+	2.3 show std files
 		2.3.1 from arguments
 		2.3.2 from configuration file
 		2.3.3 mix
+	2.4 show only std headers
+		2.4.1 from arguments
+		2.4.2 from configuration file
+		2.4.3 mix
+		2.4.4 ignore show std files
 3. Load report kinds
 	3.1 From arguments
 	3.2 From configuration file
@@ -31,11 +36,12 @@ namespace application::test {
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( ReportSettingsLoaderTests, ReportSettingsLoaderFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( ReportSettingsLoaderTests, ReportSettingsLoaderFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_empty_arguments_and_configuration_file )
+BOOST_AUTO_TEST_CASE( t1_empty_arguments_and_configuration_file )
 {
 	// Run
 	parserArguments( "" );
@@ -51,7 +57,7 @@ TEST_CASE( t1_empty_arguments_and_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_1_1_load_max_files_from_arguments )
+BOOST_AUTO_TEST_CASE( t2_1_1_load_max_files_from_arguments )
 {
 	// Run
 	parserArguments( "--report_limit=42" );
@@ -63,7 +69,7 @@ TEST_CASE( t2_1_1_load_max_files_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_1_2_load_max_files_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t2_1_2_load_max_files_from_configuration_file )
 {
 	// Run
 	createConfigurationFile( R"({ "report_limit" : 42 })" );
@@ -75,7 +81,7 @@ TEST_CASE( t2_1_2_load_max_files_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_1_3_load_max_files_from_mix )
+BOOST_AUTO_TEST_CASE( t2_1_3_load_max_files_from_mix )
 {
 	// Run
 	createConfigurationFile( R"({ "report_limit" : 1 })" );
@@ -88,7 +94,7 @@ TEST_CASE( t2_1_3_load_max_files_from_mix )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_2_1_load_max_details_from_arguments )
+BOOST_AUTO_TEST_CASE( t2_2_1_load_max_details_from_arguments )
 {
 	// Run
 	parserArguments( "--report_details_limit=42" );
@@ -100,7 +106,7 @@ TEST_CASE( t2_2_1_load_max_details_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_2_2_load_max_details_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t2_2_2_load_max_details_from_configuration_file )
 {
 	// Run
 	createConfigurationFile( R"({ "report_details_limit" : 42 })" );
@@ -112,7 +118,7 @@ TEST_CASE( t2_2_2_load_max_details_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_2_2_load_max_details_from_mix )
+BOOST_AUTO_TEST_CASE( t2_2_2_load_max_details_from_mix )
 {
 	// Run
 	createConfigurationFile( R"({ "report_details_limit" : 1 })" );
@@ -125,7 +131,7 @@ TEST_CASE( t2_2_2_load_max_details_from_mix )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_3_1_load_show_std_files_from_arguments )
+BOOST_AUTO_TEST_CASE( t2_3_1_load_show_std_files_from_arguments )
 {
 	// Run
 	parserArguments( "--show_std_files=true" );
@@ -137,7 +143,7 @@ TEST_CASE( t2_3_1_load_show_std_files_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_3_2_load_show_std_files_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t2_3_2_load_show_std_files_from_configuration_file )
 {
 	// Run
 	createConfigurationFile( R"({ "show_std_files" : true })" );
@@ -149,7 +155,7 @@ TEST_CASE( t2_3_2_load_show_std_files_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_3_3_load_show_std_files_from_mix )
+BOOST_AUTO_TEST_CASE( t2_3_3_load_show_std_files_from_mix )
 {
 	// Run
 	createConfigurationFile( R"({ "show_std_files" : true })" );
@@ -162,7 +168,7 @@ TEST_CASE( t2_3_3_load_show_std_files_from_mix )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_3_1_load_reports_from_arguments )
+BOOST_AUTO_TEST_CASE( t3_3_1_load_reports_from_arguments )
 {
 	// Run
 	parserArguments( "--report=most_impact,unresolved" );
@@ -174,7 +180,7 @@ TEST_CASE( t3_3_1_load_reports_from_arguments )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_3_2_load_reports_from_configuration_file )
+BOOST_AUTO_TEST_CASE( t3_3_2_load_reports_from_configuration_file )
 {
 	// Run
 	createConfigurationFile( R"({ "report" : [ "most_impact","unresolved" ] })" );
@@ -186,7 +192,7 @@ TEST_CASE( t3_3_2_load_reports_from_configuration_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_3_3_load_reports_from_mix )
+BOOST_AUTO_TEST_CASE( t3_3_3_load_reports_from_mix )
 {
 	// Run
 	createConfigurationFile( R"({ "report" : [ "most_impact" ] })" );
@@ -199,7 +205,58 @@ TEST_CASE( t3_3_3_load_reports_from_mix )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_CASE( t_2_4_1_load_show_only_std_headers_from_arguments )
+{
+	// Run
+	parserArguments( "--show_only_std_headers=true" );
+	load();
+
+	// Check
+	BOOST_CHECK_EQUAL( getShowOnlyStdHeaders(), true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t2_4_2_load_show_only_std_headers_from_configuration_file )
+{
+	// Run
+	createConfigurationFile( R"({ "show_only_std_headers" : true })" );
+	load();
+
+	// Check
+	BOOST_CHECK_EQUAL( getShowOnlyStdHeaders(), true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t2_4_3_load_show_only_std_headers_from_mix )
+{
+	// Run
+	createConfigurationFile( R"({ "show_only_std_headers" : true })" );
+	parserArguments( "--show_only_std_headers=false" );
+	load();
+
+	// Check
+	BOOST_CHECK_EQUAL( getShowOnlyStdHeaders(), false );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t2_4_4_load_show_only_std_headers_ignore_show_std_files )
+{
+	// Run
+	parserArguments( "--show_only_std_headers=true" );
+	parserArguments( "--show_std_files=false" );
+	load();
+
+	// Check
+	BOOST_CHECK_EQUAL( getShowOnlyStdHeaders(), true );
+	BOOST_CHECK_EQUAL( getShowStdFiles(), true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

@@ -5,7 +5,8 @@
 #include "model_includes/api/enums/mi_include_status.hpp"
 #include "model_includes/api/enums/mi_include_type.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/memory>
+#include <std_fs>
 
 //------------------------------------------------------------------------------
 

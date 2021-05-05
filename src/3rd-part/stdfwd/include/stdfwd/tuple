@@ -1,0 +1,21 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class... Types > class tuple;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class... Types >
+	using tuple = std::tuple< Types ... >;
+}
+
+//------------------------------------------------------------------------------

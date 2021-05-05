@@ -9,7 +9,8 @@ namespace reporter {
 SettingsImpl::SettingsImpl()
 	:	m_maxFilesCount{ 0 }
 	,	m_maxDetailsCount{ 0 }
-	,	m_showStdFiles{ true }
+	,	m_showStdFiles{ false }
+	,	m_showOnlyStdHeaders{ false }
 {
 }
 
@@ -57,11 +58,26 @@ void SettingsImpl::setShowStdFiles( bool _enable )
 
 //------------------------------------------------------------------------------
 
+bool SettingsImpl::getShowOnlyStdHeaders() const
+{
+	return m_showOnlyStdHeaders;
+}
+
+//------------------------------------------------------------------------------
+
+void SettingsImpl::setShowOnlyStdHeaders( bool _enable )
+{
+	m_showOnlyStdHeaders = _enable;
+}
+
+//------------------------------------------------------------------------------
+
 void SettingsImpl::copy( const Settings & _other )
 {
 	setMaxFilesCount( _other.getMaxFilesCount() );
 	setMaxDetailsCount( _other.getMaxDetailsCount() );
 	setShowStdFiles( _other.getShowStdFiles() );
+	setShowOnlyStdHeaders( _other.getShowOnlyStdHeaders() );
 }
 
 //------------------------------------------------------------------------------

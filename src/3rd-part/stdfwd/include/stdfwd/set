@@ -1,0 +1,39 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T > class allocator;
+	template< class T >	struct less;
+
+	template< class Key, class Compare, class Allocator >
+	class set;
+
+	template< class Key, class Compare, class Allocator >
+	class multiset;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template<
+		class Key,
+		class Compare = std::less< Key >,
+		class Allocator = std::allocator< Key >
+	>
+	using set = std::set< Key, Compare, Allocator >;
+
+	template<
+		class Key,
+		class Compare = std::less< Key >,
+		class Allocator = std::allocator< Key >
+	>
+	using multiset = std::multiset< Key, Compare, Allocator >;
+}
+
+//------------------------------------------------------------------------------

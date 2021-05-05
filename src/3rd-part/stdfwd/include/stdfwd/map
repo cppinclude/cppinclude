@@ -1,0 +1,42 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T > class allocator;
+	template< class T >	struct less;
+	template< class T1, class T2 > struct pair;
+
+	template< class Key, class T, class Compare, class Allocator >
+	class map;
+
+	template< class Key, class T, class Compare, class Allocator >
+	class multimap;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template<
+		class Key,
+		class T,
+		class Compare = std::less< Key >,
+		class Allocator = std::allocator<std::pair<const Key, T> >
+	>
+	using map = std::map< Key, T, Compare, Allocator >;
+
+	template<
+		class Key,
+		class T,
+		class Compare = std::less< Key >,
+		class Allocator = std::allocator<std::pair<const Key, T> >
+	>
+	using multimap = std::multimap< Key, T, Compare, Allocator >;
+}
+
+//------------------------------------------------------------------------------

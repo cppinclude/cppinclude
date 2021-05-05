@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 /*------------------------------------------------------------------------------
 
@@ -16,11 +16,12 @@ namespace reporter::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( DumpReporterTests, ReporterFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( DumpReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_includes )
+BOOST_AUTO_TEST_CASE( t1_includes )
 {
 	// Init
 	const std::string classA = toPath( "/test_project/class_a.hpp" );
@@ -50,7 +51,7 @@ TEST_CASE( t1_includes )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_unresolved_includes )
+BOOST_AUTO_TEST_CASE( t2_unresolved_includes )
 {
 	// Init
 	const std::string classA = "class_a.hpp";
@@ -81,7 +82,7 @@ TEST_CASE( t2_unresolved_includes )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_system_includes )
+BOOST_AUTO_TEST_CASE( t3_system_includes )
 {
 	// Init
 	const std::string main = toPath( "/test_project/main.cpp" );
@@ -108,7 +109,7 @@ TEST_CASE( t3_system_includes )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_relative_paths )
+BOOST_AUTO_TEST_CASE( t4_relative_paths )
 {
 	// Init
 	const std::string classA = toPath( "/test_project/class_a.hpp" );
@@ -141,7 +142,7 @@ TEST_CASE( t4_relative_paths )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

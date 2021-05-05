@@ -106,7 +106,21 @@ bool ReportSettingsLoaderFixture::getShowStdFiles() const
 
 bool ReportSettingsLoaderFixture::getDefaultShowStdFiles() const
 {
-	return getArguments().getDefaultShowStdfile();
+	return getArguments().getDefaultShowStdFile();
+}
+
+//------------------------------------------------------------------------------
+
+bool ReportSettingsLoaderFixture::getShowOnlyStdHeaders() const
+{
+	return getSettings().getShowOnlyStdHeaders();
+}
+
+//------------------------------------------------------------------------------
+
+bool ReportSettingsLoaderFixture::getDefaultShowOnlyStdHeaders() const
+{
+	return getArguments().getDefaultShowOnlyStdHeaders();
 }
 
 //------------------------------------------------------------------------------

@@ -1,6 +1,8 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/string>
+#include <stdfwd/string_view>
+#include <iosfwd>
 
 //------------------------------------------------------------------------------
 

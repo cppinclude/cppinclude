@@ -3,7 +3,7 @@
 #include "compilation_db/api/cdb_command_object.hpp"
 #include "compilation_db/api/cdb_database.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 #include <string_view>
 
 /*------------------------------------------------------------------------------
@@ -19,11 +19,12 @@ namespace compilation_db::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( CompilationDbTests, CompilationDbFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( CompilationDbTests, CompilationDbFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_one_compilation_object )
+BOOST_AUTO_TEST_CASE( t1_one_compilation_object )
 {
 	// Run
 	const Database & db = parseJson(
@@ -51,7 +52,7 @@ TEST_CASE( t1_one_compilation_object )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_several_compilation_objects )
+BOOST_AUTO_TEST_CASE( t2_several_compilation_objects )
 {
 	// Run
 	const Database & db = parseJson(
@@ -107,7 +108,7 @@ TEST_CASE( t2_several_compilation_objects )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

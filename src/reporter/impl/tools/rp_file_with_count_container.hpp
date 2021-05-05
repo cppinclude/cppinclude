@@ -3,8 +3,8 @@
 #include "reporter/impl/tools/rp_file_with_count.hpp"
 #include "reporter/impl/tools/rp_file_with_count_sorter.hpp"
 
+#include <stdfwd/functional>
 #include <set>
-#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 

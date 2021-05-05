@@ -2,6 +2,8 @@
 
 #include "cmake_project/api/cprj_loader.hpp"
 
+#include <std_fs>
+
 #include <memory>
 
 //------------------------------------------------------------------------------

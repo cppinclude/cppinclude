@@ -1,0 +1,24 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_PURE_BEGIN
+
+	class exception;
+	class bad_exception;
+	class nested_exception;
+
+STDFWD_STD_PURE_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::exception;
+	using std::bad_exception;
+	using std::nested_exception;
+}
+
+//------------------------------------------------------------------------------

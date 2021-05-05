@@ -30,7 +30,20 @@ Included by:
 	9 : "application/tools/app_configuration_file.cpp" line 5
 	10 : "application/tools/app_configuration_file_loader.cpp" line 9
 	... 10 of 51 details
-4 : "reporter/api/enums/rp_reporter_kind.hpp" impact on 19 file(s)
+4 : "test_tools/test_macros.hpp" impact on 22 file(s)
+Included by:
+	1 : "application/test/suits/app_test_cmake_project_builder.cpp" line 7
+	2 : "application/test/suits/app_test_configuration_file_suits.cpp" line 3
+	3 : "application/test/suits/app_test_parser_arguments.cpp" line 3
+	4 : "application/test/suits/app_test_parser_arguments_wrapper_suits.cpp" line 9
+	5 : "application/test/suits/app_test_project_builder.cpp" line 5
+	6 : "application/test/suits/app_test_report_settings_loader.cpp" line 3
+	7 : "cmake_project/test/suits/cprj_test_includes_parser.cpp" line 3
+	8 : "cmake_project/test/suits/cprj_test_loader.cpp" line 3
+	9 : "compilation_db/test/suits/cdb_test_suits.cpp" line 6
+	10 : "json/test/suits/json_test_suits.cpp" line 7
+	... 10 of 22 details
+5 : "reporter/api/enums/rp_reporter_kind.hpp" impact on 19 file(s)
 Included by:
 	1 : "application/exceptions/app_cant_create_report_impl.hpp" line 6, impact on 2 file(s)
 	2 : "application/test/fixtures/app_test_report_settings_loader_fixture.hpp" line 3, impact on 2 file(s)
@@ -38,45 +51,45 @@ Included by:
 	4 : "application/test/fixtures/app_test_configuration_file_fixture.cpp" line 10
 	5 : "application/test/fixtures/app_test_parser_wrapper_fixture.cpp" line 6
 	6 : "application/test/suits/app_test_parser_arguments_wrapper_suits.cpp" line 6
-	7 : "application/tools/app_parser_arg_wrapper.cpp" line 5
+	7 : "application/tools/app_parser_arg_wrapper.cpp" line 6
 	8 : "reporter/exceptions/rp_incorrect_report_impl.cpp" line 10
 	9 : "reporter/impl/different_type_reporter/rp_different_type_reporter.cpp" line 3
 	10 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 3
 	... 10 of 15 details
-5 : "model_includes/api/enums/mi_file_type.hpp" impact on 18 file(s)
-Included by:
-	1 : "reporter/test/fixture/rp_test_reporter_fixture.hpp" line 5, impact on 6 file(s)
-	2 : "model_includes/impl/mi_file_impl.hpp" line 4, impact on 2 file(s)
-	3 : "model_includes/impl/mi_analyzer_impl.cpp" line 5
-	4 : "model_includes/impl/mi_resolver.cpp" line 5
-	5 : "model_includes/test/fixtures/mi_test_model_includes_fixture.cpp" line 6
-	6 : "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.cpp" line 7
-	7 : "model_includes/test/suits/mi_test_resolver_file_type_suits.cpp" line 3
-	8 : "reporter/impl/different_type_reporter/rp_different_type_reporter.cpp" line 13
-	9 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 11
-	10 : "reporter/impl/most_impact_reporter/rp_most_impact_reporter.cpp" line 14
-	... 10 of 11 details
-6 : "model_includes/api/enums/mi_include_status.hpp" impact on 17 file(s)
+6 : "model_includes/api/enums/mi_file_type.hpp" impact on 18 file(s)
 Included by:
 	1 : "reporter/test/fixture/rp_test_reporter_fixture.hpp" line 3, impact on 6 file(s)
-	2 : "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.hpp" line 5, impact on 5 file(s)
-	3 : "model_includes/impl/mi_analyzer_impl.cpp" line 7
-	4 : "model_includes/test/fixtures/wrappers/mi_test_include_wrapper.cpp" line 6
-	5 : "model_includes/test/suits/mi_test_analyzer_for_cmake_suits.cpp" line 8
-	6 : "model_includes/test/suits/mi_test_analyzer_suits.cpp" line 8
-	7 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 9
-	8 : "reporter/impl/unresolved_reporter/rp_unresolved_reporter.cpp" line 15
-7 : "model_includes/api/enums/mi_include_type.hpp" impact on 17 file(s)
+	2 : "model_includes/impl/mi_file_impl.hpp" line 3, impact on 2 file(s)
+	3 : "model_includes/impl/mi_analyzer_impl.cpp" line 3
+	4 : "model_includes/impl/mi_resolver.cpp" line 3
+	5 : "model_includes/test/fixtures/mi_test_model_includes_fixture.cpp" line 5
+	6 : "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.cpp" line 5
+	7 : "model_includes/test/suits/mi_test_resolver_file_type_suits.cpp" line 3
+	8 : "reporter/impl/different_type_reporter/rp_different_type_reporter.cpp" line 9
+	9 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 6
+	10 : "reporter/impl/most_impact_reporter/rp_most_impact_reporter.cpp" line 10
+	... 10 of 11 details
+7 : "model_includes/api/enums/mi_include_status.hpp" impact on 17 file(s)
 Included by:
 	1 : "reporter/test/fixture/rp_test_reporter_fixture.hpp" line 4, impact on 6 file(s)
+	2 : "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.hpp" line 5, impact on 5 file(s)
+	3 : "model_includes/impl/mi_analyzer_impl.cpp" line 4
+	4 : "model_includes/test/fixtures/wrappers/mi_test_include_wrapper.cpp" line 6
+	5 : "model_includes/test/suits/mi_test_analyzer_for_cmake_suits.cpp" line 7
+	6 : "model_includes/test/suits/mi_test_analyzer_suits.cpp" line 7
+	7 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 7
+	8 : "reporter/impl/unresolved_reporter/rp_unresolved_reporter.cpp" line 11
+8 : "model_includes/api/enums/mi_include_type.hpp" impact on 17 file(s)
+Included by:
+	1 : "reporter/test/fixture/rp_test_reporter_fixture.hpp" line 5, impact on 6 file(s)
 	2 : "model_includes/test/fixtures/wrappers/mi_test_model_wrapper.hpp" line 6, impact on 5 file(s)
-	3 : "model_includes/impl/mi_analyzer_impl.cpp" line 6
+	3 : "model_includes/impl/mi_analyzer_impl.cpp" line 5
 	4 : "model_includes/test/fixtures/wrappers/mi_test_include_wrapper.cpp" line 7
-	5 : "model_includes/test/suits/mi_test_analyzer_for_cmake_suits.cpp" line 9
-	6 : "model_includes/test/suits/mi_test_analyzer_suits.cpp" line 9
-	7 : "reporter/impl/different_type_reporter/rp_different_type_reporter_details.cpp" line 4
-	8 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 10
-8 : "test_tools/boost_predicate_wrapper.hpp" impact on 17 file(s)
+	5 : "model_includes/test/suits/mi_test_analyzer_for_cmake_suits.cpp" line 8
+	6 : "model_includes/test/suits/mi_test_analyzer_suits.cpp" line 8
+	7 : "reporter/impl/different_type_reporter/rp_different_type_reporter_details.cpp" line 3
+	8 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 8
+9 : "test_tools/boost_predicate_wrapper.hpp" impact on 17 file(s)
 Included by:
 	1 : "model_includes/test/fixtures/mi_test_model_includes_fixture.hpp" line 3, impact on 6 file(s)
 	2 : "model_includes/test/fixtures/wrappers/mi_test_file_wrapper.hpp" line 3, impact on 5 file(s)
@@ -84,30 +97,17 @@ Included by:
 	4 : "model_includes/test/fixtures/wrappers/mi_test_include_wrapper.hpp" line 3, impact on 4 file(s)
 	5 : "project/test/fixture/prj_test_ficture.hpp" line 3, impact on 2 file(s)
 	6 : "test_tools/boost_predicate_wrapper.cpp" line 1
-9 : "fs/api/fs_file_system.hpp" impact on 16 file(s)
+10 : "fs/api/fs_file_system.hpp" impact on 16 file(s)
 Included by:
 	1 : "fs/impl/fs_factory_impl.hpp" line 4, impact on 3 file(s)
 	2 : "fs/impl/memory/fs_memory_file_system.hpp" line 3, impact on 2 file(s)
 	3 : "fs/impl/physical/fs_physical_file_system.hpp" line 3, impact on 2 file(s)
-	4 : "application/test/fixtures/app_test_cmake_project_builder_fixture.cpp" line 13
-	5 : "application/test/fixtures/app_test_project_builder_fixture.cpp" line 15
-	6 : "application/tools/app_cmake_project_builder.cpp" line 19
-	7 : "application/tools/app_configuration_file_loader.cpp" line 11
+	4 : "application/test/fixtures/app_test_cmake_project_builder_fixture.cpp" line 15
+	5 : "application/test/fixtures/app_test_project_builder_fixture.cpp" line 16
+	6 : "application/tools/app_cmake_project_builder.cpp" line 20
+	7 : "application/tools/app_configuration_file_loader.cpp" line 12
 	8 : "application/tools/app_project_builder.cpp" line 9
-	9 : "model_includes/impl/mi_analyzer_impl.cpp" line 16
-	10 : "model_includes/impl/mi_resolver.cpp" line 7
+	9 : "model_includes/impl/mi_analyzer_impl.cpp" line 19
+	10 : "model_includes/impl/mi_resolver.cpp" line 8
 	... 10 of 12 details
-10 : "model_includes/api/mi_include.hpp" impact on 16 file(s)
-Included by:
-	1 : "model_includes/impl/mi_model_impl.hpp" line 5, impact on 3 file(s)
-	2 : "model_includes/impl/mi_include_impl.hpp" line 3, impact on 2 file(s)
-	3 : "model_includes/impl/mi_file_impl.cpp" line 3
-	4 : "model_includes/test/fixtures/wrappers/mi_test_file_wrapper.cpp" line 6
-	5 : "model_includes/test/fixtures/wrappers/mi_test_include_wrapper.cpp" line 3
-	6 : "reporter/impl/different_type_reporter/rp_different_type_reporter.cpp" line 11
-	7 : "reporter/impl/different_type_reporter/rp_different_type_reporter_details.cpp" line 3
-	8 : "reporter/impl/dump_reporter/rp_dump_reporter.cpp" line 8
-	9 : "reporter/impl/most_impact_reporter/rp_most_impact_reporter.cpp" line 12
-	10 : "reporter/impl/tools/rp_includes_by_source_sorter.cpp" line 5
-	... 10 of 12 details
-... 10 of 163 files
+... 10 of 164 files

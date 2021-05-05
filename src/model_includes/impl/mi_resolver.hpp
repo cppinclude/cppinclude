@@ -1,6 +1,9 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <std_fs>
+#include <stdfwd/optional>
+#include <stdfwd/string_view>
+#include <stdfwd/string>
 
 //------------------------------------------------------------------------------
 
@@ -28,8 +31,8 @@ namespace model_includes {
 class Resolver
 {
 public:
-	using Path = stdfs::path;
-	using PathOpt = std::optional< Path >;
+	using Path      = stdfs::path;
+	using PathOpt   = std::optional< Path >;
 
 	explicit Resolver( const fs::FileSystem & _fs );
 

@@ -43,10 +43,14 @@ ReportSettingsLoader::SettingsPtr ReportSettingsLoader::load(
 	const auto maxFiles = loadMaxFilesCount( _arguments, _configurationFile );
 	const auto maxDetails = loadMaxDetailsCount( _arguments, _configurationFile );
 	const bool showStdFiles = loadShowStdFiles( _arguments, _configurationFile );
+	const bool showOnlyStdFiles = loadShowOnlyStdHeaders( _arguments, _configurationFile );
 
 	settings.setMaxFilesCount( maxFiles );
 	settings.setMaxDetailsCount( maxDetails );
 	settings.setShowStdFiles( showStdFiles );
+	settings.setShowOnlyStdHeaders( showOnlyStdFiles );
+	if( showOnlyStdFiles )
+		settings.setShowStdFiles( true );
 
 	return settingsPtr;
 }
@@ -123,9 +127,25 @@ bool ReportSettingsLoader::loadShowStdFiles(
 	return getValue(
 		_arguments,
 		&ParserArgWrapper::getShowStdFile,
-		&ParserArgWrapper::getDefaultShowStdfile,
+		&ParserArgWrapper::getDefaultShowStdFile,
 		_configurationFile,
 		&ConfigurationFile::getShowStdFiles
+	);
+}
+
+//------------------------------------------------------------------------------
+
+bool ReportSettingsLoader::loadShowOnlyStdHeaders(
+	const ParserArgWrapper & _arguments,
+	const ConfigurationFile * _configurationFile
+)
+{
+	return getValue(
+		_arguments,
+		&ParserArgWrapper::getShowOnlyStdHeaders,
+		&ParserArgWrapper::getDefaultShowOnlyStdHeaders,
+		_configurationFile,
+		&ConfigurationFile::getShowOnlyStdFiles
 	);
 }
 

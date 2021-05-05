@@ -1,7 +1,11 @@
 #pragma once
 
+#include <stdfwd/vector>
+#include <std_fs>
+#include <stdfwd/optional>
+#include <stdfwd/string_view>
+
 #include <memory>
-#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -76,6 +80,9 @@ public:
 
 	BoolOpt getShowStdFile() const;
 	bool getDefaultShowStdFile() const;
+
+	BoolOpt getShowOnlyStdHeaders() const;
+	bool getDefaultShowOnlyStdHeaders() const;
 
 	bool isHelp() const;
 	bool isVerbose() const;

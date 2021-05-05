@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/vector>
 
 #include <optional>
 #include <std_fs>
@@ -61,6 +61,7 @@ public:
 	IntOpt getReportLimit() const;
 	IntOpt getReportDetailsLimit() const;
 	BoolOpt getShowStdFiles() const;
+	BoolOpt getShowOnlyStdFiles() const;
 
 private:
 	void loadProjectDir( const json::JsonObject & _json );
@@ -78,6 +79,7 @@ private:
 	void loadReportLimit( const json::JsonObject & _json );
 	void loadReportDetailsLimit( const json::JsonObject & _json );
 	void loadShowStdFiles( const json::JsonObject & _json );
+	void loadShowOnlyStdHeaders( const json::JsonObject & _json );
 
 	void loadStringValue(
 		const json::JsonObject & _json,
@@ -132,6 +134,7 @@ private:
 	IntOpt m_reportLimit;
 	IntOpt m_reportDetailsLimit;
 	BoolOpt m_showStdFiles;
+	BoolOpt m_showOnlyStdHeaders;
 };
 
 //------------------------------------------------------------------------------

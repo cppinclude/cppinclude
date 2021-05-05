@@ -1,6 +1,9 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/vector>
+#include <stdfwd/memory>
+#include <stdfwd/optional>
+#include <stdfwd/size_t>
 
 //------------------------------------------------------------------------------
 
@@ -21,8 +24,8 @@ namespace application {
 class ReportSettingsLoader
 {
 public:
-	using SettingsPtr = stdfwd::unique_ptr< reporter::Settings >;
-	using ReporterKinds = stdfwd::vector< reporter::ReporterKind >;
+	using SettingsPtr       = stdfwd::unique_ptr< reporter::Settings >;
+	using ReporterKinds     = stdfwd::vector< reporter::ReporterKind >;
 
 	using CountType			= std::size_t;
 
@@ -52,6 +55,11 @@ private:
 	);
 
 	static bool loadShowStdFiles(
+		const ParserArgWrapper & _arguments,
+		const ConfigurationFile * _configurationFile
+	);
+
+	static bool loadShowOnlyStdHeaders(
 		const ParserArgWrapper & _arguments,
 		const ConfigurationFile * _configurationFile
 	);

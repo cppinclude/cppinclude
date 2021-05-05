@@ -2,6 +2,10 @@
 
 #include "reporter/impl/rp_base_reporter_impl.hpp"
 
+#include <stdfwd/vector>
+#include <stdfwd/set>
+#include <stdfwd/unordered_map>
+
 //------------------------------------------------------------------------------
 
 namespace model_includes {

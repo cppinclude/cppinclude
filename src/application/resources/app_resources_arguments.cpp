@@ -31,7 +31,7 @@ namespace fileExtensions {
 	const char * const FullName			= configuration_file::FileExtensions;
 	const char * const Description		= "Extensions C++ files";
 	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-	const char * const DefaultValue[]	= { "*.cpp", "*.hpp", "*.c", "*.h", "*.cxx", "*.hxx", nullptr };
+    const char * const DefaultValues[]	= { "*.cpp", "*.hpp", "*.c", "*.h", "*.cxx", "*.hxx", nullptr };
 }
 
 //------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ namespace includeDirs {
 	const char * const FullName			= configuration_file::IncludeDirs;
 	const char * const Description		= "Include directories";
 	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-	const char * const DefaultValue[]	= { ".", nullptr };
+    const char * const DefaultValues[]	= { ".", nullptr };
 }
 
 //------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ namespace ignoreDirs {
 	const char * const FullName			= configuration_file::IgnoreDirs;
 	const char * const Description		= "Directories that will be ignored";
 	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-	const char * const DefaultValue[]	= { nullptr };
+    const char * const DefaultValues[]	= { nullptr };
 }
 
 //------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ namespace ignoreFiles {
 	const char * const FullName			= configuration_file::IgnoreFiles;
 	const char * const Description		= "Files will be ignored by regexp";
 	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-	const char * const DefaultValue[]	= { nullptr };
+    const char * const DefaultValues[]	= { nullptr };
 }
 
 //------------------------------------------------------------------------------
@@ -186,6 +186,16 @@ namespace show_std_files {
 	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
 	const char * const FullName			= configuration_file::ShowStdFiles;
 	const char * const Description		= "Show standard library headers in output (default: false)";
+	const bool DefaultValue				= false;
+}
+
+//------------------------------------------------------------------------------
+
+namespace show_only_std_headers {
+
+	// NOLINTNEXTLINE(cppcoreguidelines-interfaces-global-init)
+	const char * const FullName			= configuration_file::ShowOnlyStdHeaders;
+	const char * const Description		= "Show only standard library headers in output (default: false)";
 	const bool DefaultValue				= false;
 }
 

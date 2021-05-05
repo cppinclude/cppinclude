@@ -1,0 +1,84 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T > class allocator;
+	template< class Iter > struct iterator_traits;
+
+	class regex_error;
+
+	STDFWD_CPP11_BEGIN
+
+	template<class CharT> struct regex_traits;
+	template<class CharT, class Traits > class basic_regex;
+
+	template<class BiIt> class sub_match;
+
+	template<class BiIt, class Allocator>
+	class match_results;
+
+	template<class BiIt, class CharT, class Traits>
+	class regex_iterator;
+
+	template<class BiIt, class CharT, class Traits >
+	class regex_token_iterator;
+
+	STDFWD_CPP11_END
+
+	using csub_match  = sub_match<const char*>;
+	using wcsub_match = sub_match<const wchar_t*>;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class T >
+	using allocator = std::allocator< T >;
+
+	template< class Iter >
+	using iterator_traits = std::iterator_traits< Iter >;
+
+	using std::regex_error;
+
+	template<class CharT>
+	using regex_traits = std::regex_traits< CharT >;
+
+	template<class CharT, class Traits = regex_traits<CharT> >
+	using basic_regex = std::basic_regex< CharT, Traits >;
+
+	template<class BiIt>
+	using sub_match = std::sub_match< BiIt >;
+
+	template<class BiIt, class Allocator = allocator<sub_match<BiIt>>>
+	using match_results = std::match_results< BiIt, Allocator >;
+
+	template<
+		class BiIt,
+		class CharT = typename iterator_traits<BiIt>::value_type,
+		class Traits = regex_traits<CharT>
+	>
+	using regex_iterator = std::regex_iterator< BiIt, CharT, Traits >;
+
+	template<
+		class BiIt,
+		class CharT = typename iterator_traits<BiIt>::value_type,
+		class Traits = regex_traits<CharT>
+	>
+	using regex_token_iterator = std::regex_token_iterator< BiIt, CharT, Traits >;
+
+	using std::csub_match;
+	using std::wcsub_match;
+
+	using regex  = basic_regex<char>;
+	using wregex = basic_regex<wchar_t>;
+
+	using cmatch  = match_results<const char*>;
+	using wcmatch = match_results<const wchar_t*>;
+
+}

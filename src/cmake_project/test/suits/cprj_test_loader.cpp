@@ -1,6 +1,6 @@
 #include "cmake_project/test/fixtures/cprj_test_loader_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 #include <set>
 
@@ -17,11 +17,12 @@ namespace cmake_project::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( CMakeProjectLoaderTests, LoaderFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( CMakeProjectLoaderTests, LoaderFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_one_file )
+BOOST_AUTO_TEST_CASE( t1_one_file )
 {
 	// Init
 	addDefaultComandForFile( "file.cpp" );
@@ -33,7 +34,7 @@ TEST_CASE( t1_one_file )
 	const auto resultFiles = getResultsFiles();
 	const auto exceptedFiles = toExceptedFiles( { "file.cpp" } );
 
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -43,7 +44,7 @@ TEST_CASE( t1_one_file )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_several_files )
+BOOST_AUTO_TEST_CASE( t2_several_files )
 {
 	// Init
 	addDefaultComandForFile( "file1.cpp" );
@@ -56,7 +57,7 @@ TEST_CASE( t2_several_files )
 	const auto resultFiles = getResultsFiles();
 	const auto exceptedFiles = toExceptedFiles( { "file1.cpp", "file2.cpp" } );
 
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -66,7 +67,7 @@ TEST_CASE( t2_several_files )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_includes )
+BOOST_AUTO_TEST_CASE( t3_includes )
 {
 	// Init
 	addComandWithIncludes( "file1.cpp", { "./lib1" } );
@@ -86,7 +87,7 @@ TEST_CASE( t3_includes )
 		"file4.cpp"
 	} );
 
-	TEST_REQUIRE_EQUAL_COLLECTIONS(
+	BOOST_REQUIRE_EQUAL_COLLECTIONS(
 		resultFiles.begin(),
 		resultFiles.end(),
 		exceptedFiles.begin(),
@@ -97,7 +98,7 @@ TEST_CASE( t3_includes )
 		const auto resultIncludes = getResultsIncludes( "file1.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( { "./lib1" } );
 
-		TEST_CHECK_EQUAL_COLLECTIONS(
+		BOOST_CHECK_EQUAL_COLLECTIONS(
 			resultIncludes.begin(),
 			resultIncludes.end(),
 			exceptedIncludes.begin(),
@@ -108,7 +109,7 @@ TEST_CASE( t3_includes )
 		const auto resultIncludes = getResultsIncludes( "file2.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( { "./lib2", "./lib3" } );
 
-		TEST_CHECK_EQUAL_COLLECTIONS(
+		BOOST_CHECK_EQUAL_COLLECTIONS(
 			resultIncludes.begin(),
 			resultIncludes.end(),
 			exceptedIncludes.begin(),
@@ -119,7 +120,7 @@ TEST_CASE( t3_includes )
 		const auto resultIncludes = getResultsIncludes( "file3.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( {} );
 
-		TEST_CHECK_EQUAL_COLLECTIONS(
+		BOOST_CHECK_EQUAL_COLLECTIONS(
 			resultIncludes.begin(),
 			resultIncludes.end(),
 			exceptedIncludes.begin(),
@@ -130,7 +131,7 @@ TEST_CASE( t3_includes )
 		const auto resultIncludes = getResultsIncludes( "file4.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( { "./lib4" } );
 
-		TEST_CHECK_EQUAL_COLLECTIONS(
+		BOOST_CHECK_EQUAL_COLLECTIONS(
 			resultIncludes.begin(),
 			resultIncludes.end(),
 			exceptedIncludes.begin(),
@@ -141,7 +142,7 @@ TEST_CASE( t3_includes )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

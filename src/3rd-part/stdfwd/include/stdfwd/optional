@@ -1,0 +1,34 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T >
+	class optional;
+	struct nullopt_t;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_PURE_BEGIN
+
+	class bad_optional_access;
+
+STDFWD_STD_PURE_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class T >
+	using optional = std::optional< T >;
+
+	using std::nullopt_t;
+	using std::bad_optional_access;
+}
+
+//------------------------------------------------------------------------------

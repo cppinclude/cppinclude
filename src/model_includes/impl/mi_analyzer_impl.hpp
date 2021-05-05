@@ -2,6 +2,9 @@
 
 #include "model_includes/api/mi_analyzer.hpp"
 
+#include <std_fs>
+#include <stdfwd/vector>
+
 #include <memory>
 
 //------------------------------------------------------------------------------

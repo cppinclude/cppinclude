@@ -2,6 +2,8 @@
 
 #include "reporter/impl/rp_base_reporter_impl.hpp"
 
+#include <stdfwd/string_view>
+
 //------------------------------------------------------------------------------
 
 namespace model_includes {

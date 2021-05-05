@@ -3,8 +3,6 @@
 #include "application/tools/app_argument.hpp"
 #include "application/tools/app_parser_arg.hpp"
 
-#include <stdfwd.hpp>
-
 //------------------------------------------------------------------------------
 
 namespace reporter {
@@ -79,7 +77,10 @@ public:
 	int getDefaultReportDetailsLimit() const;
 
 	BoolOpt getShowStdFile() const;
-	bool getDefaultShowStdfile() const;
+	bool getDefaultShowStdFile() const;
+
+	BoolOpt getShowOnlyStdHeaders() const;
+	bool getDefaultShowOnlyStdHeaders() const;
 
 	bool isHelp() const;
 	void showHelp( std::ostream & _stream ) const;
@@ -140,6 +141,7 @@ private:
 	Argument m_reportLimitArg;
 	Argument m_reportDetailsLimitArg;
 	Argument m_showStdFilesArg;
+	Argument m_showOnlyStdHeadersArg;
 };
 
 //------------------------------------------------------------------------------

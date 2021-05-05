@@ -19,7 +19,7 @@ namespace fileExtensions {
 
 	extern const char * const FullName;
 	extern const char * const Description;
-	extern const char * const DefaultValue[];
+	extern const char * const DefaultValues[];
 }
 
 //------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ namespace includeDirs {
 
 	extern const char * const FullName;
 	extern const char * const Description;
-	extern const char * const DefaultValue[];
+	extern const char * const DefaultValues[];
 }
 
 //------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace ignoreDirs {
 
 	extern const char * const FullName;
 	extern const char * const Description;
-	extern const char * const DefaultValue[];
+	extern const char * const DefaultValues[];
 }
 
 //------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ namespace ignoreFiles {
 
 	extern const char * const FullName;
 	extern const char * const Description;
-	extern const char * const DefaultValue[];
+	extern const char * const DefaultValues[];
 }
 
 //------------------------------------------------------------------------------
@@ -147,4 +147,14 @@ namespace show_std_files {
 }
 
 //------------------------------------------------------------------------------
+
+namespace show_only_std_headers {
+
+	extern const char * const FullName;
+	extern const char * const Description;
+	extern const bool DefaultValue;
+}
+
+//------------------------------------------------------------------------------
+
 }

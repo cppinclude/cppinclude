@@ -207,6 +207,8 @@ ProjectBuilderFixture::Strings ProjectBuilderFixture::toStrings(
 	{
 		const std::string str{ *it };
 		result.push_back( str );
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+		++it;
 	}
 	return result;
 }

@@ -1,0 +1,21 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template<class T> class complex;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template<class T>
+	using complex = std::complex<T>;
+}
+
+//------------------------------------------------------------------------------

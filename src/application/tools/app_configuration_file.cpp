@@ -33,6 +33,7 @@ void ConfigurationFile::loadFromJson( const json::JsonObject & _json )
 	loadReportLimit( _json );
 	loadReportDetailsLimit( _json );
 	loadShowStdFiles( _json );
+	loadShowOnlyStdHeaders( _json );
 }
 
 //------------------------------------------------------------------------------
@@ -124,6 +125,13 @@ ConfigurationFile::IntOpt ConfigurationFile::getReportDetailsLimit() const
 ConfigurationFile::BoolOpt ConfigurationFile::getShowStdFiles() const
 {
 	return m_showStdFiles;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::BoolOpt ConfigurationFile::getShowOnlyStdFiles() const
+{
+	return m_showOnlyStdHeaders;
 }
 
 //------------------------------------------------------------------------------
@@ -257,6 +265,15 @@ void ConfigurationFile::loadShowStdFiles( const json::JsonObject & _json )
 	using namespace resources;
 
 	loadBoolOpt( _json, configuration_file::ShowStdFiles, m_showStdFiles );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadShowOnlyStdHeaders( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadBoolOpt( _json, configuration_file::ShowOnlyStdHeaders, m_showOnlyStdHeaders );
 }
 
 //------------------------------------------------------------------------------

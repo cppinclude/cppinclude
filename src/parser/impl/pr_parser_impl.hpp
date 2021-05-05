@@ -2,6 +2,10 @@
 
 #include "parser/api/pr_parser.hpp"
 
+#include <stdfwd/optional>
+#include <stdfwd/string_view>
+#include <stdfwd/size_t>
+
 //------------------------------------------------------------------------------
 
 namespace parser {

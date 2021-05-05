@@ -22,6 +22,7 @@ namespace application::resources::configuration_file {
 	extern const char * const ReportLimit;
 	extern const char * const ReportDetailsLimit;
 	extern const char * const ShowStdFiles;
+	extern const char * const ShowOnlyStdHeaders;
 
 //------------------------------------------------------------------------------
 

@@ -3,6 +3,7 @@
 #include "parser/test/fixtures/pr_test_file_wrapper.hpp"
 
 #include <vector>
+#include <string>
 
 //------------------------------------------------------------------------------
 

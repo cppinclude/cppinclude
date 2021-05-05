@@ -1,0 +1,104 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+#include "ptrdiff_t"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	#ifdef STDFWD_IS_MSVC
+	template< class CharT > struct char_traits;
+	#else
+	template< class CharT > class char_traits;
+	#endif
+
+	template< class Iter > struct iterator_traits;
+
+	template<class Category, class T, class Distance, class Pointer, class Reference >
+	struct iterator;
+
+	template< class Iter > class reverse_iterator;
+	template< class Iter > class move_iterator;
+
+	template< class Container > class back_insert_iterator;
+	template< class Container >	class front_insert_iterator;
+	template< class Container > class insert_iterator;
+
+	template< class T, class CharT, class Traits, class Distance>
+	class istream_iterator;
+
+	template< class T, class CharT, class Traits >
+	class ostream_iterator;
+
+	template< class CharT, class Traits > class istreambuf_iterator;
+	template< class CharT, class Traits > class ostreambuf_iterator;
+
+	struct input_iterator_tag;
+	struct output_iterator_tag;
+	struct forward_iterator_tag;
+	struct bidirectional_iterator_tag;
+	struct random_access_iterator_tag;
+	struct contiguous_iterator_tag;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class Iter >
+	using iterator_traits = std::iterator_traits< Iter >;
+
+	template<
+		class Category,
+		class T,
+		class Distance = std::ptrdiff_t,
+		class Pointer = T*,
+		class Reference = T&
+	>
+	using iterator = std::iterator< Category, T, Distance, Pointer, Reference >;
+
+	template< class T,
+			  class CharT = char,
+			  class Traits = std::char_traits<CharT>,
+			  class Distance = std::ptrdiff_t
+	>
+	using istream_iterator = std::istream_iterator< T, CharT, Traits, Distance>;
+
+	template< class T,
+			  class CharT = char,
+			  class Traits = std::char_traits<CharT>>
+	using ostream_iterator = std::ostream_iterator< T, CharT, Traits >;
+
+	template< class CharT, class Traits = std::char_traits<CharT> >
+	using istreambuf_iterator = std::istreambuf_iterator< CharT, Traits >;
+
+	template< class CharT, class Traits = std::char_traits<CharT> >
+	using ostreambuf_iterator = std::ostreambuf_iterator< CharT, Traits >;
+
+	template< class Iter >
+	using reverse_iterator = std::reverse_iterator< Iter >;
+
+	template< class Iter >
+	using move_iterator = std::move_iterator< Iter >;
+
+	template< class Container >
+	using back_insert_iterator = std::back_insert_iterator< Container >;
+
+	template< class Container >
+	using front_insert_iterator = std::front_insert_iterator< Container >;
+
+	template< class Container >
+	using insert_iterator = std::insert_iterator< Container >;
+
+	using std::input_iterator_tag;
+	using std::output_iterator_tag;
+	using std::forward_iterator_tag;
+	using std::bidirectional_iterator_tag;
+	using std::random_access_iterator_tag;
+	using std::contiguous_iterator_tag;
+}
+
+//------------------------------------------------------------------------------

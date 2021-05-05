@@ -1,0 +1,101 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_LIBCPP
+    #define STDFWD_BEGIN_NAMESPACE_FILESYSTEM   _LIBCPP_BEGIN_NAMESPACE_FILESYSTEM
+    #define STDFWD_END_NAMESPACE_FILESYSTEM     _LIBCPP_END_NAMESPACE_FILESYSTEM
+#else
+#define STDFWD_BEGIN_NAMESPACE_FILESYSTEM                                       \
+    STDFWD_STD_BEGIN                                                            \
+    namespace filesystem {                                                      \
+
+
+    #define STDFWD_END_NAMESPACE_FILESYSTEM } STDFWD_STD_END
+#endif
+
+//------------------------------------------------------------------------------
+
+STDFWD_BEGIN_NAMESPACE_FILESYSTEM
+
+    STDFWD_CPP11_INLINE_BEGIN
+    class path;
+    STDFWD_CPP11_END
+
+STDFWD_END_NAMESPACE_FILESYSTEM
+
+//------------------------------------------------------------------------------
+
+STDFWD_BEGIN_NAMESPACE_FILESYSTEM
+
+#if defined(STDFWD_IS_LIBSTDCPP)
+
+    namespace experimental
+    {
+        namespace filesystem
+        {
+            inline namespace v1
+            {
+                inline namespace __cxx11 __attribute__((__abi_tag__("cxx11"))) {}
+                _GLIBCXX_BEGIN_NAMESPACE_CXX11_INLINE
+                class path;
+                _GLIBCXX_END_NAMESPACE_CXX11
+            }
+        }
+    }
+
+#elif defined(STDFWD_IS_MSVC)
+
+    #if __has_include(<filesystem>)
+    namespace filesystem
+    {
+        class path;
+    }
+
+    #elif __has_include(<experimental/filesystem>)
+    namespace experimental
+    {
+        namespace filesystem
+        {
+            // <filesystem>
+            class path;
+        }
+    }
+    #endif
+
+#elif defined(STDFWD_IS_LIBCPP)
+
+    namespace experimental
+    {
+        namespace filesystem
+        {
+            class path;
+        }
+    }
+
+#endif
+
+STDFWD_END_NAMESPACE_FILESYSTEM
+
+
+//------------------------------------------------------------------------------
+
+namespace stdfs {
+
+	#if __has_include(<filesystem>)
+        #ifdef _VSTD_FS
+            using path = _VSTD_FS::path;
+        #else
+            using std::filesystem::path;
+        #endif
+	#elif __has_include(<experimental/filesystem>)
+		using path = std::experimental::filesystem::path;
+	#else
+		#error Compiler does not have <filesystem> or <experimental/filesystem>
+	#endif
+
+}
+
+//------------------------------------------------------------------------------

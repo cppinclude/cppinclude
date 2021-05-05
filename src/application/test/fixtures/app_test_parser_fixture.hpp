@@ -1,7 +1,11 @@
 #pragma once
 
+#include <stdfwd/vector>
+#include <stdfwd/optional>
+#include <std_fs>
+#include <stdfwd/string_view>
+
 #include <memory>
-#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 

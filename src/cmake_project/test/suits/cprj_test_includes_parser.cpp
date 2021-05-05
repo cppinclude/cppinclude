@@ -1,6 +1,6 @@
 #include "cmake_project/test/fixtures/cprj_test_includes_parser_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 #include <string>
 
@@ -22,18 +22,20 @@ namespace cmake_project::test {
 
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( IncldesParserTests, IncldesParserFixture )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_FIXTURE_TEST_SUITE( IncldesParserTests, IncldesParserFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_without_include_paramter )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t1_without_include_paramter )
 {
 	// Run
 	auto actualResult = parseString( "/usr/bin/c++ -o file2.cpp.o -c file2.cpp" );
 	Strings exceptedResult{};
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -44,14 +46,15 @@ TEST_CASE( t1_without_include_paramter )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_paramter_in_name )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t2_paramter_in_name )
 {
 	// Run
 	auto actualResult = parseString( "/bin/c++ -o f-I.cpp.o -c f-I.cpp" );
 	Strings exceptedResult{};
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -62,14 +65,15 @@ TEST_CASE( t2_paramter_in_name )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_one_paramter )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t3_one_paramter )
 {
 	// Run
 	auto actualResult = parseString( "/bin/c++ -o f.cpp.o -I./include -c f.cpp" );
 	Strings exceptedResult = toPathStrings( {"./include"} );
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -79,14 +83,15 @@ TEST_CASE( t3_one_paramter )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_several_parameters )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t4_several_parameters )
 {
 	// Run
 	auto actualResult = parseString( "/bin/c++ -o f.cpp.o -I./lib1 -I./lib2 -c f.cpp" );
 	Strings exceptedResult = toPathStrings( { "./lib1", "./lib2" } );
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -96,14 +101,15 @@ TEST_CASE( t4_several_parameters )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_paramter_in_end_of_string )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t5_paramter_in_end_of_string )
 {
 	// Run
 	auto actualResult = parseString( "/bin/c++ -o f.cpp.o -c f.cpp -I./include" );
 	Strings exceptedResult = toPathStrings( {"./include"} );
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -113,14 +119,15 @@ TEST_CASE( t5_paramter_in_end_of_string )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_file_with_space )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t6_file_with_space )
 {
 	// Run
 	auto actualResult = parseString( R"(/bin/c++ -o f.cpp.o -c \"space in file\".cpp)" );
 	Strings exceptedResult;
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -130,7 +137,8 @@ TEST_CASE( t6_file_with_space )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_include_with_space )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t7_include_with_space )
 {
 	// Run
 	auto actualResult = parseString(
@@ -138,7 +146,7 @@ TEST_CASE( t7_include_with_space )
 	Strings exceptedResult = toPathStrings( { "./include with space" } );
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -148,7 +156,8 @@ TEST_CASE( t7_include_with_space )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t8_double_spaces )
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_CASE( t8_double_spaces )
 {
 	// Run
 	auto actualResult =
@@ -156,7 +165,7 @@ TEST_CASE( t8_double_spaces )
 	Strings exceptedResult = toPathStrings( { "./include" } );
 
 	// Check
-	TEST_CHECK_EQUAL_COLLECTIONS(
+	BOOST_CHECK_EQUAL_COLLECTIONS(
 		actualResult.begin(),
 		actualResult.end(),
 		exceptedResult.begin(),
@@ -166,7 +175,8 @@ TEST_CASE( t8_double_spaces )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

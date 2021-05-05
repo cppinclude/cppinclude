@@ -2,7 +2,7 @@
 
 #include "reporter/impl/rp_base_reporter_impl.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/set>
 
 //------------------------------------------------------------------------------
 

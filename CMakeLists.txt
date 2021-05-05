@@ -4,8 +4,8 @@ project(cppinclude)
 
 include_directories(src/)
 include_directories(src/3rd-part/fmt/include/)
-include_directories(src/3rd-part/cpp-std-fwd/)
-include_directories(src/3rd-part/std_fs/include)
+include_directories(src/3rd-part/stdfwd/include/)
+include_directories(src/3rd-part/std_fs/include/)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

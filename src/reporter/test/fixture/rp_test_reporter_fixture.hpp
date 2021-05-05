@@ -4,8 +4,9 @@
 #include "model_includes/api/enums/mi_include_status.hpp"
 #include "model_includes/api/enums/mi_include_type.hpp"
 
+#include <std_fs>
+#include <stdfwd/string_view>
 #include <memory>
-#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 
@@ -72,6 +73,7 @@ public:
 	void setMaxFilesCount( int _count );
 	void setMaxDetailsCount( int _count );
 	void setShowStdFiles( bool _enable );
+	void setShowOnlyStdHeaders( bool _enable );
 
 	void setProjectDir( std::string_view _dir );
 	Path getProjectDir();

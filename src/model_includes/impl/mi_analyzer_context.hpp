@@ -3,7 +3,6 @@
 #include "tools/std_hash_fs_path.hpp"
 
 #include <std_fs>
-#include <stdfwd.hpp>
 
 #include <optional>
 #include <stack>
@@ -34,9 +33,9 @@ class AnalyzerContext
 {
 public:
 
-	using Path			= stdfs::path;
-	using PathOpt		= std::optional< Path >;
-	using IgnoredFiles	= std::unordered_set< Path >;
+	using Path                  = stdfs::path;
+	using PathOpt               = std::optional< Path >;
+	using IgnoredFiles          = std::unordered_set< Path >;
 
 	using ResolvedFiles			= std::unordered_set< Path >;
 	using ResolvedFilesStack	= std::stack< Path >;

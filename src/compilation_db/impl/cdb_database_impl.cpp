@@ -39,8 +39,8 @@ void DatabaseImpl::addCommand(
 	std::string_view _file
 )
 {
-	m_objects.emplace_back(
-		new CommandObjectImpl{ _directory, _command, _file }
+	m_objects.push_back(
+		std::make_unique< CommandObjectImpl >( _directory, _command, _file )
 	);
 }
 

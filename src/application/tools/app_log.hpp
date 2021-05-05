@@ -1,7 +1,9 @@
 #pragma once
 
+#include <stdfwd/string_view>
+
 #include <exception>
-#include <stdfwd.hpp>
+#include <iosfwd>
 
 //------------------------------------------------------------------------------
 

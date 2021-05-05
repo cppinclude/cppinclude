@@ -1,0 +1,69 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_LIBSTDCPP
+	#define STDFWD_BEGIN_CHRONO_CLOCKS inline namespace _V2 {
+	#define STDFWD_END_CHRONO_CLOCKS }
+#else
+	#define STDFWD_BEGIN_CHRONO_CLOCKS
+	#define STDFWD_END_CHRONO_CLOCKS
+#endif
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+namespace chrono
+{
+	template<class Rep, class Period > class duration;
+	template<class Clock, class Duration > class time_point;
+	template<class Rep> struct treat_as_floating_point;
+	template<class Rep> struct duration_values;
+
+	STDFWD_BEGIN_CHRONO_CLOCKS
+
+	class system_clock;
+	class steady_clock;
+
+	#if defined(STDFWD_IS_LIBSTDCPP)
+	using high_resolution_clock = system_clock;
+	#elif defined(STDFWD_IS_LIBCPP)
+	using high_resolution_clock = steady_clock;
+	#elif defined(STDFWD_IS_MSVC)
+	using high_resolution_clock = steady_clock;
+	#else
+	class high_resolution_clock;
+	#endif
+
+	STDFWD_END_CHRONO_CLOCKS
+
+}
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd {
+namespace chrono {
+
+	template <class Rep>
+	using treat_as_floating_point = std::chrono::treat_as_floating_point< Rep >;
+
+	template<class Rep, class Period >
+	using duration = std::chrono::duration< Rep, Period >;
+
+	template<class Clock, class Duration = typename Clock::duration>
+	using time_point = std::chrono::time_point< Clock, Duration >;
+
+	template<class Rep>
+	using duration_values = std::chrono::duration_values< Rep >;
+
+	using std::chrono::system_clock;
+	using std::chrono::steady_clock;
+	using std::chrono::high_resolution_clock;
+}
+}
+
+//------------------------------------------------------------------------------

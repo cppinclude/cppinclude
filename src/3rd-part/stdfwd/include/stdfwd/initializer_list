@@ -1,0 +1,21 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_PURE_BEGIN
+
+	template< class T > class STDFWD_TEMPLATE_VISIBILITY initializer_list;
+
+STDFWD_STD_PURE_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class T >
+	using initializer_list = std::initializer_list< T >;
+}
+
+//------------------------------------------------------------------------------

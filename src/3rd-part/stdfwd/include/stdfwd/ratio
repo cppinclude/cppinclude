@@ -1,0 +1,80 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+#if defined (STDFWD_IS_LIBSTDCPP)
+	#if __WORDSIZE == 64
+	typedef long int __intmax_t;
+	#else
+	__extension__ typedef long long int __intmax_t;
+	#endif
+	typedef __intmax_t intmax_t;
+#elif defined (STDFWD_IS_LIBCPP)
+	typedef __INTMAX_TYPE__ intmax_t;
+#elif defined (STDFWD_IS_MSVC)
+	typedef long long int intmax_t;
+#endif
+
+	template <intmax_t N, intmax_t D> struct ratio;
+
+	template <class R1, class R2> struct ratio_equal;
+	template <class R1, class R2> struct ratio_not_equal;
+	template <class R1, class R2> struct ratio_less;
+	template <class R1, class R2> struct ratio_less_equal;
+	template <class R1, class R2> struct ratio_greater;
+	template <class R1, class R2> struct ratio_greater_equal;
+
+	typedef ratio<1,       1000000000000000000> atto;
+	typedef ratio<1,          1000000000000000> femto;
+	typedef ratio<1,             1000000000000> pico;
+	typedef ratio<1,                1000000000> nano;
+	typedef ratio<1,                   1000000> micro;
+	typedef ratio<1,                      1000> milli;
+	typedef ratio<1,                       100> centi;
+	typedef ratio<1,                        10> deci;
+	typedef ratio<                       10, 1> deca;
+	typedef ratio<                      100, 1> hecto;
+	typedef ratio<                     1000, 1> kilo;
+	typedef ratio<                  1000000, 1> mega;
+	typedef ratio<               1000000000, 1> giga;
+	typedef ratio<            1000000000000, 1> tera;
+	typedef ratio<         1000000000000000, 1> peta;
+	typedef ratio<      1000000000000000000, 1> exa;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template <std::intmax_t N, std::intmax_t D = 1> using ratio = std::ratio< N, D >;
+
+	template <class R1, class R2> using ratio_equal = std::ratio_equal< R1, R2 >;
+	template <class R1, class R2> using ratio_not_equal = std::ratio_not_equal< R1, R2 >;
+	template <class R1, class R2> using ratio_less = std::ratio_less< R1, R2 >;
+	template <class R1, class R2> using ratio_less_equal = std::ratio_less_equal< R1, R2 >;
+	template <class R1, class R2> using ratio_greater = std::ratio_greater< R1, R2 >;
+	template <class R1, class R2> using ratio_greater_equal = std::ratio_greater_equal< R1, R2 >;
+
+	using std::atto;
+	using std::femto;
+	using std::pico;
+	using std::nano;
+	using std::micro;
+	using std::milli;
+	using std::centi;
+	using std::deci;
+	using std::deca;
+	using std::hecto;
+	using std::kilo;
+	using std::mega;
+	using std::giga;
+	using std::tera;
+	using std::peta;
+	using std::exa;
+}
+
+//------------------------------------------------------------------------------

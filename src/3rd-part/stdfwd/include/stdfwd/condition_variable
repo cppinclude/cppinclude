@@ -1,0 +1,38 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_LIBSTDCPP
+	#define STDFWD_CONDITION_VARIABLE_ANY_NANESPACE_BEGIN inline namespace _V2 {
+	#define STDFWD_CONDITION_VARIABLE_ANY_NANESPACE_END }
+#else
+	#define STDFWD_CONDITION_VARIABLE_ANY_NANESPACE_BEGIN
+	#define STDFWD_CONDITION_VARIABLE_ANY_NANESPACE_END
+#endif
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	class condition_variable;
+
+	STDFWD_CONDITION_VARIABLE_ANY_NANESPACE_BEGIN
+		class condition_variable_any;
+	STDFWD_CONDITION_VARIABLE_ANY_NANESPACE_END
+
+	enum class cv_status;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::condition_variable;
+	using std::condition_variable_any;
+	using std::cv_status;
+}
+
+//------------------------------------------------------------------------------

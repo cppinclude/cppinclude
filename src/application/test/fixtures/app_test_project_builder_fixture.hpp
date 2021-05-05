@@ -2,8 +2,13 @@
 
 #include "application/tools/app_plugin_ptr.hpp"
 
+#include <stdfwd/vector>
+#include <stdfwd/set>
+#include <std_fs>
+#include <stdfwd/string>
+#include <stdfwd/string_view>
+
 #include <memory>
-#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 

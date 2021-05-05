@@ -1,0 +1,84 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class T >	class function;
+	template< class T > class reference_wrapper;
+
+	template< class T > struct equal_to;
+	template< class T > struct not_equal_to;
+	template< class T > struct greater;
+	template< class T > struct less;
+	template< class T > struct greater_equal;
+	template< class T > struct less_equal;
+
+	template< class T > struct plus;
+	template< class T > struct minus;
+	template< class T > struct multiplies;
+	template< class T > struct divides;
+	template< class T > struct modulus;
+	template< class T > struct negate;
+
+	template< class T > struct logical_and;
+	template< class T > struct logical_or;
+	template< class T > struct logical_not;
+
+	template< class T > struct bit_and;
+	template< class T > struct bit_or;
+	template< class T > struct bit_xor;
+	template< class T > struct bit_not;
+
+	template< class T > struct is_bind_expression;
+	template< class T > struct is_placeholder;
+
+	class bad_function_call;
+
+	template< class T > struct hash;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::function;
+
+	using std::reference_wrapper;
+
+	using std::equal_to;
+	using std::not_equal_to;
+	using std::greater;
+	using std::less;
+	using std::greater_equal;
+	using std::less_equal;
+
+	using std::plus;
+	using std::minus;
+	using std::multiplies;
+	using std::divides;
+	using std::modulus;
+	using std::negate;
+
+	using std::logical_and;
+	using std::logical_or;
+	using std::logical_not;
+
+	using std::bit_and;
+	using std::bit_or;
+	using std::bit_xor;
+	using std::bit_not;
+
+	using std::is_bind_expression;
+	using std::is_placeholder;
+
+	using std::bad_function_call;
+
+    using std::function;
+
+	using std::hash;
+
+}

@@ -1,0 +1,96 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_LIBCPP
+    #define STDFWD_BEGIN_NAMESPACE_FILESYSTEM   _LIBCPP_BEGIN_NAMESPACE_FILESYSTEM
+    #define STDFWD_END_NAMESPACE_FILESYSTEM     _LIBCPP_END_NAMESPACE_FILESYSTEM
+#else
+    #define STDFWD_BEGIN_NAMESPACE_FILESYSTEM                                   \
+    STDFWD_STD_BEGIN                                                            \
+    namespace filesystem {                                                      \
+
+
+    #define STDFWD_END_NAMESPACE_FILESYSTEM } STDFWD_STD_END
+#endif
+
+//------------------------------------------------------------------------------
+
+STDFWD_BEGIN_NAMESPACE_FILESYSTEM
+
+STDFWD_CPP11_INLINE_BEGIN
+
+	class path;
+	class filesystem_error;
+	class directory_entry;
+	class directory_iterator;
+	class recursive_directory_iterator;
+
+STDFWD_CPP11_END
+
+	class file_status;
+	struct space_info;
+
+	#ifdef STDFWD_IS_MSVC
+	enum class file_type;
+	#else
+	enum class file_type : signed char;
+	#endif
+
+	#ifdef STDFWD_IS_MSVC
+	enum class perms;
+	#else
+	enum class perms : unsigned;
+	#endif
+
+	#if defined(STDFWD_IS_LIBCPP)
+	enum class perm_options : unsigned char;
+	#elif defined(STDFWD_IS_MSVC)
+	enum class perm_options;
+	#else
+	enum class perm_options : unsigned;
+	#endif
+
+	#ifdef STDFWD_IS_MSVC
+	enum class copy_options;
+	#else
+	enum class copy_options : unsigned short;
+	#endif
+
+	#ifdef STDFWD_IS_MSVC
+	enum class directory_options;
+	#else
+	enum class directory_options : unsigned char;
+	#endif
+
+STDFWD_END_NAMESPACE_FILESYSTEM
+
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd {
+namespace filesystem {
+
+#ifdef STDFWD_IS_CPP17
+
+	using std::filesystem::path;
+	using std::filesystem::filesystem_error;
+	using std::filesystem::directory_entry;
+	using std::filesystem::directory_iterator;
+	using std::filesystem::recursive_directory_iterator;
+	using std::filesystem::file_status;
+
+	using std::filesystem::space_info;
+
+	using std::filesystem::file_type;
+	using std::filesystem::perms;
+	using std::filesystem::perm_options;
+	using std::filesystem::copy_options;
+	using std::filesystem::directory_options;
+
+#endif
+}}
+
+//------------------------------------------------------------------------------

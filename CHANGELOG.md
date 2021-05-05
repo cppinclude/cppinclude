@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.4.0](docs/versions/VERSION_0.4.0.md)
+
+### Added (v0.4.0)
+
+* New argument *show_only_std_headers* 
+
 ## [v0.3.1](docs/versions/VERSION_0.3.1.md)
 
 ### Fixed (v0.3.1)

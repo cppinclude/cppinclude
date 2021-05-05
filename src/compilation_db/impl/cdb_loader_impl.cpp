@@ -42,7 +42,10 @@ LoaderImpl::DatabasePtr LoaderImpl::load( const json::JsonObject & _json )
 	{
 		auto itemPtr = array.at( i );
 		INTERNAL_CHECK_WARRING( itemPtr );
-		loadItem( *itemPtr, *result );
+		if( itemPtr )
+		{
+			loadItem( *itemPtr, *result );
+		}
 	}
 
 	return result;

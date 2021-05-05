@@ -1,6 +1,8 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/size_t>
+#include <std_fs>
+#include <stdfwd/functional>
 
 //------------------------------------------------------------------------------
 

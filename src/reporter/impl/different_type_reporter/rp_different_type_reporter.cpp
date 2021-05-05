@@ -187,14 +187,12 @@ DifferentTypeReporter::Files DifferentTypeReporter::collectFiles(
 	_model.forEachFile(
 		[&]( const model_includes::File & _file )
 		{
-			if( isIgnoredFile( _file ) )
+			if( !isIgnoredFile( _file ) )
 			{
-				return true;
-			}
-
-			if( isIncludedByDifferentType( _file ) )
-			{
-				result.insert( { _file, _file.getIncludedByCount() } );
+				if( isIncludedByDifferentType( _file ) )
+				{
+					result.insert( { _file, _file.getIncludedByCount() } );
+				}
 			}
 
 			return true;
@@ -247,19 +245,14 @@ bool DifferentTypeReporter::isIgnoredFile( const File & _file ) const
 {
 	using namespace model_includes;
 
-	if( getShowStdFiles() )
-	{
-		return false;
-	}
-
 	const FileType type = _file.getType();
 	static_assert( static_cast< int >( FileType::Count ) == 2 );
 	switch( type )
 	{
 		case FileType::ProjectFile:
-			return false;
+			return getShowOnlyStdHeaders();
 		case FileType::StdLibraryFile:
-			return true;
+			return !getShowStdFiles();
 		default:
 			INTERNAL_CHECK_WARRING( false );
 			return false;

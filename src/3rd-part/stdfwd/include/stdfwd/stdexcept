@@ -1,0 +1,36 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_PURE_BEGIN
+
+	class logic_error;
+	class domain_error;
+	class invalid_argument;
+	class length_error;
+	class out_of_range;
+	class runtime_error;
+	class range_error;
+	class overflow_error;
+	class underflow_error;
+
+STDFWD_STD_PURE_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::logic_error;
+	using std::domain_error;
+	using std::invalid_argument;
+	using std::length_error;
+	using std::out_of_range;
+	using std::runtime_error;
+	using std::range_error;
+	using std::overflow_error;
+	using std::underflow_error;
+}
+
+//------------------------------------------------------------------------------

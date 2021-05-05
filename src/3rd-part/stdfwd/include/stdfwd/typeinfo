@@ -1,0 +1,32 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_MSVC
+class type_info;
+#endif
+
+STDFWD_STD_PURE_BEGIN
+
+	#ifdef STDFWD_IS_MSVC
+	using ::type_info;
+	#else
+	class type_info;
+    #endif
+	class bad_cast;
+	class bad_typeid;
+
+STDFWD_STD_PURE_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::type_info;
+	using std::bad_cast;
+	using std::bad_typeid;
+}
+
+//------------------------------------------------------------------------------

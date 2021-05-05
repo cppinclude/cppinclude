@@ -2,10 +2,11 @@
 
 #include "reporter/api/enums/rp_reporter_kind.hpp"
 
-#include <stdfwd.hpp>
+#include <stdfwd/string_view>
 
 #include <memory>
 #include <vector>
+#include <string>
 
 //------------------------------------------------------------------------------
 
@@ -52,6 +53,9 @@ public:
 
 	bool getShowStdFiles() const;
 	bool getDefaultShowStdFiles() const;
+
+	bool getShowOnlyStdHeaders() const;
+	bool getDefaultShowOnlyStdHeaders() const;
 
 	std::string getReports() const;
 	std::string getDefaultReports() const;

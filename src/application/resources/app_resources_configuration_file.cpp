@@ -22,6 +22,7 @@ namespace application::resources::configuration_file {
 	const char * const ReportLimit				= "report_limit";
 	const char * const ReportDetailsLimit		= "report_details_limit";
 	const char * const ShowStdFiles				= "show_std_files";
+	const char * const ShowOnlyStdHeaders		= "show_only_std_headers";
 
 //------------------------------------------------------------------------------
 

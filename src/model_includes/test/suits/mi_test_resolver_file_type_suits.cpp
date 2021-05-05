@@ -2,7 +2,7 @@
 
 #include "model_includes/api/enums/mi_file_type.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 #include <std_fs>
 
@@ -19,12 +19,12 @@ TEST PLAN:
 namespace model_includes::test {
 
 //------------------------------------------------------------------------------
-// clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( ResolverFileTypeTests, ModelIncludesFixture )
+
+BOOST_FIXTURE_TEST_SUITE( ResolverFileTypeTests, ModelIncludesFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_project_file )
+BOOST_AUTO_TEST_CASE( t1_project_file )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -34,12 +34,12 @@ TEST_CASE( t1_project_file )
 	const FileType fileType = resolveFileType( "/test_project/main.cpp" );
 
 	// Check
-	TEST_CHECK( checkFileType( fileType, FileType::ProjectFile ) );
+	BOOST_CHECK( checkFileType( fileType, FileType::ProjectFile ) );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_std_library_file )
+BOOST_AUTO_TEST_CASE( t2_std_library_file )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -49,12 +49,12 @@ TEST_CASE( t2_std_library_file )
 	const FileType fileType = resolveFileType( "iostream" );
 
 	// Check
-	TEST_CHECK( checkFileType( fileType, FileType::StdLibraryFile ) );
+	BOOST_CHECK( checkFileType( fileType, FileType::StdLibraryFile ) );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_project_file_with_std_library_name )
+BOOST_AUTO_TEST_CASE( t3_project_file_with_std_library_name )
 {
 	// Init
 	setProjectDir( "/test_project/" );
@@ -64,12 +64,12 @@ TEST_CASE( t3_project_file_with_std_library_name )
 	const FileType fileType = resolveFileType( "/test_project/limit.h" );
 
 	// Check
-	TEST_CHECK( checkFileType( fileType, FileType::ProjectFile ) );
+	BOOST_CHECK( checkFileType( fileType, FileType::ProjectFile ) );
 }
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 #include "reporter/test/fixture/rp_test_reporter_fixture.hpp"
 
-#include "test_tools/test_macros.hpp"
+#include <boost/test/unit_test.hpp>
 
 #include <fmt/format.h>
 
@@ -23,18 +23,19 @@ TEST PLAN:
 8. Files out of project
 	8.1 in sub directory
 	8.2 in other directory
+9. Show only std headers
 
 ------------------------------------------------------------------------------*/
 
 namespace reporter::test {
 
 //------------------------------------------------------------------------------
-// clazy:excludeall=non-pod-global-static
-TEST_GROUP_NAME( MostImpactReporterTests, ReporterFixture )
+
+BOOST_FIXTURE_TEST_SUITE( MostImpactReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t1_empty )
+BOOST_AUTO_TEST_CASE( t1_empty )
 {
 	// Run
 	std::string result = runMostImpactReporter();
@@ -45,7 +46,7 @@ TEST_CASE( t1_empty )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t2_only_cpp_files )
+BOOST_AUTO_TEST_CASE( t2_only_cpp_files )
 {
 	// Init
 	const std::string classAFile = "/test_project/classA.hpp";
@@ -80,7 +81,7 @@ TEST_CASE( t2_only_cpp_files )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t3_files_with_same_count )
+BOOST_AUTO_TEST_CASE( t3_files_with_same_count )
 {
 	// Init
 	const std::string classAFile = "/test_project/classA.hpp";
@@ -118,7 +119,7 @@ TEST_CASE( t3_files_with_same_count )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t4_several_details )
+BOOST_AUTO_TEST_CASE( t4_several_details )
 {
 	// Init
 	const std::string classABaseFile = "/test_project/classABase.hpp";
@@ -171,7 +172,7 @@ TEST_CASE( t4_several_details )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_1_limit_max_files )
+BOOST_AUTO_TEST_CASE( t5_1_limit_max_files )
 {
 	// Init
 	const std::string sourceFileFmt = "/test_project/class{}.cpp";
@@ -218,7 +219,7 @@ TEST_CASE( t5_1_limit_max_files )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_2_limit_max_details )
+BOOST_AUTO_TEST_CASE( t5_2_limit_max_details )
 {
 	// Init
 	const std::string classBaseFile = "/test_project/classBase.hpp";
@@ -264,7 +265,7 @@ TEST_CASE( t5_2_limit_max_details )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_3_limit_equal_to_files_number )
+BOOST_AUTO_TEST_CASE( t5_3_limit_equal_to_files_number )
 {
 	// Init
 	const std::string sourceFileFmt = "/test_project/class{}.cpp";
@@ -309,7 +310,7 @@ TEST_CASE( t5_3_limit_equal_to_files_number )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t5_4_limit_to_equal_details_number )
+BOOST_AUTO_TEST_CASE( t5_4_limit_to_equal_details_number )
 {
 	// Init
 	const std::string classBaseFile = "/test_project/classBase.hpp";
@@ -355,7 +356,7 @@ TEST_CASE( t5_4_limit_to_equal_details_number )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t6_relevant_pants )
+BOOST_AUTO_TEST_CASE( t6_relevant_pants )
 {
 	// Init
 	const std::string projectDir = "/test_project/";
@@ -399,7 +400,7 @@ TEST_CASE( t6_relevant_pants )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_1_std_file_dont_show )
+BOOST_AUTO_TEST_CASE( t7_1_std_file_dont_show )
 {
 	// Init
 	const std::string stdFile = "vector";
@@ -443,7 +444,7 @@ TEST_CASE( t7_1_std_file_dont_show )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t7_2_std_file_show )
+BOOST_AUTO_TEST_CASE( t7_2_std_file_show )
 {
 	// Init
 	const std::string stdFile = "vector";
@@ -491,7 +492,7 @@ TEST_CASE( t7_2_std_file_show )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t8_1_files_out_of_project_in_subdir )
+BOOST_AUTO_TEST_CASE( t8_1_files_out_of_project_in_subdir )
 {
 	// Init
 	const std::string projectDir = "/test_project/";
@@ -536,7 +537,7 @@ TEST_CASE( t8_1_files_out_of_project_in_subdir )
 
 //------------------------------------------------------------------------------
 
-TEST_CASE( t8_2_files_out_of_project_in_other_dir )
+BOOST_AUTO_TEST_CASE( t8_2_files_out_of_project_in_other_dir )
 {
 	// Init
 	const std::string projectDir = "/test_project/";
@@ -581,7 +582,44 @@ TEST_CASE( t8_2_files_out_of_project_in_other_dir )
 
 //------------------------------------------------------------------------------
 
-TEST_GROUP_END
+BOOST_AUTO_TEST_CASE( t9_show_only_std_files )
+{
+	// Init
+	const std::string stdFile = "vector";
+
+	const std::string classAFile = "/test_project/classA.hpp";
+	const std::string classBFile = "/test_project/classB.hpp";
+
+	const std::string runA1file = "/test_project/runA1.cpp";
+	const std::string runB1file = "/test_project/runB1.cpp";
+
+	addFile( stdFile, FileType::StdLibraryFile );
+
+	addInclude( classAFile, stdFile, IncludeType::System );
+	addInclude( classBFile, stdFile, IncludeType::System );
+
+	addInclude( runA1file, classAFile );
+	addInclude( runB1file, classBFile );
+
+	setShowOnlyStdHeaders( true );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result,
+		"Most impact files:\n"
+		"1 : \"" + toPath( stdFile ) + "\" impact on 4 file(s)\n"
+		"Included by:\n"
+			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 1 file(s)\n"
+			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact on 1 file(s)\n"
+	);
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_SUITE_END()
 
 //------------------------------------------------------------------------------
 

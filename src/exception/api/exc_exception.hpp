@@ -1,7 +1,7 @@
 #pragma once
 
 #include <exception>
-#include <stdfwd.hpp>
+#include <stdfwd/string>
 
 //------------------------------------------------------------------------------
 

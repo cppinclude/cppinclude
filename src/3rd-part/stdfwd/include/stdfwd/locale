@@ -1,0 +1,157 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	#ifdef STDFWD_IS_MSVC
+	template< class CharT > struct char_traits;
+	#else
+	template< class CharT > class char_traits;
+	#endif
+
+	template< class T > class allocator;
+
+	template< class CharT, class Traits > class istreambuf_iterator;
+	template< class CharT, class Traits > class ostreambuf_iterator;
+
+	STDFWD_CPP11_BEGIN
+	template< class Codecvt, class Elem, class Wide_alloc, class Byte_alloc >
+	class wstring_convert;
+	STDFWD_CPP11_END
+
+	template< class Codecvt, class Elem, class Tr >
+	class wbuffer_convert;
+
+	class locale;
+	class ctype_base;
+	template< class charT > class ctype;
+
+	class codecvt_base;
+	template< class internT, class externT, class stateT > class codecvt;
+	template< class internT, class externT, class stateT > class codecvt_byname;
+
+	template< class charT, class InputIterator > class num_get;
+	template< class charT, class OutputIterator > class num_put;
+
+	STDFWD_CPP11_BEGIN
+	template< class charT > class numpunct;
+	template< class charT > class numpunct_byname;
+
+	template< class charT > class collate;
+	template< class charT > class collate_byname;
+	STDFWD_CPP11_END
+
+	class time_base;
+	STDFWD_CPP11_BEGIN
+	template< class charT, class InputIterator > class time_get;
+	template< class charT, class InputIterator > class time_get_byname;
+	STDFWD_CPP11_END
+	template< class charT, class OutputIterator > class time_put;
+	template< class charT, class OutputIterator > class time_put_byname;
+
+	class money_base;
+	STDFWD_CPP11_BEGIN
+	template< class charT, class InputIterator > class money_get;
+	template< class charT, class OutputIterator > class money_put;
+	template< class charT, bool Intl > class moneypunct;
+	template< class charT, bool Intl > class moneypunct_byname;
+	STDFWD_CPP11_END
+
+	class messages_base;
+	STDFWD_CPP11_BEGIN
+	template< class charT > class messages;
+	template< class charT > class messages_byname;
+	STDFWD_CPP11_END
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class CharT, class Traits = std::char_traits<CharT> >
+	using istreambuf_iterator = std::istreambuf_iterator< CharT, Traits >;
+
+	template< class CharT, class Traits = std::char_traits<CharT> >
+	using ostreambuf_iterator = std::ostreambuf_iterator< CharT, Traits >;
+
+	template< class Codecvt,
+		  class Elem = wchar_t,
+		  class Wide_alloc = std::allocator<Elem>,
+		  class Byte_alloc = std::allocator<char>
+	> using wstring_convert = std::wstring_convert<
+		Codecvt,
+		Elem,
+		Wide_alloc,
+		Byte_alloc
+	>;
+
+	template<class Codecvt,
+			 class Elem = wchar_t,
+			 class Tr = std::char_traits<Elem> >
+	using wbuffer_convert = std::wbuffer_convert< Codecvt, Elem, Tr >;
+
+	using std::locale;
+	using std::ctype_base;
+
+	template< class charT >
+	using ctype = std::ctype< charT >;
+
+	using std::codecvt_base;
+	template< class internT, class externT, class stateT >
+	using codecvt = std::codecvt< internT, externT, stateT >;
+	template< class internT, class externT, class stateT >
+	using codecvt_byname = std::codecvt_byname< internT, externT, stateT >;
+
+	template <
+		class charT,
+		class InputIterator = istreambuf_iterator<charT>
+	> using num_get = std::num_get< charT, InputIterator >;
+
+	template <
+		class charT,
+		class OutputIterator = ostreambuf_iterator<charT>
+	> using num_put = std::num_put< charT, OutputIterator >;
+
+	template< class charT >
+	using numpunct = std::numpunct< charT >;
+	template< class charT >
+	using numpunct_byname = std::numpunct_byname< charT >;
+
+	template< class charT >
+	using collate = std::collate< charT >;
+	template< class charT >
+	using collate_byname = std::collate_byname< charT >;
+
+	using std::time_base;
+	template< class charT, class InputIterator = istreambuf_iterator< charT> >
+	using time_get = std::time_get< charT, InputIterator >;
+	template<class charT, class InputIterator = istreambuf_iterator<charT> >
+	using time_get_byname = std::time_get_byname< charT, InputIterator >;
+	template< class charT, class OutputIterator = ostreambuf_iterator<charT> >
+	using time_put = std::time_put< charT, OutputIterator >;
+	template< class charT, class OutputIterator = ostreambuf_iterator<charT> >
+	using time_put_byname = std::time_put_byname< charT, OutputIterator >;
+
+	using std::money_base;
+	template< class charT, class InputIterator = istreambuf_iterator<charT> >
+	using money_get = std::money_get< charT, InputIterator >;
+	template< class charT, class OutputIterator = ostreambuf_iterator<charT> >
+	using money_put = std::money_put< charT, OutputIterator >;
+	template< class charT, bool Intl = false >
+	using moneypunct = std::moneypunct< charT, Intl >;
+	template< class charT, bool Intl = false >
+	using moneypunct_byname = std::moneypunct_byname< charT, Intl >;
+
+	using std::messages_base;
+	template< class charT >
+	using messages = std::messages< charT >;
+	template< class charT >
+	using messages_byname = std::messages_byname< charT >;
+
+}
+
+//------------------------------------------------------------------------------

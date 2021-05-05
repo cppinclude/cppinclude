@@ -24,6 +24,9 @@ public:
 	virtual bool getShowStdFiles() const = 0;
 	virtual void setShowStdFiles( bool _enable ) = 0;
 
+	virtual bool getShowOnlyStdHeaders() const = 0;
+	virtual void setShowOnlyStdHeaders( bool _enable ) = 0;
+
 	virtual void copy( const Settings & _other ) = 0;
 };
 

@@ -1,6 +1,9 @@
 #pragma once
 
-#include <stdfwd.hpp>
+#include <stdfwd/set>
+#include <std_fs>
+#include <stdfwd/string>
+#include <stdfwd/string_view>
 
 #include <memory>
 

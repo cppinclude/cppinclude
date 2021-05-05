@@ -1,5 +1,16 @@
+stages:
+  - build_major_compilers
+  - build_minor_compiler_gcc8
+  - build_minor_compiler_gcc7
+  - build_major_compiler_clang
+  - check_typos
+  - run_cppcheck
+  - build_minor_compiler_arm
+
 build_gcc10:
-  stage: build
+  tags: 
+    - vm_linux
+  stage: build_major_compilers
   image: ubuntu
   script:
     - apt-get update
@@ -12,12 +23,14 @@ build_gcc10:
     - apt-get install libboost-test-dev -y
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
 
 build_gcc8:
-  stage: build
+  tags: 
+    - vm_linux
+  stage: build_minor_compiler_gcc8
   image: ubuntu
   script:
     - apt-get update
@@ -26,12 +39,15 @@ build_gcc8:
     - export CXX=g++-8
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
+  needs: [build_gcc10]
     
 build_gcc7:
-  stage: build
+  tags: 
+    - vm_linux
+  stage: build_minor_compiler_gcc7
   image: ubuntu
   script:
     - apt-get update
@@ -40,12 +56,15 @@ build_gcc7:
     - export CXX=g++-7
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
+  needs: [build_gcc8]
 
 build_clang:
-  stage: build
+  tags: 
+    - vm_linux
+  stage: build_major_compiler_clang
   image: ubuntu
   script:
     - apt-get update
@@ -54,12 +73,13 @@ build_clang:
     - export CXX=/usr/bin/clang++
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
+  needs: [build_gcc7]
     
 build_windows:
-  stage: build
+  stage: build_major_compilers
   tags:
     - vm_win
   script:
@@ -75,12 +95,12 @@ build_windows:
     #- vcpkg install boost-test:x64-windows
     #- vcpkg install boost-system:x64-windows
     - cmake .. -G "Visual Studio 16" -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
     
 build_vs2017:
-  stage: build
+  stage: build_major_compilers
   tags:
     - vm_win
   script:
@@ -90,10 +110,10 @@ build_vs2017:
     - $env:PATH="C:\Program Files\CMake\bin;$env:PATH"
     - cd build
     - cmake -G "Visual Studio 15" .. -DCMAKE_BUILD_TYPE=Release
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     
 build_macos:
-  stage: build
+  stage: build_major_compilers
   tags: 
     - macmini
   script:
@@ -103,12 +123,12 @@ build_macos:
     # brew install boost
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release
+    - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
     
 build_arm_linux:
-  stage: build
+  stage: build_minor_compiler_arm
   tags: 
     - arm-linux
   script:
@@ -117,9 +137,12 @@ build_arm_linux:
     - cmake --build . --config Release -j4
     # Run tests
     - ctest . -C Release
+  needs: [build_gcc10]
     
 check_typos:
-  stage: build
+  tags: 
+    - vm_linux
+  stage: check_typos
   image: ubuntu
   script:
     - apt-get update
@@ -130,9 +153,12 @@ check_typos:
     - apt-get install npm -y
     - npm install -g cspell
     - cspell "src/**/*"
+  needs: [build_clang]
     
 cppcheck:
-  stage: build
+  tags: 
+    - vm_linux
+  stage: run_cppcheck
   image: ubuntu
   script:
     - apt-get update
@@ -140,4 +166,6 @@ cppcheck:
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCPPINCLUDE_BUILD_WITH_TESTS=ON
     - cppcheck --project=compile_commands.json --enable=all --suppressions-list=../.cppcheck-suppressions-list --error-exitcode=1 --quiet
+  needs: [check_typos]
+
 

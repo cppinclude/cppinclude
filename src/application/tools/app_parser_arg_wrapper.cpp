@@ -29,7 +29,7 @@ ParserArgWrapper::ParserArgWrapper()
 	,	m_fileExtensionsArg{
 			resources::arguments::fileExtensions::FullName,
 			resources::arguments::fileExtensions::Description,
-			toStrings( resources::arguments::fileExtensions::DefaultValue )
+			toStrings( resources::arguments::fileExtensions::DefaultValues )
 		}
 	,	m_analyzeWithoutextension{
 			resources::arguments::analyze_without_extension::FullName,
@@ -39,12 +39,12 @@ ParserArgWrapper::ParserArgWrapper()
 	,	m_includeDirsArg{
 			resources::arguments::includeDirs::FullName,
 			resources::arguments::includeDirs::Description,
-            toPaths( resources::arguments::includeDirs::DefaultValue )
+            toPaths( resources::arguments::includeDirs::DefaultValues )
 		}
 	,	m_ignoreDirsArg{
 			resources::arguments::ignoreDirs::FullName,
 			resources::arguments::ignoreDirs::Description,
-			toPaths( resources::arguments::ignoreDirs::DefaultValue )
+			toPaths( resources::arguments::ignoreDirs::DefaultValues )
 		}
 	,	m_ignoreSystemIncludes{
 			resources::arguments::ignoreSystemIncludes::FullName,
@@ -54,7 +54,7 @@ ParserArgWrapper::ParserArgWrapper()
 	,	m_ignoreFilesArg{
 			resources::arguments::ignoreFiles::FullName,
 			resources::arguments::ignoreFiles::Description,
-			toStrings( resources::arguments::ignoreFiles::DefaultValue )
+			toStrings( resources::arguments::ignoreFiles::DefaultValues )
 		}
 	,	m_configurationFileArg{
 			resources::arguments::configurationFile::FullName,
@@ -98,6 +98,11 @@ ParserArgWrapper::ParserArgWrapper()
 			resources::arguments::show_std_files::Description,
 			resources::arguments::show_std_files::DefaultValue
 		}
+	,	m_showOnlyStdHeadersArg{
+			resources::arguments::show_only_std_headers::FullName,
+			resources::arguments::show_only_std_headers::Description,
+			resources::arguments::show_only_std_headers::DefaultValue
+	}
 {
 }
 
@@ -135,6 +140,7 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 	setArgumentValue( m_reportLimitArg,			&ParserArgWrapper::getInt );
 	setArgumentValue( m_reportDetailsLimitArg,	&ParserArgWrapper::getInt );
 	setArgumentValue( m_showStdFilesArg,		&ParserArgWrapper::getBool );
+	setArgumentValue( m_showOnlyStdHeadersArg,	&ParserArgWrapper::getBool );
 }
 
 //------------------------------------------------------------------------------
@@ -175,6 +181,7 @@ void ParserArgWrapper::init()
 	addArgument< int >( m_reportLimitArg );
 	addArgument< int >( m_reportDetailsLimitArg );
 	addArgument< bool >( m_showStdFilesArg );
+	addArgument< bool >( m_showOnlyStdHeadersArg );
 
 	addArgument( m_helpArg );
 	addArgument( m_verboseArg );
@@ -336,9 +343,23 @@ ParserArgWrapper::BoolOpt ParserArgWrapper::getShowStdFile() const
 
 //------------------------------------------------------------------------------
 
-bool ParserArgWrapper::getDefaultShowStdfile() const
+bool ParserArgWrapper::getDefaultShowStdFile() const
 {
 	return getDefaultValue< bool >( m_showStdFilesArg );
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::BoolOpt ParserArgWrapper::getShowOnlyStdHeaders() const
+{
+	return m_showOnlyStdHeadersArg.getValue< bool >();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserArgWrapper::getDefaultShowOnlyStdHeaders() const
+{
+	return getDefaultValue< bool >( m_showOnlyStdHeadersArg );
 }
 
 //------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 #pragma once
 
+#include <stdfwd/string_view>
 #include <memory>
-#include <stdfwd.hpp>
 
 //------------------------------------------------------------------------------
 

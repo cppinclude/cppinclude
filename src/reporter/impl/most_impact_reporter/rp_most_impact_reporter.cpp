@@ -76,15 +76,13 @@ void MostImpcatReporter::collectFiles(
 	_model.forEachFile(
 		[&]( const File & _file )
 		{
-			if( !isCollectFile( _file ) )
+			if( isCollectFile( _file ) )
 			{
-				return true;
-			}
-
-			const File::IncludeIndex count = _file.getIncludedByFilesCountRecursive();
-			if( count > 0)
-			{
-				_files.insert( { _file, count } );
+				const File::IncludeIndex count = _file.getIncludedByFilesCountRecursive();
+				if( count > 0)
+				{
+					_files.insert( { _file, count } );
+				}
 			}
 
 			return true;
@@ -249,7 +247,7 @@ bool MostImpcatReporter::isCollectFile( const model_includes::File & _file ) con
 	switch( type )
 	{
 		case FileType::ProjectFile:
-			return true;
+			return !getShowOnlyStdHeaders();
 		case FileType::StdLibraryFile:
 			return getShowStdFiles();
 		default:

@@ -1,0 +1,54 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+STDFWD_STD_BEGIN
+
+	template< class R > class promise;
+
+	template< class R > class packaged_task;
+	template< class R, class ...Args >
+	class packaged_task<R(Args...)>;
+
+	template< class T > class future;
+
+	template< class T > class shared_future;
+
+	enum class launch;
+
+	enum class future_status;
+
+	class future_error;
+
+	enum class future_errc;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	template< class R >
+	using promise = std::promise< R >;
+
+	template< class R >
+	using packaged_task = std::packaged_task< R >;
+
+	template< class T >
+	using future = std::future< T >;
+
+	template< class T >
+	using shared_future = std::shared_future< T >;
+
+	using std::launch;
+
+	using std::future_status;
+
+	using std::future_error;
+
+	using std::future_errc;
+}
+
+//------------------------------------------------------------------------------

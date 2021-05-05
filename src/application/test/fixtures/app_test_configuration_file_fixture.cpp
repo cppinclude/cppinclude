@@ -131,6 +131,14 @@ ConfigurationfileFixture::getShowStdFile() const
 
 //------------------------------------------------------------------------------
 
+ConfigurationfileFixture::BoolOpt
+ConfigurationfileFixture::getShowOnlyStdHeaders() const
+{
+	return getConfigurationFile().getShowOnlyStdFiles();
+}
+
+//------------------------------------------------------------------------------
+
 ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::toStirng( const StringsOpt & _arrayOpt )
 {

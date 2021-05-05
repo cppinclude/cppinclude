@@ -1,10 +1,10 @@
 #pragma once
 
-#include <std_fs>
-#include <stdfwd.hpp>
-
-#include <string>
 #include <vector>
+#include <std_fs>
+
+#include <string_view>
+#include <string>
 
 //------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ class IncludeParserContext
 public:
 
 	using Path		= stdfs::path;
-	using Includes	= stdfwd::vector< Path >;
+	using Includes	= std::vector< Path >;
 	using IndexType	= std::size_t;
 
 	IncludeParserContext( std::string_view _command );
@@ -30,10 +30,11 @@ public:
 	void addInclude( const Path & _path );
 
 private:
-	IndexType m_size;
-	std::string m_command;
+    std::vector< Path > m_includes;
 
-	Includes m_includes;
+    std::string m_command;
+	IndexType m_size;
+
 };
 
 //------------------------------------------------------------------------------

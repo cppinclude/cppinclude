@@ -44,9 +44,6 @@ namespace fs_real = std::filesystem;
 namespace fs_real = std::experimental::filesystem;
 #endif
 
-#if __cpp_lib_filesystem >= 201606
-#endif
-
 using path = fs_real::path;
 using directory_iterator = fs_real::directory_iterator;
 #ifndef _MSC_VER

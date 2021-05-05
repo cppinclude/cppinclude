@@ -1,0 +1,49 @@
+#pragma once
+
+#include "stdfwd_details.hpp"
+
+//------------------------------------------------------------------------------
+
+#ifdef STDFWD_IS_LIBSTDCPP
+	#define STDFWD_ERROR_CATEGORY_NAMESPACE_BEGIN inline namespace _V2 {
+	#define STDFWD_ERROR_CATEGORY_NAMESPACE_END }
+#else
+	#define STDFWD_ERROR_CATEGORY_NAMESPACE_BEGIN
+	#define STDFWD_ERROR_CATEGORY_NAMESPACE_END
+#endif
+
+//------------------------------------------------------------------------------
+
+
+STDFWD_STD_BEGIN
+
+	STDFWD_ERROR_CATEGORY_NAMESPACE_BEGIN
+	class error_category;
+	STDFWD_ERROR_CATEGORY_NAMESPACE_END
+	class error_code;
+	class error_condition;
+	class system_error;
+
+	template<class T> struct is_error_code_enum;
+	template<class T> struct is_error_condition_enum;
+
+	enum class errc;
+
+STDFWD_STD_END
+
+//------------------------------------------------------------------------------
+
+namespace stdfwd
+{
+	using std::error_category;
+	using std::error_code;
+	using std::error_condition;
+	using std::system_error;
+
+	template<class T>
+	using is_error_code_enum = std::is_error_code_enum< T >;
+	template<class T>
+	using is_error_condition_enum = std::is_error_condition_enum< T >;
+
+	using std::errc;
+}
