@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(cppinclude)
+project(cppinclude
+	VERSION 0.4.0
+	DESCRIPTION "Tool for analyzing includes in C++"
+	LANGUAGES CXX
+)
 
 include_directories(src/)
 include_directories(src/3rd-part/fmt/include/)
@@ -65,4 +69,7 @@ target_link_libraries(${PROJECT_NAME} application_lib)
 if(MSVC)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/INCREMENTAL:NO")
 endif()
+
+include(InstallConfig)
+include(CPack)
 

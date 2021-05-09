@@ -413,7 +413,7 @@ void ConcoleApplication::showVersion()
 		version::VersionFormat,
 		version::Major,
 		version::Minor,
-		version::Path
+		version::Patch
 	);
 }
 

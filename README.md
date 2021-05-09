@@ -28,6 +28,7 @@ include that file will be recompiled and sometime it takes a lot of time.
   * [show_std_files](#show_std_files)
   * [show_only_std_headers](#show_only_std_headers)
 * [Build](#build)
+* [Docker image](#docker-image)
 * [Presentations](#presentations)
 * [Tips for optimization includes](#tips-for-optimization-includes)
 * [Third-party libraries](#third-party-libraries)
@@ -548,6 +549,37 @@ on Unix:
 
 ```sh
 ./build.sh
+```
+
+[Back to top](#cppinclude)
+
+## Docker image
+
+Pull image:
+
+```sh
+docker pull cppinclude/cppinclude
+```
+
+Or build docker image from source:
+
+```sh
+docker build -t cppinclude/cppinclude .
+```
+
+Test image:
+
+```sh
+docker run -it cppinclude/cppinclude bash
+cppinclude --version
+```
+
+Analyze your sources in docker image:
+
+```sh
+docker run -v /tmp/project_src:/src/project_src -it cppinclude/cppinclude
+cd /src/project_src
+cppinclude
 ```
 
 [Back to top](#cppinclude)

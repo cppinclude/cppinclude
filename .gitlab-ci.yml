@@ -6,6 +6,8 @@ stages:
   - check_typos
   - run_cppcheck
   - build_minor_compiler_arm
+  - install_deb_file
+  - install_rpm_file
 
 build_gcc10:
   tags: 
@@ -23,7 +25,7 @@ build_gcc10:
     - apt-get install libboost-test-dev -y
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release -j4
+    - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
 
@@ -39,7 +41,7 @@ build_gcc8:
     - export CXX=g++-8
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release -j4
+    - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
   needs: [build_gcc10]
@@ -56,7 +58,7 @@ build_gcc7:
     - export CXX=g++-7
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release -j4
+    - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
   needs: [build_gcc8]
@@ -73,7 +75,7 @@ build_clang:
     - export CXX=/usr/bin/clang++
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release -j4
+    - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
   needs: [build_gcc7]
@@ -134,7 +136,7 @@ build_arm_linux:
   script:
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
-    - cmake --build . --config Release -j4
+    - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
   needs: [build_gcc10]
@@ -167,5 +169,43 @@ cppcheck:
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCPPINCLUDE_BUILD_WITH_TESTS=ON
     - cppcheck --project=compile_commands.json --enable=all --suppressions-list=../.cppcheck-suppressions-list --error-exitcode=1 --quiet
   needs: [check_typos]
+  
+generate_deb_file:
+  tags: 
+    - vm_linux
+  stage: install_deb_file
+  image: ubuntu
+  script:
+    - apt-get update
+    - apt-get install -y gcc-10 g++-10 cmake file
+    - export CC=gcc-10
+    - export CXX=g++-10
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=Release
+    - cmake --build . --config Release -j$(nproc)
+    # Generate deb file
+    - cpack -G DEB
+    - dpkg -i *.deb
+    - cd ..
+    - cppinclude --version
+  needs: [cppcheck]
+  
+generate_rpm_file:
+  tags: 
+    - vm_linux
+  stage: install_rpm_file
+  image: centos
+  script:
+    - yum group install "Development Tools" -y
+    - yum install cmake3 -y
+    - cd build
+    - cmake3 .. -DCMAKE_BUILD_TYPE=Release
+    - cmake3 --build . --config Release
+    # Generate rpm file
+    - cpack -G RPM
+    - rpm -i *.rpm
+    - cd ..
+    - cppinclude --version
+  needs: [build_gcc10]
 
 
