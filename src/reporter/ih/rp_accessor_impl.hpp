@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class ReporterAccessorImpl final : public ReporterAccessor

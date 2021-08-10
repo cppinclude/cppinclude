@@ -25,20 +25,19 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 CMakeProjectBuilder::CMakeProjectBuilder(
 	cmake_project::Accessor & _cmakeAccessor,
 	compilation_db::Accessor & _compilationDbAccessor,
 	json::JsonAccessor & _jsonAccessor,
-	fs::FileSystem & _fs
-)
-	:	m_cmakeAccessor{ _cmakeAccessor }
-	,	m_compilationDbAccessor{ _compilationDbAccessor }
-	,	m_jsonAccessor{ _jsonAccessor }
-	,	m_fs{ _fs }
+	fs::FileSystem & _fs )
+	: m_cmakeAccessor{ _cmakeAccessor }
+	, m_compilationDbAccessor{ _compilationDbAccessor }
+	, m_jsonAccessor{ _jsonAccessor }
+	, m_fs{ _fs }
 {
 }
 
@@ -46,8 +45,7 @@ CMakeProjectBuilder::CMakeProjectBuilder(
 
 CMakeProjectBuilder::CMakeProjectPtr CMakeProjectBuilder::build(
 	const ParserArgWrapper & _arguments,
-	const ConfigurationFile * _configurationFile
-)
+	const ConfigurationFile * _configurationFile )
 {
 	const Path path = getPathToCmake( _arguments, _configurationFile );
 	if( isExistFile( path ) )
@@ -64,8 +62,7 @@ CMakeProjectBuilder::CMakeProjectPtr CMakeProjectBuilder::build(
 
 CMakeProjectBuilder::Path CMakeProjectBuilder::getPathToCmake(
 	const ParserArgWrapper & _arguments,
-	const ConfigurationFile * _configurationFile
-)
+	const ConfigurationFile * _configurationFile )
 {
 	if( auto pathOpt = _arguments.getCompileCommandsFile(); pathOpt )
 	{
@@ -92,9 +89,8 @@ bool CMakeProjectBuilder::isExistFile( const Path & _path ) const
 
 //------------------------------------------------------------------------------
 
-CMakeProjectBuilder::CMakeProjectPtr CMakeProjectBuilder::loadProject(
-	const Path & _path
-) const
+CMakeProjectBuilder::CMakeProjectPtr
+CMakeProjectBuilder::loadProject( const Path & _path ) const
 {
 	auto compilationDbPtr = loadCompilationDb( _path );
 	INTERNAL_CHECK_WARRING( compilationDbPtr );
@@ -123,9 +119,8 @@ CMakeProjectBuilder::createCmakeLoader() const
 
 //------------------------------------------------------------------------------
 
-CMakeProjectBuilder::CompilationDbPtr CMakeProjectBuilder::loadCompilationDb(
-	const Path & _path
-) const
+CMakeProjectBuilder::CompilationDbPtr
+CMakeProjectBuilder::loadCompilationDb( const Path & _path ) const
 {
 	auto jsonPtr = loadJson( _path );
 	INTERNAL_CHECK_WARRING( jsonPtr );
@@ -154,9 +149,8 @@ CMakeProjectBuilder::createCompilationDbLoader() const
 
 //------------------------------------------------------------------------------
 
-CMakeProjectBuilder::JsonPtr CMakeProjectBuilder::loadJson(
-	const Path & _path
-) const
+CMakeProjectBuilder::JsonPtr
+CMakeProjectBuilder::loadJson( const Path & _path ) const
 {
 	auto filePtr = m_fs.openFile( _path );
 	INTERNAL_CHECK_WARRING( filePtr );

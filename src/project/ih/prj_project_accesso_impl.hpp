@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace project {
-
+namespace project
+{
 //------------------------------------------------------------------------------
 
 class ProjectAccessorImpl final : public ProjectAccessor

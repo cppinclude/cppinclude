@@ -25,10 +25,11 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace json::test {
-
+namespace json::test
+{
 //------------------------------------------------------------------------------
 
+// clazy:excludeall=non-pod-global-static
 BOOST_FIXTURE_TEST_SUITE( JsonTests, JsonFixture )
 
 //------------------------------------------------------------------------------
@@ -37,13 +38,12 @@ BOOST_AUTO_TEST_CASE( t1_simple_json )
 {
 	// Init
 	createJsonFile(
-	R"({
+		R"({
 		"project_dir" : "./src",
 		"file_extensions" : ["*.cpp", "*.hpp"],
 		"include_dirs" : [".", "/usr/include/", "./3rd-part/cpp-std-fwd-master/"],
 		"ignore_dirs" : ["./3rd-part"]
-	})"
-	);
+	})" );
 
 	// Run
 	const JsonObject & json = loadJson();
@@ -103,7 +103,8 @@ BOOST_AUTO_TEST_CASE( t1_simple_json )
 			auto dir3Ptr = includeDirsArray.at( 2 );
 			BOOST_REQUIRE( dir3Ptr );
 			const JsonValue & dir3 = *dir3Ptr;
-			BOOST_CHECK_EQUAL( dir3.asString(), "./3rd-part/cpp-std-fwd-master/" );
+			BOOST_CHECK_EQUAL(
+				dir3.asString(), "./3rd-part/cpp-std-fwd-master/" );
 		}
 	}
 	{
@@ -307,7 +308,8 @@ BOOST_AUTO_TEST_CASE( t6_3_array_string )
 BOOST_AUTO_TEST_CASE( t6_4_array_object )
 {
 	// Init
-	createJsonFile( R"({ "array" : [ { "name": "str1" }, { "name": "str2" }] })" );
+	createJsonFile(
+		R"({ "array" : [ { "name": "str1" }, { "name": "str2" }] })" );
 
 	// Run
 	const JsonObject & json = loadJson();
@@ -349,15 +351,14 @@ BOOST_AUTO_TEST_CASE( t6_4_array_root_of_object_with_objects )
 {
 	// Init
 	createJsonFile(
-	R"([
+		R"([
 	{
 		"name" : "str1"
 	},
 	{
 		"name" : "str2"
 	}
-	])"
-	);
+	])" );
 
 	// Run
 	const JsonObject & json = loadJson();

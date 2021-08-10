@@ -43,7 +43,8 @@ BOOST_AUTO_TEST_CASE( t1_current_directory )
 	addFileToProject( "include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath( "/test_project/main.cpp", "include.hpp" );
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -62,10 +63,8 @@ BOOST_AUTO_TEST_CASE( t2_subdirectory )
 	addFileToProject( "sub_dir/include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"sub_dir/include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "sub_dir/include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -86,10 +85,8 @@ BOOST_AUTO_TEST_CASE( t3_1_in_include_dir )
 	addFileToProject( "lib/include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -110,10 +107,8 @@ BOOST_AUTO_TEST_CASE( t3_2_in_include_subdir )
 	addFileToProject( "lib/sub/include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"sub/include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "sub/include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -134,10 +129,8 @@ BOOST_AUTO_TEST_CASE( t3_3_in_include_out_of_project )
 	addFile( "/lib/include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -155,10 +148,8 @@ BOOST_AUTO_TEST_CASE( t4_not_found )
 	addFileToProject( "main.cpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( !resolvedPath.has_value() );
@@ -176,10 +167,8 @@ BOOST_AUTO_TEST_CASE( t5_1_cmake_project_one_file_in_include_dir )
 	addFileToProject( "lib/include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -205,10 +194,8 @@ BOOST_AUTO_TEST_CASE( t5_2_cmake_project_two_files_in_different_include_dirs )
 
 	{
 		// Check
-		PathOpt resolvedPath = resolvePath(
-			"/test_project/file1.cpp",
-			"include.hpp"
-		);
+		PathOpt resolvedPath =
+			resolvePath( "/test_project/file1.cpp", "include.hpp" );
 
 		BOOST_REQUIRE( resolvedPath.has_value() );
 
@@ -217,10 +204,8 @@ BOOST_AUTO_TEST_CASE( t5_2_cmake_project_two_files_in_different_include_dirs )
 	}
 	{
 		// Check
-		PathOpt resolvedPath = resolvePath(
-			"/test_project/file2.cpp",
-			"include.hpp"
-		);
+		PathOpt resolvedPath =
+			resolvePath( "/test_project/file2.cpp", "include.hpp" );
 
 		BOOST_REQUIRE( resolvedPath.has_value() );
 
@@ -241,10 +226,8 @@ BOOST_AUTO_TEST_CASE( t5_3_cmake_project_not_found )
 	addFileToProject( "lib/include.hpp" );
 
 	// Run
-	PathOpt resolvedPath = resolvePath(
-		"/test_project/main.cpp",
-		"include.hpp"
-	);
+	PathOpt resolvedPath =
+		resolvePath( "/test_project/main.cpp", "include.hpp" );
 
 	// Check
 	BOOST_REQUIRE( !resolvedPath.has_value() );
@@ -264,14 +247,10 @@ BOOST_AUTO_TEST_CASE( t5_4_cmake_project_mix_with_general_project )
 	addFileToProject( "lib2/include2.hpp" );
 
 	// Run
-	PathOpt resolvedPath1 = resolvePath(
-		"/test_project/main.cpp",
-		"include1.hpp"
-	);
-	PathOpt resolvedPath2 = resolvePath(
-		"/test_project/main.cpp",
-		"include2.hpp"
-	);
+	PathOpt resolvedPath1 =
+		resolvePath( "/test_project/main.cpp", "include1.hpp" );
+	PathOpt resolvedPath2 =
+		resolvePath( "/test_project/main.cpp", "include2.hpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath1.has_value() );
@@ -298,10 +277,8 @@ BOOST_AUTO_TEST_CASE( t5_5_cmake_header_include_file_from_cmake_include )
 
 	// Run
 	PathOpt resolvedPath = resolvePath(
-		"/test_project/classA.hpp",
-		"base_class.hpp",
-		"/test_project/classA.cpp"
-	);
+		"/test_project/classA.hpp", "base_class.hpp",
+		"/test_project/classA.cpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );
@@ -326,10 +303,8 @@ BOOST_AUTO_TEST_CASE( t5_6_cmake_header_include_file_from_project_include )
 
 	// Run
 	PathOpt resolvedPath = resolvePath(
-		"/test_project/classA.hpp",
-		"base_class.hpp",
-		"/test_project/classA.cpp"
-	);
+		"/test_project/classA.hpp", "base_class.hpp",
+		"/test_project/classA.cpp" );
 
 	// Check
 	BOOST_REQUIRE( resolvedPath.has_value() );

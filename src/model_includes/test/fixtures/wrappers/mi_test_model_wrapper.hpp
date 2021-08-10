@@ -5,29 +5,30 @@
 #include "model_includes/api/enums/mi_include_status.hpp"
 #include "model_includes/api/enums/mi_include_type.hpp"
 
-#include <stdfwd/memory>
 #include <std_fs>
+#include <stdfwd/memory>
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Model;
-	class File;
+namespace model_includes
+{
+class Model;
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-	class FileWrapper;
+namespace model_includes::test
+{
+class FileWrapper;
 
 //------------------------------------------------------------------------------
 
 class ModelWrapper
 {
 public:
-
-	using ModelPtr	= stdfwd::unique_ptr< Model >;
-	using Path		= stdfs::path;
+	using ModelPtr = stdfwd::unique_ptr< Model >;
+	using Path = stdfs::path;
 
 	ModelWrapper( ModelPtr && _modelPtr );
 	~ModelWrapper();
@@ -49,8 +50,7 @@ public:
 		std::string_view _destinationFile,
 		IncludeStatus _status = IncludeStatus::Resolved,
 		IncludeType _type = IncludeType::User,
-		const LocationInfo & _location = {1,1,1}
-	);
+		const LocationInfo & _location = { 1, 1, 1 } );
 
 private:
 	const Model & getModel() const;

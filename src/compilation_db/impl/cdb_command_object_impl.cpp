@@ -2,18 +2,17 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 CommandObjectImpl::CommandObjectImpl(
 	std::string_view _directory,
 	std::string_view _command,
-	std::string_view _file
-)
-	:	m_directory{ _directory }
-	,	m_command{ _command }
-	,	m_file{ _file }
+	std::string_view _file )
+	: m_directory{ _directory }
+	, m_command{ _command }
+	, m_file{ _file }
 {
 }
 

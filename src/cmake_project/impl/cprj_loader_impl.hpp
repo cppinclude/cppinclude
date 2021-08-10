@@ -8,14 +8,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-	class CommandObject;
+namespace compilation_db
+{
+class CommandObject;
 }
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-	class IncludesParser;
+namespace cmake_project
+{
+class IncludesParser;
 
 //------------------------------------------------------------------------------
 
@@ -33,15 +35,12 @@ public:
 
 private:
 	Path loadFile(
-		const compilation_db::CommandObject & _commnad,
-		Project & _project
-	);
+		const compilation_db::CommandObject & _commnad, Project & _project );
 
 	void loadCommand(
 		const compilation_db::CommandObject & _commnad,
 		const Path & _currentFile,
-		Project & _project
-	);
+		Project & _project );
 
 	IncludesParser & ensureIncludesParser();
 

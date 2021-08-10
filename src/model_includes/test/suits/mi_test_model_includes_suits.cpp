@@ -15,8 +15,8 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)

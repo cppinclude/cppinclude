@@ -2,15 +2,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace parser {
-
+namespace parser
+{
 //------------------------------------------------------------------------------
 
 ParserContext::ParserContext()
-	:	m_lineNumber{ 1 }
-	,	m_isEnableMultilineComment{ false }
-	,	m_isEnableMultilineString{ false }
-	,	m_isEnableRawString{ false }
+	: m_lineNumber{ 1 }
+	, m_isEnableMultilineComment{ false }
+	, m_isEnableMultilineString{ false }
+	, m_isEnableRawString{ false }
 {
 }
 

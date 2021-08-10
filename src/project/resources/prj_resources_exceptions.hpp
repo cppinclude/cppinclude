@@ -2,18 +2,18 @@
 
 //------------------------------------------------------------------------------
 
-namespace project::resources::exceptions {
-
+namespace project::resources::exceptions
+{
 //------------------------------------------------------------------------------
 
-	extern const char * const ModuleName;
+extern const char * const ModuleName;
 
 //------------------------------------------------------------------------------
 
 namespace InvalidRegex
 {
-	extern const char * const Code;
-	extern const char * const Msg;
+extern const char * const Code;
+extern const char * const Msg;
 }
 
 //------------------------------------------------------------------------------

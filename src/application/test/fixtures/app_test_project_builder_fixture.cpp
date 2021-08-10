@@ -26,8 +26,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 ProjectBuilderFixture::ProjectBuilderFixture() = default;
@@ -82,7 +82,8 @@ std::string ProjectBuilderFixture::getIncludeDirs() const
 {
 	Strings strings;
 	const project::Project & project = getProject();
-	const project::Project::IncludeDirIndex count = project.getIncludeDirsCount();
+	const project::Project::IncludeDirIndex count =
+		project.getIncludeDirsCount();
 	for( project::Project::IncludeDirIndex i = 0; i < count; ++i )
 	{
 		const Path & path = project.getIncludeDir( i );
@@ -98,13 +99,10 @@ std::string ProjectBuilderFixture::getIgnoreDirs() const
 {
 	OrderedStrings strings;
 	const project::Project & project = getProject();
-	project.forEachIgnoreDir(
-		[&]( const Path & _path )
-		{
-			strings.insert( _path.string() );
-			return true;
-		}
-	);
+	project.forEachIgnoreDir( [&]( const Path & _path ) {
+		strings.insert( _path.string() );
+		return true;
+	} );
 	return toString( strings );
 }
 
@@ -128,13 +126,10 @@ std::string ProjectBuilderFixture::getFileExtensions() const
 {
 	OrderedStrings strings;
 	const project::Project & project = getProject();
-	project.forEachFileExtension(
-		[&]( const Path & _path )
-		{
-			strings.insert( _path.string() );
-			return true;
-		}
-	);
+	project.forEachFileExtension( [&]( const Path & _path ) {
+		strings.insert( _path.string() );
+		return true;
+	} );
 	return toString( strings );
 }
 
@@ -165,8 +160,7 @@ std::string ProjectBuilderFixture::toAbsolutePath( std::string_view _path )
 //------------------------------------------------------------------------------
 
 void ProjectBuilderFixture::createDefaultConfigurationFile(
-	std::string_view _text
-)
+	std::string_view _text )
 {
 	getDefaultConfigurationFile() << _text;
 }
@@ -178,7 +172,7 @@ std::string ProjectBuilderFixture::toString( const _Strings & _strings )
 {
 	std::string result;
 	bool first = true;
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		if( first )
 		{
@@ -197,9 +191,9 @@ std::string ProjectBuilderFixture::toString( const _Strings & _strings )
 //------------------------------------------------------------------------------
 
 ProjectBuilderFixture::Strings ProjectBuilderFixture::toStrings(
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-	const char * const _values[]
-)
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+	// cppcoreguidelines-avoid-c-arrays)
+	const char * const _values[] )
 {
 	Strings result;
 	const char * const * it = _values;
@@ -215,7 +209,8 @@ ProjectBuilderFixture::Strings ProjectBuilderFixture::toStrings(
 
 //------------------------------------------------------------------------------
 
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+// cppcoreguidelines-avoid-c-arrays)
 std::string ProjectBuilderFixture::toString( const char * const _values[] )
 {
 	return toString( toStrings( _values ) );
@@ -239,10 +234,8 @@ ProjectBuilder & ProjectBuilderFixture::getBuilder()
 {
 	if( !m_builder )
 	{
-		m_builder = std::make_unique<ProjectBuilder>(
-			getProjectAccessor(),
-			getFileSystem()
-		);
+		m_builder = std::make_unique< ProjectBuilder >(
+			getProjectAccessor(), getFileSystem() );
 	}
 	return *m_builder;
 }
@@ -278,8 +271,7 @@ fs::File & ProjectBuilderFixture::getDefaultConfigurationFile()
 	{
 		const Path filePath =
 			getFileSystem().getCurrentPath() /
-			resources::arguments::configurationFile::DefaultValue
-		;
+			resources::arguments::configurationFile::DefaultValue;
 		m_defaultConfigurationFile = getFileSystem().createFile( filePath );
 	}
 	return *m_defaultConfigurationFile;

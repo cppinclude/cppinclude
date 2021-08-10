@@ -14,12 +14,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 
 ModelWrapper::ModelWrapper( ModelPtr && _modelPtr )
-	:	m_modelPtr{ std::move( _modelPtr ) }
+	: m_modelPtr{ std::move( _modelPtr ) }
 {
 }
 
@@ -62,8 +62,7 @@ void ModelWrapper::addInclude(
 	std::string_view _destinationFile,
 	IncludeStatus _status,
 	IncludeType _type,
-	const LocationInfo & _location
-)
+	const LocationInfo & _location )
 {
 	Model & model = takeModel();
 
@@ -73,12 +72,10 @@ void ModelWrapper::addInclude(
 	File & destinationFile = model.ensureFile( _destinationFile, defaultType );
 
 	Model::IncludeLocationInfo location{
-		_location.m_line,
-		_location.m_begin,
-		_location.m_end
-	};
+		_location.m_line, _location.m_begin, _location.m_end };
 
-	model.createInclude( location, sourceFile, destinationFile, _status, _type );
+	model.createInclude(
+		location, sourceFile, destinationFile, _status, _type );
 }
 
 //------------------------------------------------------------------------------
@@ -102,21 +99,18 @@ Model & ModelWrapper::takeModel()
 std::string ModelWrapper::dump() const
 {
 	std::set< std::string > paths;
-	getModel().forEachFile(
-		[&]( const File & _file )
-		{
-			const auto pair = paths.insert( _file.getPath().string() );
-			const bool inserted = pair.second;
-			INTERNAL_CHECK_WARRING( inserted );
-			return true;
-		}
-	);
+	getModel().forEachFile( [&]( const File & _file ) {
+		const auto pair = paths.insert( _file.getPath().string() );
+		const bool inserted = pair.second;
+		INTERNAL_CHECK_WARRING( inserted );
+		return true;
+	} );
 
 	std::stringstream result;
 	result << '\n';
 	int i = 1;
 	result << "Files count: " << paths.size() << '\n';
-	for( const auto & path : paths )
+	for( const auto & path: paths )
 	{
 		result << i++ << ": " << path << '\n';
 	}

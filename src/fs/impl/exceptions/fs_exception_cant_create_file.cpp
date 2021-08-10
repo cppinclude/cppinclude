@@ -6,13 +6,13 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 CantCreateFileImpl::CantCreateFileImpl( Path _path )
-	:	BaseClass( resources::exceptions::CantCreateFile::Code )
-	,	m_path{ std::move( _path ) }
+	: BaseClass( resources::exceptions::CantCreateFile::Code )
+	, m_path{ std::move( _path ) }
 {
 }
 

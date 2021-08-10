@@ -5,21 +5,21 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 Log::Log()
-	:	m_stream{ std::cout }
-	,	m_errorStream{ std::cerr }
+	: m_stream{ std::cout }
+	, m_errorStream{ std::cerr }
 {
 }
 
 //------------------------------------------------------------------------------
 
 Log::Log( std::ostream & _stream, std::ostream & _errorStream )
-	:	m_stream{ _stream }
-	,	m_errorStream{ _errorStream }
+	: m_stream{ _stream }
+	, m_errorStream{ _errorStream }
 {
 }
 

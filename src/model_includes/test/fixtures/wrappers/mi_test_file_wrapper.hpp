@@ -6,15 +6,17 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class File;
-	class Include;
+namespace model_includes
+{
+class File;
+class Include;
 }
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-	class IncludeWrapper;
+namespace model_includes::test
+{
+class IncludeWrapper;
 
 //------------------------------------------------------------------------------
 

@@ -6,13 +6,13 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 CantOpenFileImpl::CantOpenFileImpl( Path _path )
-	:	BaseClass( resources::exceptions::CantOpenFile::Code )
-	,	m_path{ std::move( _path ) }
+	: BaseClass( resources::exceptions::CantOpenFile::Code )
+	, m_path{ std::move( _path ) }
 {
 }
 

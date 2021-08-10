@@ -1,24 +1,23 @@
 #pragma once
 
-#include <vector>
 #include <std_fs>
+#include <vector>
 
-#include <string_view>
 #include <string>
+#include <string_view>
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-
+namespace cmake_project
+{
 //------------------------------------------------------------------------------
 
 class IncludeParserContext
 {
 public:
-
-	using Path		= stdfs::path;
-	using Includes	= std::vector< Path >;
-	using IndexType	= std::size_t;
+	using Path = stdfs::path;
+	using Includes = std::vector< Path >;
+	using IndexType = std::size_t;
 
 	IncludeParserContext( std::string_view _command );
 
@@ -30,11 +29,10 @@ public:
 	void addInclude( const Path & _path );
 
 private:
-    std::vector< Path > m_includes;
+	std::vector< Path > m_includes;
 
-    std::string m_command;
+	std::string m_command;
 	IndexType m_size;
-
 };
 
 //------------------------------------------------------------------------------

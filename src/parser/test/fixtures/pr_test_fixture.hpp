@@ -2,26 +2,28 @@
 
 #include "parser/test/fixtures/pr_test_file_wrapper.hpp"
 
-#include <vector>
 #include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-	class Factory;
-	class File;
+namespace fs
+{
+class Factory;
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace parser {
-	class IncludeFile;
+namespace parser
+{
+class IncludeFile;
 }
 
 //------------------------------------------------------------------------------
 
-namespace parser::test {
-
+namespace parser::test
+{
 //------------------------------------------------------------------------------
 
 class ParserFixture

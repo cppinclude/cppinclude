@@ -11,8 +11,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 ModelImpl::ModelImpl() = default;
@@ -29,7 +29,7 @@ std::size_t ModelImpl::getFilesCount() const
 
 void ModelImpl::forEachFile( FileCallback _callback ) const
 {
-	for( const auto & pair : m_files )
+	for( const auto & pair: m_files )
 	{
 		const File * file = pair.second.get();
 		INTERNAL_CHECK_WARRING( file );
@@ -85,7 +85,7 @@ const File * ModelImpl::findFile( const Path & _filePath ) const
 
 void ModelImpl::forEachInclude( IncludeCallback _callback ) const
 {
-	for( const IncludePtr & includePtr : m_includes )
+	for( const IncludePtr & includePtr: m_includes )
 	{
 		INTERNAL_CHECK_WARRING( includePtr );
 		if( !includePtr )
@@ -107,19 +107,12 @@ const Include & ModelImpl::createInclude(
 	File & _sourceFile,
 	File & _destinationFile,
 	IncludeStatus _status,
-	IncludeType _type
-)
+	IncludeType _type )
 {
 	IncludeLocationPtr location = createIncludeLocation( _location );
-	IncludePtr includePtr{
-		new IncludeImpl{
-			std::move( location ),
-			_sourceFile,
-			_destinationFile,
-			_status,
-			_type
-		}
-	};
+	IncludePtr includePtr{ new IncludeImpl{
+		std::move( location ), _sourceFile, _destinationFile, _status,
+		_type } };
 	INTERNAL_CHECK_WARRING( includePtr );
 	const Include & include = *includePtr;
 
@@ -133,17 +126,11 @@ const Include & ModelImpl::createInclude(
 
 //------------------------------------------------------------------------------
 
-ModelImpl::IncludeLocationPtr ModelImpl::createIncludeLocation(
-	const IncludeLocationInfo & _location
-) const
+ModelImpl::IncludeLocationPtr
+ModelImpl::createIncludeLocation( const IncludeLocationInfo & _location ) const
 {
-	return IncludeLocationPtr{
-		new IncludeLocationImpl{
-			_location.m_line,
-			_location.m_begin,
-			_location.m_end
-		}
-	};
+	return IncludeLocationPtr{ new IncludeLocationImpl{
+		_location.m_line, _location.m_begin, _location.m_end } };
 }
 
 //------------------------------------------------------------------------------

@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 class IncludeImpl final : public Include
@@ -20,8 +20,7 @@ public:
 		const File & _sourceFile,
 		const File & _destinationFile,
 		IncludeStatus _status,
-		IncludeType _type
-	);
+		IncludeType _type );
 
 	~IncludeImpl();
 

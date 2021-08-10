@@ -18,8 +18,8 @@ TEST PLAN
 
 ------------------------------------------------------------------------------*/
 
-namespace cmake_project::test {
-
+namespace cmake_project::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
@@ -31,17 +31,14 @@ BOOST_FIXTURE_TEST_SUITE( IncldesParserTests, IncldesParserFixture )
 BOOST_AUTO_TEST_CASE( t1_without_include_paramter )
 {
 	// Run
-	auto actualResult = parseString( "/usr/bin/c++ -o file2.cpp.o -c file2.cpp" );
+	auto actualResult =
+		parseString( "/usr/bin/c++ -o file2.cpp.o -c file2.cpp" );
 	Strings exceptedResult{};
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
-
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -55,12 +52,8 @@ BOOST_AUTO_TEST_CASE( t2_paramter_in_name )
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
-
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -69,16 +62,14 @@ BOOST_AUTO_TEST_CASE( t2_paramter_in_name )
 BOOST_AUTO_TEST_CASE( t3_one_paramter )
 {
 	// Run
-	auto actualResult = parseString( "/bin/c++ -o f.cpp.o -I./include -c f.cpp" );
-	Strings exceptedResult = toPathStrings( {"./include"} );
+	auto actualResult =
+		parseString( "/bin/c++ -o f.cpp.o -I./include -c f.cpp" );
+	Strings exceptedResult = toPathStrings( { "./include" } );
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -87,16 +78,14 @@ BOOST_AUTO_TEST_CASE( t3_one_paramter )
 BOOST_AUTO_TEST_CASE( t4_several_parameters )
 {
 	// Run
-	auto actualResult = parseString( "/bin/c++ -o f.cpp.o -I./lib1 -I./lib2 -c f.cpp" );
+	auto actualResult =
+		parseString( "/bin/c++ -o f.cpp.o -I./lib1 -I./lib2 -c f.cpp" );
 	Strings exceptedResult = toPathStrings( { "./lib1", "./lib2" } );
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -105,16 +94,14 @@ BOOST_AUTO_TEST_CASE( t4_several_parameters )
 BOOST_AUTO_TEST_CASE( t5_paramter_in_end_of_string )
 {
 	// Run
-	auto actualResult = parseString( "/bin/c++ -o f.cpp.o -c f.cpp -I./include" );
-	Strings exceptedResult = toPathStrings( {"./include"} );
+	auto actualResult =
+		parseString( "/bin/c++ -o f.cpp.o -c f.cpp -I./include" );
+	Strings exceptedResult = toPathStrings( { "./include" } );
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -123,16 +110,14 @@ BOOST_AUTO_TEST_CASE( t5_paramter_in_end_of_string )
 BOOST_AUTO_TEST_CASE( t6_file_with_space )
 {
 	// Run
-	auto actualResult = parseString( R"(/bin/c++ -o f.cpp.o -c \"space in file\".cpp)" );
+	auto actualResult =
+		parseString( R"(/bin/c++ -o f.cpp.o -c \"space in file\".cpp)" );
 	Strings exceptedResult;
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -147,11 +132,8 @@ BOOST_AUTO_TEST_CASE( t7_include_with_space )
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -166,11 +148,8 @@ BOOST_AUTO_TEST_CASE( t8_double_spaces )
 
 	// Check
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		actualResult.begin(),
-		actualResult.end(),
-		exceptedResult.begin(),
-		exceptedResult.end()
-	);
+		actualResult.begin(), actualResult.end(), exceptedResult.begin(),
+		exceptedResult.end() );
 }
 
 //------------------------------------------------------------------------------

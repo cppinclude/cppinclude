@@ -2,11 +2,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class File;
-	class IncludeLocation;
-	enum class IncludeType;
-	enum class IncludeStatus;
+namespace model_includes
+{
+class File;
+class IncludeLocation;
+enum class IncludeType;
+enum class IncludeStatus;
 
 //------------------------------------------------------------------------------
 

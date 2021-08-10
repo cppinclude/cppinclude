@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::physical {
-
+namespace fs::physical
+{
 //------------------------------------------------------------------------------
 
 class PhysicalFileSystem final : public FileSystem
@@ -16,10 +16,8 @@ public:
 	bool isExistFile( const Path & _path ) const override;
 	Path getCurrentPath() const override;
 
-	void forEachItem(
-		const Path & _ditPath,
-		ItemCallback _callback
-	) const override;
+	void
+	forEachItem( const Path & _ditPath, ItemCallback _callback ) const override;
 
 	Path toAbsolute( const Path & _path ) const override;
 

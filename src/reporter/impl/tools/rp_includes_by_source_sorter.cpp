@@ -8,14 +8,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 bool IncludesBySourceSorter::operator()(
-	const Include * _l,
-	const Include * _r
-) const
+	const Include * _l, const Include * _r ) const
 {
 	INTERNAL_CHECK_WARRING( _l );
 	INTERNAL_CHECK_WARRING( _r );
@@ -31,9 +29,7 @@ bool IncludesBySourceSorter::operator()(
 //------------------------------------------------------------------------------
 
 bool IncludesBySourceSorter::operator()(
-	const Include & _l,
-	const Include & _r
-) const
+	const Include & _l, const Include & _r ) const
 {
 	return FileSorter()( _l.getSourceFile(), _r.getSourceFile() );
 }

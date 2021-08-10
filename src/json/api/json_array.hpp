@@ -1,21 +1,21 @@
 #pragma once
 
-#include <stdfwd/size_t>
 #include <stdfwd/memory>
+#include <stdfwd/size_t>
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonValue;
+namespace json
+{
+class JsonValue;
 
 //------------------------------------------------------------------------------
 
 class JsonArray
 {
 public:
-
-	using ArrayIndex	= std::size_t;
-	using JsonValuePtr	= stdfwd::unique_ptr< JsonValue >;
+	using ArrayIndex = std::size_t;
+	using JsonValuePtr = stdfwd::unique_ptr< JsonValue >;
 
 	virtual ~JsonArray() = default;
 

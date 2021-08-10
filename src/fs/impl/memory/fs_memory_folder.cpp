@@ -4,12 +4,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::memory {
-
+namespace fs::memory
+{
 //------------------------------------------------------------------------------
 
 MemoryFolder::MemoryFolder( std::string_view _name )
-	:	m_name{ _name }
+	: m_name{ _name }
 {
 }
 
@@ -18,7 +18,8 @@ MemoryFolder::MemoryFolder( std::string_view _name )
 MemoryFolder::FolderPtr MemoryFolder::ensureSubFolder( std::string_view _name )
 {
 	std::string name{ _name };
-	auto pair = m_subdirs.try_emplace( name, std::make_shared< MemoryFolder > ( _name )	);
+	auto pair = m_subdirs.try_emplace(
+		name, std::make_shared< MemoryFolder >( _name ) );
 	auto it = pair.first;
 	FolderPtr & folderPtr = it->second;
 	return folderPtr;
@@ -26,7 +27,8 @@ MemoryFolder::FolderPtr MemoryFolder::ensureSubFolder( std::string_view _name )
 
 //------------------------------------------------------------------------------
 
-MemoryFolder::FolderPtr MemoryFolder::getSubFolder( std::string_view _name ) const
+MemoryFolder::FolderPtr
+MemoryFolder::getSubFolder( std::string_view _name ) const
 {
 	const std::string name{ _name };
 	if( auto it = m_subdirs.find( name ); it != m_subdirs.end() )
@@ -65,12 +67,12 @@ MemoryFolder::FilePtr MemoryFolder::getFile( std::string_view _name ) const
 
 void MemoryFolder::forEachItem( const ItemCallback & _callback )
 {
-	for( const auto & it : m_subdirs )
+	for( const auto & it: m_subdirs )
 	{
 		_callback( it.first, ItemType::Folder );
 	}
 
-	for( const auto & it : m_files )
+	for( const auto & it: m_files )
 	{
 		_callback( it.first, ItemType::File );
 	}

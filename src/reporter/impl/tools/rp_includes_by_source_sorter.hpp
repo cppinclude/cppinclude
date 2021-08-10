@@ -2,14 +2,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Include;
+namespace model_includes
+{
+class Include;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 struct IncludesBySourceSorter

@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-
+namespace cmake_project
+{
 //------------------------------------------------------------------------------
 
 AccessorImpl::LoaderPtr AccessorImpl::createLoader()

@@ -30,8 +30,8 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
@@ -133,14 +133,12 @@ BOOST_AUTO_TEST_CASE( t5_help )
 
 	// Run
 
-	BOOST_CHECK_EQUAL( getHelpString(),
-		"\n"
-		"Usage:\n"
-		"   [OPTION...]\n"
-		"\n"
-		"      --dir=arg  Test dir (default: test_dir)\n"
-	);
-
+	BOOST_CHECK_EQUAL(
+		getHelpString(), "\n"
+						 "Usage:\n"
+						 "   [OPTION...]\n"
+						 "\n"
+						 "      --dir=arg  Test dir (default: test_dir)\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -214,8 +212,10 @@ BOOST_AUTO_TEST_CASE( t8_several_arguments )
 	const std::string argumentOld =
 		"--" + argumentOldName + "=" + argumentOldValue;
 
-	addArgument( argumentNewName, argumentNewDescription, argumentNewDefaultValue );
-	addArgument( argumentOldName, argumentOldDescription, argumentOldDefaultValue );
+	addArgument(
+		argumentNewName, argumentNewDescription, argumentNewDefaultValue );
+	addArgument(
+		argumentOldName, argumentOldDescription, argumentOldDefaultValue );
 
 	// Run
 	parseArguments( { argumentNew, argumentOld } );

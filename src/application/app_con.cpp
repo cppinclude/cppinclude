@@ -41,6 +41,8 @@
 
 #include "compilation_db/ih/cdb_accessor_impl.hpp"
 
+#include "tools/numeric_punct_settings.hpp"
+
 #include <fmt/format.h>
 
 #include <fstream>
@@ -51,8 +53,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 ConcoleApplication::ConcoleApplication() = default;
@@ -60,7 +62,8 @@ ConcoleApplication::~ConcoleApplication() = default;
 
 //------------------------------------------------------------------------------
 
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+// cppcoreguidelines-avoid-c-arrays)
 int ConcoleApplication::run( int _argc, char * _argv[] )
 {
 	ParserArgWrapper arguments;
@@ -80,7 +83,8 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 
 	auto configurationFilePtr = loadConfigurationFile( arguments );
 
-	ProjectPtr projectPtr = createProject( arguments, configurationFilePtr.get() );
+	ProjectPtr projectPtr =
+		createProject( arguments, configurationFilePtr.get() );
 	if( !projectPtr )
 	{
 		throw CantCreateProjectImpl{};
@@ -90,6 +94,11 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 	if( arguments.isVerbose() )
 	{
 		dump( project );
+	}
+
+	if( arguments.isVerboseIgnore() )
+	{
+		project.setVerboseIgnore( true );
 	}
 
 	CMakeProjectPtr cmakeProjectPtr =
@@ -109,18 +118,16 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 
 	ReportSettingsLoader reportSettingsLoader{ getReporterFactory() };
 	auto reports = reportSettingsLoader.loadReports(
-		arguments,
-		configurationFilePtr.get()
-	);
-	auto settingsPtr = reportSettingsLoader.load(
-		arguments,
-		configurationFilePtr.get()
-	);
+		arguments, configurationFilePtr.get() );
+	auto settingsPtr =
+		reportSettingsLoader.load( arguments, configurationFilePtr.get() );
 
 	if( !settingsPtr )
 	{
 		throw CantLoadReporterSettingsImpl{};
 	}
+
+	setSystemSeparators( settingsPtr->getThousandsSeparator() );
 
 	runReporters( model, reports, *settingsPtr );
 
@@ -131,10 +138,10 @@ int ConcoleApplication::run( int _argc, char * _argv[] )
 
 ConcoleApplication::ProjectPtr ConcoleApplication::createProject(
 	const ParserArgWrapper & _arguments,
-	const ConfigurationFile * _configurationFile
-)
+	const ConfigurationFile * _configurationFile )
 {
-	ProjectBuilder projectBuilder( ensureProjectAccessor(), ensureFileSystem() );
+	ProjectBuilder projectBuilder(
+		ensureProjectAccessor(), ensureFileSystem() );
 	return projectBuilder.build( _arguments, _configurationFile );
 }
 
@@ -142,15 +149,11 @@ ConcoleApplication::ProjectPtr ConcoleApplication::createProject(
 
 ConcoleApplication::CMakeProjectPtr ConcoleApplication::createCMakeProject(
 	const ParserArgWrapper & _arguments,
-	const ConfigurationFile * _configurationFile
-)
+	const ConfigurationFile * _configurationFile )
 {
 	CMakeProjectBuilder projectBuilder{
-		ensureCMakeAccessor(),
-		ensureCompilationDbAccessor(),
-		ensureJsonAccessor(),
-		ensureFileSystem()
-	};
+		ensureCMakeAccessor(), ensureCompilationDbAccessor(),
+		ensureJsonAccessor(), ensureFileSystem() };
 	return projectBuilder.build( _arguments, _configurationFile );
 }
 
@@ -168,9 +171,7 @@ ConcoleApplication::loadConfigurationFile( const ParserArgWrapper & _arguments )
 //------------------------------------------------------------------------------
 
 ConcoleApplication::ModelPtr ConcoleApplication::runAnalyzer(
-	const Project & _project,
-	const CMakeProject * _cmakeProject
-)
+	const Project & _project, const CMakeProject * _cmakeProject )
 {
 	getLog().printLine( resources::messages::StartAnalyzeSources );
 
@@ -182,7 +183,7 @@ ConcoleApplication::ModelPtr ConcoleApplication::runAnalyzer(
 	}
 
 	ModelPtr result;
-	if( _cmakeProject != nullptr)
+	if( _cmakeProject != nullptr )
 	{
 		result = analyzerPtr->analyze( _project, *_cmakeProject );
 	}
@@ -198,8 +199,7 @@ ConcoleApplication::ModelPtr ConcoleApplication::runAnalyzer(
 void ConcoleApplication::runReporters(
 	const Model & _model,
 	const ReporterKinds & _kinds,
-	const reporter::Settings & _reporterSettings
-)
+	const reporter::Settings & _reporterSettings )
 {
 	using namespace reporter;
 
@@ -207,7 +207,7 @@ void ConcoleApplication::runReporters(
 
 	Factory & factory = ensureReporterAccessor().getReporterFactory();
 
-	for( reporter::ReporterKind kind : _kinds )
+	for( reporter::ReporterKind kind: _kinds )
 	{
 		auto reportPtr = factory.createReporter( kind );
 		if( !reportPtr )
@@ -224,7 +224,8 @@ void ConcoleApplication::runReporters(
 
 //------------------------------------------------------------------------------
 
-ConcoleApplication::ProjectAccessor & ConcoleApplication::ensureProjectAccessor()
+ConcoleApplication::ProjectAccessor &
+ConcoleApplication::ensureProjectAccessor()
 {
 	return m_projectAccessor.ensure< project::ProjectAccessorImpl >();
 }
@@ -245,7 +246,7 @@ ConcoleApplication::AnalyzerPtr ConcoleApplication::createAnalyzer()
 {
 	fs::FileSystem & fs = ensureFileSystem();
 	const parser::Parser & parser = ensureParser();
-	auto & accessor  = ensureModelIncludesAccessor();
+	auto & accessor = ensureModelIncludesAccessor();
 	return accessor.createAnalyzer( fs, parser );
 }
 
@@ -285,7 +286,8 @@ const ConcoleApplication::Parser & ConcoleApplication::ensureParser()
 
 //------------------------------------------------------------------------------
 
-ConcoleApplication::ReporterAccessor & ConcoleApplication::ensureReporterAccessor()
+ConcoleApplication::ReporterAccessor &
+ConcoleApplication::ensureReporterAccessor()
 {
 	return m_reporterAccessor.ensure< reporter::ReporterAccessorImpl >();
 }
@@ -334,48 +336,44 @@ Log & ConcoleApplication::getLog()
 
 void ConcoleApplication::dump( const Project & _project ) const
 {
-	std::cout << "project directory : " << _project.getProjectDir() << std::endl;
+	std::cout << "project directory : " << _project.getProjectDir()
+			  << std::endl;
 
-	const Project::IncludeDirIndex includeDirsCount = _project.getIncludeDirsCount();
+	const Project::IncludeDirIndex includeDirsCount =
+		_project.getIncludeDirsCount();
 	if( includeDirsCount > 0 )
 	{
 		std::cout << "Include dirs:\n";
 		for( Project::IncludeDirIndex i = 0; i < includeDirsCount; ++i )
 		{
-			std::cout << "\t" << i + 1 << " : " << _project.getIncludeDir( i ) << std::endl;
+			std::cout << "\t" << i + 1 << " : " << _project.getIncludeDir( i )
+					  << std::endl;
 		}
 	}
 	int ignoreDirNumber = 1;
-	_project.forEachIgnoreDir(
-		[&]( const stdfs::path & _path )
+	_project.forEachIgnoreDir( [&]( const stdfs::path & _path ) {
+		if( ignoreDirNumber == 1 )
 		{
-			if( ignoreDirNumber == 1 )
-			{
-				std::cout << "Ignore dirs:\n";
-			}
-
-			std::cout << "\t" << ignoreDirNumber << " : " << _path << std::endl;
-			++ignoreDirNumber;
-			return true;
+			std::cout << "Ignore dirs:\n";
 		}
-	);
+
+		std::cout << "\t" << ignoreDirNumber << " : " << _path << std::endl;
+		++ignoreDirNumber;
+		return true;
+	} );
 
 	int fileExtensionNumber = 1;
-	_project.forEachFileExtension(
-		[&]( std::string_view _ext )
+	_project.forEachFileExtension( [&]( std::string_view _ext ) {
+		if( fileExtensionNumber == 1 )
 		{
-			if( fileExtensionNumber == 1 )
-			{
-				std::cout << "File extensions\n";
-			}
-
-			std::cout << "\t" << fileExtensionNumber << " : " << _ext << std::endl;
-
-			++fileExtensionNumber;
-			return true;
+			std::cout << "File extensions\n";
 		}
-	);
 
+		std::cout << "\t" << fileExtensionNumber << " : " << _ext << std::endl;
+
+		++fileExtensionNumber;
+		return true;
+	} );
 }
 
 //------------------------------------------------------------------------------
@@ -384,23 +382,21 @@ void ConcoleApplication::dump( const CMakeProject & _project ) const
 {
 	std::cout << "cmake project dump:" << std::endl;
 	int fileNumber = 1;
-	_project.forEachFilePath( [&]( const CMakeProject::Path & _path )
-	{
+	_project.forEachFilePath( [&]( const CMakeProject::Path & _path ) {
 		std::cout << fileNumber << " : " << _path << std::endl;
 		std::cout << "includes:" << std::endl;
 		int includeNumber = 1;
-		_project.forEachIncludes( _path, [&]( const CMakeProject::Path & _include )
-		{
-
-			std::cout << '\t' << includeNumber << " : " << _include << std::endl;
-			++includeNumber;
-			return true;
-		}
-		);
+		_project.forEachIncludes(
+			_path, [&]( const CMakeProject::Path & _include ) {
+				std::cout << '\t' << includeNumber << " : " << _include
+						  << std::endl;
+				++includeNumber;
+				return true;
+			} );
 
 		++fileNumber;
 		return true;
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
@@ -410,11 +406,15 @@ void ConcoleApplication::showVersion()
 	using namespace resources;
 
 	std::cout << fmt::format(
-		version::VersionFormat,
-		version::Major,
-		version::Minor,
-		version::Patch
-	);
+		version::VersionFormat, version::Major, version::Minor,
+		version::Patch );
+}
+
+//------------------------------------------------------------------------------
+
+void ConcoleApplication::setSystemSeparators( char _separator )
+{
+	tools::NumericPunctSettings::setSystemSeparators( _separator );
 }
 
 //------------------------------------------------------------------------------

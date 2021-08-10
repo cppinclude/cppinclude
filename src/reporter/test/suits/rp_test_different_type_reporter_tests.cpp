@@ -2,6 +2,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <set>
+
 /*------------------------------------------------------------------------------
 
 TEST PLAN:
@@ -18,11 +20,13 @@ TEST PLAN:
 	5.1 max files
 	5.2 max details
 6. Show only std headers
+7. Hide details
+8. Thousands separator
 
 ------------------------------------------------------------------------------*/
 
-namespace reporter::test {
-
+namespace reporter::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 
@@ -98,14 +102,13 @@ BOOST_AUTO_TEST_CASE( t4_1_several_includes_system_and_user )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Files that are included by different ways:\n"
-		"1. header.hpp\n"
-		"With double quotation marks ( #include \"...\" ) in files:\n"
-			"\t1. file1.cpp line 1\n"
-		"With angle brackets ( #include <...> ) in files:\n"
-			"\t1. file2.cpp line 1\n"
-	);
+		result, "File that are included by different ways ( #include \"...\" "
+				"and #include <...> ) :\n"
+				"1 : header.hpp\n"
+				"With double quotation marks ( #include \"...\" ) in file:\n"
+				"\t1 : file1.cpp line 1\n"
+				"With angle brackets ( #include <...> ) in file:\n"
+				"\t1 : file2.cpp line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -117,8 +120,8 @@ BOOST_AUTO_TEST_CASE( t4_2_several_includes_std )
 
 	addFile( "vector", model_includes::FileType::StdLibraryFile );
 
-	addUserInclude(		"/test_project/file1.cpp", "vector" );
-	addSystemInclude(	"/test_project/file2.cpp", "vector" );
+	addUserInclude( "/test_project/file1.cpp", "vector" );
+	addSystemInclude( "/test_project/file2.cpp", "vector" );
 
 	// Run
 	setShowStdFiles( true );
@@ -126,14 +129,13 @@ BOOST_AUTO_TEST_CASE( t4_2_several_includes_std )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Files that are included by different ways:\n"
-		"1. vector\n"
-		"With double quotation marks ( #include \"...\" ) in files:\n"
-			"\t1. file1.cpp line 1\n"
-		"With angle brackets ( #include <...> ) in files:\n"
-			"\t1. file2.cpp line 1\n"
-	);
+		result, "File that are included by different ways ( #include \"...\" "
+				"and #include <...> ) :\n"
+				"1 : vector\n"
+				"With double quotation marks ( #include \"...\" ) in file:\n"
+				"\t1 : file1.cpp line 1\n"
+				"With angle brackets ( #include <...> ) in file:\n"
+				"\t1 : file2.cpp line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -177,15 +179,14 @@ BOOST_AUTO_TEST_CASE( t5_1_limit_max_files )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Files that are included by different ways:\n"
-		"1. header1.hpp\n"
-		"With double quotation marks ( #include \"...\" ) in files:\n"
-			"\t1. file1.cpp line 1\n"
-		"With angle brackets ( #include <...> ) in files:\n"
-			"\t1. file2.cpp line 1\n"
-		"... 1 of 2 files\n"
-	);
+		result, "File that are included by different ways ( #include \"...\" "
+				"and #include <...> ) :\n"
+				"1 : header1.hpp\n"
+				"With double quotation marks ( #include \"...\" ) in file:\n"
+				"\t1 : file1.cpp line 1\n"
+				"With angle brackets ( #include <...> ) in file:\n"
+				"\t1 : file2.cpp line 1\n"
+				"... 1 of 2 files\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -212,23 +213,22 @@ BOOST_AUTO_TEST_CASE( t5_2_limit_max_details )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Files that are included by different ways:\n"
-		"1. header1.hpp\n"
-		"With double quotation marks ( #include \"...\" ) in files:\n"
-			"\t1. file1.cpp line 1\n"
-			"\t... 1 of 2 details\n"
-		"With angle brackets ( #include <...> ) in files:\n"
-			"\t1. file3.cpp line 1\n"
-			"\t... 1 of 2 details\n"
-		"2. header2.hpp\n"
-		"With double quotation marks ( #include \"...\" ) in files:\n"
-			"\t1. file1.cpp line 1\n"
-			"\t... 1 of 2 details\n"
-		"With angle brackets ( #include <...> ) in files:\n"
-			"\t1. file3.cpp line 1\n"
-			"\t... 1 of 2 details\n"
-	);
+		result, "Files that are included by different ways ( #include \"...\" "
+				"and #include <...> ) :\n"
+				"1 : header1.hpp\n"
+				"With double quotation marks ( #include \"...\" ) in file:\n"
+				"\t1 : file1.cpp line 1\n"
+				"\t... 1 of 2 details\n"
+				"With angle brackets ( #include <...> ) in file:\n"
+				"\t1 : file3.cpp line 1\n"
+				"\t... 1 of 2 details\n"
+				"2 : header2.hpp\n"
+				"With double quotation marks ( #include \"...\" ) in file:\n"
+				"\t1 : file1.cpp line 1\n"
+				"\t... 1 of 2 details\n"
+				"With angle brackets ( #include <...> ) in file:\n"
+				"\t1 : file3.cpp line 1\n"
+				"\t... 1 of 2 details\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -239,12 +239,13 @@ BOOST_AUTO_TEST_CASE( t6_show_only_std_headers )
 	setProjectDir( "/test_project/" );
 
 	addFile( "vector", model_includes::FileType::StdLibraryFile );
-	addFile( "/test_project/header.hpp", model_includes::FileType::ProjectFile );
+	addFile(
+		"/test_project/header.hpp", model_includes::FileType::ProjectFile );
 
 	addUserInclude( "/test_project/file1.cpp", "vector" );
 	addSystemInclude( "/test_project/file2.cpp", "vector" );
 
-	addUserInclude(	"/test_project/file1.cpp", "/test_project/header.hpp" );
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
 	addSystemInclude( "/test_project/file2.cpp", "/test_project/header.hpp" );
 
 	setShowOnlyStdHeaders( true );
@@ -254,14 +255,95 @@ BOOST_AUTO_TEST_CASE( t6_show_only_std_headers )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Files that are included by different ways:\n"
-		"1. vector\n"
-		"With double quotation marks ( #include \"...\" ) in files:\n"
-			"\t1. file1.cpp line 1\n"
-		"With angle brackets ( #include <...> ) in files:\n"
-			"\t1. file2.cpp line 1\n"
-	);
+		result, "File that are included by different ways ( #include \"...\" "
+				"and #include <...> ) :\n"
+				"1 : vector\n"
+				"With double quotation marks ( #include \"...\" ) in file:\n"
+				"\t1 : file1.cpp line 1\n"
+				"With angle brackets ( #include <...> ) in file:\n"
+				"\t1 : file2.cpp line 1\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t7_hide_details )
+{
+	// Init
+	setProjectDir( "/test_project/" );
+
+	addFile(
+		"/test_project/header.hpp", model_includes::FileType::ProjectFile );
+
+	addUserInclude( "/test_project/file1.cpp", "/test_project/header.hpp" );
+	addSystemInclude( "/test_project/file2.cpp", "/test_project/header.hpp" );
+
+	setShowDetails( false );
+
+	// Run
+	const std::string result = runDifferentTypeReport();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result, "File that are included by different ways ( #include \"...\" "
+				"and #include <...> ) :\n"
+				"1 : header.hpp\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t8_thousands_separator )
+{
+	// Init
+
+	const int count = 1'100;
+
+	setProjectDir( "/test_project/" );
+
+	addUserInclude( "/test_project/file0.cpp", "/test_project/header.hpp" );
+
+	for( int i = 1; i <= count; ++i )
+	{
+		addSystemInclude(
+			"/test_project/file" + std::to_string( i ) + ".cpp",
+			"/test_project/header.hpp" );
+	}
+
+	addSystemInclude( "/test_project/file2.cpp", "/test_project/header.hpp" );
+
+	setSystemThousandsSeparator( ',' );
+
+	// Run
+	const std::string result = runDifferentTypeReport();
+
+	// Check
+	std::set< std::string > orderedFiles;
+	for( int i = 1; i <= count; ++i )
+	{
+		std::string fileName = "file" + std::to_string( i ) + ".cpp";
+		orderedFiles.insert( fileName );
+	}
+
+	std::string expectedResult =
+		"File that are included by different ways ( #include \"...\" and "
+		"#include <...> ) :\n"
+		"1 : header.hpp\n"
+		"With double quotation marks ( #include \"...\" ) in file:\n"
+		"\t1 : file0.cpp line 1\n"
+		"With angle brackets ( #include <...> ) in files:\n";
+
+	int number = 1;
+	for( const std::string & str: orderedFiles )
+	{
+		std::string currentNumber =
+			( number >= 1'000 ? std::to_string( number ).insert( 1, 1, ',' )
+							  : std::to_string( number ) );
+
+		expectedResult += "\t" + currentNumber + " : " + str + " line 1\n";
+
+		++number;
+	}
+
+	BOOST_CHECK_EQUAL( result, expectedResult );
 }
 
 //------------------------------------------------------------------------------

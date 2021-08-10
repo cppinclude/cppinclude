@@ -11,12 +11,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 
-FileWrapper::FileWrapper( const File * _file  )
-	:	m_file{ _file }
+FileWrapper::FileWrapper( const File * _file )
+	: m_file{ _file }
 {
 }
 
@@ -42,7 +42,8 @@ BoostPredicate FileWrapper::checkIncludesCount( int _exceptCount ) const
 
 //------------------------------------------------------------------------------
 
-BoostPredicate FileWrapper::checkIncludesCountRecursive( int _exceptCount ) const
+BoostPredicate
+FileWrapper::checkIncludesCountRecursive( int _exceptCount ) const
 {
 	const File::IncludeIndex count = getFile().getIncludeFilesCountRecursive();
 	if( count == static_cast< File::IncludeIndex >( _exceptCount ) )
@@ -75,9 +76,11 @@ BoostPredicate FileWrapper::checkIncludedByCount( int _exceptCount ) const
 
 //------------------------------------------------------------------------------
 
-BoostPredicate FileWrapper::checkIncludedByCountRecursive( int _exceptCount ) const
+BoostPredicate
+FileWrapper::checkIncludedByCountRecursive( int _exceptCount ) const
 {
-	const File::IncludeIndex count = getFile().getIncludedByFilesCountRecursive();
+	const File::IncludeIndex count =
+		getFile().getIncludedByFilesCountRecursive();
 	if( count == static_cast< File::IncludeIndex >( _exceptCount ) )
 	{
 		return true;

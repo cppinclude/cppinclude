@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace exception {
-
+namespace exception
+{
 //------------------------------------------------------------------------------
 
 template< class _BaseException >
@@ -17,10 +17,9 @@ public:
 	ExceptionWithMessageImpl(
 		std::string_view _module,
 		std::string_view _code,
-		std::string_view _message
-	)
-		:	BaseClass{ _module, _code }
-		,	m_message{ _message }
+		std::string_view _message )
+		: BaseClass{ _module, _code }
+		, m_message{ _message }
 	{
 	}
 

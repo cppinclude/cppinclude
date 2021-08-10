@@ -9,11 +9,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
-class CheckingExistFileFailImpl : public BaseExceptionImpl< CheckingExistFileFail >
+class CheckingExistFileFailImpl
+	: public BaseExceptionImpl< CheckingExistFileFail >
 {
 	using BaseClass = BaseExceptionImpl< CheckingExistFileFail >;
 

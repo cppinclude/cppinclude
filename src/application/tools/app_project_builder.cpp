@@ -15,16 +15,14 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 ProjectBuilder::ProjectBuilder(
-	ProjectAccessor & _projectAccessor,
-	FileSystem & _fs
-)
-	:	m_projectAccessor{ _projectAccessor }
-	,	m_fs{ _fs }
+	ProjectAccessor & _projectAccessor, FileSystem & _fs )
+	: m_projectAccessor{ _projectAccessor }
+	, m_fs{ _fs }
 {
 }
 
@@ -32,8 +30,7 @@ ProjectBuilder::ProjectBuilder(
 
 ProjectBuilder::ProjectPtr ProjectBuilder::build(
 	const ParserArgWrapper & _arguments,
-	const ConfigurationFile * _configurationFile
-)
+	const ConfigurationFile * _configurationFile )
 {
 	ProjectPtr projectPtr = createProject();
 	if( !projectPtr )
@@ -59,9 +56,7 @@ ProjectBuilder::ProjectPtr ProjectBuilder::build(
 //------------------------------------------------------------------------------
 
 void ProjectBuilder::initProjectWithDefaultValues(
-	const ParserArgWrapper & _arguments,
-	Project & _project
-)
+	const ParserArgWrapper & _arguments, Project & _project )
 {
 	if( auto projectDir = _project.getProjectDir(); projectDir.empty() )
 	{
@@ -76,8 +71,7 @@ void ProjectBuilder::initProjectWithDefaultValues(
 	if( !m_analyzeWithoutExtensionChanged )
 	{
 		_project.setAnalyzeWithoutExtension(
-			_arguments.getDefaultAnalyzeWithoutExtension()
-		);
+			_arguments.getDefaultAnalyzeWithoutExtension() );
 	}
 
 	if( _project.getIncludeDirsCount() == 0U )
@@ -92,7 +86,8 @@ void ProjectBuilder::initProjectWithDefaultValues(
 
 	if( !m_ignoreSystemIncludesChanged )
 	{
-		_project.setIgnoreSystemIncludes( _arguments.getDefaultIgnoreSystemIncludes() );
+		_project.setIgnoreSystemIncludes(
+			_arguments.getDefaultIgnoreSystemIncludes() );
 	}
 
 	if( !_project.hasIgnoreDirs() )

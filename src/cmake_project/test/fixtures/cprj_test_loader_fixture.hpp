@@ -1,31 +1,33 @@
 #pragma once
 
+#include <std_fs>
 #include <stdfwd/set>
 #include <stdfwd/string_view>
-#include <std_fs>
 
 #include <memory>
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-	class Database;
-	class Loader;
-	class Accessor;
+namespace compilation_db
+{
+class Database;
+class Loader;
+class Accessor;
 }
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-	class Project;
-	class Loader;
-	class Accessor;
+namespace cmake_project
+{
+class Project;
+class Loader;
+class Accessor;
 }
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project::test {
-
+namespace cmake_project::test
+{
 //------------------------------------------------------------------------------
 
 class LoaderFixture
@@ -39,14 +41,11 @@ public:
 	void addCommand(
 		std::string_view _directory,
 		std::string_view _command,
-		std::string_view _file
-	);
+		std::string_view _file );
 
 	void addDefaultComandForFile( std::string_view _file );
-	void addComandWithIncludes(
-		std::string_view _file,
-		const Strings & _includes
-	);
+	void
+	addComandWithIncludes( std::string_view _file, const Strings & _includes );
 
 	void load();
 

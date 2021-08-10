@@ -5,12 +5,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::physical {
-
+namespace fs::physical
+{
 //------------------------------------------------------------------------------
 
 PhysicalFile::PhysicalFile( std::fstream && _file )
-	:	m_file{ std::move( _file ) }
+	: m_file{ std::move( _file ) }
 {
 	m_file.unsetf( std::ios_base::skipws );
 }

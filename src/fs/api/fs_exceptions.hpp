@@ -4,17 +4,25 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
+namespace fs
+{
+//------------------------------------------------------------------------------
+
+class Exception : public exception::Exception
+{
+};
 
 //------------------------------------------------------------------------------
 
-class Exception : public exception::Exception {};
-
-//------------------------------------------------------------------------------
-
-class CantOpenFile : public Exception {};
-class CantCreateFile : public Exception {};
-class CheckingExistFileFail : public Exception {};
+class CantOpenFile : public Exception
+{
+};
+class CantCreateFile : public Exception
+{
+};
+class CheckingExistFileFail : public Exception
+{
+};
 
 //------------------------------------------------------------------------------
 

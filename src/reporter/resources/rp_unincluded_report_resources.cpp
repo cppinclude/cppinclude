@@ -2,15 +2,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter::resources::unincluded_report {
-
+namespace reporter::resources::unincluded_report
+{
 //------------------------------------------------------------------------------
 
-	const char * const Name				= "unincluded";
+const char * const Name = "unincluded";
 
-	const char * const Header			= "Unincluded headers:\n";
+const char * const Header = "Unincluded header{}:\n";
 
-	const char * const LineForFileFmt	= "{} : \"{}\"\n";
+const char * const LineForFileFmt = "{:L} : \"{}\"\n";
 
 //------------------------------------------------------------------------------
 

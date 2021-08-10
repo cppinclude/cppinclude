@@ -10,46 +10,45 @@
 
 //------------------------------------------------------------------------------
 
-namespace project {
-	class Project;
+namespace project
+{
+class Project;
 }
 
-namespace cmake_project {
-	class Project;
+namespace cmake_project
+{
+class Project;
 }
 
-namespace parser {
-	class IncludeFile;
+namespace parser
+{
+class IncludeFile;
 }
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Model;
+namespace model_includes
+{
+class Model;
 
 //------------------------------------------------------------------------------
 
 class AnalyzerContext
 {
 public:
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
+	using IgnoredFiles = std::unordered_set< Path >;
 
-	using Path                  = stdfs::path;
-	using PathOpt               = std::optional< Path >;
-	using IgnoredFiles          = std::unordered_set< Path >;
+	using ResolvedFiles = std::unordered_set< Path >;
+	using ResolvedFilesStack = std::stack< Path >;
 
-	using ResolvedFiles			= std::unordered_set< Path >;
-	using ResolvedFilesStack	= std::stack< Path >;
-
-	AnalyzerContext(
-		const project::Project & _project,
-		Model & _model
-	);
+	AnalyzerContext( const project::Project & _project, Model & _model );
 
 	AnalyzerContext(
 		const project::Project & _project,
 		const cmake_project::Project & _cmakeProject,
-		Model & _model
-	);
+		Model & _model );
 
 	const project::Project & getProject() const;
 	const cmake_project::Project * getCMakeProject() const;

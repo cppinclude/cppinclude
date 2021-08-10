@@ -6,21 +6,20 @@
 
 //------------------------------------------------------------------------------
 
-namespace parser {
-
+namespace parser
+{
 //------------------------------------------------------------------------------
 
 class IncludeFile
 {
 public:
 	IncludeFile(
-			const IncludeFileLocation & _location,
-			std::string_view _name,
-			bool _isSystem
-	)
-		:	m_location{ _location }
-		,	m_name{ _name }
-		,	m_isSystem{ _isSystem }
+		const IncludeFileLocation & _location,
+		std::string_view _name,
+		bool _isSystem )
+		: m_location{ _location }
+		, m_name{ _name }
+		, m_isSystem{ _isSystem }
 
 	{
 	}

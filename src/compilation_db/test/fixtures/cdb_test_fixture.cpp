@@ -14,8 +14,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db::test {
-
+namespace compilation_db::test
+{
 //------------------------------------------------------------------------------
 
 CompilationDbFixture::CompilationDbFixture() = default;
@@ -36,9 +36,8 @@ const Database & CompilationDbFixture::parseJson( std::string_view _json )
 
 //------------------------------------------------------------------------------
 
-CompilationDbFixture::JsonObjectPtr CompilationDbFixture::createJson(
-	std::string_view _json
-)
+CompilationDbFixture::JsonObjectPtr
+CompilationDbFixture::createJson( std::string_view _json )
 {
 	std::stringstream stream;
 	stream << _json;

@@ -11,13 +11,13 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 FileImpl::FileImpl( Path _path, FileType _type )
-	:	m_path{ std::move( _path ) }
-	,	m_type{ _type }
+	: m_path{ std::move( _path ) }
+	, m_type{ _type }
 {
 }
 
@@ -63,10 +63,8 @@ File::IncludeIndex FileImpl::getIncludesCount() const
 File::IncludeIndex FileImpl::getIncludeFilesCountRecursive() const
 {
 	return getCountRecursive(
-		&File::getIncludesCount,
-		&File::getInclude,
-		&Include::getDestinationFile
-	);
+		&File::getIncludesCount, &File::getInclude,
+		&Include::getDestinationFile );
 }
 
 //------------------------------------------------------------------------------
@@ -90,10 +88,8 @@ File::IncludeIndex FileImpl::getIncludedByCount() const
 File::IncludeIndex FileImpl::getIncludedByFilesCountRecursive() const
 {
 	return getCountRecursive(
-		&File::getIncludedByCount,
-		&File::getIncludedBy,
-		&Include::getSourceFile
-	);
+		&File::getIncludedByCount, &File::getIncludedBy,
+		&Include::getSourceFile );
 }
 
 //------------------------------------------------------------------------------
@@ -110,8 +106,7 @@ const Include & FileImpl::getIncludedBy( IncludeIndex _index ) const
 FileImpl::IncludeIndex FileImpl::getCountRecursive(
 	IncludeIndex ( File::*_getCount )() const,
 	const Include & ( File::*_getInclude )( IncludeIndex _index ) const,
-	const File & ( Include::*_getFile )() const
-) const
+	const File & ( Include::*_getFile )() const ) const
 {
 	IncludeIndex result = 0;
 

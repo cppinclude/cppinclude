@@ -3,6 +3,7 @@
 #include "project/impl/exceptions/prj_exception_invalid_regex.hpp"
 
 #include "tools/path_string_tools.hpp"
+#include "tools/regex_exception.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
 
@@ -16,8 +17,9 @@ namespace project
 //------------------------------------------------------------------------------
 
 ProjectImpl::ProjectImpl()
-	:	m_ignoreSystemIncludes{ false }
-	,	m_analyzeWithoutExtension{ false }
+	: m_ignoreSystemIncludes{ false }
+	, m_analyzeWithoutExtension{ false }
+	, m_verboseIgnore{ false }
 {
 }
 
@@ -44,7 +46,8 @@ ProjectImpl::IncludeDirIndex ProjectImpl::getIncludeDirsCount() const
 
 //------------------------------------------------------------------------------
 
-const ProjectImpl::Path & ProjectImpl::getIncludeDir( IncludeDirIndex _index ) const
+const ProjectImpl::Path &
+ProjectImpl::getIncludeDir( IncludeDirIndex _index ) const
 {
 	return m_includeDirs.at( _index );
 }
@@ -60,7 +63,7 @@ void ProjectImpl::addIncludeDir( const Path & _path )
 
 void ProjectImpl::addIncludeDirs( const DirPaths & _paths )
 {
-	for( const Path & path : _paths )
+	for( const Path & path: _paths )
 	{
 		addIncludeDir( path );
 	}
@@ -98,6 +101,10 @@ bool ProjectImpl::isIgnoredDir( const Path & _path ) const
 	}
 
 	const bool isFound = m_ignoredDirs.count( path ) > 0;
+
+	if( isFound && m_verboseIgnore )
+		printIgnoredFolder( _path );
+
 	return isFound;
 }
 
@@ -112,7 +119,7 @@ void ProjectImpl::addIgnoredDir( const Path & _path )
 
 void ProjectImpl::addIgnoredDirs( const DirPaths & _paths )
 {
-	for( const Path & path : _paths )
+	for( const Path & path: _paths )
 	{
 		addIgnoredDir( path );
 	}
@@ -122,7 +129,7 @@ void ProjectImpl::addIgnoredDirs( const DirPaths & _paths )
 
 void ProjectImpl::forEachIgnoreDir( PathCallback _callback ) const
 {
-	for( const Path & path : m_ignoredDirs )
+	for( const Path & path: m_ignoredDirs )
 	{
 		if( !_callback( path ) )
 		{
@@ -165,7 +172,7 @@ void ProjectImpl::addCppFileExtension( std::string_view _ext )
 
 void ProjectImpl::addCppFileExtensions( const Strings & _extensions )
 {
-	for( std::string_view ext : _extensions )
+	for( std::string_view ext: _extensions )
 	{
 		addCppFileExtension( ext );
 	}
@@ -175,7 +182,7 @@ void ProjectImpl::addCppFileExtensions( const Strings & _extensions )
 
 void ProjectImpl::forEachFileExtension( FileExtensionCallback _callback ) const
 {
-	for( const std::string & ext : m_extensions )
+	for( const std::string & ext: m_extensions )
 	{
 		if( !_callback( ext ) )
 		{
@@ -228,9 +235,9 @@ void ProjectImpl::addFileFilter( std::string_view _filter )
 	{
 		m_fileFilters.emplace_back( tools::Regex{ str } );
 	}
-	catch( const std::regex_error & _exception )
+	catch( const tools::RegexException & _exception )
 	{
-		throw InvalidRegexImpl{ str, _exception };
+		throw InvalidRegexImpl{ _exception };
 	}
 }
 
@@ -238,7 +245,7 @@ void ProjectImpl::addFileFilter( std::string_view _filter )
 
 void ProjectImpl::addFileFilters( const Strings & _filters )
 {
-	for( const auto & filter : _filters )
+	for( const auto & filter: _filters )
 	{
 		addFileFilter( filter );
 	}
@@ -255,7 +262,7 @@ bool ProjectImpl::hasFileFilters() const
 
 bool ProjectImpl::isIgnoredFile( const Path & _path ) const
 {
-	for( const tools::Regex & filter : m_fileFilters )
+	for( const tools::Regex & filter: m_fileFilters )
 	{
 		if( isIgnoredFile( _path, filter ) )
 		{
@@ -269,14 +276,14 @@ bool ProjectImpl::isIgnoredFile( const Path & _path ) const
 
 void ProjectImpl::changeAllPathsToAbsolute()
 {
-	for( Path & path : m_includeDirs )
+	for( Path & path: m_includeDirs )
 	{
 		changeToProjectPath( path );
 	}
 
 	std::vector< Path > newPath;
 	newPath.reserve( m_ignoredDirs.size() );
-	for( Path path : m_ignoredDirs )
+	for( Path path: m_ignoredDirs )
 	{
 		changeToProjectPath( path );
 		newPath.push_back( path );
@@ -292,6 +299,13 @@ void ProjectImpl::changeAllPathsToAbsolute( const Path & _currentDir )
 	changeToAbsolute( _currentDir, m_projectDir );
 
 	changeAllPathsToAbsolute();
+}
+
+//------------------------------------------------------------------------------
+
+void ProjectImpl::setVerboseIgnore( bool _enable )
+{
+	m_verboseIgnore = _enable;
 }
 
 //------------------------------------------------------------------------------
@@ -328,7 +342,8 @@ void ProjectImpl::changeToAbsolute( const Path & _currentDir, Path & _path )
 
 //------------------------------------------------------------------------------
 
-bool ProjectImpl::isIgnoredFile( const Path & _path, const tools::Regex & _filter )
+bool ProjectImpl::isIgnoredFile(
+	const Path & _path, const tools::Regex & _filter ) const
 {
 	const std::string originStr = _path.string();
 	const std::string unixStr = tools::toUnixPath( originStr );
@@ -344,11 +359,13 @@ bool ProjectImpl::isIgnoredFile( const Path & _path, const tools::Regex & _filte
 //------------------------------------------------------------------------------
 
 bool ProjectImpl::checkFilter(
-	const std::string & _str,
-	const tools::Regex  & _filter
-)
+	const std::string & _str, const tools::Regex & _filter ) const
 {
 	const bool result = _filter.search( _str );
+
+	if( result && m_verboseIgnore )
+		printIgnoredPath( _str, _filter.toString() );
+
 	return result;
 }
 
@@ -362,6 +379,22 @@ void ProjectImpl::changeToProjectPath( Path & _path )
 	}
 
 	_path = convertToDirPath( _path );
+}
+
+//------------------------------------------------------------------------------
+
+void ProjectImpl::printIgnoredFolder( const Path & _path )
+{
+	std::cout << "Folder " << _path << " was ignored" << std::endl;
+}
+
+//------------------------------------------------------------------------------
+
+void ProjectImpl::printIgnoredPath(
+	std::string_view _path, std::string_view _filter )
+{
+	std::cout << "Path \"" << _path << "\" was ignored by \"" << _filter << '"'
+			  << std::endl;
 }
 
 //------------------------------------------------------------------------------

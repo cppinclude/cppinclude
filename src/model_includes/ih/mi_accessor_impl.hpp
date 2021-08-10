@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 class ModelIncludesAccessorImpl final : public ModelIncludesAccessor
@@ -15,9 +15,7 @@ public:
 	~ModelIncludesAccessorImpl() override;
 
 	AnalyzerPtr createAnalyzer(
-		const fs::FileSystem & _fs,
-		const parser::Parser & _parser
-	) override;
+		const fs::FileSystem & _fs, const parser::Parser & _parser ) override;
 
 	ModelPtr createEmptyModel() override;
 

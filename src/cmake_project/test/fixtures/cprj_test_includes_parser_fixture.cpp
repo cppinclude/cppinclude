@@ -10,8 +10,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project::test {
-
+namespace cmake_project::test
+{
 //------------------------------------------------------------------------------
 
 IncldesParserFixture::IncldesParserFixture() = default;
@@ -19,9 +19,8 @@ IncldesParserFixture::~IncldesParserFixture() = default;
 
 //------------------------------------------------------------------------------
 
-IncldesParserFixture::Strings IncldesParserFixture::parseString(
-	std::string_view _str
-)
+IncldesParserFixture::Strings
+IncldesParserFixture::parseString( std::string_view _str )
 {
 	Paths includes = ensureParser().parse( _str );
 	return toStrings( includes );
@@ -29,12 +28,11 @@ IncldesParserFixture::Strings IncldesParserFixture::parseString(
 
 //------------------------------------------------------------------------------
 
-IncldesParserFixture::Strings IncldesParserFixture::toPathStrings(
-	const Strings & _strings
-)
+IncldesParserFixture::Strings
+IncldesParserFixture::toPathStrings( const Strings & _strings )
 {
 	Strings result;
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		std::string newStr = tools::toPath( str );
 		result.push_back( newStr );
@@ -57,12 +55,11 @@ IncludesParser & IncldesParserFixture::ensureParser()
 
 //------------------------------------------------------------------------------
 
-IncldesParserFixture::Strings IncldesParserFixture::toStrings(
-	const Paths & _paths
-)
+IncldesParserFixture::Strings
+IncldesParserFixture::toStrings( const Paths & _paths )
 {
 	Strings result;
-	for( const Path & path : _paths )
+	for( const Path & path: _paths )
 	{
 		const std::string str = toString( path );
 		result.push_back( str );

@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 class Argument
@@ -18,8 +18,7 @@ public:
 	Argument(
 		std::string _fullName,
 		std::string _description,
-		ValueOpt _defaultValue = std::nullopt
-	);
+		ValueOpt _defaultValue = std::nullopt );
 
 	template< class _Value > void setValue( const _Value & _value )
 	{

@@ -13,8 +13,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace parser {
-
+namespace parser
+{
 //------------------------------------------------------------------------------
 
 Parser::IncludeFiles ParserImpl::parseFile( const fs::File & _file ) const
@@ -124,10 +124,7 @@ std::size_t ParserImpl::getStartPos( ParserContext & _context ) noexcept
 //------------------------------------------------------------------------------
 
 std::size_t ParserImpl::getStartPosInInclude(
-	const ParserContext & _conext,
-	std::size_t _index,
-	char _char
-)
+	const ParserContext & _conext, std::size_t _index, char _char )
 {
 	const std::string & line = _conext.getCurrentLine();
 	const std::size_t count = line.size();
@@ -169,9 +166,11 @@ std::size_t ParserImpl::getStartPosInInclude(
 
 //------------------------------------------------------------------------------
 
-std::size_t ParserImpl::findComentEnd( ParserContext & _context, std::size_t _index ) noexcept
+std::size_t ParserImpl::findComentEnd(
+	ParserContext & _context, std::size_t _index ) noexcept
 {
-	const size_t nextIndex = _context.isEnableMultilineComment() ? 0 : _index + 1;
+	const size_t nextIndex =
+		_context.isEnableMultilineComment() ? 0 : _index + 1;
 	const std::string & line = _context.getCurrentLine();
 	const size_t size = line.size();
 	if( nextIndex >= size )
@@ -205,9 +204,7 @@ std::size_t ParserImpl::findComentEnd( ParserContext & _context, std::size_t _in
 //------------------------------------------------------------------------------
 
 std::size_t ParserImpl::findEndOfString(
-	ParserContext & _context,
-	std::size_t _index
-) noexcept
+	ParserContext & _context, std::size_t _index ) noexcept
 {
 	const std::string & line = _context.getCurrentLine();
 	const size_t size = line.size();
@@ -250,9 +247,7 @@ std::size_t ParserImpl::findEndOfString(
 //------------------------------------------------------------------------------
 
 std::size_t ParserImpl::findEndOfRawString(
-	ParserContext & _context,
-	std::size_t _index
-) noexcept
+	ParserContext & _context, std::size_t _index ) noexcept
 {
 	const std::string & line = _context.getCurrentLine();
 
@@ -280,10 +275,8 @@ std::size_t ParserImpl::findEndOfRawString(
 
 //------------------------------------------------------------------------------
 
-std::optional< std::size_t > ParserImpl::findInclude(
-	std::string_view _line,
-	std::size_t _index
-)
+std::optional< std::size_t >
+ParserImpl::findInclude( std::string_view _line, std::size_t _index )
 {
 	static const std::string includePhase{ "include" };
 	static const size_t includePhaseSize = includePhase.size();
@@ -326,16 +319,15 @@ std::optional< std::size_t > ParserImpl::findInclude(
 
 //------------------------------------------------------------------------------
 
-ParserImpl::IncludeFileOpt ParserImpl::parseInclude(
-	const ParserContext & _context,
-	std::size_t _index
-)
+ParserImpl::IncludeFileOpt
+ParserImpl::parseInclude( const ParserContext & _context, std::size_t _index )
 {
 	const std::string & line = _context.getCurrentLine();
 	const size_t startPosSystem = getStartPosInInclude( _context, _index, '<' );
 	const size_t startPosUser = getStartPosInInclude( _context, _index, '"' );
 
-	if( startPosSystem == std::string::npos && startPosUser == std::string::npos )
+	if( startPosSystem == std::string::npos &&
+		startPosUser == std::string::npos )
 	{
 		// it's strange that after #include don't exist < or "
 		return std::nullopt;
@@ -357,16 +349,11 @@ ParserImpl::IncludeFileOpt ParserImpl::parseInclude(
 		return std::nullopt;
 	}
 
-	const std::string name = line.substr(
-		startPosName,
-		endPosName - startPosName
-	);
+	const std::string name =
+		line.substr( startPosName, endPosName - startPosName );
 
 	IncludeFileLocation location{
-		_context.getLineNumber(),
-		startPosName + 1, 
-		endPosName + 1
-	};
+		_context.getLineNumber(), startPosName + 1, endPosName + 1 };
 	return IncludeFile{ location, name, isSystem };
 }
 

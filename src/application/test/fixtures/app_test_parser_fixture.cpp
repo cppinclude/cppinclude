@@ -11,8 +11,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 ParserArgumentsFixture::ParserArgumentsFixture() = default;
@@ -21,9 +21,7 @@ ParserArgumentsFixture::~ParserArgumentsFixture() = default;
 //------------------------------------------------------------------------------
 
 void ParserArgumentsFixture::addArgument(
-	std::string_view _fullname,
-	std::string_view _description
-)
+	std::string_view _fullname, std::string_view _description )
 {
 	getPatser().addArgument( _fullname, _description );
 }
@@ -33,8 +31,7 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const std::string & _defaultValue
-)
+	const std::string & _defaultValue )
 {
 	getPatser().addArgument( _fullname, _description, _defaultValue );
 }
@@ -44,8 +41,7 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const Strings & _defaultValues
-)
+	const Strings & _defaultValues )
 {
 	getPatser().addArgument( _fullname, _description, _defaultValues );
 }
@@ -55,8 +51,7 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	int _defaultValue
-)
+	int _defaultValue )
 {
 	getPatser().addArgument( _fullname, _description, _defaultValue );
 }
@@ -66,8 +61,7 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	bool _defaultValue
-)
+	bool _defaultValue )
 {
 	getPatser().addArgument( _fullname, _description, _defaultValue );
 }
@@ -77,8 +71,7 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const Path & _defaultValue
-)
+	const Path & _defaultValue )
 {
 	getPatser().addArgument( _fullname, _description, _defaultValue );
 }
@@ -88,8 +81,7 @@ void ParserArgumentsFixture::addArgument(
 void ParserArgumentsFixture::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const Paths & _defaultValues
-)
+	const Paths & _defaultValues )
 {
 	getPatser().addArgument( _fullname, _description, _defaultValues );
 }
@@ -103,7 +95,7 @@ void ParserArgumentsFixture::parseArguments( const Strings & _arguments )
 
 	std::vector< char * > arg;
 	arg.reserve( _arguments.size() );
-	for( std::string & str : argument )
+	for( std::string & str: argument )
 	{
 		arg.push_back( str.data() );
 	}
@@ -135,27 +127,24 @@ ParserArgumentsFixture::getArgumentStringsValue( std::string_view _arg ) const
 
 //------------------------------------------------------------------------------
 
-ParserArgumentsFixture::IntOpt ParserArgumentsFixture::getArgumentIntValue(
-	std::string_view _arg
-) const
+ParserArgumentsFixture::IntOpt
+ParserArgumentsFixture::getArgumentIntValue( std::string_view _arg ) const
 {
 	return getPatser().getArgumentIntValue( _arg );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArgumentsFixture::BoolOpt ParserArgumentsFixture::getArgumentBoolValue(
-	std::string_view _arg
-) const
+ParserArgumentsFixture::BoolOpt
+ParserArgumentsFixture::getArgumentBoolValue( std::string_view _arg ) const
 {
 	return getPatser().getArgumentBoolValue( _arg );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArgumentsFixture::StringOpt ParserArgumentsFixture::getArgumentPathValue(
-	std::string_view _arg
-) const
+ParserArgumentsFixture::StringOpt
+ParserArgumentsFixture::getArgumentPathValue( std::string_view _arg ) const
 {
 	PathOpt pathOpt{ getPatser().getArgumentPathValue( _arg ) };
 	if( pathOpt )
@@ -168,9 +157,8 @@ ParserArgumentsFixture::StringOpt ParserArgumentsFixture::getArgumentPathValue(
 
 //------------------------------------------------------------------------------
 
-ParserArgumentsFixture::StringOpt ParserArgumentsFixture::getArgumentPathsValue(
-	std::string_view _arg
-) const
+ParserArgumentsFixture::StringOpt
+ParserArgumentsFixture::getArgumentPathsValue( std::string_view _arg ) const
 {
 	PathsOpt pathsOpt{ getPatser().getArgumentPathsValue( _arg ) };
 	if( pathsOpt )
@@ -194,13 +182,13 @@ std::string ParserArgumentsFixture::getHelpString()
 
 std::string ParserArgumentsFixture::toString( const Strings & _strings )
 {
-	const char seperator = ',';
+	const char separator = ',';
 	std::string result;
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		if( !result.empty() )
 		{
-			result += seperator;
+			result += separator;
 		}
 		result += str;
 	}
@@ -211,13 +199,13 @@ std::string ParserArgumentsFixture::toString( const Strings & _strings )
 
 std::string ParserArgumentsFixture::toString( const Paths & _paths )
 {
-	const char seperator = ',';
+	const char separator = ',';
 	std::string result;
-	for( const Path & path : _paths )
+	for( const Path & path: _paths )
 	{
 		if( !result.empty() )
 		{
-			result += seperator;
+			result += separator;
 		}
 		result += path.string();
 	}

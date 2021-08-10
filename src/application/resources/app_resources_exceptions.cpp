@@ -2,50 +2,59 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::resources::exceptions {
+namespace application::resources::exceptions
+{
+//------------------------------------------------------------------------------
+
+const char * const ModuleName = "APP";
 
 //------------------------------------------------------------------------------
 
-	const char * const ModuleName = "APP";
-
-//------------------------------------------------------------------------------
-
-namespace CantCreateProject {
-
-	const char * const Code			= "CREATE_PROJECT";
-	const char * const Msg			= "Can't create project";
+namespace CantCreateProject
+{
+const char * const Code = "CREATE_PROJECT";
+const char * const Msg = "Can't create project";
 }
 
 //------------------------------------------------------------------------------
 
-namespace CantCreateModel {
-
-	const char * const Code			= "CREATE_MODEL";
-	const char * const Msg			= "Can't create model";
+namespace CantCreateModel
+{
+const char * const Code = "CREATE_MODEL";
+const char * const Msg = "Can't create model";
 }
 
 //------------------------------------------------------------------------------
 
-namespace CantCreateAnalyzer {
-
-	const char * const Code			= "CREATE_ANALYZER";
-	const char * const Msg			= "Can't create analyzer";
+namespace CantCreateAnalyzer
+{
+const char * const Code = "CREATE_ANALYZER";
+const char * const Msg = "Can't create analyzer";
 }
 
 //------------------------------------------------------------------------------
 
-namespace CantCreateReport {
-
-	const char * const Code			= "CREATE_REPORT";
-	const char * const Msg			= "Can't create report ";
+namespace CantCreateReport
+{
+const char * const Code = "CREATE_REPORT";
+const char * const Msg = "Can't create report ";
 }
 
 //------------------------------------------------------------------------------
 
-namespace CantLoadReporterSettings {
+namespace CantLoadReporterSettings
+{
+const char * const Code = "LOAD_REPORTER_SETTINGS";
+const char * const Msg = "Can't load settings for reporters";
+}
 
-	const char * const Code			= "LOAD_REPORTER_SETTINGS";
-	const char * const Msg			= "Can't load settings for reporters";
+//------------------------------------------------------------------------------
+
+namespace IncorrectThousandsSeparator
+{
+const char * const Code = "INCORRECT_THOUSANDS_SEPARATOR";
+const char * const Msg =
+	"Thousands separator should be one character, current value: ";
 }
 
 //------------------------------------------------------------------------------

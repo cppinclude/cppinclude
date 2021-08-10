@@ -88,13 +88,9 @@ BOOST_AUTO_TEST_CASE( t2_1_include_dirs_absolute_paths )
 	Paths exceptedPaths{ "/usr/lib1/", "/usr/lib2/" };
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		currentPaths.begin(),
-		currentPaths.end(),
+		currentPaths.begin(), currentPaths.end(),
 
-		exceptedPaths.begin(),
-		exceptedPaths.end()
-	);
-
+		exceptedPaths.begin(), exceptedPaths.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -113,12 +109,9 @@ BOOST_AUTO_TEST_CASE( t2_2_include_dirs_relative_paths )
 	Paths exceptedPaths{ "/project/lib1/", "/project/lib2/" };
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		currentPaths.begin(),
-		currentPaths.end(),
+		currentPaths.begin(), currentPaths.end(),
 
-		exceptedPaths.begin(),
-		exceptedPaths.end()
-	);
+		exceptedPaths.begin(), exceptedPaths.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -137,12 +130,9 @@ BOOST_AUTO_TEST_CASE( t3_1_ignore_dirs_absolute_paths )
 	Paths exceptedPaths{ "/usr/ignore1/", "/usr/ignore2/" };
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		currentPaths.begin(),
-		currentPaths.end(),
+		currentPaths.begin(), currentPaths.end(),
 
-		exceptedPaths.begin(),
-		exceptedPaths.end()
-	);
+		exceptedPaths.begin(), exceptedPaths.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -161,12 +151,9 @@ BOOST_AUTO_TEST_CASE( t3_2_ignore_dirs_relative_paths )
 	Paths exceptedPaths{ "/project/ignore1/", "/project/ignore2/" };
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		currentPaths.begin(),
-		currentPaths.end(),
+		currentPaths.begin(), currentPaths.end(),
 
-		exceptedPaths.begin(),
-		exceptedPaths.end()
-	);
+		exceptedPaths.begin(), exceptedPaths.end() );
 }
 
 //------------------------------------------------------------------------------

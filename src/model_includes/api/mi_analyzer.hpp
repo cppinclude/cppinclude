@@ -4,18 +4,21 @@
 
 //------------------------------------------------------------------------------
 
-namespace project {
-	class Project;
+namespace project
+{
+class Project;
 }
 
-namespace cmake_project {
-	class Project;
+namespace cmake_project
+{
+class Project;
 }
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Model;
+namespace model_includes
+{
+class Model;
 
 //------------------------------------------------------------------------------
 
@@ -29,8 +32,7 @@ public:
 	virtual ModelPtr analyze( const project::Project & _project ) const = 0;
 	virtual ModelPtr analyze(
 		const project::Project & _project,
-		const cmake_project::Project & _cmakeProject
-	) const = 0;
+		const cmake_project::Project & _cmakeProject ) const = 0;
 };
 
 //------------------------------------------------------------------------------

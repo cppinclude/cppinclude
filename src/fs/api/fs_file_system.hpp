@@ -1,13 +1,13 @@
 #pragma once
 
 #include <std_fs>
-#include <stdfwd/memory>
 #include <stdfwd/functional>
+#include <stdfwd/memory>
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 class File;
 enum class ItemType;
 
@@ -16,10 +16,9 @@ enum class ItemType;
 class FileSystem
 {
 public:
-
-	using Path			= stdfs::path;
-	using FilePtr		= stdfwd::shared_ptr< File >;
-	using ItemCallback	= std::function< void ( const Path &, ItemType ) >;
+	using Path = stdfs::path;
+	using FilePtr = stdfwd::shared_ptr< File >;
+	using ItemCallback = std::function< void( const Path &, ItemType ) >;
 
 	virtual ~FileSystem() = default;
 
@@ -30,11 +29,8 @@ public:
 	virtual Path getCurrentPath() const = 0;
 	virtual Path toAbsolute( const Path & _path ) const = 0;
 
-	virtual void forEachItem(
-		const Path & _dirPath,
-		ItemCallback _callback
-	) const = 0;
-
+	virtual void
+	forEachItem( const Path & _dirPath, ItemCallback _callback ) const = 0;
 };
 
 //------------------------------------------------------------------------------

@@ -13,12 +13,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 BaseReporterImpl::BaseReporterImpl( SettingsPtr && _settingsPtr )
-	:	m_settings{ std::move( _settingsPtr ) }
+	: m_settings{ std::move( _settingsPtr ) }
 {
 }
 
@@ -72,10 +72,15 @@ bool BaseReporterImpl::getShowOnlyStdHeaders() const
 
 //------------------------------------------------------------------------------
 
+bool BaseReporterImpl::getShowDetails() const
+{
+	return getSettings().getShowDetails();
+}
+
+//------------------------------------------------------------------------------
+
 std::string BaseReporterImpl::getPathWithoutProject(
-	const Path & _filePath,
-	const Path & _dirPath
-)
+	const Path & _filePath, const Path & _dirPath )
 {
 	if( _dirPath.empty() )
 	{
@@ -99,9 +104,7 @@ std::string BaseReporterImpl::getPathWithoutProject(
 //------------------------------------------------------------------------------
 
 bool BaseReporterImpl::isFromSameDirectory(
-	const Path & _path1,
-	const Path & _path2
-)
+	const Path & _path1, const Path & _path2 )
 {
 	const Path root = _path1.root_path();
 	if( root != _path2.root_path() )
@@ -116,24 +119,19 @@ bool BaseReporterImpl::isFromSameDirectory(
 
 //------------------------------------------------------------------------------
 
-BaseReporterImpl::Path BaseReporterImpl::getCommonPath(
-	const Path & _path1,
-	const Path & _path2
-)
+BaseReporterImpl::Path
+BaseReporterImpl::getCommonPath( const Path & _path1, const Path & _path2 )
 {
 	Path resutl;
 
-	auto itCurrentFirst	= _path1.begin();
-	auto itEndFirst		= _path1.end();
+	auto itCurrentFirst = _path1.begin();
+	auto itEndFirst = _path1.end();
 
-	auto itCurrentSecond	= _path2.begin();
-	auto itEndSecond		= _path2.end();
+	auto itCurrentSecond = _path2.begin();
+	auto itEndSecond = _path2.end();
 
-	while(
-		itCurrentFirst != itEndFirst &&
-		itCurrentSecond != itEndSecond &&
-		*itCurrentFirst == *itCurrentSecond
-	)
+	while( itCurrentFirst != itEndFirst && itCurrentSecond != itEndSecond &&
+		   *itCurrentFirst == *itCurrentSecond )
 	{
 		resutl /= *itCurrentFirst;
 
@@ -154,9 +152,7 @@ bool BaseReporterImpl::isLimitFiles( CountType _currentNumber ) const
 //------------------------------------------------------------------------------
 
 bool BaseReporterImpl::isLimitFilesWithOriginSize(
-	CountType _currentNumber,
-	CountType _originSize
-) const
+	CountType _currentNumber, CountType _originSize ) const
 {
 	return isLimitFiles( _currentNumber ) && _currentNumber - 1 != _originSize;
 }
@@ -164,9 +160,7 @@ bool BaseReporterImpl::isLimitFilesWithOriginSize(
 //------------------------------------------------------------------------------
 
 void BaseReporterImpl::printFileLimitLine(
-	CountType _filesCount,
-	std::ostream & _stream
-) const
+	CountType _filesCount, std::ostream & _stream ) const
 {
 	const CountType limit = getMaxFilesCount();
 	_stream << fmt::format( resources::LimitLineFmt, limit, _filesCount );
@@ -182,12 +176,29 @@ bool BaseReporterImpl::isLimitDetails( CountType _currentNumber ) const
 //------------------------------------------------------------------------------
 
 void BaseReporterImpl::printDetailsLimitLine(
-	CountType _detailsCount,
-	std::ostream & _stream
-) const
+	CountType _detailsCount, std::ostream & _stream ) const
 {
 	const CountType limit = getMaxDetailsCount();
-	_stream << fmt::format( resources::LimitDetailLineFmt, limit, _detailsCount );
+	_stream << fmt::format(
+		resources::LimitDetailLineFmt, limit, _detailsCount );
+}
+
+//------------------------------------------------------------------------------
+
+bool BaseReporterImpl::isPluralFiles( std::size_t _currentCount ) const
+{
+	const bool result = _currentCount > 1 &&
+						( getMaxFilesCount() == 0 || getMaxFilesCount() > 1 );
+	return result;
+}
+
+//------------------------------------------------------------------------------
+
+bool BaseReporterImpl::isPluralDetails( std::size_t _currentCount ) const
+{
+	const bool result = _currentCount > 1 && ( getMaxDetailsCount() == 0 ||
+											   getMaxDetailsCount() > 1 );
+	return result;
 }
 
 //------------------------------------------------------------------------------

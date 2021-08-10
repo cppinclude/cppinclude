@@ -4,14 +4,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonObject;
+namespace json
+{
+class JsonObject;
 }
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-	class Database;
+namespace compilation_db
+{
+class Database;
 
 //------------------------------------------------------------------------------
 

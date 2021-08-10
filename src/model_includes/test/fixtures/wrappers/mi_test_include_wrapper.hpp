@@ -6,18 +6,19 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Include;
-	class File;
+namespace model_includes
+{
+class Include;
+class File;
 
-	enum class IncludeType;
-	enum class IncludeStatus;
+enum class IncludeType;
+enum class IncludeStatus;
 }
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 
 class IncludeWrapper
@@ -40,7 +41,8 @@ private:
 
 	const Include & getInclude() const;
 
-	BoostPredicate checkFile( const File & _file, std::string_view _path ) const;
+	BoostPredicate
+	checkFile( const File & _file, std::string_view _path ) const;
 
 	std::string toString( IncludeType _type ) const;
 	std::string toString( IncludeStatus _status ) const;

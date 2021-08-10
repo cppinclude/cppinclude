@@ -14,8 +14,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 LoaderImpl::DatabasePtr LoaderImpl::load( const json::JsonObject & _json )

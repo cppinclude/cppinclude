@@ -2,99 +2,99 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "src/playlist/playlistsequence.h" impact on 185 file(s)
+1 : "src/playlist/playlistsequence.h" impact on 185 files
 Included by:
-	1 : "src/playlist/playlist.h" line 25, impact on 129 file(s)
-	2 : "src/widgets/osd.h" line 30, impact on 76 file(s)
+	1 : "src/playlist/playlist.h" line 25, impact on 129 files
+	2 : "src/widgets/osd.h" line 30, impact on 76 files
 	3 : "src/networkremote/incomingdataparser.cpp" line 27
 	4 : "src/playlist/playlistsequence.cpp" line 18
 	5 : "src/ui/mainwindow.cpp" line 88
 	6 : "tests/mpris1_test.cpp" line 24
-2 : "src/playlist/playlistitem.h" impact on 179 file(s)
+2 : "src/playlist/playlistitem.h" impact on 179 files
 Included by:
-	1 : "src/playlist/playlist.h" line 24, impact on 129 file(s)
-	2 : "src/smartplaylists/generator.h" line 21, impact on 31 file(s)
-	3 : "src/ui/mainwindow.h" line 33, impact on 13 file(s)
-	4 : "src/library/libraryplaylistitem.h" line 22, impact on 12 file(s)
-	5 : "src/ui/edittagdialog.h" line 28, impact on 12 file(s)
-	6 : "src/playlist/playlistbackend.h" line 26, impact on 11 file(s)
-	7 : "src/songinfo/songinfobase.h" line 26, impact on 11 file(s)
-	8 : "src/playlist/songplaylistitem.h" line 21, impact on 7 file(s)
-	9 : "src/playlist/playlistitemmimedata.h" line 21, impact on 2 file(s)
-	10 : "src/playlist/playlistundocommands.h" line 24, impact on 2 file(s)
+	1 : "src/playlist/playlist.h" line 24, impact on 129 files
+	2 : "src/smartplaylists/generator.h" line 21, impact on 31 files
+	3 : "src/ui/mainwindow.h" line 33, impact on 13 files
+	4 : "src/library/libraryplaylistitem.h" line 22, impact on 12 files
+	5 : "src/ui/edittagdialog.h" line 28, impact on 12 files
+	6 : "src/playlist/playlistbackend.h" line 26, impact on 11 files
+	7 : "src/songinfo/songinfobase.h" line 26, impact on 11 files
+	8 : "src/playlist/songplaylistitem.h" line 21, impact on 7 files
+	9 : "src/playlist/playlistitemmimedata.h" line 21, impact on 2 files
+	10 : "src/playlist/playlistundocommands.h" line 24, impact on 2 files
 	... 10 of 14 details
-3 : "src/smartplaylists/generator_fwd.h" impact on 166 file(s)
+3 : "src/smartplaylists/generator_fwd.h" impact on 166 files
 Included by:
-	1 : "src/playlist/playlist.h" line 28, impact on 129 file(s)
-	2 : "src/playlist/playlistmanager.h" line 29, impact on 73 file(s)
-	3 : "src/library/librarymodel.h" line 34, impact on 58 file(s)
-	4 : "src/smartplaylists/generator.h" line 88, impact on 31 file(s)
-	5 : "src/playlist/playlistbackend.h" line 27, impact on 11 file(s)
-	6 : "src/songinfo/songinfobase.h" line 27, impact on 11 file(s)
-	7 : "src/smartplaylists/generatormimedata.h" line 23, impact on 4 file(s)
-	8 : "src/smartplaylists/wizardplugin.h" line 23, impact on 4 file(s)
-	9 : "src/smartplaylists/generatorinserter.h" line 21, impact on 2 file(s)
-	10 : "src/smartplaylists/wizard.h" line 21, impact on 2 file(s)
+	1 : "src/playlist/playlist.h" line 28, impact on 129 files
+	2 : "src/playlist/playlistmanager.h" line 29, impact on 73 files
+	3 : "src/library/librarymodel.h" line 34, impact on 58 files
+	4 : "src/smartplaylists/generator.h" line 88, impact on 31 files
+	5 : "src/playlist/playlistbackend.h" line 27, impact on 11 files
+	6 : "src/songinfo/songinfobase.h" line 27, impact on 11 files
+	7 : "src/smartplaylists/generatormimedata.h" line 23, impact on 4 files
+	8 : "src/smartplaylists/wizardplugin.h" line 23, impact on 4 files
+	9 : "src/smartplaylists/generatorinserter.h" line 21, impact on 2 files
+	10 : "src/smartplaylists/wizard.h" line 21, impact on 2 files
 	... 10 of 12 details
-4 : "src/engines/engine_fwd.h" impact on 140 file(s)
+4 : "src/engines/engine_fwd.h" impact on 140 files
 Included by:
-	1 : "src/widgets/osd.h" line 28, impact on 76 file(s)
-	2 : "src/library/librarymodel.h" line 32, impact on 58 file(s)
-	3 : "src/engines/enginebase.h" line 34, impact on 29 file(s)
-	4 : "src/ui/mainwindow.h" line 31, impact on 13 file(s)
-	5 : "src/analyzers/analyzerbase.h" line 36, impact on 9 file(s)
-	6 : "src/networkremote/outgoingdatacreator.h" line 16, impact on 3 file(s)
-	7 : "src/engines/gstenginepipeline.h" line 33, impact on 2 file(s)
-	8 : "src/analyzers/analyzercontainer.h" line 30, impact on 1 file(s)
-5 : "src/playlist/playlist.h" impact on 129 file(s)
+	1 : "src/widgets/osd.h" line 28, impact on 76 files
+	2 : "src/library/librarymodel.h" line 32, impact on 58 files
+	3 : "src/engines/enginebase.h" line 34, impact on 29 files
+	4 : "src/ui/mainwindow.h" line 31, impact on 13 files
+	5 : "src/analyzers/analyzerbase.h" line 36, impact on 9 files
+	6 : "src/networkremote/outgoingdatacreator.h" line 16, impact on 3 files
+	7 : "src/engines/gstenginepipeline.h" line 33, impact on 2 files
+	8 : "src/analyzers/analyzercontainer.h" line 30, impact on 1 file
+5 : "src/playlist/playlist.h" impact on 129 files
 Included by:
-	1 : "src/playlist/playlistmanager.h" line 28, impact on 73 file(s)
-	2 : "src/playlistparsers/parserbase.h" line 25, impact on 27 file(s)
-	3 : "src/playlist/playlistview.h" line 27, impact on 10 file(s)
-	4 : "src/playlistparsers/playlistparser.h" line 25, impact on 8 file(s)
-	5 : "src/playlist/playlistdelegates.h" line 21, impact on 6 file(s)
-	6 : "src/playlist/queue.h" line 21, impact on 6 file(s)
-	7 : "src/networkremote/outgoingdatacreator.h" line 18, impact on 3 file(s)
-	8 : "src/playlist/playlistfilter.h" line 24, impact on 2 file(s)
-	9 : "src/playlist/playlistsaveoptionsdialog.h" line 23, impact on 2 file(s)
-	10 : "src/smartplaylists/generatorinserter.h" line 26, impact on 2 file(s)
+	1 : "src/playlist/playlistmanager.h" line 28, impact on 73 files
+	2 : "src/playlistparsers/parserbase.h" line 25, impact on 27 files
+	3 : "src/playlist/playlistview.h" line 27, impact on 10 files
+	4 : "src/playlistparsers/playlistparser.h" line 25, impact on 8 files
+	5 : "src/playlist/playlistdelegates.h" line 21, impact on 6 files
+	6 : "src/playlist/queue.h" line 21, impact on 6 files
+	7 : "src/networkremote/outgoingdatacreator.h" line 18, impact on 3 files
+	8 : "src/playlist/playlistfilter.h" line 24, impact on 2 files
+	9 : "src/playlist/playlistsaveoptionsdialog.h" line 23, impact on 2 files
+	10 : "src/smartplaylists/generatorinserter.h" line 26, impact on 2 files
 	... 10 of 33 details
-6 : "src/ui/iconloader.h" impact on 128 file(s)
+6 : "src/ui/iconloader.h" impact on 128 files
 Included by:
-	1 : "src/widgets/lineedit.h" line 25, impact on 14 file(s)
-	2 : "src/internet/box/boxurlhandler.h" line 23, impact on 2 file(s)
-	3 : "src/internet/dropbox/dropboxurlhandler.h" line 23, impact on 2 file(s)
-	4 : "src/internet/googledrive/googledriveurlhandler.h" line 23, impact on 2 file(s)
-	5 : "src/internet/magnatune/magnatuneurlhandler.h" line 24, impact on 2 file(s)
-	6 : "src/internet/seafile/seafileurlhandler.h" line 23, impact on 2 file(s)
-	7 : "src/internet/skydrive/skydriveurlhandler.h" line 23, impact on 2 file(s)
-	8 : "src/internet/subsonic/subsonicurlhandler.h" line 24, impact on 2 file(s)
+	1 : "src/widgets/lineedit.h" line 25, impact on 14 files
+	2 : "src/internet/box/boxurlhandler.h" line 23, impact on 2 files
+	3 : "src/internet/dropbox/dropboxurlhandler.h" line 23, impact on 2 files
+	4 : "src/internet/googledrive/googledriveurlhandler.h" line 23, impact on 2 files
+	5 : "src/internet/magnatune/magnatuneurlhandler.h" line 24, impact on 2 files
+	6 : "src/internet/seafile/seafileurlhandler.h" line 23, impact on 2 files
+	7 : "src/internet/skydrive/skydriveurlhandler.h" line 23, impact on 2 files
+	8 : "src/internet/subsonic/subsonicurlhandler.h" line 24, impact on 2 files
 	9 : "src/covers/currentartloader.cpp" line 29
 	10 : "src/devices/deviceinfo.cpp" line 31
 	... 10 of 114 details
-7 : "src/covers/albumcoverloaderoptions.h" impact on 112 file(s)
+7 : "src/covers/albumcoverloaderoptions.h" impact on 112 files
 Included by:
-	1 : "src/library/librarymodel.h" line 31, impact on 58 file(s)
-	2 : "src/globalsearch/globalsearch.h" line 25, impact on 21 file(s)
-	3 : "src/covers/albumcoverloader.h" line 24, impact on 15 file(s)
-	4 : "src/ui/edittagdialog.h" line 26, impact on 12 file(s)
-	5 : "src/internet/podcasts/podcastdiscoverymodel.h" line 23, impact on 10 file(s)
-	6 : "src/ui/albumcovermanager.h" line 28, impact on 7 file(s)
-	7 : "src/covers/currentartloader.h" line 28, impact on 6 file(s)
-	8 : "src/ui/albumcoversearcher.h" line 26, impact on 3 file(s)
-	9 : "src/ui/standarditemiconloader.h" line 21, impact on 3 file(s)
-	10 : "src/internet/podcasts/podcastinfowidget.h" line 24, impact on 1 file(s)
+	1 : "src/library/librarymodel.h" line 31, impact on 58 files
+	2 : "src/globalsearch/globalsearch.h" line 25, impact on 21 files
+	3 : "src/covers/albumcoverloader.h" line 24, impact on 15 files
+	4 : "src/ui/edittagdialog.h" line 26, impact on 12 files
+	5 : "src/internet/podcasts/podcastdiscoverymodel.h" line 23, impact on 10 files
+	6 : "src/ui/albumcovermanager.h" line 28, impact on 7 files
+	7 : "src/covers/currentartloader.h" line 28, impact on 6 files
+	8 : "src/ui/albumcoversearcher.h" line 26, impact on 3 files
+	9 : "src/ui/standarditemiconloader.h" line 21, impact on 3 files
+	10 : "src/internet/podcasts/podcastinfowidget.h" line 24, impact on 1 file
 	... 10 of 12 details
-8 : "src/library/directory.h" impact on 92 file(s)
+8 : "src/library/directory.h" impact on 92 files
 Included by:
-	1 : "src/library/librarywatcher.h" line 21, impact on 60 file(s)
-	2 : "src/library/librarybackend.h" line 26, impact on 59 file(s)
-	3 : "src/library/librarydirectorymodel.h" line 26, impact on 9 file(s)
-	4 : "tests/metatypes_env.h" line 28, impact on 1 file(s)
-9 : "src/library/libraryquery.h" impact on 90 file(s)
+	1 : "src/library/librarywatcher.h" line 21, impact on 60 files
+	2 : "src/library/librarybackend.h" line 26, impact on 59 files
+	3 : "src/library/librarydirectorymodel.h" line 26, impact on 9 files
+	4 : "tests/metatypes_env.h" line 28, impact on 1 file
+9 : "src/library/libraryquery.h" impact on 90 files
 Included by:
-	1 : "src/library/librarybackend.h" line 27, impact on 59 file(s)
-	2 : "src/library/librarymodel.h" line 26, impact on 58 file(s)
+	1 : "src/library/librarybackend.h" line 27, impact on 59 files
+	2 : "src/library/librarymodel.h" line 26, impact on 58 files
 	3 : "src/globalsearch/librarysearchprovider.cpp" line 22
 	4 : "src/library/librarybackend.cpp" line 19
 	5 : "src/library/libraryfilterwidget.cpp" line 20
@@ -102,11 +102,11 @@ Included by:
 	7 : "src/library/sqlrow.cpp" line 18
 	8 : "src/playlistparsers/parserbase.cpp" line 21
 	9 : "src/ui/albumcovermanager.cpp" line 31
-10 : "src/widgets/osd.h" impact on 76 file(s)
+10 : "src/widgets/osd.h" impact on 76 files
 Included by:
-	1 : "src/ui/settingspage.h" line 23, impact on 52 file(s)
-	2 : "src/ui/settingsdialog.h" line 25, impact on 34 file(s)
-	3 : "src/wiimotedev/shortcuts.h" line 27, impact on 3 file(s)
+	1 : "src/ui/settingspage.h" line 23, impact on 52 files
+	2 : "src/ui/settingsdialog.h" line 25, impact on 34 files
+	3 : "src/wiimotedev/shortcuts.h" line 27, impact on 3 files
 	4 : "src/main.cpp" line 67
 	5 : "src/ui/mainwindow.cpp" line 122
 	6 : "src/widgets/osd.cpp" line 22

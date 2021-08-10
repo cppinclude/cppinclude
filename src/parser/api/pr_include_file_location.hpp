@@ -4,18 +4,18 @@
 
 //------------------------------------------------------------------------------
 
-namespace parser {
-
+namespace parser
+{
 //------------------------------------------------------------------------------
 
 class IncludeFileLocation
 {
 public:
-
-	IncludeFileLocation( std::size_t _line, std::size_t _begin, std::size_t _end )
-		:	m_line{ _line }
-		,	m_begin{ _begin }
-		,	m_end{ _end }
+	IncludeFileLocation(
+		std::size_t _line, std::size_t _begin, std::size_t _end )
+		: m_line{ _line }
+		, m_begin{ _begin }
+		, m_end{ _end }
 	{
 	}
 

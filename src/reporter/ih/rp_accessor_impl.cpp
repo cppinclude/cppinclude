@@ -6,12 +6,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 ReporterAccessorImpl::ReporterAccessorImpl()
-	:	m_factory{ new FactoryImpl }
+	: m_factory{ new FactoryImpl }
 {
 }
 

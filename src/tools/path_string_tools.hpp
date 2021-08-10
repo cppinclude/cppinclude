@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace tools {
-
+namespace tools
+{
 //------------------------------------------------------------------------------
 
 std::string toPath( const std::string & _originStr );
@@ -13,11 +13,8 @@ std::string toPath( const std::string & _originStr );
 std::string toUnixPath( const std::string & _originStr );
 std::string toWindowsPath( const std::string & _originStr );
 
-std::string changeSeperatorInPath(
-	const std::string & _originStr,
-	char _oldSeperator,
-	char _newSeperator
-);
+std::string changeSeparatorInPath(
+	const std::string & _originStr, char _oldSeparator, char _newSeparator );
 
 //------------------------------------------------------------------------------
 

@@ -22,14 +22,13 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 bool MostImpcatReporter::DetailsSorter::operator()(
 	const MostImpactReporterDetail & _l,
-	const MostImpactReporterDetail & _r
-) const
+	const MostImpactReporterDetail & _r ) const
 {
 	return FileWithCountSorter()( _l.getFileInfo(), _r.getFileInfo() );
 }
@@ -37,16 +36,14 @@ bool MostImpcatReporter::DetailsSorter::operator()(
 //------------------------------------------------------------------------------
 
 MostImpcatReporter::MostImpcatReporter( SettingsPtr && _settingsPtr )
-	:	BaseClass{ std::move( _settingsPtr ) }
+	: BaseClass{ std::move( _settingsPtr ) }
 {
 }
 
 //------------------------------------------------------------------------------
 
 void MostImpcatReporter::report(
-	const model_includes::Model & _model,
-	std::ostream & _stream
-)
+	const model_includes::Model & _model, std::ostream & _stream )
 {
 	FilesContainer files;
 	collectFiles( _model, files );
@@ -67,27 +64,23 @@ ReporterKind MostImpcatReporter::getKind() const
 //------------------------------------------------------------------------------
 
 void MostImpcatReporter::collectFiles(
-	const model_includes::Model & _model,
-	FilesContainer & _files
-) const
+	const model_includes::Model & _model, FilesContainer & _files ) const
 {
 	using namespace model_includes;
 
-	_model.forEachFile(
-		[&]( const File & _file )
+	_model.forEachFile( [&]( const File & _file ) {
+		if( isCollectFile( _file ) )
 		{
-			if( isCollectFile( _file ) )
+			const File::IncludeIndex count =
+				_file.getIncludedByFilesCountRecursive();
+			if( count > 0 )
 			{
-				const File::IncludeIndex count = _file.getIncludedByFilesCountRecursive();
-				if( count > 0)
-				{
-					_files.insert( { _file, count } );
-				}
+				_files.insert( { _file, count } );
 			}
-
-			return true;
 		}
-	);
+
+		return true;
+	} );
 }
 
 //------------------------------------------------------------------------------
@@ -96,8 +89,7 @@ void MostImpcatReporter::printIncludesByFiles(
 	const FilesContainer & _files,
 	size_t _originSize,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -106,27 +98,30 @@ void MostImpcatReporter::printIncludesByFiles(
 		return;
 	}
 
-	_stream << resources::most_impact_report::Header;
+	const bool isPlural = isPluralFiles( _files.getSize() );
+	_stream << fmt::format(
+		resources::most_impact_report::Header, ( isPlural ? "s" : "" ) );
 
 	std::size_t currentNumber = 1;
 
-	for( const FileWithCount & fileInfo : _files )
+	for( const FileWithCount & fileInfo: _files )
 	{
 		const File & includedByFile = fileInfo.getFile();
 		const Path & includedByPath = includedByFile.getPath();
 
-		const std::string path = getPathWithoutProject( includedByPath, _projectDir );
+		const std::string path =
+			getPathWithoutProject( includedByPath, _projectDir );
 
 		const File::IncludeIndex count = fileInfo.getCount();
 
 		_stream << fmt::format(
-			resources::most_impact_report::LineForFileFmt,
-			currentNumber,
-			path,
-			count
-		);
+			resources::most_impact_report::LineForFileFmt, currentNumber, path,
+			count, ( count > 1 ? "s" : "" ) );
 
-		printDetails( includedByFile, _projectDir, _stream );
+		if( getShowDetails() )
+		{
+			printDetails( includedByFile, _projectDir, _stream );
+		}
 
 		++currentNumber;
 	}
@@ -142,8 +137,7 @@ void MostImpcatReporter::printIncludesByFiles(
 void MostImpcatReporter::printDetails(
 	const model_includes::File & _includedByFile,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -179,8 +173,7 @@ void MostImpcatReporter::printDetail(
 	const MostImpactReporterDetail & _detail,
 	const Path & _projectDir,
 	size_t currentNumber,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -196,21 +189,14 @@ void MostImpcatReporter::printDetail(
 	if( count > 0 )
 	{
 		_stream << fmt::format(
-			resources::most_impact_report::LineForDetailFmt,
-			currentNumber,
-			path,
-			line,
-			count
-		);
+			resources::most_impact_report::LineForDetailFmt, currentNumber,
+			path, line, count, ( count > 1 ? "s" : "" ) );
 	}
 	else
 	{
 		_stream << fmt::format(
 			resources::most_impact_report::LineForNotImpactDetailFmt,
-			currentNumber,
-			path,
-			line
-		);
+			currentNumber, path, line );
 	}
 }
 
@@ -218,8 +204,7 @@ void MostImpcatReporter::printDetail(
 
 void MostImpcatReporter::collectDetails(
 	const model_includes::File & _includedByFile,
-	DetailsContainer & _details
-) const
+	DetailsContainer & _details ) const
 {
 	using namespace model_includes;
 
@@ -228,17 +213,16 @@ void MostImpcatReporter::collectDetails(
 	{
 		const Include & include = _includedByFile.getIncludedBy( i );
 		const File & file = include.getSourceFile();
-		_details.insert({
-			file,
-			file.getIncludedByFilesCountRecursive(),
-			include.getLocation()
-		});
+		_details.insert(
+			{ file, file.getIncludedByFilesCountRecursive(),
+			  include.getLocation() } );
 	}
 }
 
 //------------------------------------------------------------------------------
 
-bool MostImpcatReporter::isCollectFile( const model_includes::File & _file ) const
+bool MostImpcatReporter::isCollectFile(
+	const model_includes::File & _file ) const
 {
 	using namespace model_includes;
 

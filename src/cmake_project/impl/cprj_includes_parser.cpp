@@ -8,8 +8,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-
+namespace cmake_project
+{
 //------------------------------------------------------------------------------
 
 IncludesParser::Includes IncludesParser::parse( std::string_view _command )
@@ -27,7 +27,8 @@ IncludesParser::Includes IncludesParser::parse( std::string_view _command )
 			{
 				if( getIgnoreSpace( context, i ) )
 				{
-					const IndexType nextPostWithSpace = i + getSizeSpecialChar();
+					const IndexType nextPostWithSpace =
+						i + getSizeSpecialChar();
 					i = getFinishIgnoreSpace( context, nextPostWithSpace );
 				}
 			}
@@ -39,7 +40,7 @@ IncludesParser::Includes IncludesParser::parse( std::string_view _command )
 			}
 			break;
 			default:
-			break;
+				break;
 		}
 	}
 	return context.getIncludes();
@@ -48,9 +49,7 @@ IncludesParser::Includes IncludesParser::parse( std::string_view _command )
 //------------------------------------------------------------------------------
 
 IncludesParser::IndexType IncludesParser::parseArgument(
-	IncludeParserContext & _context,
-	IndexType startPos
-)
+	IncludeParserContext & _context, IndexType startPos )
 {
 	const IndexType minusPos = startPos;
 	const IndexType prefixPos = minusPos + 1;
@@ -78,9 +77,7 @@ IncludesParser::IndexType IncludesParser::parseArgument(
 //------------------------------------------------------------------------------
 
 IncludesParser::IndexType IncludesParser::parseInclude(
-	IncludeParserContext & _context,
-	IndexType startPos
-)
+	IncludeParserContext & _context, IndexType startPos )
 {
 	const IndexType size = _context.getCommandSize();
 	const std::string & command = _context.getCommand();
@@ -97,13 +94,15 @@ IncludesParser::IndexType IncludesParser::parseInclude(
 			{
 				if( getIgnoreSpace( _context, i ) )
 				{
-					const IndexType nextPostWithSpace = i + getSizeSpecialChar();
+					const IndexType nextPostWithSpace =
+						i + getSizeSpecialChar();
 					i = getFinishIgnoreSpace( _context, nextPostWithSpace );
 					if( i < size )
 					{
 						const IndexType sizeInclude =
 							i - nextPostWithSpace + 1 - getSizeSpecialChar();
-						const std::string include = command.substr( nextPostWithSpace, sizeInclude );
+						const std::string include =
+							command.substr( nextPostWithSpace, sizeInclude );
 						includeStr += include;
 					}
 				}
@@ -133,9 +132,7 @@ IncludesParser::IndexType IncludesParser::parseInclude(
 //------------------------------------------------------------------------------
 
 bool IncludesParser::getIgnoreSpace(
-	IncludeParserContext & _context,
-	IndexType currentPos
-)
+	IncludeParserContext & _context, IndexType currentPos )
 {
 	const std::string & command = _context.getCommand();
 	const IndexType size = _context.getCommandSize();
@@ -154,9 +151,7 @@ bool IncludesParser::getIgnoreSpace(
 //------------------------------------------------------------------------------
 
 IncludesParser::IndexType IncludesParser::getFinishIgnoreSpace(
-	IncludeParserContext & _context,
-	IndexType startPos
-)
+	IncludeParserContext & _context, IndexType startPos )
 {
 	const std::string & command = _context.getCommand();
 	const IndexType size = _context.getCommandSize();
@@ -191,9 +186,7 @@ IncludesParser::IndexType IncludesParser::getSizeSpecialChar()
 //------------------------------------------------------------------------------
 
 IncludesParser::IndexType IncludesParser::getNotSpacePos(
-	IncludeParserContext & _context,
-	IndexType startPos
-)
+	IncludeParserContext & _context, IndexType startPos )
 {
 	const std::string & command = _context.getCommand();
 	const IndexType size = _context.getCommandSize();

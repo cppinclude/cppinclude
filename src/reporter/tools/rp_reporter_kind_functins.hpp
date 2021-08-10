@@ -1,12 +1,12 @@
 #pragma once
 
-#include <stdfwd/string_view>
 #include <stdfwd/string>
+#include <stdfwd/string_view>
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 enum class ReporterKind;

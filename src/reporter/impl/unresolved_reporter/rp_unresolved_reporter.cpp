@@ -26,21 +26,19 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 UnresolvedReporter::UnresolvedReporter( SettingsPtr && _settingsPtr )
-	:	BaseClass{ std::move( _settingsPtr ) }
+	: BaseClass{ std::move( _settingsPtr ) }
 {
 }
 
 //------------------------------------------------------------------------------
 
 void UnresolvedReporter::report(
-	const model_includes::Model & _model,
-	std::ostream & _stream
-)
+	const model_includes::Model & _model, std::ostream & _stream )
 {
 	UnorderedIncludesByDestination unorderedIncludes;
 	collectIncludes( _model, unorderedIncludes );
@@ -49,11 +47,8 @@ void UnresolvedReporter::report(
 		orderDestinationByCount( unorderedIncludes );
 
 	report(
-		unorderedIncludes,
-		destinationFilesByCount,
-		_model.getProjectDir(),
-		_stream
-	);
+		unorderedIncludes, destinationFilesByCount, _model.getProjectDir(),
+		_stream );
 }
 
 //------------------------------------------------------------------------------
@@ -67,33 +62,29 @@ ReporterKind UnresolvedReporter::getKind() const
 
 void UnresolvedReporter::collectIncludes(
 	const model_includes::Model & _model,
-	UnorderedIncludesByDestination & _unorderedIncludes
-) const
+	UnorderedIncludesByDestination & _unorderedIncludes ) const
 {
 	using namespace model_includes;
 
-	_model.forEachInclude(
-		[&]( const Include & _include )
+	_model.forEachInclude( [&]( const Include & _include ) {
+		if( isUnresolvedInclude( _include ) )
 		{
-			if( isUnresolvedInclude( _include  ) )
-			{
-				const File & destinationFile = _include.getDestinationFile();
-				_unorderedIncludes[ &destinationFile ].push_back( &_include );
-			}
-
-			return true;
+			const File & destinationFile = _include.getDestinationFile();
+			_unorderedIncludes[&destinationFile].push_back( &_include );
 		}
-	);
+
+		return true;
+	} );
 }
 
 //------------------------------------------------------------------------------
 
-UnresolvedReporter::DestinationFileByCount UnresolvedReporter::orderDestinationByCount(
-	const UnorderedIncludesByDestination & _unorderedIncludes
-)
+UnresolvedReporter::DestinationFileByCount
+UnresolvedReporter::orderDestinationByCount(
+	const UnorderedIncludesByDestination & _unorderedIncludes )
 {
 	DestinationFileByCount result;
-	for( const auto & pair : _unorderedIncludes )
+	for( const auto & pair: _unorderedIncludes )
 	{
 		const model_includes::File * destinationFile = pair.first;
 		const auto & includes = pair.second;
@@ -109,8 +100,7 @@ void UnresolvedReporter::report(
 	const UnorderedIncludesByDestination & _unorderedIncludesByDestination,
 	const DestinationFileByCount & _destinationFileByCount,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -119,10 +109,12 @@ void UnresolvedReporter::report(
 		return;
 	}
 
-	_stream << resources::unresolved_report::Header;
+	const bool isPlural = isPluralFiles( _destinationFileByCount.getSize() );
+	_stream << fmt::format(
+		resources::unresolved_report::Header, ( isPlural ? "s" : "" ) );
 
 	CountType currentNumber = 1;
-	for( const FileWithCount & info : _destinationFileByCount )
+	for( const FileWithCount & info: _destinationFileByCount )
 	{
 		if( isLimitFiles( currentNumber ) )
 		{
@@ -133,7 +125,8 @@ void UnresolvedReporter::report(
 
 		const File & destinationFile = info.getFile();
 
-		reportDestinationFile( destinationFile, currentNumber, _projectDir, _stream );
+		reportDestinationFile(
+			destinationFile, currentNumber, _projectDir, _stream );
 
 		if( _unorderedIncludesByDestination.count( &destinationFile ) == 0U )
 		{
@@ -155,19 +148,20 @@ void UnresolvedReporter::reportDestinationFile(
 	const model_includes::File & _file,
 	size_t _number,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	const std::string destinationPath =
 		getPathWithoutProject( _file.getPath(), _projectDir );
 
 	INTERNAL_CHECK_WARRING( !destinationPath.empty() );
 
-	_stream << fmt::format(
-		resources::unresolved_report::UnresolvedDestinationFmt,
-		_number,
-		destinationPath
-	);
+	const std::string msgFormat =
+		getShowDetails()
+			? resources::unresolved_report::UnresolvedDestinationFmt
+			: resources::unresolved_report::
+				  UnresolvedDestinationWithoutDetailsFmt;
+
+	_stream << fmt::format( msgFormat, _number, destinationPath );
 }
 
 //------------------------------------------------------------------------------
@@ -175,12 +169,11 @@ void UnresolvedReporter::reportDestinationFile(
 void UnresolvedReporter::reportSourceFiles(
 	const UnorderedIncludes & _includes,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	OrderedIncludes orderedIncludes{ _includes.begin(), _includes.end() };
 	CountType currentNumber = 1;
-	for( const model_includes::Include * includePtr : orderedIncludes )
+	for( const model_includes::Include * includePtr: orderedIncludes )
 	{
 		if( isLimitDetails( currentNumber ) )
 		{
@@ -193,7 +186,12 @@ void UnresolvedReporter::reportSourceFiles(
 		{
 			continue;
 		}
-		reportSourceFile( *includePtr, currentNumber, _projectDir, _stream );
+
+		if( getShowDetails() )
+		{
+			reportSourceFile(
+				*includePtr, currentNumber, _projectDir, _stream );
+		}
 
 		++currentNumber;
 	}
@@ -205,8 +203,7 @@ void UnresolvedReporter::reportSourceFile(
 	const model_includes::Include & _include,
 	size_t _number,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -222,18 +219,14 @@ void UnresolvedReporter::reportSourceFile(
 	INTERNAL_CHECK_WARRING( !sourcePath.empty() );
 
 	_stream << fmt::format(
-		resources::unresolved_report::UnresolvedSourceFmt,
-		_number,
-		sourcePath,
-		line
-	);
+		resources::unresolved_report::UnresolvedSourceFmt, _number, sourcePath,
+		line );
 }
 
 //------------------------------------------------------------------------------
 
 bool UnresolvedReporter::isUnresolvedInclude(
-	const model_includes::Include & _include
-) const
+	const model_includes::Include & _include ) const
 {
 	using namespace model_includes;
 

@@ -12,8 +12,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 void ConfigurationFile::loadFromJson( const json::JsonObject & _json )
@@ -34,6 +34,9 @@ void ConfigurationFile::loadFromJson( const json::JsonObject & _json )
 	loadReportDetailsLimit( _json );
 	loadShowStdFiles( _json );
 	loadShowOnlyStdHeaders( _json );
+	loadShowDetails( _json );
+
+	loadThousandsSeparator( _json );
 }
 
 //------------------------------------------------------------------------------
@@ -136,11 +139,25 @@ ConfigurationFile::BoolOpt ConfigurationFile::getShowOnlyStdFiles() const
 
 //------------------------------------------------------------------------------
 
+ConfigurationFile::BoolOpt ConfigurationFile::getShowDetails() const
+{
+	return m_showDetails;
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationFile::StringOpt ConfigurationFile::getThousandsSeparator() const
+{
+	return m_thousandsSeparator;
+}
+
+//------------------------------------------------------------------------------
+
 void ConfigurationFile::loadProjectDir( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadPathOpt( _json, configuration_file::ProjectDir, m_projectDir );
+	loadPathOpt( _json, configurationFile::ProjectDir, m_projectDir );
 }
 
 //------------------------------------------------------------------------------
@@ -149,22 +166,19 @@ void ConfigurationFile::loadFileExtensions( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadArrayOpt( _json, configuration_file::FileExtensions, m_fileExtensions );
+	loadArrayOpt( _json, configurationFile::FileExtensions, m_fileExtensions );
 }
 
 //------------------------------------------------------------------------------
 
 void ConfigurationFile::loadAnalyzeWithoutExtension(
-	const json::JsonObject & _json
-)
+	const json::JsonObject & _json )
 {
 	using namespace resources;
 
 	loadBoolOpt(
-		_json,
-		configuration_file::AnalyzeWithoutExtension,
-		m_analyzeWithoutExtension
-	);
+		_json, configurationFile::AnalyzeWithoutExtension,
+		m_analyzeWithoutExtension );
 }
 
 //------------------------------------------------------------------------------
@@ -173,7 +187,7 @@ void ConfigurationFile::loadIncludeDirs( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadPathsOpt( _json, configuration_file::IncludeDirs, m_includeDirs );
+	loadPathsOpt( _json, configurationFile::IncludeDirs, m_includeDirs );
 }
 
 //------------------------------------------------------------------------------
@@ -182,21 +196,19 @@ void ConfigurationFile::loadIgnoreDirs( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadPathsOpt( _json, configuration_file::IgnoreDirs, m_ignoreDirs );
+	loadPathsOpt( _json, configurationFile::IgnoreDirs, m_ignoreDirs );
 }
 
 //------------------------------------------------------------------------------
 
 void ConfigurationFile::loadIgnoreSystemIncludes(
-	const json::JsonObject & _json
-)
+	const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadBoolOpt( _json,
-		configuration_file::IgnoreSystemIncludes,
-		m_ignoreSystemIncludes
-	);
+	loadBoolOpt(
+		_json, configurationFile::IgnoreSystemIncludes,
+		m_ignoreSystemIncludes );
 }
 
 //------------------------------------------------------------------------------
@@ -205,7 +217,7 @@ void ConfigurationFile::loadIgnoreFiles( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadArrayOpt( _json, configuration_file::IgnoreFiles, m_ignoreFiles );
+	loadArrayOpt( _json, configurationFile::IgnoreFiles, m_ignoreFiles );
 }
 
 //------------------------------------------------------------------------------
@@ -214,7 +226,7 @@ void ConfigurationFile::loadCompileCommands( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadPathOpt( _json, configuration_file::CompileCommands, m_compileCommands );
+	loadPathOpt( _json, configurationFile::CompileCommands, m_compileCommands );
 }
 
 //------------------------------------------------------------------------------
@@ -225,7 +237,7 @@ void ConfigurationFile::loadReports( const json::JsonObject & _json )
 
 	StringsOpt stringsOpt;
 
-	loadArrayOpt( _json, configuration_file::Report, stringsOpt );
+	loadArrayOpt( _json, configurationFile::Report, stringsOpt );
 	if( !stringsOpt )
 	{
 		return;
@@ -233,7 +245,7 @@ void ConfigurationFile::loadReports( const json::JsonObject & _json )
 
 	m_reports = ReporterKinds{};
 	m_reports->reserve( stringsOpt->size() );
-	for( const std::string & str : *stringsOpt )
+	for( const std::string & str: *stringsOpt )
 	{
 		const reporter::ReporterKind kind = reporter::toReporterKind( str );
 		m_reports->push_back( kind );
@@ -246,7 +258,7 @@ void ConfigurationFile::loadReportLimit( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadIntOpt( _json, configuration_file::ReportLimit, m_reportLimit );
+	loadIntOpt( _json, configurationFile::ReportLimit, m_reportLimit );
 }
 
 //------------------------------------------------------------------------------
@@ -255,7 +267,8 @@ void ConfigurationFile::loadReportDetailsLimit( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadIntOpt( _json, configuration_file::ReportDetailsLimit, m_reportDetailsLimit );
+	loadIntOpt(
+		_json, configurationFile::ReportDetailsLimit, m_reportDetailsLimit );
 }
 
 //------------------------------------------------------------------------------
@@ -264,7 +277,7 @@ void ConfigurationFile::loadShowStdFiles( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadBoolOpt( _json, configuration_file::ShowStdFiles, m_showStdFiles );
+	loadBoolOpt( _json, configurationFile::ShowStdFiles, m_showStdFiles );
 }
 
 //------------------------------------------------------------------------------
@@ -273,16 +286,35 @@ void ConfigurationFile::loadShowOnlyStdHeaders( const json::JsonObject & _json )
 {
 	using namespace resources;
 
-	loadBoolOpt( _json, configuration_file::ShowOnlyStdHeaders, m_showOnlyStdHeaders );
+	loadBoolOpt(
+		_json, configurationFile::ShowOnlyStdHeaders, m_showOnlyStdHeaders );
 }
 
 //------------------------------------------------------------------------------
 
-void ConfigurationFile::loadStringValue(
+void ConfigurationFile::loadShowDetails( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadBoolOpt( _json, configurationFile::ShowDetails, m_showDetails );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadThousandsSeparator( const json::JsonObject & _json )
+{
+	using namespace resources;
+
+	loadStringOpt(
+		_json, configurationFile::ThousandsSeparator, m_thousandsSeparator );
+}
+
+//------------------------------------------------------------------------------
+
+void ConfigurationFile::loadStringOpt(
 	const json::JsonObject & _json,
 	std::string_view _name,
-	StringOpt & _valueOpt
-)
+	StringOpt & _valueOpt )
 {
 	auto valuePtr = _json.getAttributeValue( _name );
 	if( valuePtr )
@@ -301,8 +333,7 @@ void ConfigurationFile::loadStringValue(
 void ConfigurationFile::loadArrayOpt(
 	const json::JsonObject & _json,
 	std::string_view _name,
-	StringsOpt & _arrayOpt
-)
+	StringsOpt & _arrayOpt )
 {
 	auto valuePtr = _json.getAttributeValue( _name );
 	if( !valuePtr )
@@ -351,11 +382,10 @@ void ConfigurationFile::loadArrayOpt(
 void ConfigurationFile::loadPathOpt(
 	const json::JsonObject & _json,
 	std::string_view _name,
-	PathOpt & _valueOpt
-)
+	PathOpt & _valueOpt )
 {
 	StringOpt pathStrOpt;
-	loadStringValue( _json, _name, pathStrOpt );
+	loadStringOpt( _json, _name, pathStrOpt );
 
 	_valueOpt = pathStrOpt;
 }
@@ -365,8 +395,7 @@ void ConfigurationFile::loadPathOpt(
 void ConfigurationFile::loadPathsOpt(
 	const json::JsonObject & _json,
 	std::string_view _name,
-	PathsOpt & _valueOpt
-)
+	PathsOpt & _valueOpt )
 {
 	StringsOpt stringsOpt;
 	loadArrayOpt( _json, _name, stringsOpt );
@@ -382,7 +411,7 @@ void ConfigurationFile::loadPathsOpt(
 
 	_valueOpt->reserve( stringsOpt->size() );
 
-	for( const std::string & string : *stringsOpt )
+	for( const std::string & string: *stringsOpt )
 	{
 		_valueOpt->push_back( string );
 	}
@@ -393,8 +422,7 @@ void ConfigurationFile::loadPathsOpt(
 void ConfigurationFile::loadBoolOpt(
 	const json::JsonObject & _json,
 	std::string_view _name,
-	BoolOpt & _valueOpt
-)
+	BoolOpt & _valueOpt )
 {
 	if( auto valuePtr = _json.getAttributeValue( _name ); valuePtr )
 	{
@@ -407,10 +435,7 @@ void ConfigurationFile::loadBoolOpt(
 //------------------------------------------------------------------------------
 
 void ConfigurationFile::loadIntOpt(
-	const json::JsonObject & _json,
-	std::string_view _name,
-	IntOpt & _valueOpt
-)
+	const json::JsonObject & _json, std::string_view _name, IntOpt & _valueOpt )
 {
 	if( auto valuePtr = _json.getAttributeValue( _name ); valuePtr )
 	{

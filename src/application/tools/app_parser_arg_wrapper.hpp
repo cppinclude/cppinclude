@@ -5,14 +5,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-	enum class ReporterKind;
+namespace reporter
+{
+enum class ReporterKind;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 class ParserArgWrapper
@@ -24,21 +25,21 @@ public:
 	void parse( const stdfwd::vector< std::string > & _arguments );
 	void init();
 
-	using Path				= stdfs::path;
-	using PathOpt			= std::optional< Path >;
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
 
-	using StringOpt			= std::optional< std::string >;
-	using Strings			= stdfwd::vector< std::string >;
-	using StringsOpt		= std::optional< Strings >;
+	using StringOpt = std::optional< std::string >;
+	using Strings = stdfwd::vector< std::string >;
+	using StringsOpt = std::optional< Strings >;
 
-	using Paths				= stdfwd::vector< Path >;
-	using PathsOpt			= std::optional< Paths >;
+	using Paths = stdfwd::vector< Path >;
+	using PathsOpt = std::optional< Paths >;
 
-	using IntOpt			= std::optional< int >;
-	using BoolOpt			= std::optional< bool >;
+	using IntOpt = std::optional< int >;
+	using BoolOpt = std::optional< bool >;
 
-	using ReporterKinds		= stdfwd::vector< reporter::ReporterKind >;
-	using ReporterKindsOpt	= std::optional< ReporterKinds >;
+	using ReporterKinds = stdfwd::vector< reporter::ReporterKind >;
+	using ReporterKindsOpt = std::optional< ReporterKinds >;
 
 	PathOpt getProjectDir() const;
 	Path getDefaultProjectDir() const;
@@ -82,16 +83,21 @@ public:
 	BoolOpt getShowOnlyStdHeaders() const;
 	bool getDefaultShowOnlyStdHeaders() const;
 
+	BoolOpt getShowDetails() const;
+	bool getDefaultShowDetails() const;
+
+	StringOpt getThousandsSeparator() const;
+	std::string getDefaultThousandsSeparator() const;
+
 	bool isHelp() const;
 	void showHelp( std::ostream & _stream ) const;
 
 	bool isVerbose() const;
+	bool isVerboseIgnore() const;
 	bool isVersion() const;
 
 private:
-
-	template< class _ValueType >
-	void addArgument( const Argument & _argument );
+	template< class _ValueType > void addArgument( const Argument & _argument );
 	void addArgument( const Argument & _argument );
 
 	bool isExistArg( const Argument & _arg ) const;
@@ -99,18 +105,18 @@ private:
 	template< class _ValueType >
 	_ValueType getDefaultValue( const Argument & _argument ) const;
 
-	PathOpt		getPath(		const Argument & _arg ) const;
-	StringOpt	getString(		const Argument & _arg ) const;
-	IntOpt		getInt(			const Argument & _arg ) const;
-	BoolOpt		getBool(		const Argument & _arg ) const;
-	StringsOpt	getStrings(		const Argument & _arg ) const;
-	PathsOpt	getPaths(		const Argument & _arg ) const;
+	PathOpt getPath( const Argument & _arg ) const;
+	StringOpt getString( const Argument & _arg ) const;
+	IntOpt getInt( const Argument & _arg ) const;
+	BoolOpt getBool( const Argument & _arg ) const;
+	StringsOpt getStrings( const Argument & _arg ) const;
+	PathsOpt getPaths( const Argument & _arg ) const;
 
 	template< class _Value >
 	void setArgumentValue(
 		Argument & _argument,
-		std::optional< _Value >( ParserArgWrapper::*_getter)( const Argument & ) const
-	) ;
+		std::optional< _Value > ( ParserArgWrapper::*_getter )(
+			const Argument & ) const );
 
 	static Strings toStrings( const char * const _values[] );
 	static Paths toPaths( const char * const _values[] );
@@ -135,6 +141,7 @@ private:
 
 	Argument m_helpArg;
 	Argument m_verboseArg;
+	Argument m_verboseIgnoreArg;
 	Argument m_versionArg;
 
 	Argument m_reportArg;
@@ -142,6 +149,9 @@ private:
 	Argument m_reportDetailsLimitArg;
 	Argument m_showStdFilesArg;
 	Argument m_showOnlyStdHeadersArg;
+	Argument m_showDetailsArg;
+
+	Argument m_thousandsSeparatorArg;
 };
 
 //------------------------------------------------------------------------------

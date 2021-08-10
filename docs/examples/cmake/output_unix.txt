@@ -2,52 +2,52 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "build/Source/cmsys/Configure.hxx" impact on 832 file(s)
+1 : "build/Source/cmsys/Configure.hxx" impact on 832 files
 Included by:
-	1 : "build/Source/cmConfigure.h" line 5, impact on 831 file(s)
-2 : "build/Source/cmConfigure.h" impact on 831 file(s)
+	1 : "build/Source/cmConfigure.h" line 5, impact on 831 files
+2 : "build/Source/cmConfigure.h" impact on 831 files
 Included by:
-	1 : "CMake/Source/cmProcessOutput.h" line 5, impact on 447 file(s)
-	2 : "CMake/Source/cmCryptoHash.h" line 5, impact on 436 file(s)
-	3 : "CMake/Source/cmSystemTools.h" line 5, impact on 432 file(s)
-	4 : "CMake/Source/cmLinkedTree.h" line 5, impact on 370 file(s)
-	5 : "CMake/Source/cmStateTypes.h" line 6, impact on 367 file(s)
-	6 : "CMake/Source/cmPolicies.h" line 5, impact on 332 file(s)
-	7 : "CMake/Source/cmStateSnapshot.h" line 6, impact on 329 file(s)
-	8 : "CMake/Source/cmListFileCache.h" line 5, impact on 326 file(s)
-	9 : "CMake/Source/cmRange.h" line 5, impact on 321 file(s)
-	10 : "CMake/Source/cmStringAlgorithms.h" line 5, impact on 317 file(s)
+	1 : "CMake/Source/cmProcessOutput.h" line 5, impact on 447 files
+	2 : "CMake/Source/cmCryptoHash.h" line 5, impact on 436 files
+	3 : "CMake/Source/cmSystemTools.h" line 5, impact on 432 files
+	4 : "CMake/Source/cmLinkedTree.h" line 5, impact on 370 files
+	5 : "CMake/Source/cmStateTypes.h" line 6, impact on 367 files
+	6 : "CMake/Source/cmPolicies.h" line 5, impact on 332 files
+	7 : "CMake/Source/cmStateSnapshot.h" line 6, impact on 329 files
+	8 : "CMake/Source/cmListFileCache.h" line 5, impact on 326 files
+	9 : "CMake/Source/cmRange.h" line 5, impact on 321 files
+	10 : "CMake/Source/cmStringAlgorithms.h" line 5, impact on 317 files
 	... 10 of 393 details
-3 : "CMake/Source/cmProcessOutput.h" impact on 447 file(s)
+3 : "CMake/Source/cmProcessOutput.h" impact on 447 files
 Included by:
-	1 : "CMake/Source/cmSystemTools.h" line 19, impact on 432 file(s)
-	2 : "CMake/Source/cmCTest.h" line 18, impact on 65 file(s)
-	3 : "CMake/Source/cmProcessTools.h" line 11, impact on 19 file(s)
-	4 : "CMake/Source/CTest/cmCTestVC.h" line 10, impact on 17 file(s)
-	5 : "CMake/Source/CTest/cmProcess.h" line 18, impact on 4 file(s)
-	6 : "CMake/Source/CTest/cmCTestBuildHandler.h" line 19, impact on 3 file(s)
+	1 : "CMake/Source/cmSystemTools.h" line 19, impact on 432 files
+	2 : "CMake/Source/cmCTest.h" line 18, impact on 65 files
+	3 : "CMake/Source/cmProcessTools.h" line 11, impact on 19 files
+	4 : "CMake/Source/CTest/cmCTestVC.h" line 10, impact on 17 files
+	5 : "CMake/Source/CTest/cmProcess.h" line 18, impact on 4 files
+	6 : "CMake/Source/CTest/cmCTestBuildHandler.h" line 19, impact on 3 files
 	7 : "CMake/Source/CTest/cmCTestBuildHandler.cxx" line 22
 	8 : "CMake/Source/CTest/cmCTestGIT.cxx" line 17
 	9 : "CMake/Source/CTest/cmCTestLaunch.cxx" line 15
 	10 : "CMake/Source/cmCTest.cxx" line 56
 	... 10 of 18 details
-4 : "CMake/Source/cmDuration.h" impact on 437 file(s)
+4 : "CMake/Source/cmDuration.h" impact on 437 files
 Included by:
-	1 : "CMake/Source/cmSystemTools.h" line 18, impact on 432 file(s)
-	2 : "CMake/Source/cmGlobalGenerator.h" line 22, impact on 115 file(s)
-	3 : "CMake/Source/cmCTest.h" line 17, impact on 65 file(s)
-	4 : "CMake/Source/CTest/cmCTestTestHandler.h" line 23, impact on 17 file(s)
-	5 : "CMake/Source/CTest/cmCTestScriptHandler.h" line 13, impact on 7 file(s)
-	6 : "CMake/Source/CTest/cmProcess.h" line 17, impact on 4 file(s)
-	7 : "CMake/Source/CTest/cmCTestBuildHandler.h" line 18, impact on 3 file(s)
-	8 : "CMake/Source/CTest/cmCTestRunTest.h" line 18, impact on 3 file(s)
-	9 : "CMake/Source/CTest/cmCTestBuildAndTestHandler.h" line 14, impact on 2 file(s)
+	1 : "CMake/Source/cmSystemTools.h" line 18, impact on 432 files
+	2 : "CMake/Source/cmGlobalGenerator.h" line 22, impact on 115 files
+	3 : "CMake/Source/cmCTest.h" line 17, impact on 65 files
+	4 : "CMake/Source/CTest/cmCTestTestHandler.h" line 23, impact on 17 files
+	5 : "CMake/Source/CTest/cmCTestScriptHandler.h" line 13, impact on 7 files
+	6 : "CMake/Source/CTest/cmProcess.h" line 17, impact on 4 files
+	7 : "CMake/Source/CTest/cmCTestBuildHandler.h" line 18, impact on 3 files
+	8 : "CMake/Source/CTest/cmCTestRunTest.h" line 18, impact on 3 files
+	9 : "CMake/Source/CTest/cmCTestBuildAndTestHandler.h" line 14, impact on 2 files
 	10 : "CMake/Source/CPack/IFW/cmCPackIFWGenerator.cxx" line 15
 	... 10 of 30 details
-5 : "CMake/Source/cmCryptoHash.h" impact on 436 file(s)
+5 : "CMake/Source/cmCryptoHash.h" impact on 436 files
 Included by:
-	1 : "CMake/Source/cmSystemTools.h" line 17, impact on 432 file(s)
-	2 : "CMake/Source/cmcmd.h" line 11, impact on 2 file(s)
+	1 : "CMake/Source/cmSystemTools.h" line 17, impact on 432 files
+	2 : "CMake/Source/cmcmd.h" line 11, impact on 2 files
 	3 : "CMake/Source/CPack/cmCPackDebGenerator.cxx" line 19
 	4 : "CMake/Source/CPack/cmCPackGenerator.cxx" line 16
 	5 : "CMake/Source/CTest/cmCTestLaunchReporter.cxx" line 9
@@ -57,14 +57,14 @@ Included by:
 	9 : "CMake/Source/cmFileAPICodemodel.cxx" line 22
 	10 : "CMake/Source/cmFileCommand.cxx" line 32
 	... 10 of 19 details
-6 : "build/Source/cmsys/SystemTools.hxx" impact on 435 file(s)
+6 : "build/Source/cmsys/SystemTools.hxx" impact on 435 files
 Included by:
-	1 : "CMake/Source/cmSystemTools.h" line 15, impact on 432 file(s)
-	2 : "CMake/Source/cmUtils.hxx" line 5, impact on 2 file(s)
+	1 : "CMake/Source/cmSystemTools.h" line 15, impact on 432 files
+	2 : "CMake/Source/cmUtils.hxx" line 5, impact on 2 files
 	3 : "CMake/Source/cmFileMonitor.cxx" line 12
-7 : "build/Source/cmsys/Process.h" impact on 434 file(s)
+7 : "build/Source/cmsys/Process.h" impact on 434 files
 Included by:
-	1 : "CMake/Source/cmSystemTools.h" line 14, impact on 432 file(s)
+	1 : "CMake/Source/cmSystemTools.h" line 14, impact on 432 files
 	2 : "CMake/Source/CTest/cmCTestBuildAndTestHandler.cxx" line 10
 	3 : "CMake/Source/CTest/cmCTestBuildHandler.cxx" line 14
 	4 : "CMake/Source/CTest/cmCTestCoverageHandler.cxx" line 19
@@ -75,38 +75,38 @@ Included by:
 	9 : "CMake/Source/CTest/cmCTestVC.cxx" line 10
 	10 : "CMake/Source/CTest/cmProcess.cxx" line 12
 	... 10 of 15 details
-8 : "CMake/Source/cmSystemTools.h" impact on 432 file(s)
+8 : "CMake/Source/cmSystemTools.h" impact on 432 files
 Included by:
-	1 : "CMake/Source/cmListFileCache.h" line 17, impact on 326 file(s)
-	2 : "CMake/Source/cmGlobalGenerator.h" line 26, impact on 115 file(s)
-	3 : "CMake/Source/cmLinkItem.h" line 15, impact on 70 file(s)
-	4 : "CMake/Source/CTest/cmCTestGenericHandler.h" line 14, impact on 53 file(s)
-	5 : "CMake/Source/CPack/cmCPackGenerator.h" line 15, impact on 33 file(s)
-	6 : "CMake/Source/cmTargetPropertyComputer.h" line 13, impact on 3 file(s)
-	7 : "CMake/Source/cmFileLockUnix.cxx" line 10, impact on 1 file(s)
-	8 : "CMake/Source/cmFileLockWin32.cxx" line 6, impact on 1 file(s)
+	1 : "CMake/Source/cmListFileCache.h" line 17, impact on 326 files
+	2 : "CMake/Source/cmGlobalGenerator.h" line 26, impact on 115 files
+	3 : "CMake/Source/cmLinkItem.h" line 15, impact on 70 files
+	4 : "CMake/Source/CTest/cmCTestGenericHandler.h" line 14, impact on 53 files
+	5 : "CMake/Source/CPack/cmCPackGenerator.h" line 15, impact on 33 files
+	6 : "CMake/Source/cmTargetPropertyComputer.h" line 13, impact on 3 files
+	7 : "CMake/Source/cmFileLockUnix.cxx" line 10, impact on 1 file
+	8 : "CMake/Source/cmFileLockWin32.cxx" line 6, impact on 1 file
 	9 : "CMake/Source/CPack/IFW/cmCPackIFWCommon.cxx" line 14
 	10 : "CMake/Source/CPack/IFW/cmCPackIFWGenerator.cxx" line 18
 	... 10 of 250 details
-9 : "CMake/Source/cmLinkedTree.h" impact on 370 file(s)
+9 : "CMake/Source/cmLinkedTree.h" impact on 370 files
 Included by:
-	1 : "CMake/Source/cmStateTypes.h" line 8, impact on 367 file(s)
-	2 : "CMake/Source/cmStateSnapshot.h" line 13, impact on 329 file(s)
-	3 : "CMake/Source/cmDefinitions.h" line 14, impact on 123 file(s)
-	4 : "CMake/Source/cmStatePrivate.h" line 12, impact on 121 file(s)
-	5 : "CMake/Source/cmState.h" line 15, impact on 105 file(s)
-	6 : "CMake/Source/cmStateDirectory.h" line 12, impact on 34 file(s)
-10 : "CMake/Source/cmStateTypes.h" impact on 367 file(s)
+	1 : "CMake/Source/cmStateTypes.h" line 8, impact on 367 files
+	2 : "CMake/Source/cmStateSnapshot.h" line 13, impact on 329 files
+	3 : "CMake/Source/cmDefinitions.h" line 14, impact on 123 files
+	4 : "CMake/Source/cmStatePrivate.h" line 12, impact on 121 files
+	5 : "CMake/Source/cmState.h" line 15, impact on 105 files
+	6 : "CMake/Source/cmStateDirectory.h" line 12, impact on 34 files
+10 : "CMake/Source/cmStateTypes.h" impact on 367 files
 Included by:
-	1 : "CMake/Source/cmStateSnapshot.h" line 15, impact on 329 file(s)
-	2 : "CMake/Source/cmTarget.h" line 18, impact on 235 file(s)
-	3 : "CMake/Source/cmMakefile.h" line 32, impact on 201 file(s)
-	4 : "CMake/Source/cmStatePrivate.h" line 17, impact on 121 file(s)
-	5 : "CMake/Source/cmState.h" line 22, impact on 105 file(s)
-	6 : "CMake/Source/cmake.h" line 27, impact on 75 file(s)
-	7 : "CMake/Source/cmGeneratorTarget.h" line 21, impact on 66 file(s)
-	8 : "CMake/Source/cmBinUtilsLinker.h" line 8, impact on 18 file(s)
-	9 : "CMake/Source/CursesDialog/cmCursesWidget.h" line 10, impact on 17 file(s)
-	10 : "CMake/Source/cmExportFileGenerator.h" line 14, impact on 16 file(s)
+	1 : "CMake/Source/cmStateSnapshot.h" line 15, impact on 329 files
+	2 : "CMake/Source/cmTarget.h" line 18, impact on 235 files
+	3 : "CMake/Source/cmMakefile.h" line 32, impact on 201 files
+	4 : "CMake/Source/cmStatePrivate.h" line 17, impact on 121 files
+	5 : "CMake/Source/cmState.h" line 22, impact on 105 files
+	6 : "CMake/Source/cmake.h" line 27, impact on 75 files
+	7 : "CMake/Source/cmGeneratorTarget.h" line 21, impact on 66 files
+	8 : "CMake/Source/cmBinUtilsLinker.h" line 8, impact on 18 files
+	9 : "CMake/Source/CursesDialog/cmCursesWidget.h" line 10, impact on 17 files
+	10 : "CMake/Source/cmExportFileGenerator.h" line 14, impact on 16 files
 	... 10 of 104 details
 ... 10 of 892 files

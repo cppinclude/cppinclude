@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 StdLibrary::StdLibrary() = default;
@@ -88,29 +88,14 @@ void StdLibrary::initCoroutinesLibrary()
 
 void StdLibrary::initUtilitiesLibrary()
 {
-	addHeaders({
-		"cstdlib",
-		"csignal",
-		"csetjmp",
-		"cstdarg",
-		"typeinfo",
-		"typeindex",
-		"type_traits",
-		"bitset",
-		"functional",
-		"utility",
-		"ctime",
-		"chrono",
-		"cstddef",
-		"initializer_list",
-		"tuple",
-		"any",
-		"optional",
-		"variant",
-		"compare",
-		"version",
+	addHeaders( {
+		"cstdlib",		   "csignal",		   "csetjmp",	  "cstdarg",
+		"typeinfo",		   "typeindex",		   "type_traits", "bitset",
+		"functional",	   "utility",		   "ctime",		  "chrono",
+		"cstddef",		   "initializer_list", "tuple",		  "any",
+		"optional",		   "variant",		   "compare",	  "version",
 		"source_location",
-	});
+	} );
 }
 
 //------------------------------------------------------------------------------
@@ -299,29 +284,11 @@ void StdLibrary::initFsLibrary()
 
 void StdLibrary::initCCompatibilityLibraries()
 {
-	addHeaders({
-		"assert.h",
-		"ctype.h",
-		"errno.h",
-		"fenv.h",
-		"float.h",
-		"inttypes.h",
-		"limits.h",
-		"locale.h",
-		"math.h",
-		"setjmp.h",
-		"signal.h",
-		"stdarg.h",
-		"stddef.h",
-		"stdint.h",
-		"stdio.h",
-		"stdlib.h",
-		"string.h",
-		"time.h",
-		"uchar.h",
-		"wchar.h",
-		"wctype.h"
-	});
+	addHeaders( { "assert.h",	"ctype.h",	"errno.h",	"fenv.h",	"float.h",
+				  "inttypes.h", "limits.h", "locale.h", "math.h",	"setjmp.h",
+				  "signal.h",	"stdarg.h", "stddef.h", "stdint.h", "stdio.h",
+				  "stdlib.h",	"string.h", "time.h",	"uchar.h",	"wchar.h",
+				  "wctype.h" } );
 }
 
 //------------------------------------------------------------------------------
@@ -370,7 +337,7 @@ void StdLibrary::initCLibraries()
 
 void StdLibrary::addHeaders( const Headers & _headers )
 {
-	for( const std::string & name : _headers )
+	for( const std::string & name: _headers )
 	{
 		if( auto pair = m_stdFiles.insert( name ); !pair.second )
 		{

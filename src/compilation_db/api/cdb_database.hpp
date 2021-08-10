@@ -5,8 +5,9 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-	class CommandObject;
+namespace compilation_db
+{
+class CommandObject;
 
 //------------------------------------------------------------------------------
 
@@ -23,9 +24,7 @@ public:
 	virtual void addCommand(
 		std::string_view _directory,
 		std::string_view _command,
-		std::string_view _file
-	) = 0;
-
+		std::string_view _file ) = 0;
 };
 
 //------------------------------------------------------------------------------

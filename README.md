@@ -27,6 +27,9 @@ include that file will be recompiled and sometime it takes a lot of time.
   * [report_details_limit](#report_details_limit)
   * [show_std_files](#show_std_files)
   * [show_only_std_headers](#show_only_std_headers)
+  * [show_details](#show_details)
+  * [thousands_separator](#thousands_separator)
+  * [verbose_ignore](#verbose_ignore)
 * [Build](#build)
 * [Docker image](#docker-image)
 * [Presentations](#presentations)
@@ -81,18 +84,18 @@ the include hierarchy:
 cppinclude
 ...
 Most impact files:
-1 : "char_kind.hpp" impact on 11 file(s)
+1 : "char_kind.hpp" impact on 11 files
 Included by:
-   1 : "base_char.hpp" line 3, impact on 10 file(s)
-2 : "base_char.hpp" impact on 10 file(s)
+   1 : "base_char.hpp" line 3, impact on 10 files
+2 : "base_char.hpp" impact on 10 files
 Included by:
-    1 : "base_char_factory.hpp" line 3, impact on 5 file(s)
-    2 : "char_a.hpp" line 3, impact on 2 file(s)
-    3 : "char_b.hpp" line 3, impact on 2 file(s)
-3 : "base_char_factory.hpp" impact on 5 file(s)
+    1 : "base_char_factory.hpp" line 3, impact on 5 files
+    2 : "char_a.hpp" line 3, impact on 2 files
+    3 : "char_b.hpp" line 3, impact on 2 files
+3 : "base_char_factory.hpp" impact on 5 files
 Included by:
-    1 : "char_a_factory.hpp" line 3, impact on 2 file(s)
-    2 : "char_b_factory.hpp" line 3, impact on 2 file(s)
+    1 : "char_a_factory.hpp" line 3, impact on 2 files
+    2 : "char_b_factory.hpp" line 3, impact on 2 files
 ...
 ```
 
@@ -120,9 +123,12 @@ Name|Short description
 --[report_details_limit](#report_details_limit)=42|Maximum details in report, 0 - unlimited (default: 10)
 --[show_std_files](#show_std_files)|Show standard library headers in output (default: false)
 --[show_only_std_headers](#show_only_std_headers)|Show only standard library headers in output (default: false)
+--[show_details](#show_details)|Show details in output (default: true)
+--[thousands_separator](#thousands_separator)=separator|Set thousands separator, for example ',' (default: ' ')
 --help|Show usage
 --verbose|Verbose mode
 --version|Show application version
+--[verbose_ignore](#verbose_ignore)|Show ignored files
 
 [Back to top](#cppinclude)
 
@@ -354,18 +360,18 @@ Example from [docs/examples/simple_example/](docs/examples/simple_example/)
 cppinclude --report=most_impact
 ...
 Most impact files:
-1 : "char_kind.hpp" impact on 11 file(s)
+1 : "char_kind.hpp" impact on 11 files
 Included by:
-   1 : "base_char.hpp" line 3, impact on 10 file(s)
-2 : "base_char.hpp" impact on 10 file(s)
+   1 : "base_char.hpp" line 3, impact on 10 files
+2 : "base_char.hpp" impact on 10 files
 Included by:
-    1 : "base_char_factory.hpp" line 3, impact on 5 file(s)
-    2 : "char_a.hpp" line 3, impact on 2 file(s)
-    3 : "char_b.hpp" line 3, impact on 2 file(s)
-3 : "base_char_factory.hpp" impact on 5 file(s)
+    1 : "base_char_factory.hpp" line 3, impact on 5 files
+    2 : "char_a.hpp" line 3, impact on 2 files
+    3 : "char_b.hpp" line 3, impact on 2 files
+3 : "base_char_factory.hpp" impact on 5 files
 Included by:
-    1 : "char_a_factory.hpp" line 3, impact on 2 file(s)
-    2 : "char_b_factory.hpp" line 3, impact on 2 file(s)
+    1 : "char_a_factory.hpp" line 3, impact on 2 files
+    2 : "char_b_factory.hpp" line 3, impact on 2 files
 ...
 ```
 
@@ -524,6 +530,86 @@ Also you can set in configuration file:
 }
 ```
 
+### show_details
+
+Show or hide details
+
+`cppinclude --show_details=false`
+
+Also you can set in configuration file:
+
+```json
+{
+    "show_details" : false
+}
+```
+
+Example [lua](docs/examples/lua) :
+
+```
+cppinclude --show_details=false
+
+...
+Most impact files:
+1 : "luaconf.h" impact on 62 files
+2 : "lua.h" impact on 61 files
+3 : "llimits.h" impact on 40 files
+...
+
+```
+
+Don't show where files are included
+
+[Back to top](#cppinclude)
+
+### thousands_separator
+
+You can change default thousands separator (space) to your separator
+
+For example:
+
+`cppinclude --thousands_separator=,`
+
+Also you can set in configuration file:
+
+```json
+{
+    "thousands_separator" : ","
+}
+```
+
+Result:
+
+```
+...
+Most impact files:
+1 : "supper_header.h" impact on 123,456 files
+2 : "config.h" impact on 12,345 files
+3 : "limits.h" impact on 1,234 files
+...
+
+```
+
+**Note:** you can use only one character
+
+Don't show where files are included
+
+[Back to top](#cppinclude)
+
+### verbose_ignore
+
+Show ignored files and folders. For example:
+
+```
+cppinclude --verbose_ignore
+
+Path "sys/types.h" was ignored by "sys/.*.h"
+Path "mach/mach_init.h" was ignored by "mach/.*.h"
+Folder ".../3rdparty" was ignored
+...
+
+```
+
 [Back to top](#cppinclude)
 
 ## Build
@@ -608,6 +694,7 @@ cppinclude
 * [{fmt}](https://github.com/fmtlib/fmt)
 * [json for modern C++](https://github.com/nlohmann/json)
 * [Boost.Test](https://www.boost.org/)
+* [RE2](https://github.com/google/re2)
 
 [Back to top](#cppinclude)
 

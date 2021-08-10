@@ -13,8 +13,8 @@ TEST PLAN
 
 ------------------------------------------------------------------------------*/
 
-namespace cmake_project::test {
-
+namespace cmake_project::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
@@ -35,11 +35,8 @@ BOOST_AUTO_TEST_CASE( t1_one_file )
 	const auto exceptedFiles = toExceptedFiles( { "file.cpp" } );
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -58,11 +55,8 @@ BOOST_AUTO_TEST_CASE( t2_several_files )
 	const auto exceptedFiles = toExceptedFiles( { "file1.cpp", "file2.cpp" } );
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -80,63 +74,45 @@ BOOST_AUTO_TEST_CASE( t3_includes )
 
 	// Check
 	const auto resultFiles = getResultsFiles();
-	const auto exceptedFiles = toExceptedFiles( {
-		"file1.cpp",
-		"file2.cpp",
-		"file3.cpp",
-		"file4.cpp"
-	} );
+	const auto exceptedFiles = toExceptedFiles(
+		{ "file1.cpp", "file2.cpp", "file3.cpp", "file4.cpp" } );
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 
 	{
 		const auto resultIncludes = getResultsIncludes( "file1.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( { "./lib1" } );
 
 		BOOST_CHECK_EQUAL_COLLECTIONS(
-			resultIncludes.begin(),
-			resultIncludes.end(),
-			exceptedIncludes.begin(),
-			exceptedIncludes.end()
-		);
+			resultIncludes.begin(), resultIncludes.end(),
+			exceptedIncludes.begin(), exceptedIncludes.end() );
 	}
 	{
 		const auto resultIncludes = getResultsIncludes( "file2.cpp" );
-		const auto exceptedIncludes = toExceptedIncludes( { "./lib2", "./lib3" } );
+		const auto exceptedIncludes =
+			toExceptedIncludes( { "./lib2", "./lib3" } );
 
 		BOOST_CHECK_EQUAL_COLLECTIONS(
-			resultIncludes.begin(),
-			resultIncludes.end(),
-			exceptedIncludes.begin(),
-			exceptedIncludes.end()
-		);
+			resultIncludes.begin(), resultIncludes.end(),
+			exceptedIncludes.begin(), exceptedIncludes.end() );
 	}
 	{
 		const auto resultIncludes = getResultsIncludes( "file3.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( {} );
 
 		BOOST_CHECK_EQUAL_COLLECTIONS(
-			resultIncludes.begin(),
-			resultIncludes.end(),
-			exceptedIncludes.begin(),
-			exceptedIncludes.end()
-		);
+			resultIncludes.begin(), resultIncludes.end(),
+			exceptedIncludes.begin(), exceptedIncludes.end() );
 	}
 	{
 		const auto resultIncludes = getResultsIncludes( "file4.cpp" );
 		const auto exceptedIncludes = toExceptedIncludes( { "./lib4" } );
 
 		BOOST_CHECK_EQUAL_COLLECTIONS(
-			resultIncludes.begin(),
-			resultIncludes.end(),
-			exceptedIncludes.begin(),
-			exceptedIncludes.end()
-		);
+			resultIncludes.begin(), resultIncludes.end(),
+			exceptedIncludes.begin(), exceptedIncludes.end() );
 	}
 }
 

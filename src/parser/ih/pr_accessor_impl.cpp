@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace parser {
-
+namespace parser
+{
 //------------------------------------------------------------------------------
 
 ParserAccessorImpl::ParserPtr ParserAccessorImpl::createParser()

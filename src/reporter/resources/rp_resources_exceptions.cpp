@@ -2,19 +2,18 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter::resources::exceptions {
+namespace reporter::resources::exceptions
+{
+//------------------------------------------------------------------------------
+
+const char * const ModuleName = "REPORT";
 
 //------------------------------------------------------------------------------
 
-	const char * const ModuleName	= "REPORT";
-
-//------------------------------------------------------------------------------
-
-namespace IncorrectReport {
-
-	const char * const Code			= "INCORRECT_REPORT";
-	const char * const MsgFmt		=
-		"Incorrect report name: {}, possible names: {}";
+namespace IncorrectReport
+{
+const char * const Code = "INCORRECT_REPORT";
+const char * const MsgFmt = "Incorrect report name: {}, possible names: {}";
 }
 
 //------------------------------------------------------------------------------

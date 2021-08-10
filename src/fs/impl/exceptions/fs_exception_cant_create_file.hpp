@@ -7,8 +7,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 class CantCreateFileImpl : public BaseExceptionImpl< CantCreateFile >

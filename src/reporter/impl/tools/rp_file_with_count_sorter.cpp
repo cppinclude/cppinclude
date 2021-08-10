@@ -5,14 +5,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 bool FileWithCountSorter::operator()(
-	const FileWithCount & _l,
-	const FileWithCount & _r
-) const
+	const FileWithCount & _l, const FileWithCount & _r ) const
 {
 	if( _l.getCount() != _r.getCount() )
 	{

@@ -30,8 +30,8 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
@@ -84,10 +84,9 @@ BOOST_AUTO_TEST_CASE( t1_2_cpp_file_with_header )
 
 	addFileToProject( classAHppName, "class A{ A();  };" );
 	addFileToProject(
-		classACppName,
-		"#include \"" + classAHppName + "\"	\n"
-		"A::A();"
-	);
+		classACppName, "#include \"" + classAHppName +
+						   "\"	\n"
+						   "A::A();" );
 
 	addFileToCmake( classACppPath );
 
@@ -105,11 +104,13 @@ BOOST_AUTO_TEST_CASE( t1_2_cpp_file_with_header )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByClassA = classAHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				classAHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -120,9 +121,11 @@ BOOST_AUTO_TEST_CASE( t1_2_cpp_file_with_header )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -144,10 +147,9 @@ BOOST_AUTO_TEST_CASE( t1_4_cpp_file_with_system_include )
 	setProjectDir( projectDir );
 
 	addFileToProject(
-		classACppName,
-		"#include <" + systemHeaderName + ">\n"
-		"void f(){}"
-	);
+		classACppName, "#include <" + systemHeaderName +
+						   ">\n"
+						   "void f(){}" );
 
 	addFileToCmake( classACppPath );
 
@@ -165,11 +167,14 @@ BOOST_AUTO_TEST_CASE( t1_4_cpp_file_with_system_include )
 
 			BOOST_REQUIRE( systemHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByClassA = systemHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				systemHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
-			BOOST_CHECK( includedByClassA.checkDestination( systemHeaderName ) );
+			BOOST_CHECK(
+				includedByClassA.checkDestination( systemHeaderName ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::System ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -180,9 +185,12 @@ BOOST_AUTO_TEST_CASE( t1_4_cpp_file_with_system_include )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( systemHeaderName ) );
-			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::System ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( systemHeaderName ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkType( IncludeType::System ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -200,22 +208,21 @@ BOOST_AUTO_TEST_CASE( t1_3_cpp_file_with_header_that_include_header )
 	const std::string classAHppName{ "class_a.hpp" };
 	const std::string classACppName{ "class_a.cpp" };
 
-	const std::string classBaseHppPath{		projectDir + classBaseHppName };
-	const std::string classAHppPath{		projectDir + classAHppName };
-	const std::string classACppPath{		projectDir + classACppName };
+	const std::string classBaseHppPath{ projectDir + classBaseHppName };
+	const std::string classAHppPath{ projectDir + classAHppName };
+	const std::string classACppPath{ projectDir + classACppName };
 
 	setProjectDir( projectDir );
 
 	addFileToProject( classBaseHppName, "class Base {};" );
-	addFileToProject( classAHppName,
-		"#include \"" + classBaseHppName + "\" \n"
-		"class A : public Base { A();  };"
-	);
 	addFileToProject(
-		classACppName,
-		"#include \"" + classAHppName + "\"		\n"
-		"A::A();"
-	);
+		classAHppName, "#include \"" + classBaseHppName +
+						   "\" \n"
+						   "class A : public Base { A();  };" );
+	addFileToProject(
+		classACppName, "#include \"" + classAHppName +
+						   "\"		\n"
+						   "A::A();" );
 
 	addFileToCmake( classACppPath );
 
@@ -233,11 +240,14 @@ BOOST_AUTO_TEST_CASE( t1_3_cpp_file_with_header_that_include_header )
 
 			BOOST_REQUIRE( classBaseHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByClassA = classBaseHeader.getIncludedBy( classAHppPath );
+			IncludeWrapper includedByClassA =
+				classBaseHeader.getIncludedBy( classAHppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classAHppPath ) );
-			BOOST_CHECK( includedByClassA.checkDestination( classBaseHppPath ) );
+			BOOST_CHECK(
+				includedByClassA.checkDestination( classBaseHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -248,17 +258,21 @@ BOOST_AUTO_TEST_CASE( t1_3_cpp_file_with_header_that_include_header )
 
 			IncludeWrapper includeToBaseClass = classAHeader.getInclude( 0 );
 			BOOST_CHECK( includeToBaseClass.checkSource( classAHppPath ) );
-			BOOST_CHECK( includeToBaseClass.checkDestination( classBaseHppPath ) );
+			BOOST_CHECK(
+				includeToBaseClass.checkDestination( classBaseHppPath ) );
 			BOOST_CHECK( includeToBaseClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeToBaseClass.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeToBaseClass.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByClassA = classAHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				classAHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -269,9 +283,11 @@ BOOST_AUTO_TEST_CASE( t1_3_cpp_file_with_header_that_include_header )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -341,15 +357,13 @@ BOOST_AUTO_TEST_CASE( t2_2_several_files_with_same_header )
 	setProjectDir( projectDir );
 
 	addFileToProject(
-		classACppName,
-		"#include \"" + classHeaderName + "\" \n"
-		"void bar(){ f(); }"
-	);
+		classACppName, "#include \"" + classHeaderName +
+						   "\" \n"
+						   "void bar(){ f(); }" );
 	addFileToProject(
-		classBCppName,
-		"#include \"" + classHeaderName + "\" \n"
-		"void foo(){ f(); }"
-	);
+		classBCppName, "#include \"" + classHeaderName +
+						   "\" \n"
+						   "void foo(){ f(); }" );
 	addFileToProject( classHeaderName, "void f(){}" );
 
 	addFileToCmake( classACppPath );
@@ -369,9 +383,11 @@ BOOST_AUTO_TEST_CASE( t2_2_several_files_with_same_header )
 
 			IncludeWrapper includeMainToClassA = classAFile.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( classACppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classHeaderPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classHeaderPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classAFile.checkIncludedByCount( 0 ) );
 		}
@@ -384,9 +400,11 @@ BOOST_AUTO_TEST_CASE( t2_2_several_files_with_same_header )
 
 			IncludeWrapper includeMainToClassA = classBFile.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( classACppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classHeaderPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classHeaderPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classBFile.checkIncludedByCount( 0 ) );
 		}
@@ -399,17 +417,21 @@ BOOST_AUTO_TEST_CASE( t2_2_several_files_with_same_header )
 
 			BOOST_REQUIRE( headerFile.checkIncludedByCount( 2 ) );
 
-			IncludeWrapper includedByClassA = headerFile.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				headerFile.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classHeaderPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 
-			IncludeWrapper includedByClassB = headerFile.getIncludedBy( classBCppPath );
+			IncludeWrapper includedByClassB =
+				headerFile.getIncludedBy( classBCppPath );
 			BOOST_CHECK( includedByClassB.checkSource( classBCppPath ) );
 			BOOST_CHECK( includedByClassB.checkDestination( classHeaderPath ) );
 			BOOST_CHECK( includedByClassB.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassB.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassB.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -425,8 +447,7 @@ BOOST_AUTO_TEST_CASE( t3_1_ignore_files_ignore_destination )
 		R"(
 		#include <boost/test/unit_test.hpp>
 		#include "lib/classA.hpp"
-		)"
-	);
+		)" );
 
 	addFileFilter( "boost/.*" );
 
@@ -445,10 +466,13 @@ BOOST_AUTO_TEST_CASE( t3_1_ignore_files_ignore_destination )
 			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClass = mainCpp.getInclude( 0 );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -459,11 +483,15 @@ BOOST_AUTO_TEST_CASE( t3_1_ignore_files_ignore_destination )
 		{
 			BOOST_REQUIRE( classAHpp.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includeMainToClass = classAHpp.getIncludedBy( "/test_project/main.cpp" );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			IncludeWrapper includeMainToClass =
+				classAHpp.getIncludedBy( "/test_project/main.cpp" );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( classAHpp.checkIncludesCount( 0 ) );
 		}
@@ -481,17 +509,15 @@ BOOST_AUTO_TEST_CASE( t3_2_ignore_files_ignore_source )
 		R"(
 		#include <boost/test/unit_test.hpp>
 		#include "lib/classA.hpp"
-		)"
-	);
+		)" );
 	addFileToProject(
 		"lib_impl/classA.cpp",
 		R"(
 		#include "lib/classA.hpp"
-		)"
-	);
+		)" );
 
-	addFileFilter( "boost/.*" );
-	addFileFilter( "lib_impl/.*" );
+	addFileFilter( "boost/*" );
+	addFileFilter( "lib_impl/*" );
 
 	addFileToCmake( "/test_project/main.cpp" );
 	addFileToCmake( "/test_project/lib/classA.hpp" );
@@ -509,10 +535,13 @@ BOOST_AUTO_TEST_CASE( t3_2_ignore_files_ignore_source )
 			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClass = mainCpp.getInclude( 0 );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -523,11 +552,15 @@ BOOST_AUTO_TEST_CASE( t3_2_ignore_files_ignore_source )
 		{
 			BOOST_REQUIRE( classAHpp.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includeMainToClass = classAHpp.getIncludedBy( "/test_project/main.cpp" );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			IncludeWrapper includeMainToClass =
+				classAHpp.getIncludedBy( "/test_project/main.cpp" );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( classAHpp.checkIncludesCount( 0 ) );
 		}

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(cppinclude
-	VERSION 0.4.0
+	VERSION 0.5.0
 	DESCRIPTION "Tool for analyzing includes in C++"
 	LANGUAGES CXX
 )
@@ -10,6 +10,7 @@ include_directories(src/)
 include_directories(src/3rd-part/fmt/include/)
 include_directories(src/3rd-part/stdfwd/include/)
 include_directories(src/3rd-part/std_fs/include/)
+include_directories(src/3rd-part/std_fs/re2/re2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -60,6 +61,7 @@ add_subdirectory(src/tools)
 add_subdirectory(src/project)
 add_subdirectory(src/application)
 add_subdirectory(src/3rd-part/fmt)
+add_subdirectory(src/3rd-part/re2)
 add_subdirectory(src/json)
 add_subdirectory(src/compilation_db)
 add_subdirectory(src/cmake_project)

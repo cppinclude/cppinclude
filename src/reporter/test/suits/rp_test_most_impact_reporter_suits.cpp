@@ -24,13 +24,16 @@ TEST PLAN:
 	8.1 in sub directory
 	8.2 in other directory
 9. Show only std headers
+10. Hide details
+11. Thousands separator
 
 ------------------------------------------------------------------------------*/
 
-namespace reporter::test {
-
+namespace reporter::test
+{
 //------------------------------------------------------------------------------
 
+// clazy:excludeall=non-pod-global-static
 BOOST_FIXTURE_TEST_SUITE( MostImpactReporterTests, ReporterFixture )
 
 //------------------------------------------------------------------------------
@@ -67,16 +70,23 @@ BOOST_AUTO_TEST_CASE( t2_only_cpp_files )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line 1\n"
+					"2 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 1 file\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -104,17 +114,26 @@ BOOST_AUTO_TEST_CASE( t3_files_with_same_count )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
-			"\t2 : \"" + toPath( runB2file ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line 1\n"
+					"2 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runB2file ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -147,25 +166,47 @@ BOOST_AUTO_TEST_CASE( t4_several_details )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classBBaseFile ) + "\" impact on 4 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( classBSubBaseFile ) + "\" line 1, impact on 3 file(s)\n"
-		"2 : \"" + toPath( classABaseFile ) + "\" impact on 3 file(s)\n"
-		"Included by:\n"
-				"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
-		"3 : \"" + toPath( classBSubBaseFile ) + "\" impact on 3 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( classBFile ) + "\" line 1, impact on 2 file(s)\n"
-		"4 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"5 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
-			"\t2 : \"" + toPath( runB2file ) +"\" line 1\n"
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classBBaseFile ) +
+					"\" impact on 4 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classBSubBaseFile ) +
+					"\" line 1, impact on 3 files\n"
+					"2 : \"" +
+					toPath( classABaseFile ) +
+					"\" impact on 3 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classAFile ) +
+					"\" line 1, impact on 2 files\n"
+					"3 : \"" +
+					toPath( classBSubBaseFile ) +
+					"\" impact on 3 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classBFile ) +
+					"\" line 1, impact on 2 files\n"
+					"4 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line 1\n"
+					"5 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runB2file ) + "\" line 1\n"
 
 	);
 }
@@ -181,8 +222,9 @@ BOOST_AUTO_TEST_CASE( t5_1_limit_max_files )
 	const int filesCount = 10;
 	for( int i = 0; i < filesCount; ++i )
 	{
-		const std::string sourceFile =		fmt::format( sourceFileFmt, i );
-		const std::string destinationFile = fmt::format( destinationFileFmt, i );
+		const std::string sourceFile = fmt::format( sourceFileFmt, i );
+		const std::string destinationFile =
+			fmt::format( destinationFileFmt, i );
 		addInclude( sourceFile, destinationFile );
 	}
 
@@ -194,21 +236,16 @@ BOOST_AUTO_TEST_CASE( t5_1_limit_max_files )
 
 	// Check
 	std::string expectedString = "Most impact files:\n";
-	const std::string lineFmt =
-	"{} : \"{}\" impact on 1 file(s)\n"
-	"Included by:\n"
-		"\t1 : \"{}\" line 1\n"
-	;
+	const std::string lineFmt = "{} : \"{}\" impact on 1 file\n"
+								"Included by:\n"
+								"\t1 : \"{}\" line 1\n";
 	for( int i = 0; i < limit; ++i )
 	{
-		const std::string sourceFile =		fmt::format( sourceFileFmt, i );
-		const std::string destinationFile = fmt::format( destinationFileFmt, i );
+		const std::string sourceFile = fmt::format( sourceFileFmt, i );
+		const std::string destinationFile =
+			fmt::format( destinationFileFmt, i );
 		const std::string line = fmt::format(
-			lineFmt,
-			i + 1,
-			toPath( destinationFile ),
-			toPath( sourceFile )
-		);
+			lineFmt, i + 1, toPath( destinationFile ), toPath( sourceFile ) );
 		expectedString += line;
 	}
 
@@ -246,21 +283,31 @@ BOOST_AUTO_TEST_CASE( t5_2_limit_max_details )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classBaseFile ) + "\" impact on 6 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
-			"\t... 1 of 2 details\n"
-		"2 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t... 1 of 2 details\n"
-		"3 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) + "\" line 1\n"
-			"\t... 1 of 2 details\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classBaseFile ) +
+					"\" impact on 6 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classAFile ) +
+					"\" line 1, impact on 2 files\n"
+					"\t... 1 of 2 details\n"
+					"2 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t... 1 of 2 details\n"
+					"3 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) +
+					"\" line 1\n"
+					"\t... 1 of 2 details\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -275,7 +322,8 @@ BOOST_AUTO_TEST_CASE( t5_3_limit_equal_to_files_number )
 	for( int i = 0; i < filesCount; ++i )
 	{
 		const std::string sourceFile = fmt::format( sourceFileFmt, i );
-		const std::string destinationFile = fmt::format( destinationFileFmt, i );
+		const std::string destinationFile =
+			fmt::format( destinationFileFmt, i );
 		addInclude( sourceFile, destinationFile );
 	}
 
@@ -287,21 +335,16 @@ BOOST_AUTO_TEST_CASE( t5_3_limit_equal_to_files_number )
 
 	// Check
 	std::string expectedString = "Most impact files:\n";
-	const std::string lineFmt =
-	"{} : \"{}\" impact on 1 file(s)\n"
-	"Included by:\n"
-		"\t1 : \"{}\" line 1\n"
-	;
+	const std::string lineFmt = "{} : \"{}\" impact on 1 file\n"
+								"Included by:\n"
+								"\t1 : \"{}\" line 1\n";
 	for( int i = 0; i < limit; ++i )
 	{
-		const std::string sourceFile =		fmt::format( sourceFileFmt, i );
-		const std::string destinationFile = fmt::format( destinationFileFmt, i );
+		const std::string sourceFile = fmt::format( sourceFileFmt, i );
+		const std::string destinationFile =
+			fmt::format( destinationFileFmt, i );
 		const std::string line = fmt::format(
-			lineFmt,
-			i + 1,
-			toPath( destinationFile ),
-			toPath( sourceFile )
-		);
+			lineFmt, i + 1, toPath( destinationFile ), toPath( sourceFile ) );
 		expectedString += line;
 	}
 
@@ -337,21 +380,36 @@ BOOST_AUTO_TEST_CASE( t5_4_limit_to_equal_details_number )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classBaseFile ) + "\" impact on 6 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
-			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact on 2 file(s)\n"
-		"2 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"3 : \"" + toPath( classBFile ) + "\" impact on 2 file(s)\n"
-			"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
-			"\t2 : \"" + toPath( runB2file ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classBaseFile ) +
+					"\" impact on 6 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classAFile ) +
+					"\" line 1, impact on 2 files\n"
+					"\t2 : \"" +
+					toPath( classBFile ) +
+					"\" line 1, impact on 2 files\n"
+					"2 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line 1\n"
+					"3 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runB2file ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -386,16 +444,23 @@ BOOST_AUTO_TEST_CASE( t6_relevant_pants )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classAFileName ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1fileName ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2fileName ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFileName ) + "\" impact on 1 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1fileName ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classAFileName ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1fileName ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2fileName ) +
+					"\" line 1\n"
+					"2 : \"" +
+					toPath( classBFileName ) +
+					"\" impact on 1 file\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1fileName ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -430,16 +495,23 @@ BOOST_AUTO_TEST_CASE( t7_1_std_file_dont_show )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line 1\n"
+					"2 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 1 file\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -474,20 +546,33 @@ BOOST_AUTO_TEST_CASE( t7_2_std_file_show )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + stdFile + "\" impact on 5 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 2 file(s)\n"
-			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact on 1 file(s)\n"
-		"2 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1file ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2file ) + "\" line 1\n"
-		"3 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1file ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					stdFile +
+					"\" impact on 5 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classAFile ) +
+					"\" line 1, impact on 2 files\n"
+					"\t2 : \"" +
+					toPath( classBFile ) +
+					"\" line 1, impact on 1 file\n"
+					"2 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line 1\n"
+					"3 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 1 file\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -523,16 +608,23 @@ BOOST_AUTO_TEST_CASE( t8_1_files_out_of_project_in_subdir )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( "../" + classAFileName ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( "../" + runA1fileName ) + "\" line 1\n"
-			"\t2 : \"" + toPath( "../" + runA2fileName ) + "\" line 1\n"
-		"2 : \"" + toPath( "../" + classBFileName ) + "\" impact on 1 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( "../" + runB1fileName ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( "../" + classAFileName ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( "../" + runA1fileName ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( "../" + runA2fileName ) +
+					"\" line 1\n"
+					"2 : \"" +
+					toPath( "../" + classBFileName ) +
+					"\" impact on 1 file\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( "../" + runB1fileName ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -568,16 +660,23 @@ BOOST_AUTO_TEST_CASE( t8_2_files_out_of_project_in_other_dir )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( classAFile ) + "\" impact on 2 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runA1fileName ) + "\" line 1\n"
-			"\t2 : \"" + toPath( runA2fileName ) + "\" line 1\n"
-		"2 : \"" + toPath( classBFile ) + "\" impact on 1 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( runB1fileName ) +"\" line 1\n"
-	);
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runA1fileName ) +
+					"\" line 1\n"
+					"\t2 : \"" +
+					toPath( runA2fileName ) +
+					"\" line 1\n"
+					"2 : \"" +
+					toPath( classBFile ) +
+					"\" impact on 1 file\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( runB1fileName ) + "\" line 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -608,13 +707,79 @@ BOOST_AUTO_TEST_CASE( t9_show_only_std_files )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Most impact files:\n"
-		"1 : \"" + toPath( stdFile ) + "\" impact on 4 file(s)\n"
-		"Included by:\n"
-			"\t1 : \"" + toPath( classAFile ) + "\" line 1, impact on 1 file(s)\n"
-			"\t2 : \"" + toPath( classBFile ) + "\" line 1, impact on 1 file(s)\n"
-	);
+		result, "Most impact file:\n"
+				"1 : \"" +
+					toPath( stdFile ) +
+					"\" impact on 4 files\n"
+					"Included by:\n"
+					"\t1 : \"" +
+					toPath( classAFile ) +
+					"\" line 1, impact on 1 file\n"
+					"\t2 : \"" +
+					toPath( classBFile ) + "\" line 1, impact on 1 file\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t10_hide_details )
+{
+	// Init
+	const std::string classAFile = "/test_project/classA.hpp";
+	const std::string classBFile = "/test_project/classB.hpp";
+
+	const std::string runA1file = "/test_project/runA1.cpp";
+	const std::string runA2file = "/test_project/runA2.cpp";
+
+	const std::string runB1file = "/test_project/runB1.cpp";
+
+	addInclude( runA1file, classAFile );
+	addInclude( runA2file, classAFile );
+
+	addInclude( runB1file, classBFile );
+
+	setShowDetails( false );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result, "Most impact files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" impact on 2 files\n"
+					"2 : \"" +
+					toPath( classBFile ) + "\" impact on 1 file\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t11_thousands_separator )
+{
+	// Init
+	const int count = 1'100;
+
+	const std::string headerFile = "/test_project/header.hpp";
+
+	for( int i = 0; i < count; ++i )
+	{
+		const std::string file =
+			"/test_project/file" + std::to_string( i ) + ".cpp";
+
+		addInclude( file, headerFile );
+	}
+
+	setShowDetails( false );
+	setSystemThousandsSeparator( ',' );
+
+	// Run
+	std::string result = runMostImpactReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result, "Most impact file:\n"
+				"1 : \"" +
+					toPath( headerFile ) + "\" impact on 1,100 files\n" );
 }
 
 //------------------------------------------------------------------------------

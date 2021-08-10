@@ -5,8 +5,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace project {
-
+namespace project
+{
 //------------------------------------------------------------------------------
 
 class InvalidRegexImpl : public BaseExceptionImpl< InvalidRegex >
@@ -14,15 +14,11 @@ class InvalidRegexImpl : public BaseExceptionImpl< InvalidRegex >
 	using BaseClass = BaseExceptionImpl< InvalidRegex >;
 
 public:
-	InvalidRegexImpl(
-		std::string _filter,
-		const std::exception & _originException
-	);
+	InvalidRegexImpl( const std::exception & _originException );
 
 	std::string getMessage() const noexcept override;
 
 private:
-	const std::string m_filter;
 	const std::string m_originMsg;
 };
 

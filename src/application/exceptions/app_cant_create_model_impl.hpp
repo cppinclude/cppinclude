@@ -9,8 +9,8 @@ namespace application
 {
 //------------------------------------------------------------------------------
 
-class CantCreateModelImpl :
-	public BaseExceptionWithMessageImpl< CantCreateModel >
+class CantCreateModelImpl
+	: public BaseExceptionWithMessageImpl< CantCreateModel >
 {
 	using BaseClass = BaseExceptionWithMessageImpl< CantCreateModel >;
 

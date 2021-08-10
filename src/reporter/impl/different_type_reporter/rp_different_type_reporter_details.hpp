@@ -4,16 +4,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class DifferentTypeReporterDetails
 {
 public:
-
-	using Include	= model_includes::Include;
-	using Includes	= SortedIncludesBySourceContainer;
+	using Include = model_includes::Include;
+	using Includes = SortedIncludesBySourceContainer;
 
 	const Includes & getUserIncludes() const;
 	const Includes & getSystemIncludes() const;

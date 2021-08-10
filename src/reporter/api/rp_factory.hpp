@@ -4,10 +4,11 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-	class Reporter;
-	class Settings;
-	enum class ReporterKind;
+namespace reporter
+{
+class Reporter;
+class Settings;
+enum class ReporterKind;
 
 //------------------------------------------------------------------------------
 

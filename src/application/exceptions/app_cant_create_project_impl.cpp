@@ -9,10 +9,9 @@ namespace application
 //------------------------------------------------------------------------------
 
 CantCreateProjectImpl::CantCreateProjectImpl()
-	:	BaseClass(
-			resources::exceptions::CantCreateProject::Code,
-			resources::exceptions::CantCreateProject::Msg
-	)
+	: BaseClass(
+		  resources::exceptions::CantCreateProject::Code,
+		  resources::exceptions::CantCreateProject::Msg )
 {
 }
 

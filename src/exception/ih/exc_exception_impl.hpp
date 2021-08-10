@@ -6,17 +6,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace exception {
-
+namespace exception
+{
 //------------------------------------------------------------------------------
 
 template< class _BaseException > class ExceptionImpl : public _BaseException
 {
 public:
-
-	ExceptionImpl( std::string_view _module, std::string_view _code	)
-		:	m_module{ _module }
-		,	m_code{ _code }
+	ExceptionImpl( std::string_view _module, std::string_view _code )
+		: m_module{ _module }
+		, m_code{ _code }
 	{
 	}
 
@@ -34,13 +33,8 @@ public:
 	{
 		if( m_msg.empty() )
 		{
-			m_msg =
-				this->getModuleName() +
-				'-' +
-				this->getCode() +
-				": " +
-				this->getMessage()
-			;
+			m_msg = this->getModuleName() + '-' + this->getCode() + ": " +
+					this->getMessage();
 		}
 
 		return m_msg.c_str();

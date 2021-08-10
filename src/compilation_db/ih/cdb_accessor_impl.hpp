@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 class AccessorImpl final : public Accessor

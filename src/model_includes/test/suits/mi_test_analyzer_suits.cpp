@@ -43,8 +43,8 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
@@ -71,10 +71,9 @@ BOOST_AUTO_TEST_CASE( t1_1_file_in_current_directory )
 
 	addFileToProject( classAHppName, "class A{ A();  };" );
 	addFileToProject(
-		classACppName,
-		"#include \"" + classAHppName + "\"		\n"
-		"A::A();						\n"
-	);
+		classACppName, "#include \"" + classAHppName +
+						   "\"		\n"
+						   "A::A();						\n" );
 
 	// Run
 	ModelWrapper model = analyze();
@@ -90,9 +89,11 @@ BOOST_AUTO_TEST_CASE( t1_1_file_in_current_directory )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -105,17 +106,21 @@ BOOST_AUTO_TEST_CASE( t1_1_file_in_current_directory )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 2 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 
-			IncludeWrapper includedByClassA = classAHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				classAHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -126,9 +131,11 @@ BOOST_AUTO_TEST_CASE( t1_1_file_in_current_directory )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -159,10 +166,9 @@ BOOST_AUTO_TEST_CASE( t1_2_file_in_include_directory )
 
 	addFile( classAHppPath, "class A{ A();  };" );
 	addFile(
-		classACppPath,
-		"#include \"" + classAHppName + "\"		\n"
-		"A::A();						\n"
-	);
+		classACppPath, "#include \"" + classAHppName +
+						   "\"		\n"
+						   "A::A();						\n" );
 
 	// Run
 	ModelWrapper model = analyze();
@@ -178,9 +184,11 @@ BOOST_AUTO_TEST_CASE( t1_2_file_in_include_directory )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -193,11 +201,13 @@ BOOST_AUTO_TEST_CASE( t1_2_file_in_include_directory )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -223,10 +233,9 @@ BOOST_AUTO_TEST_CASE( t1_3_file_with_std_library_name_in_project )
 
 	addFileToProject( classLimitHppName, "class A{ A();  };" );
 	addFileToProject(
-		classLimitCppName,
-		"#include \"" + classLimitHppName + "\"		\n"
-		"A::A();						\n"
-	);
+		classLimitCppName, "#include \"" + classLimitHppName +
+							   "\"		\n"
+							   "A::A();						\n" );
 
 	// Run
 	ModelWrapper model = analyze();
@@ -242,9 +251,11 @@ BOOST_AUTO_TEST_CASE( t1_3_file_with_std_library_name_in_project )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -257,17 +268,21 @@ BOOST_AUTO_TEST_CASE( t1_3_file_with_std_library_name_in_project )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 2 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 
-			IncludeWrapper includedByClassA = classAHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				classAHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -278,9 +293,11 @@ BOOST_AUTO_TEST_CASE( t1_3_file_with_std_library_name_in_project )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -299,16 +316,18 @@ BOOST_AUTO_TEST_CASE( t1_4_include_in_local_folder )
 	const std::string classIncludeHppName{ "class_i.hpp" };
 	const std::string classIncludeCppName{ "class_i.cpp" };
 
-	const std::string classIncludeHppPath{ projectDir + includeDir + classIncludeHppName };
-	const std::string classIncludeCppPath{ projectDir + includeDir + classIncludeCppName };
+	const std::string classIncludeHppPath{
+		projectDir + includeDir + classIncludeHppName };
+	const std::string classIncludeCppPath{
+		projectDir + includeDir + classIncludeCppName };
 
 	setProjectDir( projectDir );
 
 	addFile( classIncludeHppPath, "class I{ I(); };" );
-	addFile( classIncludeCppPath,
-		"#include \"" + includeDir + classIncludeHppName + "\""
-		"I::I(){}"
-	);
+	addFile(
+		classIncludeCppPath, "#include \"" + includeDir + classIncludeHppName +
+								 "\""
+								 "I::I(){}" );
 
 	addIncludePath( "." );
 
@@ -379,9 +398,11 @@ BOOST_AUTO_TEST_CASE( t2_1_include_type_user )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -394,11 +415,13 @@ BOOST_AUTO_TEST_CASE( t2_1_include_type_user )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -417,7 +440,7 @@ BOOST_AUTO_TEST_CASE( t2_2_include_type_system )
 	const std::string mainCppPath{ projectDir + mainCppName };
 
 	setProjectDir( projectDir );
-	addFileToProject( mainCppName, "#include <" + systemName +">" );
+	addFileToProject( mainCppName, "#include <" + systemName + ">" );
 
 	// Run
 	ModelWrapper model = analyze();
@@ -435,7 +458,8 @@ BOOST_AUTO_TEST_CASE( t2_2_include_type_system )
 			BOOST_CHECK( includeMainToSystem.checkSource( mainCppPath ) );
 			BOOST_CHECK( includeMainToSystem.checkDestination( systemPath ) );
 			BOOST_CHECK( includeMainToSystem.checkType( IncludeType::System ) );
-			BOOST_CHECK( includeMainToSystem.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToSystem.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -448,11 +472,13 @@ BOOST_AUTO_TEST_CASE( t2_2_include_type_system )
 
 			BOOST_REQUIRE( systemFile.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = systemFile.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				systemFile.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( systemPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::System ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -473,10 +499,11 @@ BOOST_AUTO_TEST_CASE( t2_3_include_type_mix )
 	const std::string mainCppPath{ projectDir + mainCppName };
 
 	setProjectDir( projectDir );
-	addFileToProject( mainCppName,
-		"#include <" + systemName +">				\n"
-		"#include \"" + userHeaderName +"\"			\n"
-	);
+	addFileToProject(
+		mainCppName, "#include <" + systemName +
+						 ">				\n"
+						 "#include \"" +
+						 userHeaderName + "\"			\n" );
 
 	// Run
 	ModelWrapper model = analyze();
@@ -494,45 +521,52 @@ BOOST_AUTO_TEST_CASE( t2_3_include_type_mix )
 			BOOST_CHECK( includeMainToSystem.checkSource( mainCppPath ) );
 			BOOST_CHECK( includeMainToSystem.checkDestination( systemPath ) );
 			BOOST_CHECK( includeMainToSystem.checkType( IncludeType::System ) );
-			BOOST_CHECK( includeMainToSystem.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToSystem.checkStatus( IncludeStatus::Resolved ) );
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 1 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( userHeaderName ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( userHeaderName ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Unresolved ) );
 
-            BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
 	}
 	{
 		FileWrapper systemFile = model.findFile( systemPath );
-        BOOST_REQUIRE( systemFile.isAvailable() );
+		BOOST_REQUIRE( systemFile.isAvailable() );
 		{
-            BOOST_REQUIRE( systemFile.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( systemFile.checkIncludesCount( 0 ) );
 
-            BOOST_REQUIRE( systemFile.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( systemFile.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = systemFile.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				systemFile.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( systemPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::System ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
 		FileWrapper userFile = model.findFile( userHeaderName );
-        BOOST_REQUIRE( userFile.isAvailable() );
+		BOOST_REQUIRE( userFile.isAvailable() );
 		{
-            BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
 
-            BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = userFile.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				userFile.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( userHeaderName ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Unresolved ) );
 		}
 	}
 }
@@ -551,42 +585,46 @@ BOOST_AUTO_TEST_CASE( t3_1_include_status_resolved )
 	const std::string mainCppPath{ projectDir + mainCppName };
 
 	setProjectDir( projectDir );
-	addFileToProject( mainCppName, "#include \"" + userHeaderName +"\"" );
+	addFileToProject( mainCppName, "#include \"" + userHeaderName + "\"" );
 	addFileToProject( userHeaderName, "class A{ A(){} }'" );
 
 	// Run
 	ModelWrapper model = analyze();
 
 	// Check
-    BOOST_REQUIRE( model.isAvailable() );
-    BOOST_REQUIRE( model.checkFilesCount( 2 ) );
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 2 ) );
 	{
 		FileWrapper mainCpp = model.findFile( mainCppPath );
-        BOOST_REQUIRE( mainCpp.isAvailable() );
+		BOOST_REQUIRE( mainCpp.isAvailable() );
 		{
-            BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( userHeaderPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( userHeaderPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
-            BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
 	}
 	{
 		FileWrapper userFile = model.findFile( userHeaderPath );
-        BOOST_REQUIRE( userFile.isAvailable() );
+		BOOST_REQUIRE( userFile.isAvailable() );
 		{
-            BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
-            BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = userFile.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				userFile.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( userHeaderPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -604,41 +642,45 @@ BOOST_AUTO_TEST_CASE( t3_2_include_status_unresolved )
 	const std::string mainCppPath{ projectDir + mainCppName };
 
 	setProjectDir( projectDir );
-	addFileToProject( mainCppName, "#include \"" + userHeaderName +"\"" );
+	addFileToProject( mainCppName, "#include \"" + userHeaderName + "\"" );
 
 	// Run
 	ModelWrapper model = analyze();
 
 	// Check
-    BOOST_REQUIRE( model.isAvailable() );
-    BOOST_REQUIRE( model.checkFilesCount( 2 ) );
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 2 ) );
 	{
 		FileWrapper mainCpp = model.findFile( mainCppPath );
-        BOOST_REQUIRE( mainCpp.isAvailable() );
+		BOOST_REQUIRE( mainCpp.isAvailable() );
 		{
-            BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( userHeaderName ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( userHeaderName ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Unresolved ) );
 
-            BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
 	}
 	{
 		FileWrapper userFile = model.findFile( userHeaderName );
-        BOOST_REQUIRE( userFile.isAvailable() );
+		BOOST_REQUIRE( userFile.isAvailable() );
 		{
-            BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
-            BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = userFile.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				userFile.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( userHeaderName ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Unresolved ) );
 		}
 	}
 }
@@ -659,10 +701,11 @@ BOOST_AUTO_TEST_CASE( t3_3_include_status_mix )
 	const std::string classBHeaderPath{ projectDir + classBHeaderName };
 
 	setProjectDir( projectDir );
-	addFileToProject( mainCppName,
-		"#include \"" + classAHeaderName +"\"			\n"
-		"#include \"" + classBHeaderName +"\"			\n"
-	);
+	addFileToProject(
+		mainCppName, "#include \"" + classAHeaderName +
+						 "\"			\n"
+						 "#include \"" +
+						 classBHeaderName + "\"			\n" );
 
 	addFileToProject( classAHeaderName, "class A{ A(){} };" );
 
@@ -670,55 +713,63 @@ BOOST_AUTO_TEST_CASE( t3_3_include_status_mix )
 	ModelWrapper model = analyze();
 
 	// Check
-    BOOST_REQUIRE( model.isAvailable() );
-    BOOST_REQUIRE( model.checkFilesCount( 3 ) );
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 3 ) );
 	{
 		FileWrapper mainCpp = model.findFile( mainCppPath );
-        BOOST_REQUIRE( mainCpp.isAvailable() );
+		BOOST_REQUIRE( mainCpp.isAvailable() );
 		{
-            BOOST_REQUIRE( mainCpp.checkIncludesCount( 2 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludesCount( 2 ) );
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHeaderPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHeaderPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			IncludeWrapper includeMainToClassB = mainCpp.getInclude( 1 );
 			BOOST_CHECK( includeMainToClassB.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassB.checkDestination( classBHeaderName ) );
+			BOOST_CHECK(
+				includeMainToClassB.checkDestination( classBHeaderName ) );
 			BOOST_CHECK( includeMainToClassB.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassB.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClassB.checkStatus( IncludeStatus::Unresolved ) );
 
-            BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
 	}
 	{
 		FileWrapper classAHeader = model.findFile( classAHeaderPath );
-        BOOST_REQUIRE( classAHeader.isAvailable() );
+		BOOST_REQUIRE( classAHeader.isAvailable() );
 		{
-            BOOST_REQUIRE( classAHeader.checkIncludesCount( 0 ) );
-            BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( classAHeader.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHeaderPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
 		FileWrapper classBHeader = model.findFile( classBHeaderName );
-        BOOST_REQUIRE( classBHeader.isAvailable() );
+		BOOST_REQUIRE( classBHeader.isAvailable() );
 		{
-            BOOST_REQUIRE( classBHeader.checkIncludesCount( 0 ) );
-            BOOST_REQUIRE( classBHeader.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( classBHeader.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( classBHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = classBHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classBHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classBHeaderName ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Unresolved ) );
 		}
 	}
 }
@@ -742,35 +793,38 @@ BOOST_AUTO_TEST_CASE( t3_4_include_status_std_lib )
 	ModelWrapper model = analyze();
 
 	// Check
-    BOOST_REQUIRE( model.isAvailable() );
-    BOOST_REQUIRE( model.checkFilesCount( 2 ) );
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 2 ) );
 	{
 		FileWrapper mainCpp = model.findFile( mainCppPath );
-        BOOST_REQUIRE( mainCpp.isAvailable() );
+		BOOST_REQUIRE( mainCpp.isAvailable() );
 		{
-            BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkDestination( headerName ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::System ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
-            BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
 	}
 	{
 		FileWrapper userFile = model.findFile( headerName );
-        BOOST_REQUIRE( userFile.isAvailable() );
+		BOOST_REQUIRE( userFile.isAvailable() );
 		{
-            BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
-            BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( userFile.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( userFile.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = userFile.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				userFile.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( headerName ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::System ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -791,9 +845,11 @@ BOOST_AUTO_TEST_CASE( t4_1_ignored_folders_regular_project )
 	const std::string classIgnoreCppName{ "class_i.cpp" };
 
 	const std::string classAHppPath{ projectDir + classAHppName };
-	const std::string mainCppPath{   projectDir + mainCppName };
-	const std::string classIgnoreHppPath{ projectDir + ignoredDir + classIgnoreHppName };
-	const std::string classIgnoreCppPath{ projectDir + ignoredDir + classIgnoreCppName };
+	const std::string mainCppPath{ projectDir + mainCppName };
+	const std::string classIgnoreHppPath{
+		projectDir + ignoredDir + classIgnoreHppName };
+	const std::string classIgnoreCppPath{
+		projectDir + ignoredDir + classIgnoreCppName };
 
 	setProjectDir( projectDir );
 	addIgnoredDir( ignoredDir );
@@ -801,44 +857,48 @@ BOOST_AUTO_TEST_CASE( t4_1_ignored_folders_regular_project )
 	addFileToProject( mainCppName, "#include \"" + classAHppName + "\"" );
 	addFile( classAHppPath, "class A{ A(){}  };" );
 	addFile( classIgnoreHppPath, "class I{ I(); };" );
-	addFile( classIgnoreCppPath,
-		"#include \"" + classIgnoreHppName + "\""
-		"I::I(){}"
-	);
+	addFile(
+		classIgnoreCppPath, "#include \"" + classIgnoreHppName +
+								"\""
+								"I::I(){}" );
 
 	// Run
 	ModelWrapper model = analyze();
 
 	// Check
-    BOOST_REQUIRE( model.isAvailable() );
-    BOOST_REQUIRE( model.checkFilesCount( 2 ) );
+	BOOST_REQUIRE( model.isAvailable() );
+	BOOST_REQUIRE( model.checkFilesCount( 2 ) );
 	{
 		FileWrapper mainCpp = model.findFile( mainCppPath );
-        BOOST_REQUIRE( mainCpp.isAvailable() );
+		BOOST_REQUIRE( mainCpp.isAvailable() );
 		{
-            BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
-            BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
+			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
 	}
 	{
 		FileWrapper classAHeader = model.findFile( classAHppPath );
-        BOOST_REQUIRE( classAHeader.isAvailable() );
+		BOOST_REQUIRE( classAHeader.isAvailable() );
 		{
-            BOOST_REQUIRE( classAHeader.checkIncludesCount( 0 ) );
-            BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
+			BOOST_REQUIRE( classAHeader.checkIncludesCount( 0 ) );
+			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -859,9 +919,11 @@ BOOST_AUTO_TEST_CASE( t4_2_ignored_folders_cmake_project )
 	const std::string classIgnoreCppName{ "class_i.cpp" };
 
 	const std::string classAHppPath{ projectDir + classAHppName };
-	const std::string mainCppPath{   projectDir + mainCppName };
-	const std::string classIgnoreHppPath{ projectDir + ignoredDir + classIgnoreHppName };
-	const std::string classIgnoreCppPath{ projectDir + ignoredDir + classIgnoreCppName };
+	const std::string mainCppPath{ projectDir + mainCppName };
+	const std::string classIgnoreHppPath{
+		projectDir + ignoredDir + classIgnoreHppName };
+	const std::string classIgnoreCppPath{
+		projectDir + ignoredDir + classIgnoreCppName };
 
 	setProjectDir( projectDir );
 	addIgnoredDir( ignoredDir );
@@ -869,10 +931,10 @@ BOOST_AUTO_TEST_CASE( t4_2_ignored_folders_cmake_project )
 	addFileToProject( mainCppName, "#include \"" + classAHppName + "\"" );
 	addFile( classAHppPath, "class A{ A(){}  };" );
 	addFile( classIgnoreHppPath, "class I{ I(); };" );
-	addFile( classIgnoreCppPath,
-		"#include \"" + classIgnoreHppName + "\""
-		"I::I(){}"
-	);
+	addFile(
+		classIgnoreCppPath, "#include \"" + classIgnoreHppName +
+								"\""
+								"I::I(){}" );
 
 	addFileToCmake( mainCppPath );
 	addFileToCmake( classIgnoreCppPath );
@@ -891,9 +953,11 @@ BOOST_AUTO_TEST_CASE( t4_2_ignored_folders_cmake_project )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -905,11 +969,13 @@ BOOST_AUTO_TEST_CASE( t4_2_ignored_folders_cmake_project )
 			BOOST_REQUIRE( classAHeader.checkIncludesCount( 0 ) );
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 }
@@ -933,8 +999,7 @@ BOOST_AUTO_TEST_CASE( t5_ignore_system_includes )
 		R"(
 		#include <iostream>
 		#include "classA.hpp"
-		)"
-	);
+		)" );
 	setIgnoreSystemIncludes( true );
 
 	// Run
@@ -953,7 +1018,8 @@ BOOST_AUTO_TEST_CASE( t5_ignore_system_includes )
 			BOOST_CHECK( includeMainToClass.checkSource( mainCppPath ) );
 			BOOST_CHECK( includeMainToClass.checkDestination( classA ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -971,8 +1037,7 @@ BOOST_AUTO_TEST_CASE( t6_1_ignore_files_ignore_destination )
 		R"(
 		#include <boost/test/unit_test.hpp>
 		#include "lib/classA.hpp"
-		)"
-	);
+		)" );
 
 	addFileFilter( "boost/.*" );
 
@@ -989,10 +1054,13 @@ BOOST_AUTO_TEST_CASE( t6_1_ignore_files_ignore_destination )
 			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClass = mainCpp.getInclude( 0 );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -1003,11 +1071,15 @@ BOOST_AUTO_TEST_CASE( t6_1_ignore_files_ignore_destination )
 		{
 			BOOST_REQUIRE( classAHpp.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includeMainToClass = classAHpp.getIncludedBy( "/test_project/main.cpp" );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			IncludeWrapper includeMainToClass =
+				classAHpp.getIncludedBy( "/test_project/main.cpp" );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( classAHpp.checkIncludesCount( 0 ) );
 		}
@@ -1025,14 +1097,12 @@ BOOST_AUTO_TEST_CASE( t6_2_ignore_files_ignore_source )
 		R"(
 		#include <boost/test/unit_test.hpp>
 		#include "lib/classA.hpp"
-		)"
-	);
+		)" );
 	addFileToProject(
 		"lib_impl/classA.cpp",
 		R"(
 		#include "lib/classA.hpp"
-		)"
-	);
+		)" );
 
 	addFileFilter( "boost/.*" );
 	addFileFilter( "lib_impl/.*" );
@@ -1050,10 +1120,13 @@ BOOST_AUTO_TEST_CASE( t6_2_ignore_files_ignore_source )
 			BOOST_REQUIRE( mainCpp.checkIncludesCount( 1 ) );
 
 			IncludeWrapper includeMainToClass = mainCpp.getInclude( 0 );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -1064,11 +1137,15 @@ BOOST_AUTO_TEST_CASE( t6_2_ignore_files_ignore_source )
 		{
 			BOOST_REQUIRE( classAHpp.checkIncludedByCount( 1 ) );
 
-			IncludeWrapper includeMainToClass = classAHpp.getIncludedBy( "/test_project/main.cpp" );
-			BOOST_CHECK( includeMainToClass.checkSource( "/test_project/main.cpp" ) );
-			BOOST_CHECK( includeMainToClass.checkDestination( "lib/classA.hpp" ) );
+			IncludeWrapper includeMainToClass =
+				classAHpp.getIncludedBy( "/test_project/main.cpp" );
+			BOOST_CHECK(
+				includeMainToClass.checkSource( "/test_project/main.cpp" ) );
+			BOOST_CHECK(
+				includeMainToClass.checkDestination( "lib/classA.hpp" ) );
 			BOOST_CHECK( includeMainToClass.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
+			BOOST_CHECK(
+				includeMainToClass.checkStatus( IncludeStatus::Unresolved ) );
 
 			BOOST_REQUIRE( classAHpp.checkIncludesCount( 0 ) );
 		}
@@ -1101,10 +1178,9 @@ BOOST_AUTO_TEST_CASE( t7_1_file_extensions_only_cpp_files )
 
 	addFileToProject( classAHppName, "class A{ A();  };" );
 	addFileToProject(
-		classACppName,
-		"#include \"" + classAHppName + "\"		\n"
-		"A::A();						\n"
-	);
+		classACppName, "#include \"" + classAHppName +
+						   "\"		\n"
+						   "A::A();						\n" );
 
 	addCppExtensions( { "*.cpp", "*.hpp", "*.hxx" } );
 
@@ -1122,9 +1198,11 @@ BOOST_AUTO_TEST_CASE( t7_1_file_extensions_only_cpp_files )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -1137,17 +1215,21 @@ BOOST_AUTO_TEST_CASE( t7_1_file_extensions_only_cpp_files )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 3 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 
-			IncludeWrapper includedByClassA = classAHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				classAHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -1158,9 +1240,11 @@ BOOST_AUTO_TEST_CASE( t7_1_file_extensions_only_cpp_files )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -1171,11 +1255,14 @@ BOOST_AUTO_TEST_CASE( t7_1_file_extensions_only_cpp_files )
 		{
 			BOOST_REQUIRE( cppheaderFile.checkIncludesCount( 1 ) );
 
-			IncludeWrapper includeClassAToHeader = cppheaderFile.getInclude( 0 );
+			IncludeWrapper includeClassAToHeader =
+				cppheaderFile.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( cppHeaderPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( cppheaderFile.checkIncludedByCount( 0 ) );
 		}
@@ -1206,10 +1293,9 @@ BOOST_AUTO_TEST_CASE( t7_2_file_extensions_analyze_without_extension )
 
 	addFileToProject( classAHppName, "class A{ A();  };" );
 	addFileToProject(
-		classACppName,
-		"#include \"" + classAHppName + "\"		\n"
-		"A::A();						\n"
-	);
+		classACppName, "#include \"" + classAHppName +
+						   "\"		\n"
+						   "A::A();						\n" );
 
 	addCppExtensions( { "*.cpp", "*.hpp" } );
 	setAnalyzeWithoutExtension( true );
@@ -1228,9 +1314,11 @@ BOOST_AUTO_TEST_CASE( t7_2_file_extensions_analyze_without_extension )
 
 			IncludeWrapper includeMainToClassA = mainCpp.getInclude( 0 );
 			BOOST_CHECK( includeMainToClassA.checkSource( mainCppPath ) );
-			BOOST_CHECK( includeMainToClassA.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeMainToClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeMainToClassA.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( mainCpp.checkIncludedByCount( 0 ) );
 		}
@@ -1243,17 +1331,21 @@ BOOST_AUTO_TEST_CASE( t7_2_file_extensions_analyze_without_extension )
 
 			BOOST_REQUIRE( classAHeader.checkIncludedByCount( 3 ) );
 
-			IncludeWrapper includedByMain = classAHeader.getIncludedBy( mainCppPath );
+			IncludeWrapper includedByMain =
+				classAHeader.getIncludedBy( mainCppPath );
 			BOOST_CHECK( includedByMain.checkSource( mainCppPath ) );
 			BOOST_CHECK( includedByMain.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByMain.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByMain.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByMain.checkStatus( IncludeStatus::Resolved ) );
 
-			IncludeWrapper includedByClassA = classAHeader.getIncludedBy( classACppPath );
+			IncludeWrapper includedByClassA =
+				classAHeader.getIncludedBy( classACppPath );
 			BOOST_CHECK( includedByClassA.checkSource( classACppPath ) );
 			BOOST_CHECK( includedByClassA.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includedByClassA.checkType( IncludeType::User ) );
-			BOOST_CHECK( includedByClassA.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includedByClassA.checkStatus( IncludeStatus::Resolved ) );
 		}
 	}
 	{
@@ -1264,9 +1356,11 @@ BOOST_AUTO_TEST_CASE( t7_2_file_extensions_analyze_without_extension )
 
 			IncludeWrapper includeClassAToHeader = classACpp.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( classACppPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( classACpp.checkIncludedByCount( 0 ) );
 		}
@@ -1279,9 +1373,11 @@ BOOST_AUTO_TEST_CASE( t7_2_file_extensions_analyze_without_extension )
 
 			IncludeWrapper includeClassAToHeader = headerFile.getInclude( 0 );
 			BOOST_CHECK( includeClassAToHeader.checkSource( headerPath ) );
-			BOOST_CHECK( includeClassAToHeader.checkDestination( classAHppPath ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkDestination( classAHppPath ) );
 			BOOST_CHECK( includeClassAToHeader.checkType( IncludeType::User ) );
-			BOOST_CHECK( includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
+			BOOST_CHECK(
+				includeClassAToHeader.checkStatus( IncludeStatus::Resolved ) );
 
 			BOOST_REQUIRE( headerFile.checkIncludedByCount( 0 ) );
 		}

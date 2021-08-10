@@ -5,18 +5,18 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonObject;
-	class JsonArray;
+namespace json
+{
+class JsonObject;
+class JsonArray;
 
 //------------------------------------------------------------------------------
 
 class JsonValue
 {
 public:
-
-	using JsonObjectPtr		= stdfwd::unique_ptr< JsonObject >;
-	using JsonArrayPtr		= stdfwd::unique_ptr< JsonArray >;
+	using JsonObjectPtr = stdfwd::unique_ptr< JsonObject >;
+	using JsonArrayPtr = stdfwd::unique_ptr< JsonArray >;
 
 	virtual ~JsonValue() = default;
 

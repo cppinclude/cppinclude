@@ -9,8 +9,8 @@ namespace application
 {
 //------------------------------------------------------------------------------
 
-class CantLoadReporterSettingsImpl :
-	public BaseExceptionWithMessageImpl< CantLoadReporterSettings >
+class CantLoadReporterSettingsImpl
+	: public BaseExceptionWithMessageImpl< CantLoadReporterSettings >
 {
 	using BaseClass = BaseExceptionWithMessageImpl< CantLoadReporterSettings >;
 

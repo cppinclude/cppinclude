@@ -16,8 +16,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 ParserArgWrapper::ParserArgWrapper()
@@ -32,9 +32,9 @@ ParserArgWrapper::ParserArgWrapper()
 			toStrings( resources::arguments::fileExtensions::DefaultValues )
 		}
 	,	m_analyzeWithoutextension{
-			resources::arguments::analyze_without_extension::FullName,
-			resources::arguments::analyze_without_extension::Description,
-			resources::arguments::analyze_without_extension::DefaultValue
+			resources::arguments::analyzeWithoutExtension::FullName,
+			resources::arguments::analyzeWithoutExtension::Description,
+			resources::arguments::analyzeWithoutExtension::DefaultValue
 	}
 	,	m_includeDirsArg{
 			resources::arguments::includeDirs::FullName,
@@ -65,7 +65,7 @@ ParserArgWrapper::ParserArgWrapper()
 			resources::arguments::compileCommands::FullName,
 			resources::arguments::compileCommands::Description,
 			Path( resources::arguments::compileCommands::DefaultValue )
-}
+		}
 	,	m_helpArg{
 			resources::arguments::help::FullName,
 			resources::arguments::help::Description
@@ -73,6 +73,10 @@ ParserArgWrapper::ParserArgWrapper()
 	,	m_verboseArg{
 			resources::arguments::verbose::FullName,
 			resources::arguments::verbose::Description
+		}
+	,	m_verboseIgnoreArg{
+			resources::arguments::verboseIgnore::FullName,
+			resources::arguments::verboseIgnore::Description
 		}
 	,	m_versionArg{
 			resources::arguments::version::FullName,
@@ -84,31 +88,42 @@ ParserArgWrapper::ParserArgWrapper()
 			toStrings( resources::arguments::report::DefaultValue ),
 		}
 	,	m_reportLimitArg{
-			resources::arguments::report_limit::FullName,
-			resources::arguments::report_limit::Description,
-			resources::arguments::report_limit::DefaultValue
+			resources::arguments::reportLimit::FullName,
+			resources::arguments::reportLimit::Description,
+			resources::arguments::reportLimit::DefaultValue
 		}
 	,	m_reportDetailsLimitArg{
-			resources::arguments::report_details_limit::FullName,
-			resources::arguments::report_details_limit::Description,
-			resources::arguments::report_details_limit::DefaultValue
+			resources::arguments::reportDetailsLimit::FullName,
+			resources::arguments::reportDetailsLimit::Description,
+			resources::arguments::reportDetailsLimit::DefaultValue
 		}
 	,	m_showStdFilesArg{
-			resources::arguments::show_std_files::FullName,
-			resources::arguments::show_std_files::Description,
-			resources::arguments::show_std_files::DefaultValue
+			resources::arguments::showStdFiles::FullName,
+			resources::arguments::showStdFiles::Description,
+			resources::arguments::showStdFiles::DefaultValue
 		}
 	,	m_showOnlyStdHeadersArg{
-			resources::arguments::show_only_std_headers::FullName,
-			resources::arguments::show_only_std_headers::Description,
-			resources::arguments::show_only_std_headers::DefaultValue
+			resources::arguments::showOnlyStdHeaders::FullName,
+			resources::arguments::showOnlyStdHeaders::Description,
+			resources::arguments::showOnlyStdHeaders::DefaultValue
+	}
+	,	m_showDetailsArg{
+			resources::arguments::showDetails::FullName,
+			resources::arguments::showDetails::Description,
+			resources::arguments::showDetails::DefaultValue
+	}
+	,	m_thousandsSeparatorArg{
+			resources::arguments::thousandsSeparator::FullName,
+			resources::arguments::thousandsSeparator::Description,
+			std::string( resources::arguments::thousandsSeparator::DefaultValue )
 	}
 {
 }
 
 //------------------------------------------------------------------------------
 
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+// cppcoreguidelines-avoid-c-arrays)
 void ParserArgWrapper::parse( int _argc, char * _argv[] )
 {
 	m_parser.parse( _argc, _argv );
@@ -124,23 +139,26 @@ void ParserArgWrapper::parse( int _argc, char * _argv[] )
 		}
 	}
 
-	setArgumentValue( m_projectDirArg,		&ParserArgWrapper::getPath );
-	setArgumentValue( m_fileExtensionsArg,	&ParserArgWrapper::getStrings );
-	setArgumentValue( m_analyzeWithoutextension,	&ParserArgWrapper::getBool );
-	setArgumentValue( m_includeDirsArg,		&ParserArgWrapper::getPaths );
+	setArgumentValue( m_projectDirArg, &ParserArgWrapper::getPath );
+	setArgumentValue( m_fileExtensionsArg, &ParserArgWrapper::getStrings );
+	setArgumentValue( m_analyzeWithoutextension, &ParserArgWrapper::getBool );
+	setArgumentValue( m_includeDirsArg, &ParserArgWrapper::getPaths );
 
-	setArgumentValue( m_ignoreDirsArg,			&ParserArgWrapper::getPaths );
-	setArgumentValue( m_ignoreSystemIncludes,	&ParserArgWrapper::getBool );
-	setArgumentValue( m_ignoreFilesArg,			&ParserArgWrapper::getStrings );
+	setArgumentValue( m_ignoreDirsArg, &ParserArgWrapper::getPaths );
+	setArgumentValue( m_ignoreSystemIncludes, &ParserArgWrapper::getBool );
+	setArgumentValue( m_ignoreFilesArg, &ParserArgWrapper::getStrings );
 
-	setArgumentValue( m_configurationFileArg,	&ParserArgWrapper::getPath );
-	setArgumentValue( m_compileCommandsFileArg,	&ParserArgWrapper::getPath );
+	setArgumentValue( m_configurationFileArg, &ParserArgWrapper::getPath );
+	setArgumentValue( m_compileCommandsFileArg, &ParserArgWrapper::getPath );
 
-	setArgumentValue( m_reportArg,				&ParserArgWrapper::getStrings );
-	setArgumentValue( m_reportLimitArg,			&ParserArgWrapper::getInt );
-	setArgumentValue( m_reportDetailsLimitArg,	&ParserArgWrapper::getInt );
-	setArgumentValue( m_showStdFilesArg,		&ParserArgWrapper::getBool );
-	setArgumentValue( m_showOnlyStdHeadersArg,	&ParserArgWrapper::getBool );
+	setArgumentValue( m_reportArg, &ParserArgWrapper::getStrings );
+	setArgumentValue( m_reportLimitArg, &ParserArgWrapper::getInt );
+	setArgumentValue( m_reportDetailsLimitArg, &ParserArgWrapper::getInt );
+	setArgumentValue( m_showStdFilesArg, &ParserArgWrapper::getBool );
+	setArgumentValue( m_showOnlyStdHeadersArg, &ParserArgWrapper::getBool );
+	setArgumentValue( m_showDetailsArg, &ParserArgWrapper::getBool );
+
+	setArgumentValue( m_thousandsSeparatorArg, &ParserArgWrapper::getString );
 }
 
 //------------------------------------------------------------------------------
@@ -152,7 +170,7 @@ void ParserArgWrapper::parse( const stdfwd::vector< std::string > & _arguments )
 	std::vector< char * > arg;
 	arg.reserve( arguments.size() );
 
-	for( std::string & str : arguments )
+	for( std::string & str: arguments )
 	{
 		arg.push_back( str.data() );
 	}
@@ -182,9 +200,13 @@ void ParserArgWrapper::init()
 	addArgument< int >( m_reportDetailsLimitArg );
 	addArgument< bool >( m_showStdFilesArg );
 	addArgument< bool >( m_showOnlyStdHeadersArg );
+	addArgument< bool >( m_showDetailsArg );
+
+	addArgument< std::string >( m_thousandsSeparatorArg );
 
 	addArgument( m_helpArg );
 	addArgument( m_verboseArg );
+	addArgument( m_verboseIgnoreArg );
 	addArgument( m_versionArg );
 }
 
@@ -288,7 +310,8 @@ ParserArgWrapper::PathsOpt ParserArgWrapper::getIgnoreDirs() const
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::ReporterKinds ParserArgWrapper::getDefaultReporterKinds() const
+ParserArgWrapper::ReporterKinds
+ParserArgWrapper::getDefaultReporterKinds() const
 {
 	auto strings = getDefaultValue< Strings >( m_reportArg );
 	return toReporterKinds( strings );
@@ -357,6 +380,34 @@ ParserArgWrapper::BoolOpt ParserArgWrapper::getShowOnlyStdHeaders() const
 
 //------------------------------------------------------------------------------
 
+ParserArgWrapper::BoolOpt ParserArgWrapper::getShowDetails() const
+{
+	return m_showDetailsArg.getValue< bool >();
+}
+
+//------------------------------------------------------------------------------
+
+ParserArgWrapper::StringOpt ParserArgWrapper::getThousandsSeparator() const
+{
+	return m_thousandsSeparatorArg.getValue< std::string >();
+}
+
+//------------------------------------------------------------------------------
+
+std::string ParserArgWrapper::getDefaultThousandsSeparator() const
+{
+	return getDefaultValue< std::string >( m_thousandsSeparatorArg );
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserArgWrapper::getDefaultShowDetails() const
+{
+	return getDefaultValue< bool >( m_showDetailsArg );
+}
+
+//------------------------------------------------------------------------------
+
 bool ParserArgWrapper::getDefaultShowOnlyStdHeaders() const
 {
 	return getDefaultValue< bool >( m_showOnlyStdHeadersArg );
@@ -396,10 +447,8 @@ template< class _ValueType >
 void ParserArgWrapper::addArgument( const Argument & _argument )
 {
 	m_parser.addArgument(
-		_argument.getFullName(),
-		_argument.getDescription(),
-		getDefaultValue< _ValueType >( _argument )
-	);
+		_argument.getFullName(), _argument.getDescription(),
+		getDefaultValue< _ValueType >( _argument ) );
 }
 
 //------------------------------------------------------------------------------
@@ -431,23 +480,24 @@ _ValueType ParserArgWrapper::getDefaultValue( const Argument & _argument ) const
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::PathOpt ParserArgWrapper::getPath( const Argument & _arg ) const
+ParserArgWrapper::PathOpt
+ParserArgWrapper::getPath( const Argument & _arg ) const
 {
 	return m_parser.getArgumentPathValue( _arg.getFullName() );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::StringOpt ParserArgWrapper::getString( const Argument & _arg ) const
+ParserArgWrapper::StringOpt
+ParserArgWrapper::getString( const Argument & _arg ) const
 {
 	return m_parser.getArgumentStringValue( _arg.getFullName() );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::StringsOpt ParserArgWrapper::getStrings(
-	const Argument & _arg
-) const
+ParserArgWrapper::StringsOpt
+ParserArgWrapper::getStrings( const Argument & _arg ) const
 {
 	return m_parser.getArgumentStringsValue( _arg.getFullName() );
 }
@@ -461,16 +511,16 @@ ParserArgWrapper::IntOpt ParserArgWrapper::getInt( const Argument & _arg ) const
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::BoolOpt ParserArgWrapper::getBool( const Argument & _arg ) const
+ParserArgWrapper::BoolOpt
+ParserArgWrapper::getBool( const Argument & _arg ) const
 {
 	return m_parser.getArgumentBoolValue( _arg.getFullName() );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::PathsOpt ParserArgWrapper::getPaths(
-	const Argument & _arg
-) const
+ParserArgWrapper::PathsOpt
+ParserArgWrapper::getPaths( const Argument & _arg ) const
 {
 	return m_parser.getArgumentPathsValue( _arg.getFullName() );
 }
@@ -491,6 +541,13 @@ bool ParserArgWrapper::isVerbose() const
 
 //------------------------------------------------------------------------------
 
+bool ParserArgWrapper::isVerboseIgnore() const
+{
+	return isExistArg( m_verboseIgnoreArg );
+}
+
+//------------------------------------------------------------------------------
+
 bool ParserArgWrapper::isVersion() const
 {
 	return isExistArg( m_versionArg );
@@ -506,9 +563,9 @@ void ParserArgWrapper::showHelp( std::ostream & _stream ) const
 //------------------------------------------------------------------------------
 
 ParserArgWrapper::Strings ParserArgWrapper::toStrings(
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-	const char * const _values[]
-)
+	// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+	// cppcoreguidelines-avoid-c-arrays)
+	const char * const _values[] )
 {
 	Strings array;
 	const char * const * it = _values;
@@ -523,8 +580,10 @@ ParserArgWrapper::Strings ParserArgWrapper::toStrings(
 }
 
 //------------------------------------------------------------------------------
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
-ParserArgWrapper::Paths ParserArgWrapper::toPaths( const char * const _values[] )
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+// cppcoreguidelines-avoid-c-arrays)
+ParserArgWrapper::Paths
+ParserArgWrapper::toPaths( const char * const _values[] )
 {
 	Strings strings{ toStrings( _values ) };
 	return Paths{ strings.begin(), strings.end() };
@@ -535,8 +594,8 @@ ParserArgWrapper::Paths ParserArgWrapper::toPaths( const char * const _values[] 
 template< class _Value >
 void ParserArgWrapper::setArgumentValue(
 	Argument & _argument,
-	std::optional< _Value > ( ParserArgWrapper::*_getter )( const Argument & ) const
-)
+	std::optional< _Value > ( ParserArgWrapper::*_getter )( const Argument & )
+		const )
 {
 	if( auto valueOpt = ( this->*_getter )( _argument ); valueOpt )
 	{
@@ -546,13 +605,12 @@ void ParserArgWrapper::setArgumentValue(
 
 //------------------------------------------------------------------------------
 
-ParserArgWrapper::ReporterKinds ParserArgWrapper::toReporterKinds(
-	const Strings & _strings
-)
+ParserArgWrapper::ReporterKinds
+ParserArgWrapper::toReporterKinds( const Strings & _strings )
 {
 	ReporterKinds kinds;
 	kinds.reserve( _strings.size() );
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		kinds.push_back( toReporterKind( str ) );
 	}

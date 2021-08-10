@@ -8,26 +8,26 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Include;
-	class File;
+namespace model_includes
+{
+class Include;
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class SortedIncludesBySourceContainer
 {
 public:
+	using Include = model_includes::Include;
+	using IncludeCallback = std::function< bool( const Include & ) >;
 
-	using Include			= model_includes::Include;
-	using IncludeCallback	= std::function< bool ( const Include & ) >;
-
-	using File				= model_includes::File;
-	using FileCallback		= std::function< bool ( const File & ) >;
+	using File = model_includes::File;
+	using FileCallback = std::function< bool( const File & ) >;
 
 	void insert( const Include & _include );
 

@@ -2,31 +2,31 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "scintilla/include/Sci_Position.h" impact on 249 file(s)
+1 : "scintilla/include/Sci_Position.h" impact on 249 files
 Included by:
-	1 : "scintilla/include/Scintilla.h" line 37, impact on 243 file(s)
-	2 : "scintilla/include/ILexer.h" line 11, impact on 141 file(s)
-	3 : "scintilla/include/ILoader.h" line 11, impact on 17 file(s)
+	1 : "scintilla/include/Scintilla.h" line 37, impact on 243 files
+	2 : "scintilla/include/ILexer.h" line 11, impact on 141 files
+	3 : "scintilla/include/ILoader.h" line 11, impact on 17 files
 	4 : "scintilla/test/unit/testSparseState.cxx" line 11
-2 : "scintilla/include/Scintilla.h" impact on 243 file(s)
+2 : "scintilla/include/Scintilla.h" impact on 243 files
 Included by:
-	1 : "PowerEditor/src/WinControls/shortcut/shortcut.h" line 32, impact on 82 file(s)
-	2 : "PowerEditor/src/Parameters.h" line 32, impact on 81 file(s)
-	3 : "PowerEditor/src/ScitillaComponent/ScintillaEditView.h" line 32, impact on 43 file(s)
-	4 : "PowerEditor/src/MISC/PluginsManager/PluginInterface.h" line 31, impact on 17 file(s)
-	5 : "scintilla/qt/ScintillaEditBase/ScintillaEditBase.h" line 22, impact on 2 file(s)
-	6 : "scintilla/qt/ScintillaEditBase/ScintillaQt.h" line 30, impact on 2 file(s)
+	1 : "PowerEditor/src/WinControls/shortcut/shortcut.h" line 32, impact on 82 files
+	2 : "PowerEditor/src/Parameters.h" line 32, impact on 81 files
+	3 : "PowerEditor/src/ScitillaComponent/ScintillaEditView.h" line 32, impact on 43 files
+	4 : "PowerEditor/src/MISC/PluginsManager/PluginInterface.h" line 31, impact on 17 files
+	5 : "scintilla/qt/ScintillaEditBase/ScintillaEditBase.h" line 22, impact on 2 files
+	6 : "scintilla/qt/ScintillaEditBase/ScintillaQt.h" line 30, impact on 2 files
 	7 : "PowerEditor/src/EncodingMapper.cpp" line 31
 	8 : "PowerEditor/src/ScitillaComponent/Buffer.cpp" line 33
 	9 : "scintilla/boostregex/BoostRegExSearch.cxx" line 16
 	10 : "scintilla/boostregex/UTF8DocumentIterator.cxx" line 7
 	... 10 of 161 details
-3 : "scintilla/include/SciLexer.h" impact on 214 file(s)
+3 : "scintilla/include/SciLexer.h" impact on 214 files
 Included by:
-	1 : "PowerEditor/src/ScitillaComponent/UserDefineLangReference.h" line 31, impact on 82 file(s)
-	2 : "PowerEditor/src/ScitillaComponent/UserDefineDialog.h" line 36, impact on 44 file(s)
-	3 : "PowerEditor/src/ScitillaComponent/ScintillaEditView.h" line 34, impact on 43 file(s)
-	4 : "scintilla/qt/ScintillaEditBase/ScintillaQt.h" line 63, impact on 2 file(s)
+	1 : "PowerEditor/src/ScitillaComponent/UserDefineLangReference.h" line 31, impact on 82 files
+	2 : "PowerEditor/src/ScitillaComponent/UserDefineDialog.h" line 36, impact on 44 files
+	3 : "PowerEditor/src/ScitillaComponent/ScintillaEditView.h" line 34, impact on 43 files
+	4 : "scintilla/qt/ScintillaEditBase/ScintillaQt.h" line 63, impact on 2 files
 	5 : "scintilla/cocoa/ScintillaCocoa.h" line 31
 	6 : "scintilla/gtk/ScintillaGTK.cxx" line 46
 	7 : "scintilla/gtk/ScintillaGTKAccessible.cxx" line 96
@@ -34,9 +34,9 @@ Included by:
 	9 : "scintilla/lexers/LexAPDL.cxx" line 18
 	10 : "scintilla/lexers/LexASY.cxx" line 13
 	... 10 of 132 details
-4 : "scintilla/include/ILexer.h" impact on 141 file(s)
+4 : "scintilla/include/ILexer.h" impact on 141 files
 Included by:
-	1 : "scintilla/qt/ScintillaEditBase/ScintillaQt.h" line 33, impact on 2 file(s)
+	1 : "scintilla/qt/ScintillaEditBase/ScintillaQt.h" line 33, impact on 2 files
 	2 : "scintilla/boostregex/BoostRegExSearch.cxx" line 19
 	3 : "scintilla/boostregex/UTF8DocumentIterator.cxx" line 6
 	4 : "scintilla/cocoa/ScintillaCocoa.h" line 28
@@ -47,33 +47,33 @@ Included by:
 	9 : "scintilla/lexers/LexASY.cxx" line 11
 	10 : "scintilla/lexers/LexAU3.cxx" line 60
 	... 10 of 139 details
-5 : "PowerEditor/src/MISC/Common/Common.h" impact on 139 file(s)
+5 : "PowerEditor/src/MISC/Common/Common.h" impact on 139 files
 Included by:
-	1 : "PowerEditor/src/TinyXml/tinyxml.h" line 64, impact on 89 file(s)
-	2 : "PowerEditor/src/TinyXml/tinyXmlA/tinyxmlA.h" line 63, impact on 88 file(s)
-	3 : "PowerEditor/src/WinControls/ContextMenu/ContextMenu.h" line 28, impact on 83 file(s)
-	4 : "PowerEditor/src/WinControls/ToolBar/ToolBar.h" line 31, impact on 82 file(s)
-	5 : "PowerEditor/src/WinControls/shortcut/shortcut.h" line 34, impact on 82 file(s)
-	6 : "PowerEditor/src/WinControls/AboutDlg/URLCtrl.h" line 32, impact on 50 file(s)
-	7 : "PowerEditor/src/WinControls/TabBar/ControlsTab.h" line 33, impact on 48 file(s)
-	8 : "PowerEditor/src/WinControls/DockingWnd/DockingDlgInterface.h" line 35, impact on 31 file(s)
-	9 : "PowerEditor/src/localization.h" line 31, impact on 29 file(s)
-	10 : "PowerEditor/src/WinControls/AnsiCharPanel/ListView.h" line 32, impact on 21 file(s)
+	1 : "PowerEditor/src/TinyXml/tinyxml.h" line 64, impact on 89 files
+	2 : "PowerEditor/src/TinyXml/tinyXmlA/tinyxmlA.h" line 63, impact on 88 files
+	3 : "PowerEditor/src/WinControls/ContextMenu/ContextMenu.h" line 28, impact on 83 files
+	4 : "PowerEditor/src/WinControls/ToolBar/ToolBar.h" line 31, impact on 82 files
+	5 : "PowerEditor/src/WinControls/shortcut/shortcut.h" line 34, impact on 82 files
+	6 : "PowerEditor/src/WinControls/AboutDlg/URLCtrl.h" line 32, impact on 50 files
+	7 : "PowerEditor/src/WinControls/TabBar/ControlsTab.h" line 33, impact on 48 files
+	8 : "PowerEditor/src/WinControls/DockingWnd/DockingDlgInterface.h" line 35, impact on 31 files
+	9 : "PowerEditor/src/localization.h" line 31, impact on 29 files
+	10 : "PowerEditor/src/WinControls/AnsiCharPanel/ListView.h" line 32, impact on 21 files
 	... 10 of 30 details
-6 : "PowerEditor/src/WinControls/Window.h" impact on 137 file(s)
+6 : "PowerEditor/src/WinControls/Window.h" impact on 137 files
 Included by:
-	1 : "PowerEditor/src/WinControls/StaticDialog/StaticDialog.h" line 29, impact on 109 file(s)
-	2 : "PowerEditor/src/WinControls/ToolBar/ToolBar.h" line 32, impact on 82 file(s)
-	3 : "PowerEditor/src/WinControls/TabBar/TabBar.h" line 40, impact on 53 file(s)
-	4 : "PowerEditor/src/WinControls/AboutDlg/URLCtrl.h" line 31, impact on 50 file(s)
-	5 : "PowerEditor/src/WinControls/ColourPicker/ColourPicker.h" line 31, impact on 49 file(s)
-	6 : "PowerEditor/src/WinControls/TabBar/ControlsTab.h" line 32, impact on 48 file(s)
-	7 : "PowerEditor/src/WinControls/AnsiCharPanel/ListView.h" line 31, impact on 21 file(s)
-	8 : "PowerEditor/src/WinControls/SplitterContainer/Splitter.h" line 29, impact on 21 file(s)
-	9 : "PowerEditor/src/WinControls/StatusBar/StatusBar.h" line 33, impact on 18 file(s)
-	10 : "PowerEditor/src/WinControls/DockingWnd/DockingManager.h" line 33, impact on 16 file(s)
+	1 : "PowerEditor/src/WinControls/StaticDialog/StaticDialog.h" line 29, impact on 109 files
+	2 : "PowerEditor/src/WinControls/ToolBar/ToolBar.h" line 32, impact on 82 files
+	3 : "PowerEditor/src/WinControls/TabBar/TabBar.h" line 40, impact on 53 files
+	4 : "PowerEditor/src/WinControls/AboutDlg/URLCtrl.h" line 31, impact on 50 files
+	5 : "PowerEditor/src/WinControls/ColourPicker/ColourPicker.h" line 31, impact on 49 files
+	6 : "PowerEditor/src/WinControls/TabBar/ControlsTab.h" line 32, impact on 48 files
+	7 : "PowerEditor/src/WinControls/AnsiCharPanel/ListView.h" line 31, impact on 21 files
+	8 : "PowerEditor/src/WinControls/SplitterContainer/Splitter.h" line 29, impact on 21 files
+	9 : "PowerEditor/src/WinControls/StatusBar/StatusBar.h" line 33, impact on 18 files
+	10 : "PowerEditor/src/WinControls/DockingWnd/DockingManager.h" line 33, impact on 16 files
 	... 10 of 20 details
-7 : "scintilla/lexlib/LexerModule.h" impact on 127 file(s)
+7 : "scintilla/lexlib/LexerModule.h" impact on 127 files
 Included by:
 	1 : "scintilla/gtk/ScintillaGTK.cxx" line 51
 	2 : "scintilla/gtk/ScintillaGTKAccessible.cxx" line 101
@@ -86,7 +86,7 @@ Included by:
 	9 : "scintilla/lexers/LexAbaqus.cxx" line 27
 	10 : "scintilla/lexers/LexAda.cxx" line 26
 	... 10 of 127 details
-8 : "scintilla/lexlib/LexAccessor.h" impact on 121 file(s)
+8 : "scintilla/lexlib/LexAccessor.h" impact on 121 files
 Included by:
 	1 : "scintilla/lexers/LexA68k.cxx" line 23
 	2 : "scintilla/lexers/LexAPDL.cxx" line 21
@@ -99,7 +99,7 @@ Included by:
 	9 : "scintilla/lexers/LexAsm.cxx" line 28
 	10 : "scintilla/lexers/LexAsn1.cxx" line 20
 	... 10 of 121 details
-9 : "scintilla/lexlib/WordList.h" impact on 121 file(s)
+9 : "scintilla/lexlib/WordList.h" impact on 121 files
 Included by:
 	1 : "scintilla/lexers/LexA68k.cxx" line 22
 	2 : "scintilla/lexers/LexAPDL.cxx" line 20
@@ -112,7 +112,7 @@ Included by:
 	9 : "scintilla/lexers/LexAsm.cxx" line 27
 	10 : "scintilla/lexers/LexAsn1.cxx" line 19
 	... 10 of 121 details
-10 : "scintilla/lexlib/CharacterSet.h" impact on 119 file(s)
+10 : "scintilla/lexlib/CharacterSet.h" impact on 119 files
 Included by:
 	1 : "scintilla/lexers/LexA68k.cxx" line 26
 	2 : "scintilla/lexers/LexAPDL.cxx" line 24

@@ -11,8 +11,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 ParserArg::ParserArg() = default;
@@ -20,16 +20,16 @@ ParserArg::~ParserArg() = default;
 
 //------------------------------------------------------------------------------
 
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+// cppcoreguidelines-avoid-c-arrays)
 void ParserArg::parse( int _argc, char * _argv[] )
 {
 	try
 	{
 		m_resultOpt = std::make_unique< cxxopts::ParseResult >(
-			getImpl().parse( _argc, _argv )
-		);
+			getImpl().parse( _argc, _argv ) );
 	}
-	catch ( const cxxopts::option_not_exists_exception & _exception )
+	catch( const cxxopts::option_not_exists_exception & _exception )
 	{
 		throw std::logic_error{ _exception.what() };
 	}
@@ -40,8 +40,7 @@ void ParserArg::parse( int _argc, char * _argv[] )
 void ParserArg::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const std::string & _defaultValue
-)
+	const std::string & _defaultValue )
 {
 	addArg( _fullname, _description, _defaultValue );
 }
@@ -51,8 +50,7 @@ void ParserArg::addArgument(
 void ParserArg::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const Strings & _defaultValues
-)
+	const Strings & _defaultValues )
 {
 	addArg( _fullname, _description, _defaultValues );
 }
@@ -62,8 +60,7 @@ void ParserArg::addArgument(
 void ParserArg::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	int _defaultValue
-)
+	int _defaultValue )
 {
 	addArg( _fullname, _description, _defaultValue );
 }
@@ -73,8 +70,7 @@ void ParserArg::addArgument(
 void ParserArg::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	bool _defaultValue
-)
+	bool _defaultValue )
 {
 	addArg( _fullname, _description, _defaultValue );
 }
@@ -84,8 +80,7 @@ void ParserArg::addArgument(
 void ParserArg::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const Path & _defaultValue
-)
+	const Path & _defaultValue )
 {
 	addArg( _fullname, _description, toString( _defaultValue ) );
 }
@@ -95,8 +90,7 @@ void ParserArg::addArgument(
 void ParserArg::addArgument(
 	std::string_view _fullname,
 	std::string_view _description,
-	const Paths & _defaultValues
-)
+	const Paths & _defaultValues )
 {
 	Strings strings{ toStrings( _defaultValues ) };
 	addArg( _fullname, _description, strings );
@@ -108,8 +102,7 @@ template< class _DefaultValue >
 void ParserArg::addArg(
 	std::string_view _fullname,
 	std::string_view _description,
-	const _DefaultValue & _defaultValues
-)
+	const _DefaultValue & _defaultValues )
 {
 	const std::string fullName{ _fullname };
 	const std::string description{ _description };
@@ -122,30 +115,24 @@ void ParserArg::addArg(
 //------------------------------------------------------------------------------
 
 void ParserArg::addArgument(
-	std::string_view _fullname,
-	std::string_view _description
-)
+	std::string_view _fullname, std::string_view _description )
 {
 	getImpl().add_options()(
-		std::string( _fullname ),
-		std::string( _description )
-	);
+		std::string( _fullname ), std::string( _description ) );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArg::StringOpt ParserArg::getArgumentStringValue(
-	std::string_view _arg
-) const
+ParserArg::StringOpt
+ParserArg::getArgumentStringValue( std::string_view _arg ) const
 {
 	return getArgValue< StringOpt >( _arg );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArg::StringsOpt ParserArg::getArgumentStringsValue(
-	std::string_view _arg
-) const
+ParserArg::StringsOpt
+ParserArg::getArgumentStringsValue( std::string_view _arg ) const
 {
 	return getArgValue< StringsOpt >( _arg );
 }
@@ -159,14 +146,16 @@ ParserArg::IntOpt ParserArg::getArgumentIntValue( std::string_view _arg ) const
 
 //------------------------------------------------------------------------------
 
-ParserArg::BoolOpt ParserArg::getArgumentBoolValue( std::string_view _arg ) const
+ParserArg::BoolOpt
+ParserArg::getArgumentBoolValue( std::string_view _arg ) const
 {
 	return getArgValue< BoolOpt >( _arg );
 }
 
 //------------------------------------------------------------------------------
 
-ParserArg::PathOpt ParserArg::getArgumentPathValue( std::string_view _arg ) const
+ParserArg::PathOpt
+ParserArg::getArgumentPathValue( std::string_view _arg ) const
 {
 	if( StringOpt stirngOpt = getArgumentStringValue( _arg ); stirngOpt )
 	{
@@ -178,7 +167,8 @@ ParserArg::PathOpt ParserArg::getArgumentPathValue( std::string_view _arg ) cons
 
 //------------------------------------------------------------------------------
 
-ParserArg::PathsOpt ParserArg::getArgumentPathsValue( std::string_view _arg ) const
+ParserArg::PathsOpt
+ParserArg::getArgumentPathsValue( std::string_view _arg ) const
 {
 	if( StringsOpt stringsOpt = getArgumentStringsValue( _arg ); stringsOpt )
 	{
@@ -222,9 +212,10 @@ _TypeOpt ParserArg::getArgValue( std::string_view _arg ) const
 		std::string argumentName{ _arg };
 		value_type value = ( *m_resultOpt )[argumentName].as< value_type >();
 		if constexpr(
-			std::is_same_v< _TypeOpt , StringOpt > ||
-			std::is_same_v< _TypeOpt , StringsOpt >
-		) // NOLINTNEXTLINE(google-readability-braces-around-statements)
+			std::is_same_v< _TypeOpt, StringOpt > ||
+			std::is_same_v<
+				_TypeOpt,
+				StringsOpt > ) // NOLINTNEXTLINE(google-readability-braces-around-statements)
 		{
 			return removeQuotes( value );
 		}
@@ -327,7 +318,7 @@ ParserArg::Strings ParserArg::removeQuotes( const Strings & _values )
 {
 	Strings newValues;
 	newValues.reserve( _values.size() );
-	for( std::string_view value : _values )
+	for( std::string_view value: _values )
 	{
 		std::string newValue = removeQuotes( value );
 		newValues.push_back( newValue );
@@ -341,7 +332,7 @@ ParserArg::Strings ParserArg::toStrings( const Paths & _paths )
 {
 	Strings result;
 	result.reserve( _paths.size() );
-	for( const Path & path : _paths )
+	for( const Path & path: _paths )
 	{
 		result.push_back( toString( path ) );
 	}
@@ -354,7 +345,7 @@ ParserArg::Paths ParserArg::toPaths( const Strings & _strings )
 {
 	Paths result;
 	result.reserve( _strings.size() );
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		result.push_back( str );
 	}

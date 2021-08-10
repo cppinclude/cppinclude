@@ -14,8 +14,8 @@ namespace application
 //------------------------------------------------------------------------------
 
 CantCreateReportImpl::CantCreateReportImpl( reporter::ReporterKind _kind )
-	:	BaseClass( resources::exceptions::CantCreateReport::Code )
-	,	m_kind{ _kind }
+	: BaseClass( resources::exceptions::CantCreateReport::Code )
+	, m_kind{ _kind }
 {
 }
 

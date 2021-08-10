@@ -5,8 +5,8 @@
 /*------------------------------------------------------------------------------
 
 TEST PLAN:
-1. Model doesn't have unresolved includes
-2. Several includes
+1 : Model doesn't have unresolved includes
+2 :  Several includes
 3. Relative paths
 4. Limits
 	4.1 Max files
@@ -14,11 +14,12 @@ TEST PLAN:
 	4.3 Limit equal to files count
 	4.4 Limit equal to details count
 5. Ordering
+6. Hide details
 
 ------------------------------------------------------------------------------*/
 
-namespace reporter::test {
-
+namespace reporter::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
@@ -66,15 +67,16 @@ BOOST_AUTO_TEST_CASE( t2_several_includes )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + toPath( classAFile )+ "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runA1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runA2file ) + "\" line: 1\n" +
-		"2. \"" + toPath( classBFile ) + "\" isn't resolved in:\n" +
-			"\t1. \"" + toPath( runB1file )+ "\" line: 1\n" +
-			"\t2. \"" + toPath( runB2file ) + "\" line: 1\n"
-	);
+		result, "Unresolved files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) + "\" line: 1\n" + "\t2 : \"" +
+					toPath( runA2file ) + "\" line: 1\n" + "2 : \"" +
+					toPath( classBFile ) + "\" isn't resolved in:\n" +
+					"\t1 : \"" + toPath( runB1file ) + "\" line: 1\n" +
+					"\t2 : \"" + toPath( runB2file ) + "\" line: 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -114,15 +116,16 @@ BOOST_AUTO_TEST_CASE( t3_relative_paths )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + classAFileName + "\" isn't resolved in:\n"
-			"\t1. \"" + runA1fileName + "\" line: 1\n" +
-			"\t2. \"" + runA2fileName + "\" line: 1\n" +
-		"2. \"" + classBFileName + "\" isn't resolved in:\n" +
-			"\t1. \"" + runB1fileName + "\" line: 1\n" +
-			"\t2. \"" + runB2fileName + "\" line: 1\n"
-	);
+		result, "Unresolved files:\n"
+				"1 : \"" +
+					classAFileName +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					runA1fileName + "\" line: 1\n" + "\t2 : \"" +
+					runA2fileName + "\" line: 1\n" + "2 : \"" + classBFileName +
+					"\" isn't resolved in:\n" + "\t1 : \"" + runB1fileName +
+					"\" line: 1\n" + "\t2 : \"" + runB2fileName +
+					"\" line: 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -154,13 +157,14 @@ BOOST_AUTO_TEST_CASE( t4_1_limit_max_files )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + toPath( classAFile ) + "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runA1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runA2file ) + "\" line: 1\n" +
-		"... 1 of 2 files\n"
-	);
+		result, "Unresolved file:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) + "\" line: 1\n" + "\t2 : \"" +
+					toPath( runA2file ) + "\" line: 1\n" +
+					"... 1 of 2 files\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -185,12 +189,13 @@ BOOST_AUTO_TEST_CASE( t4_2_limit_max_details )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + toPath( classAFile ) + "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runA1file ) + "\" line: 1\n" +
-			"\t... 1 of 2 details\n"
-	);
+		result, "Unresolved file:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) + "\" line: 1\n" +
+					"\t... 1 of 2 details\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -222,15 +227,20 @@ BOOST_AUTO_TEST_CASE( t4_3_limit_equal_to_files_count )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + toPath( classAFile ) + "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runA1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runA2file ) + "\" line: 1\n"
-		"2. \"" + toPath( classBFile ) + "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runB1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runB2file ) + "\" line: 1\n"
-	);
+		result, "Unresolved files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) + "\" line: 1\n" + "\t2 : \"" +
+					toPath( runA2file ) +
+					"\" line: 1\n"
+					"2 : \"" +
+					toPath( classBFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runB1file ) + "\" line: 1\n" + "\t2 : \"" +
+					toPath( runB2file ) + "\" line: 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -255,12 +265,15 @@ BOOST_AUTO_TEST_CASE( t4_4_limit_equal_to_details_count )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + toPath( classAFile ) + "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runA1file ) + "\" line: 1\n"
-			"\t2. \"" + toPath( runA2file ) + "\" line: 1\n"
-	);
+		result, "Unresolved file:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) +
+					"\" line: 1\n"
+					"\t2 : \"" +
+					toPath( runA2file ) + "\" line: 1\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -299,19 +312,90 @@ BOOST_AUTO_TEST_CASE( t5_ordering )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unresolved files:\n"
-		"1. \"" + toPath( classCFile ) + "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runC1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runC2file ) + "\" line: 1\n" +
-			"\t3. \"" + toPath( runC3file ) + "\" line: 1\n" +
-		"2. \"" + toPath( classAFile )+ "\" isn't resolved in:\n"
-			"\t1. \"" + toPath( runA1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runA2file ) + "\" line: 1\n" +
-		"3. \"" + toPath( classBFile ) + "\" isn't resolved in:\n" +
-			"\t1. \"" + toPath( runB1file ) + "\" line: 1\n" +
-			"\t2. \"" + toPath( runB2file ) + "\" line: 1\n"
-	);
+		result, "Unresolved files:\n"
+				"1 : \"" +
+					toPath( classCFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runC1file ) + "\" line: 1\n" + "\t2 : \"" +
+					toPath( runC2file ) + "\" line: 1\n" + "\t3 : \"" +
+					toPath( runC3file ) + "\" line: 1\n" + "2 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) + "\" line: 1\n" + "\t2 : \"" +
+					toPath( runA2file ) + "\" line: 1\n" + "3 : \"" +
+					toPath( classBFile ) + "\" isn't resolved in:\n" +
+					"\t1 : \"" + toPath( runB1file ) + "\" line: 1\n" +
+					"\t2 : \"" + toPath( runB2file ) + "\" line: 1\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t6_hide_details )
+{
+	// Init
+	const auto unresolvedStatus = IncludeStatus::Unresolved;
+
+	const std::string classAFile = "/test_project/classA.hpp";
+	const std::string classBFile = "/test_project/classB.hpp";
+
+	const std::string runA1file = "/test_project/runA1.cpp";
+	const std::string runA2file = "/test_project/runA2.cpp";
+
+	const std::string runB1file = "/test_project/runB1.cpp";
+	const std::string runB2file = "/test_project/runB2.cpp";
+
+	addInclude( runA1file, classAFile, unresolvedStatus );
+	addInclude( runA2file, classAFile, unresolvedStatus );
+
+	addInclude( runB1file, classBFile, unresolvedStatus );
+	addInclude( runB2file, classBFile, unresolvedStatus );
+
+	setShowDetails( false );
+
+	// Run
+	std::string result = runUnresolvedReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result, "Unresolved files:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved\n"
+					"2 : \"" +
+					toPath( classBFile ) + "\" isn't resolved\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t7_thousands_separator )
+{
+	// Init
+	const auto unresolvedStatus = IncludeStatus::Unresolved;
+	const auto includeType = IncludeType::User;
+	const int line = 1'100;
+
+	const std::string classAFile = "/test_project/classA.hpp";
+
+	const std::string runA1file = "/test_project/runA1.cpp";
+
+	addInclude(
+		runA1file, classAFile, unresolvedStatus, includeType,
+		LocationInfo{ line, 1, 1 } );
+
+	// Run
+	setSystemThousandsSeparator( ',' );
+	std::string result = runUnresolvedReporter();
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		result, "Unresolved file:\n"
+				"1 : \"" +
+					toPath( classAFile ) +
+					"\" isn't resolved in:\n"
+					"\t1 : \"" +
+					toPath( runA1file ) + "\" line: 1,100\n" );
 }
 
 //------------------------------------------------------------------------------

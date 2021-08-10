@@ -5,15 +5,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonObject;
-	class JsonAccessor;
+namespace json
+{
+class JsonObject;
+class JsonAccessor;
 }
 
 //------------------------------------------------------------------------------
 
-namespace json::test {
-
+namespace json::test
+{
 //------------------------------------------------------------------------------
 
 class JsonFixture

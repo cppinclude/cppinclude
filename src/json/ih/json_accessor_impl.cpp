@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-
+namespace json
+{
 //------------------------------------------------------------------------------
 
 JsonAccesorImpl::JsonAccesorImpl() = default;
@@ -15,9 +15,8 @@ JsonAccesorImpl::~JsonAccesorImpl() = default;
 
 //------------------------------------------------------------------------------
 
-JsonAccesorImpl::JsonObjectPtr JsonAccesorImpl::createJson(
-	std::istream & _stream
-)
+JsonAccesorImpl::JsonObjectPtr
+JsonAccesorImpl::createJson( std::istream & _stream )
 {
 	return JsonObjectImpl::createJson( _stream );
 }

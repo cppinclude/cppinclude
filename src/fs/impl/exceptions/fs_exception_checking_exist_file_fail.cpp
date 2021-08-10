@@ -4,17 +4,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 CheckingExistFileFailImpl::CheckingExistFileFailImpl(
-	Path _path,
-	const std::error_code & _code
-)
-	:	BaseClass( resources::exceptions::CheckingExistFileFail::Code )
-	,	m_path{ std::move( _path ) }
-	,	m_originMsg{ _code.message() }
+	Path _path, const std::error_code & _code )
+	: BaseClass( resources::exceptions::CheckingExistFileFail::Code )
+	, m_path{ std::move( _path ) }
+	, m_originMsg{ _code.message() }
 {
 }
 
@@ -23,12 +21,8 @@ CheckingExistFileFailImpl::CheckingExistFileFailImpl(
 std::string CheckingExistFileFailImpl::getMessage() const noexcept
 {
 	using namespace resources;
-	return
-			exceptions::CheckingExistFileFail::Msg
-		+	m_path.string()
-		+	" ."
-		+	m_originMsg
-	;
+	return exceptions::CheckingExistFileFail::Msg + m_path.string() + " ." +
+		   m_originMsg;
 }
 
 //------------------------------------------------------------------------------

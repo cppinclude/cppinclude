@@ -8,8 +8,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class BaseReporterImpl : public Reporter
@@ -31,11 +31,10 @@ protected:
 	CountType getMaxDetailsCount() const;
 	bool getShowStdFiles() const;
 	bool getShowOnlyStdHeaders() const;
+	bool getShowDetails() const;
 
-	static std::string getPathWithoutProject(
-		const Path & _filePath,
-		const Path & _dirPath
-	);
+	static std::string
+	getPathWithoutProject( const Path & _filePath, const Path & _dirPath );
 
 	static bool isFromSameDirectory( const Path & _path1, const Path & _path2 );
 
@@ -43,19 +42,16 @@ protected:
 
 	bool isLimitFiles( CountType _currentNumber ) const;
 	bool isLimitFilesWithOriginSize(
-		CountType _currentNumber,
-		CountType _originSize
-	) const;
-	void printFileLimitLine(
-		CountType _filesCount,
-		std::ostream & _stream
-	) const;
+		CountType _currentNumber, CountType _originSize ) const;
+	void
+	printFileLimitLine( CountType _filesCount, std::ostream & _stream ) const;
 
 	bool isLimitDetails( CountType _currentNumber ) const;
 	void printDetailsLimitLine(
-		CountType _detailsCount,
-		std::ostream & _stream
-	) const;
+		CountType _detailsCount, std::ostream & _stream ) const;
+
+	bool isPluralFiles( std::size_t _currentCount ) const;
+	bool isPluralDetails( std::size_t _currentCount ) const;
 
 private:
 	static bool isLimit( CountType _currentNumber, CountType _limit );

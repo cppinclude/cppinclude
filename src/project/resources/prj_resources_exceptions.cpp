@@ -2,18 +2,18 @@
 
 //------------------------------------------------------------------------------
 
-namespace project::resources::exceptions {
-
+namespace project::resources::exceptions
+{
 //------------------------------------------------------------------------------
 
-	const char * const ModuleName = "PROJECT";
+const char * const ModuleName = "PROJECT";
 
 //------------------------------------------------------------------------------
 
 namespace InvalidRegex
 {
-	const char * const Code		= "INVALID_REGEX";
-	const char * const Msg		= "Invalid regex: ";
+const char * const Code = "INVALID_REGEX";
+const char * const Msg = "Invalid regex: ";
 }
 
 //------------------------------------------------------------------------------

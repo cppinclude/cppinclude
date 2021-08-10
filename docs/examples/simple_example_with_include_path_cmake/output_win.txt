@@ -2,31 +2,31 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "..\lib\char_kind.hpp" impact on 11 file(s)
+1 : "..\lib\char_kind.hpp" impact on 11 files
 Included by:
-	1 : "..\lib\base\base_char.hpp" line 3, impact on 10 file(s)
-2 : "..\lib\base\base_char.hpp" impact on 10 file(s)
+	1 : "..\lib\base\base_char.hpp" line 3, impact on 10 files
+2 : "..\lib\base\base_char.hpp" impact on 10 files
 Included by:
-	1 : "..\lib\base\base_char_factory.hpp" line 3, impact on 5 file(s)
-	2 : "..\lib\a\char_a.hpp" line 3, impact on 2 file(s)
-	3 : "..\lib\b\char_b.hpp" line 3, impact on 2 file(s)
-3 : "..\lib\base\base_char_factory.hpp" impact on 5 file(s)
+	1 : "..\lib\base\base_char_factory.hpp" line 3, impact on 5 files
+	2 : "..\lib\a\char_a.hpp" line 3, impact on 2 files
+	3 : "..\lib\b\char_b.hpp" line 3, impact on 2 files
+3 : "..\lib\base\base_char_factory.hpp" impact on 5 files
 Included by:
-	1 : "..\lib\a\char_a_factory.hpp" line 3, impact on 2 file(s)
-	2 : "..\lib\b\char_b_factory.hpp" line 3, impact on 2 file(s)
-4 : "..\lib\a\char_a.hpp" impact on 2 file(s)
+	1 : "..\lib\a\char_a_factory.hpp" line 3, impact on 2 files
+	2 : "..\lib\b\char_b_factory.hpp" line 3, impact on 2 files
+4 : "..\lib\a\char_a.hpp" impact on 2 files
 Included by:
 	1 : "..\lib\a\char_a.cpp" line 1
 	2 : "..\lib\a\char_a_factory.cpp" line 3
-5 : "..\lib\a\char_a_factory.hpp" impact on 2 file(s)
+5 : "..\lib\a\char_a_factory.hpp" impact on 2 files
 Included by:
 	1 : "..\lib\a\char_a_factory.cpp" line 1
 	2 : "..\main.cpp" line 1
-6 : "..\lib\b\char_b.hpp" impact on 2 file(s)
+6 : "..\lib\b\char_b.hpp" impact on 2 files
 Included by:
 	1 : "..\lib\b\char_b.cpp" line 1
 	2 : "..\lib\b\char_b_factory.cpp" line 3
-7 : "..\lib\b\char_b_factory.hpp" impact on 2 file(s)
+7 : "..\lib\b\char_b_factory.hpp" impact on 2 files
 Included by:
 	1 : "..\lib\b\char_b_factory.cpp" line 1
 	2 : "..\main.cpp" line 2

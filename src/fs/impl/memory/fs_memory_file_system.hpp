@@ -7,8 +7,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::memory {
-
+namespace fs::memory
+{
 class MemoryFolder;
 
 //------------------------------------------------------------------------------
@@ -20,10 +20,8 @@ public:
 	FilePtr createFile( const Path & _path ) override;
 	bool isExistFile( const Path & _path ) const override;
 
-	void forEachItem(
-		const Path & _dirPath,
-		ItemCallback _callback
-	) const override;
+	void
+	forEachItem( const Path & _dirPath, ItemCallback _callback ) const override;
 
 	Path getCurrentPath() const override;
 	Path toAbsolute( const Path & _path ) const override;

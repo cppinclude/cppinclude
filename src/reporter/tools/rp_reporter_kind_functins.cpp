@@ -18,8 +18,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 ReporterKind toReporterKind( std::string_view _str )
@@ -27,14 +27,15 @@ ReporterKind toReporterKind( std::string_view _str )
 	using namespace resources;
 
 	constexpr int ReporterKindCount = 5;
-	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
+	static_assert(
+		static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 
 	static std::unordered_map< std::string, reporter::ReporterKind > names{
-		{ unresolved_report::Name,		ReporterKind::Unresolved },
-		{ most_impact_report::Name,		ReporterKind::MostImpact },
-		{ unincluded_report::Name,		ReporterKind::Unincluded},
-		{ dump_reporter::Name,			ReporterKind::Dump },
-		{ different_type_report::Name,	ReporterKind::DifferentType },
+		{ unresolved_report::Name, ReporterKind::Unresolved },
+		{ most_impact_report::Name, ReporterKind::MostImpact },
+		{ unincluded_report::Name, ReporterKind::Unincluded },
+		{ dump_reporter::Name, ReporterKind::Dump },
+		{ different_type_report::Name, ReporterKind::DifferentType },
 	};
 
 	const std::string str{ _str };
@@ -53,16 +54,22 @@ std::string reporterKindToString( ReporterKind _kind )
 	using namespace resources;
 
 	constexpr int ReporterKindCount = 5;
-	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
+	static_assert(
+		static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 
 	switch( _kind )
 	{
-		case ReporterKind::MostImpact	: return most_impact_report::Name;
-		case ReporterKind::Unresolved	: return unresolved_report::Name;
-		case ReporterKind::Dump			: return dump_reporter::Name;
-		case ReporterKind::Unincluded	: return unincluded_report::Name;
-		case ReporterKind::DifferentType: return different_type_report::Name;
-		case ReporterKind::Count		:
+		case ReporterKind::MostImpact:
+			return most_impact_report::Name;
+		case ReporterKind::Unresolved:
+			return unresolved_report::Name;
+		case ReporterKind::Dump:
+			return dump_reporter::Name;
+		case ReporterKind::Unincluded:
+			return unincluded_report::Name;
+		case ReporterKind::DifferentType:
+			return different_type_report::Name;
+		case ReporterKind::Count:
 		{
 			INTERNAL_CHECK_WARRING( false );
 			return "";

@@ -2,87 +2,87 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "include\vlc_arrays.h" impact on 1581 file(s)
+1 : "include\vlc_arrays.h" impact on 1 581 files
 Included by:
-	1 : "include\vlc_common.h" line 779, impact on 1569 file(s)
-	2 : "include\vlc_events.h" line 28, impact on 424 file(s)
-	3 : "include\vlc_extensions.h" line 28, impact on 15 file(s)
-	4 : "include\vlc_http.h" line 37, impact on 12 file(s)
-	5 : "modules\text_renderer\freetype\freetype.h" line 43, impact on 10 file(s)
-	6 : "include\vlc_addons.h" line 24, impact on 9 file(s)
-	7 : "include\vlc_fingerprinter.h" line 27, impact on 6 file(s)
-	8 : "modules\lua\extension.h" line 28, impact on 3 file(s)
-	9 : "src\input\mrl_helpers.h" line 29, impact on 3 file(s)
+	1 : "include\vlc_common.h" line 779, impact on 1 569 files
+	2 : "include\vlc_events.h" line 28, impact on 424 files
+	3 : "include\vlc_extensions.h" line 28, impact on 15 files
+	4 : "include\vlc_http.h" line 37, impact on 12 files
+	5 : "modules\text_renderer\freetype\freetype.h" line 43, impact on 10 files
+	6 : "include\vlc_addons.h" line 24, impact on 9 files
+	7 : "include\vlc_fingerprinter.h" line 27, impact on 6 files
+	8 : "modules\lua\extension.h" line 28, impact on 3 files
+	9 : "src\input\mrl_helpers.h" line 29, impact on 3 files
 	10 : "modules\demux\adaptive\playlist\BaseAdaptationSet.cpp" line 33
 	... 10 of 29 details
-2 : "include\vlc_threads.h" impact on 1573 file(s)
+2 : "include\vlc_threads.h" impact on 1 573 files
 Included by:
-	1 : "include\vlc_common.h" line 409, impact on 1569 file(s)
-	2 : "modules\gui\qt\util\singleton.hpp" line 27, impact on 60 file(s)
-	3 : "include\vlc_interrupt.h" line 28, impact on 57 file(s)
-	4 : "modules\demux\hls\playlist\M3U8.hpp" line 25, impact on 6 file(s)
-	5 : "modules\demux\mkv\Ebml_dispatcher.hpp" line 31, impact on 3 file(s)
+	1 : "include\vlc_common.h" line 409, impact on 1 569 files
+	2 : "modules\gui\qt\util\singleton.hpp" line 27, impact on 60 files
+	3 : "include\vlc_interrupt.h" line 28, impact on 57 files
+	4 : "modules\demux\hls\playlist\M3U8.hpp" line 25, impact on 6 files
+	5 : "modules\demux\mkv\Ebml_dispatcher.hpp" line 31, impact on 3 files
 	6 : "modules\codec\omxil\mediacodec.c" line 40
 	7 : "modules\codec\x265.c" line 33
 	8 : "modules\demux\adaptive\PlaylistManager.cpp" line 42
 	9 : "modules\demux\adaptive\http\Downloader.cpp" line 26
 	10 : "modules\gui\skins2\src\skin_main.cpp" line 34
 	... 10 of 18 details
-3 : "include\vlc_configuration.h" impact on 1570 file(s)
+3 : "include\vlc_configuration.h" impact on 1 570 files
 Included by:
-	1 : "include\vlc_common.h" line 1025, impact on 1569 file(s)
-	2 : "modules\codec\avcodec\avcommon.h" line 32, impact on 17 file(s)
+	1 : "include\vlc_common.h" line 1 025, impact on 1 569 files
+	2 : "modules\codec\avcodec\avcommon.h" line 32, impact on 17 files
 	3 : "modules\access\vdr.c" line 64
 	4 : "modules\gui\qt\components\simple_preferences.cpp" line 34
 	5 : "modules\hw\d3d11\d3d11_filters.c" line 31
 	6 : "src\config\core.c" line 33
 	7 : "src\win32\dirs.c" line 44
 	8 : "test\src\config\chain.c" line 30
-4 : "include\vlc_main.h" impact on 1570 file(s)
+4 : "include\vlc_main.h" impact on 1 570 files
 Included by:
-	1 : "include\vlc_common.h" line 1024, impact on 1569 file(s)
-5 : "include\vlc_messages.h" impact on 1570 file(s)
+	1 : "include\vlc_common.h" line 1 024, impact on 1 569 files
+5 : "include\vlc_messages.h" impact on 1 570 files
 Included by:
-	1 : "include\vlc_common.h" line 1021, impact on 1569 file(s)
+	1 : "include\vlc_common.h" line 1 021, impact on 1 569 files
 	2 : "modules\access\rtsp\real.c" line 33
 	3 : "modules\access\rtsp\real_rmff.c" line 29
 	4 : "modules\access\rtsp\rtsp.c" line 33
 	5 : "src\misc\httpcookies.c" line 34
-6 : "include\vlc_mtime.h" impact on 1570 file(s)
+6 : "include\vlc_mtime.h" impact on 1 570 files
 Included by:
-	1 : "include\vlc_common.h" line 408, impact on 1569 file(s)
+	1 : "include\vlc_common.h" line 408, impact on 1 569 files
 	2 : "modules\control\dbus\dbus.c" line 63
 	3 : "modules\video_filter\oldmovie.c" line 39
 	4 : "modules\video_filter\vhs.c" line 37
 	5 : "test\libvlc\media_list_player.c" line 28
-7 : "include\vlc_objects.h" impact on 1570 file(s)
+7 : "include\vlc_objects.h" impact on 1 570 files
 Included by:
-	1 : "include\vlc_common.h" line 1022, impact on 1569 file(s)
-8 : "include\vlc_variables.h" impact on 1570 file(s)
+	1 : "include\vlc_common.h" line 1 022, impact on 1 569 files
+8 : "include\vlc_variables.h" impact on 1 570 files
 Included by:
-	1 : "include\vlc_common.h" line 1023, impact on 1569 file(s)
-	2 : "modules\codec\avcodec\avcommon.h" line 33, impact on 17 file(s)
+	1 : "include\vlc_common.h" line 1 023, impact on 1 569 files
+	2 : "modules\codec\avcodec\avcommon.h" line 33, impact on 17 files
 	3 : "modules\access\dsm\access.c" line 35
-9 : "include\vlc_common.h" impact on 1569 file(s)
+9 : "include\vlc_common.h" impact on 1 569 files
 Included by:
-	1 : "include\vlc_viewpoint.h" line 24, impact on 974 file(s)
-	2 : "include\vlc_es.h" line 27, impact on 971 file(s)
-	3 : "modules\gui\skins2\src\skin_common.hpp" line 32, impact on 230 file(s)
-	4 : "modules\gui\qt\qt.hpp" line 32, impact on 134 file(s)
-	5 : "include\vlc_vout_window.h" line 29, impact on 91 file(s)
-	6 : "modules\demux\adaptive\http\ConnectionParams.hpp" line 23, impact on 78 file(s)
-	7 : "modules\demux\adaptive\http\BytesRange.hpp" line 23, impact on 77 file(s)
-	8 : "modules\demux\adaptive\playlist\Url.hpp" line 25, impact on 73 file(s)
-	9 : "modules\demux\adaptive\Time.hpp" line 23, impact on 67 file(s)
-	10 : "include\vlc_bits.h" line 28, impact on 45 file(s)
+	1 : "include\vlc_viewpoint.h" line 24, impact on 974 files
+	2 : "include\vlc_es.h" line 27, impact on 971 files
+	3 : "modules\gui\skins2\src\skin_common.hpp" line 32, impact on 230 files
+	4 : "modules\gui\qt\qt.hpp" line 32, impact on 134 files
+	5 : "include\vlc_vout_window.h" line 29, impact on 91 files
+	6 : "modules\demux\adaptive\http\ConnectionParams.hpp" line 23, impact on 78 files
+	7 : "modules\demux\adaptive\http\BytesRange.hpp" line 23, impact on 77 files
+	8 : "modules\demux\adaptive\playlist\Url.hpp" line 25, impact on 73 files
+	9 : "modules\demux\adaptive\Time.hpp" line 23, impact on 67 files
+	10 : "include\vlc_bits.h" line 28, impact on 45 files
 	... 10 of 982 details
-10 : "include\vlc_text_style.h" impact on 977 file(s)
+10 : "include\vlc_text_style.h" impact on 977 files
 Included by:
-	1 : "include\vlc_es.h" line 29, impact on 971 file(s)
-	2 : "include\vlc_subpicture.h" line 33, impact on 482 file(s)
-	3 : "modules\codec\substext.h" line 25, impact on 10 file(s)
-	4 : "modules\text_renderer\freetype\freetype.h" line 42, impact on 10 file(s)
-	5 : "modules\spu\dynamicoverlay\dynamicoverlay.h" line 29, impact on 5 file(s)
+	1 : "include\vlc_es.h" line 29, impact on 971 files
+	2 : "include\vlc_subpicture.h" line 33, impact on 482 files
+	3 : "modules\codec\substext.h" line 25, impact on 10 files
+	4 : "modules\text_renderer\freetype\freetype.h" line 42, impact on 10 files
+	5 : "modules\spu\dynamicoverlay\dynamicoverlay.h" line 29, impact on 5 files
 	6 : "modules\codec\ttml\substtml.c" line 31
 	7 : "modules\codec\webvtt\css_style.c" line 25
 	8 : "modules\text_renderer\freetype\freetype.c" line 43
@@ -90,5 +90,5 @@ Included by:
 	10 : "modules\text_renderer\freetype\text_layout.c" line 44
 	... 10 of 11 details
 ... 10 of 725 files
-Unincluded headers:
+Unincluded header:
 1 : "modules\audio_output\coreaudio_common.h"

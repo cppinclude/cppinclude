@@ -17,24 +17,21 @@
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 ConfigurationFileLoader::ConfigurationFileLoader(
-	JsonAccessor & _jsonAccessor,
-	const fs::FileSystem & _fs
-)
-	:	m_jsonAccessor{ _jsonAccessor }
-	,	m_fs{ _fs }
+	JsonAccessor & _jsonAccessor, const fs::FileSystem & _fs )
+	: m_jsonAccessor{ _jsonAccessor }
+	, m_fs{ _fs }
 {
 }
 
 //------------------------------------------------------------------------------
 
-ConfigurationFileLoader::ConfigurationFilePtr ConfigurationFileLoader::load(
-	const ParserArgWrapper & _arguments
-)
+ConfigurationFileLoader::ConfigurationFilePtr
+ConfigurationFileLoader::load( const ParserArgWrapper & _arguments )
 {
 	auto configurationPathOpt = _arguments.getConfigurationFile();
 	if( !configurationPathOpt )
@@ -60,9 +57,8 @@ ConfigurationFileLoader::ConfigurationFilePtr ConfigurationFileLoader::load(
 
 //------------------------------------------------------------------------------
 
-ConfigurationFileLoader::ConfigurationFilePtr ConfigurationFileLoader::load(
-	fs::File & _file
-)
+ConfigurationFileLoader::ConfigurationFilePtr
+ConfigurationFileLoader::load( fs::File & _file )
 {
 	auto jsonObjectPtr = m_jsonAccessor.createJson( _file.toInputStream() );
 	INTERNAL_CHECK_WARRING( jsonObjectPtr )

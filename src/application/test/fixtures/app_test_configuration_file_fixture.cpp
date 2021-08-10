@@ -16,8 +16,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 ConfigurationfileFixture::ConfigurationfileFixture() = default;
@@ -37,7 +37,8 @@ void ConfigurationfileFixture::loadFromJson( std::string_view _json )
 
 //------------------------------------------------------------------------------
 
-ConfigurationfileFixture::PathOpt ConfigurationfileFixture::getProjectDir() const
+ConfigurationfileFixture::PathOpt
+ConfigurationfileFixture::getProjectDir() const
 {
 	return getConfigurationFile().getProjectDir();
 }
@@ -108,7 +109,8 @@ ConfigurationfileFixture::StringOpt ConfigurationfileFixture::getReports() const
 
 //------------------------------------------------------------------------------
 
-ConfigurationfileFixture::IntOpt ConfigurationfileFixture::getReportLimit() const
+ConfigurationfileFixture::IntOpt
+ConfigurationfileFixture::getReportLimit() const
 {
 	return getConfigurationFile().getReportLimit();
 }
@@ -139,6 +141,22 @@ ConfigurationfileFixture::getShowOnlyStdHeaders() const
 
 //------------------------------------------------------------------------------
 
+ConfigurationfileFixture::BoolOpt
+ConfigurationfileFixture::getShowDetails() const
+{
+	return getConfigurationFile().getShowDetails();
+}
+
+//------------------------------------------------------------------------------
+
+ConfigurationfileFixture::StringOpt
+ConfigurationfileFixture::getThousandsSeparator() const
+{
+	return getConfigurationFile().getThousandsSeparator();
+}
+
+//------------------------------------------------------------------------------
+
 ConfigurationfileFixture::StringOpt
 ConfigurationfileFixture::toStirng( const StringsOpt & _arrayOpt )
 {
@@ -149,7 +167,7 @@ ConfigurationfileFixture::toStirng( const StringsOpt & _arrayOpt )
 
 	std::string result;
 
-	for( const std::string & str : *_arrayOpt )
+	for( const std::string & str: *_arrayOpt )
 	{
 		if( !result.empty() )
 		{
@@ -191,7 +209,7 @@ ConfigurationfileFixture::arrayToString( const _ArrayTypeOpt & _arrayOpt )
 
 	Strings strings;
 
-	for( const auto & value : *_arrayOpt )
+	for( const auto & value: *_arrayOpt )
 	{
 		const std::string valueStr = toString( value );
 		strings.push_back( valueStr );

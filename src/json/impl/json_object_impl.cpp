@@ -6,13 +6,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-
+namespace json
+{
 //------------------------------------------------------------------------------
 
-JsonObjectImpl::JsonObjectPtr JsonObjectImpl::createJson(
-	std::istream & _stream
-)
+JsonObjectImpl::JsonObjectPtr
+JsonObjectImpl::createJson( std::istream & _stream )
 {
 	JsonImpl json;
 	_stream >> json;
@@ -23,15 +22,14 @@ JsonObjectImpl::JsonObjectPtr JsonObjectImpl::createJson(
 //------------------------------------------------------------------------------
 
 JsonObjectImpl::JsonObjectImpl( JsonImpl && _jsonImpl )
-	:	m_jsonImpl( std::move( _jsonImpl ))
+	: m_jsonImpl( std::move( _jsonImpl ) )
 {
 }
 
 //------------------------------------------------------------------------------
 
-JsonObjectImpl::JsonValuePtr JsonObjectImpl::getAttributeValue(
-	std::string_view _name
-) const
+JsonObjectImpl::JsonValuePtr
+JsonObjectImpl::getAttributeValue( std::string_view _name ) const
 {
 	if( m_jsonImpl.contains( _name ) )
 	{

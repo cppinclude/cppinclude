@@ -26,11 +26,13 @@ TEST PLAN
 12. Show std files
 13. Compile commands
 14. Show only std files
+15. Show details
+16. Thousands separator
 
 -------------------------------------------------------------------------------*/
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
@@ -196,7 +198,8 @@ BOOST_AUTO_TEST_CASE( t9_3_report_dump )
 BOOST_AUTO_TEST_CASE( t9_4_several_reports )
 {
 	// Run
-	loadFromJson( R"({ "report" : [ "unresolved" , "most_impact", "dump" ] })" );
+	loadFromJson(
+		R"({ "report" : [ "unresolved" , "most_impact", "dump" ] })" );
 
 	// Check
 	auto valueOpt = getReports();
@@ -273,6 +276,34 @@ BOOST_AUTO_TEST_CASE( t14_show_only_std_headers )
 
 	BOOST_REQUIRE( valueOpt.has_value() );
 	BOOST_CHECK_EQUAL( *valueOpt, true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t15_show_details )
+{
+	// Run
+	loadFromJson( R"({ "show_details" : true })" );
+
+	// Check
+	auto valueOpt = getShowDetails();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, true );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t16_thousands_separator )
+{
+	// Run
+	loadFromJson( R"({ "thousands_separator" : "," })" );
+
+	// Check
+	auto valueOpt = getThousandsSeparator();
+
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "," );
 }
 
 //------------------------------------------------------------------------------

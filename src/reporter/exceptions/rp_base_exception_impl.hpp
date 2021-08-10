@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 template< class _BaseException >
@@ -17,7 +17,7 @@ public:
 	using BaseClass = ::exception::ExceptionImpl< _BaseException >;
 
 	explicit BaseExceptionImpl( std::string_view _code )
-		:	BaseClass{ resources::exceptions::ModuleName, _code }
+		: BaseClass{ resources::exceptions::ModuleName, _code }
 	{
 	}
 };

@@ -10,8 +10,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::memory {
-
+namespace fs::memory
+{
 //------------------------------------------------------------------------------
 
 MemoryFileSystem::FilePtr MemoryFileSystem::openFile( const Path & _path ) const
@@ -63,9 +63,7 @@ MemoryFileSystem::Path MemoryFileSystem::toAbsolute( const Path & _path ) const
 //------------------------------------------------------------------------------
 
 void MemoryFileSystem::forEachItem(
-	const Path & _dirPath,
-	ItemCallback _callback
-) const
+	const Path & _dirPath, ItemCallback _callback ) const
 {
 	FolderPtr folderPtr = getFolder( _dirPath );
 	INTERNAL_CHECK_WARRING( folderPtr != nullptr );
@@ -75,13 +73,10 @@ void MemoryFileSystem::forEachItem(
 	}
 
 	MemoryFolder & folder = *folderPtr;
-	folder.forEachItem(
-		[&]( std::string_view _name, ItemType _type )
-		{
-			Path path = _dirPath / _name;
-			_callback( path, _type );
-		}
-	);
+	folder.forEachItem( [&]( std::string_view _name, ItemType _type ) {
+		Path path = _dirPath / _name;
+		_callback( path, _type );
+	} );
 }
 
 //------------------------------------------------------------------------------
@@ -90,8 +85,7 @@ MemoryFolder & MemoryFileSystem::ensureRoot( const Path & _path )
 {
 	auto pair = m_roots.try_emplace(
 		_path,
-		FolderPtr{ std::make_shared< MemoryFolder > ( _path.string() ) }
-	);
+		FolderPtr{ std::make_shared< MemoryFolder >( _path.string() ) } );
 	auto it = pair.first;
 	FolderPtr & rootPtr = it->second;
 	INTERNAL_CHECK_ERROR( rootPtr );
@@ -100,7 +94,8 @@ MemoryFolder & MemoryFileSystem::ensureRoot( const Path & _path )
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::FolderPtr MemoryFileSystem::getRoot( const Path & _path ) const
+MemoryFileSystem::FolderPtr
+MemoryFileSystem::getRoot( const Path & _path ) const
 {
 	if( auto it = m_roots.find( _path ); it != m_roots.end() )
 	{
@@ -112,7 +107,8 @@ MemoryFileSystem::FolderPtr MemoryFileSystem::getRoot( const Path & _path ) cons
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::FolderPtr MemoryFileSystem::getFolder( const Path & _path ) const
+MemoryFileSystem::FolderPtr
+MemoryFileSystem::getFolder( const Path & _path ) const
 {
 	FolderPtr rootPtr = getRoot( _path.root_directory() );
 	if( !rootPtr )
@@ -122,7 +118,7 @@ MemoryFileSystem::FolderPtr MemoryFileSystem::getFolder( const Path & _path ) co
 
 	FolderPtr currentFolder = rootPtr;
 	const Path pathWitoutRoot = _path.relative_path();
-	for( const auto & currentName : pathWitoutRoot )
+	for( const auto & currentName: pathWitoutRoot )
 	{
 		if( stdfs::is_dir_filename( currentName ) )
 		{
@@ -148,7 +144,7 @@ MemoryFolder & MemoryFileSystem::ensureFolder( const Path & _path )
 	Path pathWitoutRoot = _path.relative_path();
 	MemoryFolder & root = ensureRoot( _path.root_directory() );
 	MemoryFolder * currentFolder = &root;
-	for( const auto & currentName : pathWitoutRoot )
+	for( const auto & currentName: pathWitoutRoot )
 	{
 		const std::string folderName = currentName.string();
 		if( folderName.empty() )
@@ -167,7 +163,8 @@ MemoryFolder & MemoryFileSystem::ensureFolder( const Path & _path )
 
 //------------------------------------------------------------------------------
 
-MemoryFileSystem::Path MemoryFileSystem::toAbsolutePath( const Path & _path ) const
+MemoryFileSystem::Path
+MemoryFileSystem::toAbsolutePath( const Path & _path ) const
 {
 	if( !_path.is_absolute() )
 	{

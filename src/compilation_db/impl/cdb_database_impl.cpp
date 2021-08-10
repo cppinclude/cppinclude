@@ -8,8 +8,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 DatabaseImpl::DatabaseImpl() = default;
@@ -36,12 +36,10 @@ const CommandObject & DatabaseImpl::getObject( IndexType _index ) const
 void DatabaseImpl::addCommand(
 	std::string_view _directory,
 	std::string_view _command,
-	std::string_view _file
-)
+	std::string_view _file )
 {
 	m_objects.push_back(
-		std::make_unique< CommandObjectImpl >( _directory, _command, _file )
-	);
+		std::make_unique< CommandObjectImpl >( _directory, _command, _file ) );
 }
 
 //------------------------------------------------------------------------------

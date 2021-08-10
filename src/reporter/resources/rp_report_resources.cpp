@@ -2,12 +2,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter::resources {
-
+namespace reporter::resources
+{
 //------------------------------------------------------------------------------
 
-	const char * const LimitLineFmt			= "... {} of {} files\n";
-	const char * const LimitDetailLineFmt	= "\t... {} of {} details\n";
+const char * const LimitLineFmt = "... {:L} of {:L} files\n";
+const char * const LimitDetailLineFmt = "\t... {:L} of {:L} details\n";
 
 //------------------------------------------------------------------------------
 

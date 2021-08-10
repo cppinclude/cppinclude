@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdfwd/set>
 #include <std_fs>
+#include <stdfwd/set>
 #include <stdfwd/string>
 #include <stdfwd/string_view>
 
@@ -9,34 +9,39 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-	class Project;
-	class Accessor;
+namespace cmake_project
+{
+class Project;
+class Accessor;
 }
 
-namespace compilation_db {
-	class Accessor;
+namespace compilation_db
+{
+class Accessor;
 }
 
-namespace fs {
-	class FileSystem;
-	class FileSystemAccessor;
+namespace fs
+{
+class FileSystem;
+class FileSystemAccessor;
 }
 
-namespace application {
-	class CMakeProjectBuilder;
-	class ParserArgWrapper;
-	class ConfigurationFile;
+namespace application
+{
+class CMakeProjectBuilder;
+class ParserArgWrapper;
+class ConfigurationFile;
 }
 
-namespace json {
-	class JsonAccessor;
+namespace json
+{
+class JsonAccessor;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 class CMakeProjectBuilderFixture

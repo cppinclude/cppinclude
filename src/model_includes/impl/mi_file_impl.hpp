@@ -10,8 +10,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 class FileImpl final : public File
@@ -39,8 +39,7 @@ private:
 	IncludeIndex getCountRecursive(
 		IncludeIndex ( File::*_getCount )() const,
 		const Include & ( File::*_getInclude )( IncludeIndex _index ) const,
-		const File & ( Include::*_getFile )() const
-	) const;
+		const File & ( Include::*_getFile )() const ) const;
 
 private:
 	IncludesContainer m_includes;

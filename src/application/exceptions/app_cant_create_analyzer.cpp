@@ -9,10 +9,9 @@ namespace application
 //------------------------------------------------------------------------------
 
 CantCreateAnalyzerImpl::CantCreateAnalyzerImpl()
-	:	BaseClass(
-			resources::exceptions::CantCreateAnalyzer::Code,
-			resources::exceptions::CantCreateAnalyzer::Msg
-	)
+	: BaseClass(
+		  resources::exceptions::CantCreateAnalyzer::Code,
+		  resources::exceptions::CantCreateAnalyzer::Msg )
 {
 }
 

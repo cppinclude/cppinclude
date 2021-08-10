@@ -22,21 +22,19 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 DifferentTypeReporter::DifferentTypeReporter( SettingsPtr && _settingsPtr )
-	:	BaseClass{ std::move( _settingsPtr ) }
+	: BaseClass{ std::move( _settingsPtr ) }
 {
 }
 
 //------------------------------------------------------------------------------
 
 void DifferentTypeReporter::report(
-	const model_includes::Model & _model,
-	std::ostream & _stream
-)
+	const model_includes::Model & _model, std::ostream & _stream )
 {
 	Files files = collectFiles( _model );
 
@@ -52,19 +50,19 @@ void DifferentTypeReporter::printFiles(
 	const Files & _files,
 	const Path & _projectDir,
 	CountType _originSize,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	if( _files.isEmpty() )
 	{
 		return;
 	}
 
-	_stream << resources::different_type_report::Header;
+	const bool isPlural = isPluralFiles( _files.getSize() );
+	_stream << fmt::format(
+		resources::different_type_report::Header, ( isPlural ? "s" : "" ) );
 
 	CountType currentNumber = 1;
-	_files.forEachFile( [&]( const File & _file )
-	{
+	_files.forEachFile( [&]( const File & _file ) {
 		if( isLimitFiles( currentNumber ) )
 		{
 			printFileLimitLine( _files.getSize(), _stream );
@@ -76,7 +74,7 @@ void DifferentTypeReporter::printFiles(
 		++currentNumber;
 
 		return true;
-	});
+	} );
 
 	if( isLimitFilesWithOriginSize( currentNumber, _originSize ) )
 	{
@@ -90,19 +88,19 @@ void DifferentTypeReporter::printFile(
 	const File & _file,
 	const Path & _projectDir,
 	CountType _currentNumber,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
-	std::string filePath = getPathWithoutProject( _file.getPath(), _projectDir );
+	std::string filePath =
+		getPathWithoutProject( _file.getPath(), _projectDir );
 
 	_stream << fmt::format(
-		resources::different_type_report::FileFmt,
-		_currentNumber,
-		filePath
-	);
+		resources::different_type_report::FileFmt, _currentNumber, filePath );
 
-	Details details = collectDetails( _file );
-	printDetails( details, _projectDir, _stream );
+	if( getShowDetails() )
+	{
+		Details details = collectDetails( _file );
+		printDetails( details, _projectDir, _stream );
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -110,22 +108,17 @@ void DifferentTypeReporter::printFile(
 void DifferentTypeReporter::printDetails(
 	const Details & _details,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	printDetails(
 		_details.getUserIncludes(),
-		resources::different_type_report::UserIncludeLabel,
-		_projectDir,
-		_stream
-	);
+		resources::different_type_report::UserIncludeLabel, _projectDir,
+		_stream );
 
 	printDetails(
 		_details.getSystemIncludes(),
-		resources::different_type_report::SystemIncludeLabel,
-		_projectDir,
-		_stream
-	);
+		resources::different_type_report::SystemIncludeLabel, _projectDir,
+		_stream );
 }
 
 //------------------------------------------------------------------------------
@@ -134,40 +127,33 @@ void DifferentTypeReporter::printDetails(
 	const Includes & _details,
 	std::string_view _header,
 	const Path & _projectDir,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
-	_stream << _header;
+	const bool isPlural = isPluralDetails( _details.getCount() );
+	_stream << fmt::format( _header, ( isPlural ? "s" : "" ) );
+
 	CountType currentUserNumber = 1;
 
-	_details.forEachInclude(
-		[&]( const Include & _include )
+	_details.forEachInclude( [&]( const Include & _include ) {
+		if( isLimitDetails( currentUserNumber ) )
 		{
-			if( isLimitDetails( currentUserNumber ) )
-			{
-				printDetailsLimitLine( _details.getCount(), _stream );
-				return false;
-			}
-
-			const File & file = _include.getSourceFile();
-			const auto lineNumber = _include.getLocation().getLineNumber();
-			const auto filePath = getPathWithoutProject(
-				file.getPath(),
-				_projectDir
-			);
-
-			_stream << fmt::format(
-				resources::different_type_report::DetailFmt,
-				currentUserNumber,
-				filePath,
-				lineNumber
-			);
-
-			++currentUserNumber;
-
-			return true;
+			printDetailsLimitLine( _details.getCount(), _stream );
+			return false;
 		}
-	);
+
+		const File & file = _include.getSourceFile();
+		const auto lineNumber = _include.getLocation().getLineNumber();
+		const auto filePath =
+			getPathWithoutProject( file.getPath(), _projectDir );
+
+		_stream << fmt::format(
+			resources::different_type_report::DetailFmt, currentUserNumber,
+			filePath, lineNumber );
+
+		++currentUserNumber;
+
+		return true;
+	} );
 }
 
 //------------------------------------------------------------------------------
@@ -180,32 +166,27 @@ ReporterKind DifferentTypeReporter::getKind() const
 //------------------------------------------------------------------------------
 
 DifferentTypeReporter::Files DifferentTypeReporter::collectFiles(
-	const model_includes::Model & _model
-) const
+	const model_includes::Model & _model ) const
 {
 	Files result;
-	_model.forEachFile(
-		[&]( const model_includes::File & _file )
+	_model.forEachFile( [&]( const model_includes::File & _file ) {
+		if( !isIgnoredFile( _file ) )
 		{
-			if( !isIgnoredFile( _file ) )
+			if( isIncludedByDifferentType( _file ) )
 			{
-				if( isIncludedByDifferentType( _file ) )
-				{
-					result.insert( { _file, _file.getIncludedByCount() } );
-				}
+				result.insert( { _file, _file.getIncludedByCount() } );
 			}
-
-			return true;
 		}
-	);
+
+		return true;
+	} );
 	return result;
 }
 
 //------------------------------------------------------------------------------
 
-DifferentTypeReporter::Details DifferentTypeReporter::collectDetails(
-	const File & _file
-) const
+DifferentTypeReporter::Details
+DifferentTypeReporter::collectDetails( const File & _file ) const
 {
 	Details result;
 	for( File::IncludeIndex i = 0; i < _file.getIncludedByCount(); ++i )

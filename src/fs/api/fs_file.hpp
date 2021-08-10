@@ -1,13 +1,13 @@
 #pragma once
 
+#include <iosfwd>
 #include <stdfwd/string>
 #include <stdfwd/string_view>
-#include <iosfwd>
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 class File

@@ -6,12 +6,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 FileSystemAccessorImpl::FileSystemAccessorImpl()
-	:	m_factoryPtr{ new FactoryImpl }
+	: m_factoryPtr{ new FactoryImpl }
 {
 }
 

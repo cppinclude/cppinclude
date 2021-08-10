@@ -6,19 +6,21 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonObject;
-	class JsonAccessor;
+namespace json
+{
+class JsonObject;
+class JsonAccessor;
 }
 
-namespace compilation_db {
-	class Accessor;
-	class Loader;
-	class Database;
+namespace compilation_db
+{
+class Accessor;
+class Loader;
+class Database;
 }
 
-namespace compilation_db::test {
-
+namespace compilation_db::test
+{
 //------------------------------------------------------------------------------
 
 class CompilationDbFixture

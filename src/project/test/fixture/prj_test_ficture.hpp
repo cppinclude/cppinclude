@@ -2,31 +2,31 @@
 
 #include "test_tools/boost_predicate_wrapper.hpp"
 
-#include <stdfwd/vector>
 #include <std_fs>
+#include <stdfwd/vector>
 
 #include <memory>
 
 //------------------------------------------------------------------------------
 
-namespace project {
-	class Project;
-	class ProjectAccessor;
+namespace project
+{
+class Project;
+class ProjectAccessor;
 }
 
 //------------------------------------------------------------------------------
 
-namespace project::test {
-
+namespace project::test
+{
 //------------------------------------------------------------------------------
 
 class ProjectFixture
 {
 public:
-
-	using Strings	= stdfwd::vector< std::string >;
-	using Path		= stdfs::path;
-	using Paths		= stdfwd::vector< Path >;
+	using Strings = stdfwd::vector< std::string >;
+	using Path = stdfs::path;
+	using Paths = stdfwd::vector< Path >;
 
 	ProjectFixture();
 	~ProjectFixture();

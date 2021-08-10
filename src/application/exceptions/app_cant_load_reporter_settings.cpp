@@ -9,10 +9,9 @@ namespace application
 //------------------------------------------------------------------------------
 
 CantLoadReporterSettingsImpl::CantLoadReporterSettingsImpl()
-	:	BaseClass(
-			resources::exceptions::CantLoadReporterSettings::Code,
-			resources::exceptions::CantLoadReporterSettings::Msg
-	)
+	: BaseClass(
+		  resources::exceptions::CantLoadReporterSettings::Code,
+		  resources::exceptions::CantLoadReporterSettings::Msg )
 {
 }
 

@@ -13,18 +13,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 AnalyzerContext::AnalyzerContext(
-	const project::Project & _project,
-	Model & _model
-)
-	:	m_project{ _project }
-	,	m_cmakeProject{ nullptr }
-	,	m_model{ _model }
-	,	needAnalyzeResolvedIncludes{ false }
+	const project::Project & _project, Model & _model )
+	: m_project{ _project }
+	, m_cmakeProject{ nullptr }
+	, m_model{ _model }
+	, needAnalyzeResolvedIncludes{ false }
 {
 }
 
@@ -33,12 +31,11 @@ AnalyzerContext::AnalyzerContext(
 AnalyzerContext::AnalyzerContext(
 	const project::Project & _project,
 	const cmake_project::Project & _cmakeProject,
-	Model & _model
-)
-	:	m_project{ _project }
-	,	m_cmakeProject{ &_cmakeProject }
-	,	m_model{ _model }
-	,	needAnalyzeResolvedIncludes{ false }
+	Model & _model )
+	: m_project{ _project }
+	, m_cmakeProject{ &_cmakeProject }
+	, m_model{ _model }
+	, needAnalyzeResolvedIncludes{ false }
 {
 }
 
@@ -118,8 +115,7 @@ bool AnalyzerContext::isIgnoredFile( const Path & _path ) const
 //------------------------------------------------------------------------------
 
 bool AnalyzerContext::isIgnoreIncludeFile(
-	const parser::IncludeFile & _includesFile
-) const
+	const parser::IncludeFile & _includesFile ) const
 {
 	return getProject().getIgnoreSystemIncludes() && _includesFile.isSystem();
 }
@@ -130,11 +126,10 @@ bool AnalyzerContext::isFileInIgnoreDir( const Path & _path ) const
 {
 	const project::Project & project = getProject();
 	bool isFound = false;
-	project.forEachIgnoreDir( [&]( const Path & _ignoreDir )
-	{
+	project.forEachIgnoreDir( [&]( const Path & _ignoreDir ) {
 		isFound = isFolderHasFile( _ignoreDir, _path );
 		return !isFound;
-	});
+	} );
 
 	return isFound;
 }

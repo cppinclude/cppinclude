@@ -9,38 +9,39 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonObject;
+namespace json
+{
+class JsonObject;
 }
 
-namespace reporter {
-	enum class ReporterKind;
+namespace reporter
+{
+enum class ReporterKind;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 class ConfigurationFile
 {
 public:
+	using StringOpt = std::optional< std::string >;
+	using Strings = stdfwd::vector< std::string >;
+	using StringsOpt = std::optional< Strings >;
 
-	using StringOpt			= std::optional< std::string >;
-	using Strings			= stdfwd::vector< std::string >;
-	using StringsOpt		= std::optional< Strings >;
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
+	using Paths = stdfwd::vector< Path >;
+	using PathsOpt = std::optional< Paths >;
 
-	using Path				= stdfs::path;
-	using PathOpt			= std::optional< Path >;
-	using Paths				= stdfwd::vector< Path >;
-	using PathsOpt			= std::optional< Paths >;
+	using BoolOpt = std::optional< bool >;
+	using IntOpt = std::optional< int >;
 
-	using BoolOpt			= std::optional< bool >;
-	using IntOpt			= std::optional< int >;
-
-	using ReporterKinds		= stdfwd::vector< reporter::ReporterKind >;
-	using ReporterKindsOpt	= std::optional< ReporterKinds >;
+	using ReporterKinds = stdfwd::vector< reporter::ReporterKind >;
+	using ReporterKindsOpt = std::optional< ReporterKinds >;
 
 	void loadFromJson( const json::JsonObject & _json );
 
@@ -62,6 +63,9 @@ public:
 	IntOpt getReportDetailsLimit() const;
 	BoolOpt getShowStdFiles() const;
 	BoolOpt getShowOnlyStdFiles() const;
+	BoolOpt getShowDetails() const;
+
+	StringOpt getThousandsSeparator() const;
 
 private:
 	void loadProjectDir( const json::JsonObject & _json );
@@ -80,42 +84,39 @@ private:
 	void loadReportDetailsLimit( const json::JsonObject & _json );
 	void loadShowStdFiles( const json::JsonObject & _json );
 	void loadShowOnlyStdHeaders( const json::JsonObject & _json );
+	void loadShowDetails( const json::JsonObject & _json );
 
-	void loadStringValue(
+	void loadThousandsSeparator( const json::JsonObject & _json );
+
+	void loadStringOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		StringOpt & _valueOpt
-	);
+		StringOpt & _valueOpt );
 
 	void loadArrayOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		StringsOpt & _arrayOpt
-	);
+		StringsOpt & _arrayOpt );
 
 	void loadPathOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		PathOpt & _valueOpt
-	);
+		PathOpt & _valueOpt );
 
 	void loadPathsOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		PathsOpt & _valueOpt
-	);
+		PathsOpt & _valueOpt );
 
 	void loadBoolOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		BoolOpt & _valueOpt
-	);
+		BoolOpt & _valueOpt );
 
 	void loadIntOpt(
 		const json::JsonObject & _json,
 		std::string_view _name,
-		IntOpt & _valueOpt
-	);
+		IntOpt & _valueOpt );
 
 private:
 	PathOpt m_projectDir;
@@ -135,6 +136,9 @@ private:
 	IntOpt m_reportDetailsLimit;
 	BoolOpt m_showStdFiles;
 	BoolOpt m_showOnlyStdHeaders;
+	BoolOpt m_showDetails;
+
+	StringOpt m_thousandsSeparator;
 };
 
 //------------------------------------------------------------------------------

@@ -8,10 +8,9 @@ namespace application
 //------------------------------------------------------------------------------
 
 CantCreateModelImpl::CantCreateModelImpl()
-	:	BaseClass(
-			resources::exceptions::CantCreateModel::Code,
-			resources::exceptions::CantCreateModel::Msg
-	)
+	: BaseClass(
+		  resources::exceptions::CantCreateModel::Code,
+		  resources::exceptions::CantCreateModel::Msg )
 {
 }
 

@@ -4,8 +4,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class Settings
@@ -26,6 +26,12 @@ public:
 
 	virtual bool getShowOnlyStdHeaders() const = 0;
 	virtual void setShowOnlyStdHeaders( bool _enable ) = 0;
+
+	virtual bool getShowDetails() const = 0;
+	virtual void setShowDetails( bool _enable ) = 0;
+
+	virtual char getThousandsSeparator() const = 0;
+	virtual void setThousandsSeparator( char _separator ) = 0;
 
 	virtual void copy( const Settings & _other ) = 0;
 };

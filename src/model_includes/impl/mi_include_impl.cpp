@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 IncludeImpl::IncludeImpl(
@@ -15,13 +15,12 @@ IncludeImpl::IncludeImpl(
 	const File & _sourceFile,
 	const File & _destinationFile,
 	IncludeStatus _status,
-	IncludeType _type
-)
-	:	m_location{ std::move(_location ) }
-	,	m_sourceFile{ _sourceFile }
-	,	m_destinationFile{ _destinationFile }
-	,	m_status{ _status }
-	,	m_type{ _type }
+	IncludeType _type )
+	: m_location{ std::move( _location ) }
+	, m_sourceFile{ _sourceFile }
+	, m_destinationFile{ _destinationFile }
+	, m_status{ _status }
+	, m_type{ _type }
 {
 }
 

@@ -18,12 +18,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
-Resolver::Resolver( const fs::FileSystem & _fs  )
-	:	m_fs{ _fs }
+Resolver::Resolver( const fs::FileSystem & _fs )
+	: m_fs{ _fs }
 {
 }
 
@@ -34,16 +34,11 @@ Resolver::PathOpt Resolver::resolvePath(
 	const cmake_project::Project * _cmakeProject,
 	const Path & _startFile,
 	stdfwd::string_view _fileName,
-	PathOpt _currentCMakeSourceFile
-) const
+	PathOpt _currentCMakeSourceFile ) const
 {
 	ResolverContext context{
-		_project,
-		_cmakeProject,
-		_startFile,
-		_fileName,
-		std::move( _currentCMakeSourceFile )
-	};
+		_project, _cmakeProject, _startFile, _fileName,
+		std::move( _currentCMakeSourceFile ) };
 
 	PathOpt pathOpt = checkInCurrentDir( context );
 	if( pathOpt )
@@ -77,9 +72,8 @@ FileType Resolver::resolveFileType( const Path & _file )
 
 //------------------------------------------------------------------------------
 
-Resolver::PathOpt Resolver::checkInCurrentDir(
-	const ResolverContext & _context
-) const
+Resolver::PathOpt
+Resolver::checkInCurrentDir( const ResolverContext & _context ) const
 {
 	Path startDir = _context.getStartFile().parent_path();
 	if( startDir.is_relative() )
@@ -98,9 +92,8 @@ Resolver::PathOpt Resolver::checkInCurrentDir(
 
 //------------------------------------------------------------------------------
 
-Resolver::PathOpt Resolver::findInIncludeFolders(
-	const ResolverContext & _context
-) const
+Resolver::PathOpt
+Resolver::findInIncludeFolders( const ResolverContext & _context ) const
 {
 	PathOpt pathOpt = findInIncludeFoldersInProject( _context );
 	if( pathOpt )
@@ -119,12 +112,12 @@ Resolver::PathOpt Resolver::findInIncludeFolders(
 //------------------------------------------------------------------------------
 
 Resolver::PathOpt Resolver::findInIncludeFoldersInProject(
-	const ResolverContext & _context
-) const
+	const ResolverContext & _context ) const
 {
 	const std::string & fileName = _context.getFileName();
 	const project::Project & project = _context.getProject();
-	const project::Project::IncludeDirIndex count = project.getIncludeDirsCount();
+	const project::Project::IncludeDirIndex count =
+		project.getIncludeDirsCount();
 	const auto & projectDir = project.getProjectDir();
 
 	for( project::Project::IncludeDirIndex i = 0; i < count; ++i )
@@ -144,8 +137,7 @@ Resolver::PathOpt Resolver::findInIncludeFoldersInProject(
 //------------------------------------------------------------------------------
 
 Resolver::PathOpt Resolver::findInIncludeFoldersInCMakeProject(
-	const ResolverContext & _context
-) const
+	const ResolverContext & _context ) const
 {
 	const cmake_project::Project * projectOpt = _context.getCMakeProject();
 	if( projectOpt == nullptr )
@@ -168,14 +160,10 @@ Resolver::PathOpt Resolver::findInIncludeFoldersInCMakeProject(
 
 	PathOpt result;
 
-	project.forEachIncludes(
-		*sourceFile,
-		[&]( const Path & _includedir )
-		{
-			result = findFile( projectDir, _includedir, fileName );
-			return !result;
-		}
-	);
+	project.forEachIncludes( *sourceFile, [&]( const Path & _includedir ) {
+		result = findFile( projectDir, _includedir, fileName );
+		return !result;
+	} );
 
 	return result;
 }
@@ -185,8 +173,7 @@ Resolver::PathOpt Resolver::findInIncludeFoldersInCMakeProject(
 Resolver::PathOpt Resolver::findFile(
 	const Path & _projectDir,
 	const Path & _includeDir,
-	const std::string & _fileName
-) const
+	const std::string & _fileName ) const
 {
 	Path includeDir{ _includeDir };
 	if( includeDir.is_relative() )

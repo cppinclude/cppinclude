@@ -4,14 +4,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-	class Database;
+namespace compilation_db
+{
+class Database;
 }
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-	class Project;
+namespace cmake_project
+{
+class Project;
 
 //------------------------------------------------------------------------------
 

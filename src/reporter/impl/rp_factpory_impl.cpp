@@ -16,22 +16,28 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 FactoryImpl::ReporterPtr FactoryImpl::createReporter( ReporterKind _kind )
 {
 	constexpr int ReporterKindCount = 5;
-	static_assert( static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
+	static_assert(
+		static_cast< int >( ReporterKind::Count ) == ReporterKindCount );
 	switch( _kind )
 	{
-		case ReporterKind::Unresolved		: return createUnresolvedReporter();
-		case ReporterKind::MostImpact		: return createMostImpactReporter();
-		case ReporterKind::Unincluded		: return createUnincludedReporter();
-		case ReporterKind::Dump				: return createDumpReporter();
-		case ReporterKind::DifferentType	: return createDifferentTypeReporter();
-		case ReporterKind::Count		:
+		case ReporterKind::Unresolved:
+			return createUnresolvedReporter();
+		case ReporterKind::MostImpact:
+			return createMostImpactReporter();
+		case ReporterKind::Unincluded:
+			return createUnincludedReporter();
+		case ReporterKind::Dump:
+			return createDumpReporter();
+		case ReporterKind::DifferentType:
+			return createDifferentTypeReporter();
+		case ReporterKind::Count:
 		{
 			INTERNAL_CHECK_WARRING( false );
 			return nullptr;

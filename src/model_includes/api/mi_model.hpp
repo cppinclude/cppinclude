@@ -1,26 +1,26 @@
 #pragma once
 
-#include <stdfwd/functional>
 #include <std_fs>
+#include <stdfwd/functional>
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class File;
-	class Include;
-	enum class FileType;
-	enum class IncludeStatus;
-	enum class IncludeType;
+namespace model_includes
+{
+class File;
+class Include;
+enum class FileType;
+enum class IncludeStatus;
+enum class IncludeType;
 
 //------------------------------------------------------------------------------
 
 class Model
 {
 public:
-
-	using FileCallback		= std::function< bool ( const File & ) >;
-	using IncludeCallback	= std::function< bool ( const Include & ) >;
-	using Path				= stdfs::path;
+	using FileCallback = std::function< bool( const File & ) >;
+	using IncludeCallback = std::function< bool( const Include & ) >;
+	using Path = stdfs::path;
 
 	virtual ~Model() = default;
 
@@ -47,8 +47,7 @@ public:
 		File & _sourceFile,
 		File & _destinationFile,
 		IncludeStatus _status,
-		IncludeType _type
-	) = 0;
+		IncludeType _type ) = 0;
 };
 
 //------------------------------------------------------------------------------

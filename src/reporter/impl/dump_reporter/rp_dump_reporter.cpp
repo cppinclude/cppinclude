@@ -17,21 +17,19 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 DumpReporter::DumpReporter( SettingsPtr && _settingsPtr )
-	:	BaseClass{ std::move( _settingsPtr ) }
+	: BaseClass{ std::move( _settingsPtr ) }
 {
 }
 
 //------------------------------------------------------------------------------
 
 void DumpReporter::report(
-	const model_includes::Model & _model,
-	std::ostream & _stream
-)
+	const model_includes::Model & _model, std::ostream & _stream )
 {
 	Files files;
 	collectFiles( _model, files );
@@ -48,40 +46,26 @@ ReporterKind DumpReporter::getKind() const
 //------------------------------------------------------------------------------
 
 void DumpReporter::collectFiles(
-	const model_includes::Model & _model,
-	Files & _files
-) const
+	const model_includes::Model & _model, Files & _files ) const
 {
-	_model.forEachFile( [&]( const model_includes::File & _file )
-		{
-			_files.insert( _file );
-			return true;
-		}
-	);
+	_model.forEachFile( [&]( const model_includes::File & _file ) {
+		_files.insert( _file );
+		return true;
+	} );
 }
 
 //------------------------------------------------------------------------------
 
 void DumpReporter::dump(
-	const Files & _files,
-	const Path & _dirPath,
-	std::ostream & _stream
-) const
+	const Files & _files, const Path & _dirPath, std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
 	int number = 1;
 
-	_files.forEachFile( [&] ( const File & _file )
-	{
-		_stream
-			<< number
-			<< " : "
-			<< toString( _file, _dirPath )
-			<< " ( type: "
-			<< toString( _file.getType() )
-			<< " )\n"
-		;
+	_files.forEachFile( [&]( const File & _file ) {
+		_stream << number << " : " << toString( _file, _dirPath )
+				<< " ( type: " << toString( _file.getType() ) << " )\n";
 
 		dumpIncludes( _file, _dirPath, _stream );
 		dumpIncludedBy( _file, _dirPath, _stream );
@@ -97,8 +81,7 @@ void DumpReporter::dump(
 void DumpReporter::dumpIncludes(
 	const model_includes::File & _file,
 	const Path & _dirPath,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -114,12 +97,7 @@ void DumpReporter::dumpIncludes(
 		const Include & include = _file.getInclude( i );
 
 		dumpFileFromInclude(
-			include.getDestinationFile(),
-			_dirPath,
-			include,
-			i,
-			_stream
-		);
+			include.getDestinationFile(), _dirPath, include, i, _stream );
 	}
 }
 
@@ -128,8 +106,7 @@ void DumpReporter::dumpIncludes(
 void DumpReporter::dumpIncludedBy(
 	const model_includes::File & _file,
 	const Path & _dirPath,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
 	using namespace model_includes;
 
@@ -145,12 +122,7 @@ void DumpReporter::dumpIncludedBy(
 		const Include & include = _file.getIncludedBy( i );
 
 		dumpFileFromInclude(
-			include.getSourceFile(),
-			_dirPath,
-			include,
-			i,
-			_stream
-		);
+			include.getSourceFile(), _dirPath, include, i, _stream );
 	}
 }
 
@@ -161,19 +133,12 @@ void DumpReporter::dumpFileFromInclude(
 	const Path & _dirPath,
 	const model_includes::Include & _include,
 	size_t _index,
-	std::ostream & _stream
-) const
+	std::ostream & _stream ) const
 {
-	indent( 2, _stream )
-		<< _index + 1
-		<< " : "
-		<< toString( _file, _dirPath )
-		<< " ( type : "
-		<< toString( _include.getType() )
-		<< " status : "
-		<< toString( _include.getStatus() )
-		<< " )\n"
-	;
+	indent( 2, _stream ) << _index + 1 << " : " << toString( _file, _dirPath )
+						 << " ( type : " << toString( _include.getType() )
+						 << " status : " << toString( _include.getStatus() )
+						 << " )\n";
 }
 
 //------------------------------------------------------------------------------
@@ -191,9 +156,7 @@ std::ostream & DumpReporter::indent( int _count, std::ostream & _stream ) const
 //------------------------------------------------------------------------------
 
 std::string DumpReporter::toString(
-	const model_includes::File & _file,
-	const Path & _dirPath
-) const
+	const model_includes::File & _file, const Path & _dirPath ) const
 {
 	return getPathWithoutProject( _file.getPath(), _dirPath );
 }

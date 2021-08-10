@@ -63,11 +63,20 @@ TEST PLAN
 17. Show only std headers
 	17.1 From arguments
 	17.2 Default
+18. Show details
+	18.1 From arguments
+	18.2 Default
+19. Thousands separator
+	19.1 From arguments
+	19.2 Default
+	19.3 Space
+	19.4 Comma with quotations
+20. Verbose ignore
 
 -------------------------------------------------------------------------------*/
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
@@ -133,8 +142,7 @@ BOOST_AUTO_TEST_CASE( t2_2_file_extensions_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		toString( resources::arguments::fileExtensions::DefaultValues ),
-		toString( getDefaultFileExtensions() )
-	);
+		toString( getDefaultFileExtensions() ) );
 }
 
 //------------------------------------------------------------------------------
@@ -161,8 +169,7 @@ BOOST_AUTO_TEST_CASE( t3_2_include_dirs_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		toString( resources::arguments::includeDirs::DefaultValues ),
-		toString( getDefaultIncludeDirs() )
-	);
+		toString( getDefaultIncludeDirs() ) );
 }
 
 //------------------------------------------------------------------------------
@@ -189,8 +196,7 @@ BOOST_AUTO_TEST_CASE( t4_2_ignore_dirs_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		toString( resources::arguments::ignoreDirs::DefaultValues ),
-		toString( getDefaultIgnoreDirs() )
-	);
+		toString( getDefaultIgnoreDirs() ) );
 }
 
 //------------------------------------------------------------------------------
@@ -214,8 +220,7 @@ BOOST_AUTO_TEST_CASE( t5_2_configuration_file_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		resources::arguments::configurationFile::DefaultValue,
-		getDefaultConfigurationFile().string()
-	);
+		getDefaultConfigurationFile().string() );
 }
 
 //------------------------------------------------------------------------------
@@ -261,8 +266,7 @@ BOOST_AUTO_TEST_CASE( t8_2_report_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		toString( resources::arguments::report::DefaultValue ),
-		toString( getDefaultReporterKinds() )
-	);
+		toString( getDefaultReporterKinds() ) );
 }
 
 //------------------------------------------------------------------------------
@@ -296,8 +300,7 @@ BOOST_AUTO_TEST_CASE( t9_2_report_limit_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultReportLimit(),
-		resources::arguments::report_limit::DefaultValue
-	);
+		resources::arguments::reportLimit::DefaultValue );
 }
 
 //------------------------------------------------------------------------------
@@ -323,8 +326,7 @@ BOOST_AUTO_TEST_CASE( t10_2_ignore_system_includes_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultIgnoreSystemIncludes(),
-		resources::arguments::ignoreSystemIncludes::DefaultValue
-	);
+		resources::arguments::ignoreSystemIncludes::DefaultValue );
 }
 
 //------------------------------------------------------------------------------
@@ -349,8 +351,7 @@ BOOST_AUTO_TEST_CASE( t11_2_ignore_files_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultIgnoreFiles(),
-		toString( resources::arguments::ignoreFiles::DefaultValues )
-	);
+		toString( resources::arguments::ignoreFiles::DefaultValues ) );
 }
 
 //------------------------------------------------------------------------------
@@ -386,8 +387,7 @@ BOOST_AUTO_TEST_CASE( t13_2_report_details_limit_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultReportDetailsLimit(),
-		resources::arguments::report_details_limit::DefaultValue
-	);
+		resources::arguments::reportDetailsLimit::DefaultValue );
 }
 
 //------------------------------------------------------------------------------
@@ -411,8 +411,7 @@ BOOST_AUTO_TEST_CASE( t14_2_analyze_without_extension_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultAnalyzeWithoutExtension(),
-		resources::arguments::analyze_without_extension::DefaultValue
-	);
+		resources::arguments::analyzeWithoutExtension::DefaultValue );
 }
 
 //------------------------------------------------------------------------------
@@ -438,8 +437,7 @@ BOOST_AUTO_TEST_CASE( t15_2_show_std_files_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultShowStdFile(),
-		resources::arguments::show_std_files::DefaultValue
-	);
+		resources::arguments::showStdFiles::DefaultValue );
 }
 
 //------------------------------------------------------------------------------
@@ -450,7 +448,8 @@ BOOST_AUTO_TEST_CASE( t16_1_compile_commands_from_arguments )
 	parse( "--compile_commands=build/compile_commands.json" );
 
 	// Check
-	BOOST_CHECK_EQUAL(getCompileCommandsFile().string(), "build/compile_commands.json" );
+	BOOST_CHECK_EQUAL(
+		getCompileCommandsFile().string(), "build/compile_commands.json" );
 }
 
 //------------------------------------------------------------------------------
@@ -463,8 +462,7 @@ BOOST_AUTO_TEST_CASE( t16_2_compile_commands_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		resources::arguments::compileCommands::DefaultValue,
-		getDefaultCompileCommandsFile().string()
-	);
+		getDefaultCompileCommandsFile().string() );
 }
 
 //------------------------------------------------------------------------------
@@ -490,8 +488,96 @@ BOOST_AUTO_TEST_CASE( t17_2_show_only_std_headers_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getDefaultShowOnlyStdHeaders(),
-		resources::arguments::show_only_std_headers::DefaultValue
-	);
+		resources::arguments::showOnlyStdHeaders::DefaultValue );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t18_1_show_details_from_arguments )
+{
+	// Run
+	parse( "--show_details=false" );
+
+	// Check
+	auto valueOpt = getShowDetails();
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, false );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t18_2_show_details_default )
+{
+	// Run
+	parse( "" );
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		getDefaultShowDetails(),
+		resources::arguments::showDetails::DefaultValue );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t19_1_thousand_separator_from_arguments )
+{
+	// Run
+	parse( "--thousands_separator=," );
+
+	// Check
+	auto valueOpt = getThousandsSeparator();
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "," );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t19_2_thousand_separator_default )
+{
+	// Run
+	parse( "" );
+
+	// Check
+	BOOST_CHECK_EQUAL(
+		getDefaultThousandsSeparator(),
+		resources::arguments::thousandsSeparator::DefaultValue );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t19_3_thousand_separator_space )
+{
+	// Run
+	parse( "--thousands_separator=' '" );
+
+	// Check
+	auto valueOpt = getThousandsSeparator();
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, " " );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t19_4_thousand_separator_comma_with_quotations )
+{
+	// Run
+	parse( "--thousands_separator=','" );
+
+	// Check
+	auto valueOpt = getThousandsSeparator();
+	BOOST_REQUIRE( valueOpt.has_value() );
+	BOOST_CHECK_EQUAL( *valueOpt, "," );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t20_verbose_ignore )
+{
+	// Run
+	parse( "--verbose_ignore" );
+
+	// Check
+	BOOST_CHECK( isVerboseIgnore() );
 }
 
 //------------------------------------------------------------------------------

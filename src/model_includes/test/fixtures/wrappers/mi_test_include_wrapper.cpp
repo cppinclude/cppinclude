@@ -12,19 +12,19 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 
 IncludeWrapper::IncludeWrapper( const Include & _include )
-	:	m_include{ &_include }
+	: m_include{ &_include }
 {
 }
 
 //------------------------------------------------------------------------------
 
 IncludeWrapper::IncludeWrapper()
-	:	m_include{ nullptr }
+	: m_include{ nullptr }
 {
 }
 
@@ -34,12 +34,10 @@ std::string IncludeWrapper::dump() const
 {
 	std::stringstream result;
 	const Include & include = getInclude();
-	result
-		<< "source: " << include.getSourceFile().getPath().c_str()
-		<< " destination: " << include.getDestinationFile().getPath().c_str()
-		<< " type: " << toString( include.getType() )
-		<< " status: " << toString( include.getStatus() )
-	;
+	result << "source: " << include.getSourceFile().getPath().c_str()
+		   << " destination: " << include.getDestinationFile().getPath().c_str()
+		   << " type: " << toString( include.getType() )
+		   << " status: " << toString( include.getStatus() );
 	return result.str();
 }
 
@@ -75,13 +73,8 @@ BoostPredicate IncludeWrapper::checkType( IncludeType _exceptType ) const
 	}
 
 	std::stringstream stream;
-	stream
-		<< "current type: "
-		<< toString( type )
-		<< " but except: "
-		<< toString( _exceptType )
-		<< "\n"
-	;
+	stream << "current type: " << toString( type )
+		   << " but except: " << toString( _exceptType ) << "\n";
 	return stream.str();
 }
 
@@ -96,22 +89,15 @@ BoostPredicate IncludeWrapper::checkStatus( IncludeStatus _exceptStatus ) const
 	}
 
 	std::stringstream stream;
-	stream
-		<< "current status: "
-		<< toString( status )
-		<< " but except: "
-		<< toString( _exceptStatus )
-		<< "\n"
-	;
+	stream << "current status: " << toString( status )
+		   << " but except: " << toString( _exceptStatus ) << "\n";
 	return stream.str();
 }
 
 //------------------------------------------------------------------------------
 
-BoostPredicate IncludeWrapper::checkFile(
-	const File & _file,
-	std::string_view _path
-) const
+BoostPredicate
+IncludeWrapper::checkFile( const File & _file, std::string_view _path ) const
 {
 	const Path & filePath = _file.getPath();
 	Path excpectedPath{ std::string{ _path } };

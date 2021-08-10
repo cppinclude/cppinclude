@@ -4,18 +4,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 class IncludeLocationImpl : public IncludeLocation
 {
 public:
 	IncludeLocationImpl(
-		LineNumber _line,
-		ColumNumber _begin,
-		ColumNumber _end
-	);
+		LineNumber _line, ColumNumber _begin, ColumNumber _end );
 
 	LineNumber getLineNumber() const override;
 	ColumNumber getFileNameStartPos() const override;

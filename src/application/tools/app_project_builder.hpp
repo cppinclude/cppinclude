@@ -1,56 +1,51 @@
 #pragma once
 
-#include <stdfwd/memory>
 #include <std_fs>
+#include <stdfwd/memory>
 
 //------------------------------------------------------------------------------
 
-namespace project {
-	class ProjectAccessor;
-	class Project;
+namespace project
+{
+class ProjectAccessor;
+class Project;
 }
 
-namespace fs {
-	class FileSystem;
+namespace fs
+{
+class FileSystem;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application {
-	class ConfigurationFile;
-	class ParserArgWrapper;
+namespace application
+{
+class ConfigurationFile;
+class ParserArgWrapper;
 
 //------------------------------------------------------------------------------
 
 class ProjectBuilder
 {
 public:
+	using ProjectAccessor = project::ProjectAccessor;
+	using Project = project::Project;
+	using ProjectPtr = stdfwd::unique_ptr< Project >;
 
-	using ProjectAccessor		= project::ProjectAccessor;
-	using Project				= project::Project;
-	using ProjectPtr			= stdfwd::unique_ptr< Project >;
+	using Path = stdfs::path;
+	using FileSystem = fs::FileSystem;
 
-	using Path					= stdfs::path;
-	using FileSystem			= fs::FileSystem;
-
-	ProjectBuilder(
-		ProjectAccessor & _projectAccessor,
-		FileSystem & _fs
-	);
+	ProjectBuilder( ProjectAccessor & _projectAccessor, FileSystem & _fs );
 
 	ProjectPtr build(
 		const ParserArgWrapper & _arguments,
-		const ConfigurationFile * _configurationFile
-	);
+		const ConfigurationFile * _configurationFile );
 
 private:
-
 	void initProjectWithDefaultValues(
-		const ParserArgWrapper & _arguments,
-		Project & _project
-	);
+		const ParserArgWrapper & _arguments, Project & _project );
 
-	void initFromConfigurationFile( const Path & _file,  Project & _project );
+	void initFromConfigurationFile( const Path & _file, Project & _project );
 
 	template< class _Source >
 	void initProject( const _Source & _source, Project & _project );

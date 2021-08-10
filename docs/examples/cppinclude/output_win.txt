@@ -2,22 +2,22 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "exception\api\exc_exception.hpp" impact on 86 file(s)
+1 : "exception\api\exc_exception.hpp" impact on 89 files
 Included by:
-	1 : "exception\ih\exc_exception_impl.hpp" line 3, impact on 79 file(s)
-	2 : "application\exceptions\app_exceptions.hpp" line 3, impact on 12 file(s)
-	3 : "fs\api\fs_exceptions.hpp" line 3, impact on 9 file(s)
-	4 : "project\api\prj_exceptions.hpp" line 3, impact on 4 file(s)
-	5 : "reporter\exceptions\rp_exceptions.hpp" line 3, impact on 4 file(s)
-2 : "exception\ih\exc_exception_impl.hpp" impact on 79 file(s)
+	1 : "exception\ih\exc_exception_impl.hpp" line 3, impact on 81 files
+	2 : "application\exceptions\app_exceptions.hpp" line 3, impact on 16 files
+	3 : "fs\api\fs_exceptions.hpp" line 3, impact on 9 files
+	4 : "project\api\prj_exceptions.hpp" line 3, impact on 4 files
+	5 : "reporter\exceptions\rp_exceptions.hpp" line 3, impact on 4 files
+2 : "exception\ih\exc_exception_impl.hpp" impact on 81 files
 Included by:
-	1 : "exception\ih\exc_internal_error.hpp" line 3, impact on 51 file(s)
-	2 : "exception\ih\exc_exception_with_message_impl.hpp" line 3, impact on 10 file(s)
-	3 : "fs\impl\exceptions\fs_base_exception_impl.hpp" line 5, impact on 7 file(s)
-	4 : "application\exceptions\app_base_exception_impl.hpp" line 3, impact on 3 file(s)
-	5 : "project\impl\exceptions\prj_base_exception_impl.hpp" line 5, impact on 3 file(s)
-	6 : "reporter\exceptions\rp_base_exception_impl.hpp" line 3, impact on 3 file(s)
-3 : "exception\ih\exc_internal_error.hpp" impact on 51 file(s)
+	1 : "exception\ih\exc_internal_error.hpp" line 3, impact on 51 files
+	2 : "exception\ih\exc_exception_with_message_impl.hpp" line 3, impact on 13 files
+	3 : "fs\impl\exceptions\fs_base_exception_impl.hpp" line 5, impact on 7 files
+	4 : "application\exceptions\app_base_exception_impl.hpp" line 3, impact on 3 files
+	5 : "project\impl\exceptions\prj_base_exception_impl.hpp" line 5, impact on 3 files
+	6 : "reporter\exceptions\rp_base_exception_impl.hpp" line 3, impact on 3 files
+3 : "exception\ih\exc_internal_error.hpp" impact on 51 files
 Included by:
 	1 : "application\exceptions\app_cant_create_report_impl.cpp" line 8
 	2 : "application\test\fixtures\app_test_cmake_project_builder_fixture.cpp" line 18
@@ -30,23 +30,10 @@ Included by:
 	9 : "application\tools\app_configuration_file.cpp" line 5
 	10 : "application\tools\app_configuration_file_loader.cpp" line 9
 	... 10 of 51 details
-4 : "test_tools\test_macros.hpp" impact on 22 file(s)
+4 : "reporter\api\enums\rp_reporter_kind.hpp" impact on 19 files
 Included by:
-	1 : "application\test\suits\app_test_cmake_project_builder.cpp" line 7
-	2 : "application\test\suits\app_test_configuration_file_suits.cpp" line 3
-	3 : "application\test\suits\app_test_parser_arguments.cpp" line 3
-	4 : "application\test\suits\app_test_parser_arguments_wrapper_suits.cpp" line 9
-	5 : "application\test\suits\app_test_project_builder.cpp" line 5
-	6 : "application\test\suits\app_test_report_settings_loader.cpp" line 3
-	7 : "cmake_project\test\suits\cprj_test_includes_parser.cpp" line 3
-	8 : "cmake_project\test\suits\cprj_test_loader.cpp" line 3
-	9 : "compilation_db\test\suits\cdb_test_suits.cpp" line 6
-	10 : "json\test\suits\json_test_suits.cpp" line 7
-	... 10 of 22 details
-5 : "reporter\api\enums\rp_reporter_kind.hpp" impact on 19 file(s)
-Included by:
-	1 : "application\exceptions\app_cant_create_report_impl.hpp" line 6, impact on 2 file(s)
-	2 : "application\test\fixtures\app_test_report_settings_loader_fixture.hpp" line 3, impact on 2 file(s)
+	1 : "application\exceptions\app_cant_create_report_impl.hpp" line 6, impact on 2 files
+	2 : "application\test\fixtures\app_test_report_settings_loader_fixture.hpp" line 3, impact on 2 files
 	3 : "application\resources\app_resources_arguments.cpp" line 10
 	4 : "application\test\fixtures\app_test_configuration_file_fixture.cpp" line 10
 	5 : "application\test\fixtures\app_test_parser_wrapper_fixture.cpp" line 6
@@ -56,10 +43,10 @@ Included by:
 	9 : "reporter\impl\different_type_reporter\rp_different_type_reporter.cpp" line 3
 	10 : "reporter\impl\dump_reporter\rp_dump_reporter.cpp" line 3
 	... 10 of 15 details
-6 : "model_includes\api\enums\mi_file_type.hpp" impact on 18 file(s)
+5 : "model_includes\api\enums\mi_file_type.hpp" impact on 18 files
 Included by:
-	1 : "reporter\test\fixture\rp_test_reporter_fixture.hpp" line 3, impact on 6 file(s)
-	2 : "model_includes\impl\mi_file_impl.hpp" line 3, impact on 2 file(s)
+	1 : "reporter\test\fixture\rp_test_reporter_fixture.hpp" line 3, impact on 6 files
+	2 : "model_includes\impl\mi_file_impl.hpp" line 3, impact on 2 files
 	3 : "model_includes\impl\mi_analyzer_impl.cpp" line 3
 	4 : "model_includes\impl\mi_resolver.cpp" line 3
 	5 : "model_includes\test\fixtures\mi_test_model_includes_fixture.cpp" line 5
@@ -69,45 +56,53 @@ Included by:
 	9 : "reporter\impl\dump_reporter\rp_dump_reporter.cpp" line 6
 	10 : "reporter\impl\most_impact_reporter\rp_most_impact_reporter.cpp" line 10
 	... 10 of 11 details
-7 : "model_includes\api\enums\mi_include_status.hpp" impact on 17 file(s)
+6 : "application\resources\app_resources_exceptions.hpp" impact on 17 files
 Included by:
-	1 : "reporter\test\fixture\rp_test_reporter_fixture.hpp" line 4, impact on 6 file(s)
-	2 : "model_includes\test\fixtures\wrappers\mi_test_model_wrapper.hpp" line 5, impact on 5 file(s)
+	1 : "application\exceptions\app_base_exception_with_message_impl.hpp" line 3, impact on 12 files
+	2 : "application\exceptions\app_base_exception_impl.hpp" line 5, impact on 3 files
+	3 : "application\exceptions\app_cant_create_analyzer.cpp" line 3
+	4 : "application\exceptions\app_cant_create_model_impl.cpp" line 2
+	5 : "application\exceptions\app_cant_create_project_impl.cpp" line 3
+	6 : "application\exceptions\app_cant_create_report_impl.cpp" line 4
+	7 : "application\exceptions\app_cant_load_reporter_settings.cpp" line 3
+	8 : "application\exceptions\app_incorrect_thousands_separator_impl.cpp" line 3
+	9 : "application\resources\app_resources_exceptions.cpp" line 1
+7 : "model_includes\api\enums\mi_include_status.hpp" impact on 17 files
+Included by:
+	1 : "reporter\test\fixture\rp_test_reporter_fixture.hpp" line 4, impact on 6 files
+	2 : "model_includes\test\fixtures\wrappers\mi_test_model_wrapper.hpp" line 5, impact on 5 files
 	3 : "model_includes\impl\mi_analyzer_impl.cpp" line 4
 	4 : "model_includes\test\fixtures\wrappers\mi_test_include_wrapper.cpp" line 6
 	5 : "model_includes\test\suits\mi_test_analyzer_for_cmake_suits.cpp" line 7
 	6 : "model_includes\test\suits\mi_test_analyzer_suits.cpp" line 7
 	7 : "reporter\impl\dump_reporter\rp_dump_reporter.cpp" line 7
 	8 : "reporter\impl\unresolved_reporter\rp_unresolved_reporter.cpp" line 11
-8 : "model_includes\api\enums\mi_include_type.hpp" impact on 17 file(s)
+8 : "model_includes\api\enums\mi_include_type.hpp" impact on 17 files
 Included by:
-	1 : "reporter\test\fixture\rp_test_reporter_fixture.hpp" line 5, impact on 6 file(s)
-	2 : "model_includes\test\fixtures\wrappers\mi_test_model_wrapper.hpp" line 6, impact on 5 file(s)
+	1 : "reporter\test\fixture\rp_test_reporter_fixture.hpp" line 5, impact on 6 files
+	2 : "model_includes\test\fixtures\wrappers\mi_test_model_wrapper.hpp" line 6, impact on 5 files
 	3 : "model_includes\impl\mi_analyzer_impl.cpp" line 5
 	4 : "model_includes\test\fixtures\wrappers\mi_test_include_wrapper.cpp" line 7
 	5 : "model_includes\test\suits\mi_test_analyzer_for_cmake_suits.cpp" line 8
 	6 : "model_includes\test\suits\mi_test_analyzer_suits.cpp" line 8
 	7 : "reporter\impl\different_type_reporter\rp_different_type_reporter_details.cpp" line 3
 	8 : "reporter\impl\dump_reporter\rp_dump_reporter.cpp" line 8
-9 : "test_tools\boost_predicate_wrapper.hpp" impact on 17 file(s)
+9 : "test_tools\boost_predicate_wrapper.hpp" impact on 17 files
 Included by:
-	1 : "model_includes\test\fixtures\mi_test_model_includes_fixture.hpp" line 3, impact on 6 file(s)
-	2 : "model_includes\test\fixtures\wrappers\mi_test_file_wrapper.hpp" line 3, impact on 5 file(s)
-	3 : "model_includes\test\fixtures\wrappers\mi_test_model_wrapper.hpp" line 3, impact on 5 file(s)
-	4 : "model_includes\test\fixtures\wrappers\mi_test_include_wrapper.hpp" line 3, impact on 4 file(s)
-	5 : "project\test\fixture\prj_test_ficture.hpp" line 3, impact on 2 file(s)
+	1 : "model_includes\test\fixtures\mi_test_model_includes_fixture.hpp" line 3, impact on 6 files
+	2 : "model_includes\test\fixtures\wrappers\mi_test_file_wrapper.hpp" line 3, impact on 5 files
+	3 : "model_includes\test\fixtures\wrappers\mi_test_model_wrapper.hpp" line 3, impact on 5 files
+	4 : "model_includes\test\fixtures\wrappers\mi_test_include_wrapper.hpp" line 3, impact on 4 files
+	5 : "project\test\fixture\prj_test_ficture.hpp" line 3, impact on 2 files
 	6 : "test_tools\boost_predicate_wrapper.cpp" line 1
-10 : "fs\api\fs_file_system.hpp" impact on 16 file(s)
+10 : "application\exceptions\app_exceptions.hpp" impact on 16 files
 Included by:
-	1 : "fs\impl\fs_factory_impl.hpp" line 4, impact on 3 file(s)
-	2 : "fs\impl\memory\fs_memory_file_system.hpp" line 3, impact on 2 file(s)
-	3 : "fs\impl\physical\fs_physical_file_system.hpp" line 3, impact on 2 file(s)
-	4 : "application\test\fixtures\app_test_cmake_project_builder_fixture.cpp" line 15
-	5 : "application\test\fixtures\app_test_project_builder_fixture.cpp" line 16
-	6 : "application\tools\app_cmake_project_builder.cpp" line 20
-	7 : "application\tools\app_configuration_file_loader.cpp" line 12
-	8 : "application\tools\app_project_builder.cpp" line 9
-	9 : "model_includes\impl\mi_analyzer_impl.cpp" line 19
-	10 : "model_includes\impl\mi_resolver.cpp" line 8
-	... 10 of 12 details
-... 10 of 164 files
+	1 : "application\exceptions\app_cant_create_analyzer.hpp" line 4, impact on 2 files
+	2 : "application\exceptions\app_cant_create_model_impl.hpp" line 4, impact on 2 files
+	3 : "application\exceptions\app_cant_create_project_impl.hpp" line 4, impact on 2 files
+	4 : "application\exceptions\app_cant_create_report_impl.hpp" line 4, impact on 2 files
+	5 : "application\exceptions\app_cant_load_reporter_settings.hpp" line 4, impact on 2 files
+	6 : "application\exceptions\app_incorrect_thousands_separator_impl.hpp" line 4, impact on 2 files
+	7 : "application\test\suits\app_test_parser_arguments_wrapper_suits.cpp" line 3
+	8 : "application\test\suits\app_test_report_settings_loader.cpp" line 3
+... 10 of 166 files

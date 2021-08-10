@@ -19,8 +19,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 ReportSettingsLoaderFixture::ReportSettingsLoaderFixture() = default;
@@ -40,7 +40,8 @@ void ReportSettingsLoaderFixture::parserArguments( std::string_view _argument )
 
 //------------------------------------------------------------------------------
 
-void ReportSettingsLoaderFixture::createConfigurationFile( std::string_view _json )
+void ReportSettingsLoaderFixture::createConfigurationFile(
+	std::string_view _json )
 {
 	std::stringstream stream;
 	stream << _json;
@@ -125,6 +126,20 @@ bool ReportSettingsLoaderFixture::getDefaultShowOnlyStdHeaders() const
 
 //------------------------------------------------------------------------------
 
+bool ReportSettingsLoaderFixture::getShowDetails() const
+{
+	return getSettings().getShowDetails();
+}
+
+//------------------------------------------------------------------------------
+
+bool ReportSettingsLoaderFixture::getDefaultShowDetails() const
+{
+	return getArguments().getDefaultShowDetails();
+}
+
+//------------------------------------------------------------------------------
+
 std::string ReportSettingsLoaderFixture::getReports() const
 {
 	return toString( m_reportKinds );
@@ -135,6 +150,20 @@ std::string ReportSettingsLoaderFixture::getReports() const
 std::string ReportSettingsLoaderFixture::getDefaultReports() const
 {
 	return toString( getArguments().getDefaultReporterKinds() );
+}
+
+//------------------------------------------------------------------------------
+
+std::string ReportSettingsLoaderFixture::getThousandsSeparator() const
+{
+	return std::string{ getSettings().getThousandsSeparator() };
+}
+
+//------------------------------------------------------------------------------
+
+std::string ReportSettingsLoaderFixture::getDefaultThousandsSeparator() const
+{
+	return getArguments().getDefaultThousandsSeparator();
 }
 
 //------------------------------------------------------------------------------
@@ -178,7 +207,8 @@ ReportSettingsLoader & ReportSettingsLoaderFixture::ensureLoader()
 {
 	if( !m_loader )
 	{
-		m_loader = std::make_unique<ReportSettingsLoader>( ensureReportFactory() );
+		m_loader =
+			std::make_unique< ReportSettingsLoader >( ensureReportFactory() );
 	}
 
 	return *m_loader;
@@ -218,11 +248,13 @@ reporter::Factory & ReportSettingsLoaderFixture::ensureReportFactory()
 
 //------------------------------------------------------------------------------
 
-reporter::ReporterAccessor & ReportSettingsLoaderFixture::ensureReporterAccessor()
+reporter::ReporterAccessor &
+ReportSettingsLoaderFixture::ensureReporterAccessor()
 {
 	if( !m_reporterAccessor )
 	{
-		m_reporterAccessor = std::make_unique< reporter::ReporterAccessorImpl >( );
+		m_reporterAccessor =
+			std::make_unique< reporter::ReporterAccessorImpl >();
 	}
 
 	return *m_reporterAccessor;
@@ -230,19 +262,18 @@ reporter::ReporterAccessor & ReportSettingsLoaderFixture::ensureReporterAccessor
 
 //------------------------------------------------------------------------------
 
-std::string ReportSettingsLoaderFixture::toString(
-	const ReporterKinds & _reports
-)
+std::string
+ReportSettingsLoaderFixture::toString( const ReporterKinds & _reports )
 {
 	std::set< std::string > names;
-	for( reporter::ReporterKind kind : _reports )
+	for( reporter::ReporterKind kind: _reports )
 	{
 		const std::string name = reporter::reporterKindToString( kind );
 		names.insert( name );
 	}
 
 	std::string result;
-	for( const std::string & name : names )
+	for( const std::string & name: names )
 	{
 		if( !result.empty() )
 		{

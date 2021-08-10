@@ -7,8 +7,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 class DatabaseImpl final : public Database
@@ -23,8 +23,7 @@ public:
 	void addCommand(
 		std::string_view _directory,
 		std::string_view _command,
-		std::string_view _file
-	) override;
+		std::string_view _file ) override;
 
 private:
 	using CommandObjectPtr = std::unique_ptr< CommandObject >;

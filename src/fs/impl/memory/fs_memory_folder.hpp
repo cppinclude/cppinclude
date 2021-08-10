@@ -9,8 +9,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::memory {
-
+namespace fs::memory
+{
 class MemoryFile;
 
 //------------------------------------------------------------------------------
@@ -18,10 +18,9 @@ class MemoryFile;
 class MemoryFolder
 {
 public:
-
-	using FolderPtr		= std::shared_ptr< MemoryFolder >;
-	using FilePtr		= std::shared_ptr< MemoryFile >;
-	using ItemCallback  = std::function< void ( std::string_view , ItemType ) > ;
+	using FolderPtr = std::shared_ptr< MemoryFolder >;
+	using FilePtr = std::shared_ptr< MemoryFile >;
+	using ItemCallback = std::function< void( std::string_view, ItemType ) >;
 
 	MemoryFolder( std::string_view _name );
 
@@ -34,9 +33,8 @@ public:
 	void forEachItem( const ItemCallback & _callback );
 
 private:
-
-	using SubFolders	= std::unordered_map< std::string, FolderPtr >;
-	using Files			= std::unordered_map< std::string, FilePtr >;
+	using SubFolders = std::unordered_map< std::string, FolderPtr >;
+	using Files = std::unordered_map< std::string, FilePtr >;
 
 	SubFolders m_subdirs;
 	Files m_files;

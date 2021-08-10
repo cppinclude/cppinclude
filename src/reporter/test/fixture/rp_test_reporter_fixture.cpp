@@ -10,6 +10,7 @@
 #include "model_includes/api/mi_model.hpp"
 #include "model_includes/ih/mi_accessor_impl.hpp"
 
+#include "tools/numeric_punct_settings.hpp"
 #include "tools/path_string_tools.hpp"
 
 #include "exception/ih/exc_internal_error.hpp"
@@ -20,8 +21,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter::test {
-
+namespace reporter::test
+{
 //------------------------------------------------------------------------------
 
 ReporterFixture::ReporterFixture() = default;
@@ -32,24 +33,17 @@ ReporterFixture::~ReporterFixture() = default;
 void ReporterFixture::addInclude(
 	std::string_view _sourceFile,
 	std::string_view _destinationFile,
-	IncludeType _type
-)
+	IncludeType _type )
 {
 	addInclude(
-		_sourceFile,
-		_destinationFile,
-		IncludeStatus::Resolved,
-		_type,
-		{1,1,1}
-	);
+		_sourceFile, _destinationFile, IncludeStatus::Resolved, _type,
+		{ 1, 1, 1 } );
 }
 
 //------------------------------------------------------------------------------
 
 void ReporterFixture::addUserInclude(
-	std::string_view _sourceFile,
-	std::string_view _destinationFile
-)
+	std::string_view _sourceFile, std::string_view _destinationFile )
 {
 	addInclude( _sourceFile, _destinationFile, IncludeType::User );
 }
@@ -57,9 +51,7 @@ void ReporterFixture::addUserInclude(
 //------------------------------------------------------------------------------
 
 void ReporterFixture::addSystemInclude(
-	std::string_view _sourceFile,
-	std::string_view _destinationFile
-)
+	std::string_view _sourceFile, std::string_view _destinationFile )
 {
 	addInclude( _sourceFile, _destinationFile, IncludeType::System );
 }
@@ -71,8 +63,7 @@ void ReporterFixture::addInclude(
 	std::string_view _destinationFile,
 	IncludeStatus _status,
 	IncludeType _type,
-	const LocationInfo & _location
-)
+	const LocationInfo & _location )
 {
 	using namespace model_includes;
 
@@ -80,18 +71,10 @@ void ReporterFixture::addInclude(
 	File & destinationFile = addFile( _destinationFile );
 
 	Model::IncludeLocationInfo location{
-		_location.m_line,
-		_location.m_begin,
-		_location.m_end
-	};
+		_location.m_line, _location.m_begin, _location.m_end };
 
 	getModel().createInclude(
-		location,
-		sourceFile,
-		destinationFile,
-		_status,
-		_type
-	);
+		location, sourceFile, destinationFile, _status, _type );
 }
 
 //------------------------------------------------------------------------------
@@ -136,6 +119,13 @@ void ReporterFixture::setShowOnlyStdHeaders( bool _enable )
 	ensureSettings().setShowOnlyStdHeaders( _enable );
 	if( _enable )
 		setShowStdFiles( true );
+}
+
+//------------------------------------------------------------------------------
+
+void ReporterFixture::setShowDetails( bool _enable )
+{
+	ensureSettings().setShowDetails( _enable );
 }
 
 //------------------------------------------------------------------------------
@@ -185,19 +175,16 @@ std::string ReporterFixture::runDifferentTypeReport()
 
 //------------------------------------------------------------------------------
 
-model_includes::File & ReporterFixture::addFile(
-	std::string_view _file,
-	FileType _type
-)
+model_includes::File &
+ReporterFixture::addFile( std::string_view _file, FileType _type )
 {
 	return getModel().ensureFile( _file, _type );
 }
 
 //------------------------------------------------------------------------------
 
-model_includes::File & ReporterFixture::addFileToProject(
-	std::string_view _file
-)
+model_includes::File &
+ReporterFixture::addFileToProject( std::string_view _file )
 {
 	Path filePah = getProjectDir() / _file;
 	return addFile( filePah.string() );
@@ -208,6 +195,13 @@ model_includes::File & ReporterFixture::addFileToProject(
 std::string ReporterFixture::toPath( std::string_view _str )
 {
 	return tools::toPath( std::string{ _str } );
+}
+
+//------------------------------------------------------------------------------
+
+void ReporterFixture::setSystemThousandsSeparator( char _separator )
+{
+	tools::NumericPunctSettings::setSystemSeparators( _separator );
 }
 
 //------------------------------------------------------------------------------
@@ -262,7 +256,8 @@ model_includes::ModelIncludesAccessor & ReporterFixture::getModelAccessor()
 {
 	if( !m_modelAccessor )
 	{
-		m_modelAccessor = std::make_unique< model_includes::ModelIncludesAccessorImpl >();
+		m_modelAccessor =
+			std::make_unique< model_includes::ModelIncludesAccessorImpl >();
 	}
 
 	return *m_modelAccessor;

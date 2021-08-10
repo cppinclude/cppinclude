@@ -20,8 +20,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project::test {
-
+namespace cmake_project::test
+{
 //------------------------------------------------------------------------------
 
 LoaderFixture::LoaderFixture() = default;
@@ -32,8 +32,7 @@ LoaderFixture::~LoaderFixture() = default;
 void LoaderFixture::addCommand(
 	std::string_view _directory,
 	std::string_view _command,
-	std::string_view _file
-)
+	std::string_view _file )
 {
 	compilation_db::Database & db = ensureCompilationDb();
 	db.addCommand( _directory, _command, _file );
@@ -49,12 +48,10 @@ void LoaderFixture::addDefaultComandForFile( std::string_view _file )
 //------------------------------------------------------------------------------
 
 void LoaderFixture::addComandWithIncludes(
-	std::string_view _file,
-	const Strings & _includes
-)
+	std::string_view _file, const Strings & _includes )
 {
 	std::string includesArg;
-	for( const auto & include : _includes )
+	for( const auto & include: _includes )
 	{
 		includesArg += " -I" + include;
 	}
@@ -76,19 +73,17 @@ LoaderFixture::Strings LoaderFixture::getResultsFiles() const
 	INTERNAL_CHECK_ERROR( m_projectPtr );
 	const Project & project = *m_projectPtr;
 	Strings files;
-	project.forEachFilePath( [&]( const Path & _path )
-	{
+	project.forEachFilePath( [&]( const Path & _path ) {
 		files.insert( tools::toPath( _path.string() ) );
 		return true;
-	});
+	} );
 	return files;
 }
 
 //------------------------------------------------------------------------------
 
-LoaderFixture::Strings LoaderFixture::getResultsIncludes(
-	std::string_view _file
-) const
+LoaderFixture::Strings
+LoaderFixture::getResultsIncludes( std::string_view _file ) const
 {
 	INTERNAL_CHECK_ERROR( m_projectPtr );
 	const Project & project = *m_projectPtr;
@@ -96,21 +91,21 @@ LoaderFixture::Strings LoaderFixture::getResultsIncludes(
 	const Path projectDir{ getDefaultFolder() };
 	const Path filePath = projectDir / _file;
 
-	project.forEachIncludes( filePath, [&]( const Path & _path )
-	{
+	project.forEachIncludes( filePath, [&]( const Path & _path ) {
 		files.insert( tools::toPath( _path.string() ) );
 		return true;
-	});
+	} );
 	return files;
 }
 
 //------------------------------------------------------------------------------
 
-LoaderFixture::Strings LoaderFixture::toExceptedFiles( const Strings & _files ) const
+LoaderFixture::Strings
+LoaderFixture::toExceptedFiles( const Strings & _files ) const
 {
 	Strings result;
 	Path projectDir{ getDefaultFolder() };
-	for( const std::string & file : _files )
+	for( const std::string & file: _files )
 	{
 		Path filePath = projectDir / file;
 		result.insert( tools::toPath( filePath.string() ) );
@@ -120,12 +115,11 @@ LoaderFixture::Strings LoaderFixture::toExceptedFiles( const Strings & _files ) 
 
 //------------------------------------------------------------------------------
 
-LoaderFixture::Strings LoaderFixture::toExceptedIncludes(
-	const Strings & _dirs
-) const
+LoaderFixture::Strings
+LoaderFixture::toExceptedIncludes( const Strings & _dirs ) const
 {
 	Strings result;
-	for( const std::string & dir : _dirs )
+	for( const std::string & dir: _dirs )
 	{
 		result.insert( tools::toPath( dir ) );
 	}

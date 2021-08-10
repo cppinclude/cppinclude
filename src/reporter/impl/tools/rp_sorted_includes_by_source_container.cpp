@@ -8,8 +8,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 void SortedIncludesBySourceContainer::insert( const Include & _include )
@@ -20,10 +20,9 @@ void SortedIncludesBySourceContainer::insert( const Include & _include )
 //------------------------------------------------------------------------------
 
 void SortedIncludesBySourceContainer::forEachInclude(
-	const IncludeCallback & _callback
-) const
+	const IncludeCallback & _callback ) const
 {
-	for( const Include * include : m_includes )
+	for( const Include * include: m_includes )
 	{
 		INTERNAL_CHECK_WARRING( include );
 		if( include == nullptr )
@@ -41,15 +40,11 @@ void SortedIncludesBySourceContainer::forEachInclude(
 //------------------------------------------------------------------------------
 
 void SortedIncludesBySourceContainer::forEachSource(
-	const FileCallback & _callback
-) const
+	const FileCallback & _callback ) const
 {
-	forEachInclude(
-		[&]( const Include & _include )
-		{
-			return _callback( _include.getSourceFile() );
-		}
-	);
+	forEachInclude( [&]( const Include & _include ) {
+		return _callback( _include.getSourceFile() );
+	} );
 }
 
 //------------------------------------------------------------------------------

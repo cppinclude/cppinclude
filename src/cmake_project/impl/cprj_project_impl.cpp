@@ -8,8 +8,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-
+namespace cmake_project
+{
 //------------------------------------------------------------------------------
 
 ProjectImpl::CountType ProjectImpl::getFilePathsCount() const
@@ -21,7 +21,7 @@ ProjectImpl::CountType ProjectImpl::getFilePathsCount() const
 
 void ProjectImpl::forEachFilePath( PathCallback _callback ) const
 {
-	for( const Path & path : m_files )
+	for( const Path & path: m_files )
 	{
 		if( !_callback( path ) )
 		{
@@ -33,9 +33,7 @@ void ProjectImpl::forEachFilePath( PathCallback _callback ) const
 //------------------------------------------------------------------------------
 
 void ProjectImpl::forEachIncludes(
-	const Path & _file,
-	PathCallback _callback
-) const
+	const Path & _file, PathCallback _callback ) const
 {
 	if( m_includesByFiles.count( _file ) == 0U )
 	{
@@ -43,7 +41,7 @@ void ProjectImpl::forEachIncludes(
 	}
 
 	const IncludesForFile & includes = m_includesByFiles.at( _file );
-	for( const Path * include : includes )
+	for( const Path * include: includes )
 	{
 		if( include == nullptr )
 		{

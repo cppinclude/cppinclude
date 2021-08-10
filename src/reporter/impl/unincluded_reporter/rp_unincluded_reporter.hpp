@@ -6,14 +6,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class File;
+namespace model_includes
+{
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-	class SortedFilesByNameContainer;
+namespace reporter
+{
+class SortedFilesByNameContainer;
 
 //------------------------------------------------------------------------------
 
@@ -25,9 +27,7 @@ public:
 	explicit UnincludedReporter( SettingsPtr && _settingsPtr );
 
 	void report(
-		const model_includes::Model & _model,
-		std::ostream & _stream
-	) override;
+		const model_includes::Model & _model, std::ostream & _stream ) override;
 
 	ReporterKind getKind() const override;
 
@@ -42,8 +42,7 @@ private:
 	void printFiles(
 		const FilesContainer & _files,
 		const Path & _projectDir,
-		std::ostream & _stream
-	) const;
+		std::ostream & _stream ) const;
 };
 
 //------------------------------------------------------------------------------

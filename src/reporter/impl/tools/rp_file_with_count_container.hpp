@@ -3,29 +3,29 @@
 #include "reporter/impl/tools/rp_file_with_count.hpp"
 #include "reporter/impl/tools/rp_file_with_count_sorter.hpp"
 
-#include <stdfwd/functional>
 #include <set>
+#include <stdfwd/functional>
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class File;
+namespace model_includes
+{
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class FileWithCountContainer
 {
 public:
-
-	using File				= model_includes::File;
-	using Files				= std::set< FileWithCount, FileWithCountSorter >;
-	using FileCallback		= stdfwd::function< bool ( const File & ) >;
-	using Iterator			= Files::iterator;
+	using File = model_includes::File;
+	using Files = std::set< FileWithCount, FileWithCountSorter >;
+	using FileCallback = stdfwd::function< bool( const File & ) >;
+	using Iterator = Files::iterator;
 
 	std::size_t getSize() const;
 	bool isEmpty() const;

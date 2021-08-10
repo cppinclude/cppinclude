@@ -1,31 +1,31 @@
 #pragma once
 
 #include <std_fs>
-#include <stdfwd/vector>
 #include <stdfwd/string_view>
+#include <stdfwd/vector>
 
 #include <memory>
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-	class IncludesParser;
+namespace cmake_project
+{
+class IncludesParser;
 }
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project::test {
-
+namespace cmake_project::test
+{
 //------------------------------------------------------------------------------
 
 class IncldesParserFixture
 {
 public:
+	using Path = stdfs::path;
+	using Paths = stdfwd::vector< Path >;
 
-	using Path		= stdfs::path;
-	using Paths		= stdfwd::vector< Path >;
-
-	using Strings	= stdfwd::vector< std::string >;
+	using Strings = stdfwd::vector< std::string >;
 
 	IncldesParserFixture();
 	~IncldesParserFixture();

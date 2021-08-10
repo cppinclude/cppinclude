@@ -1,10 +1,22 @@
 # Changelog
 
+## [v0.5.0](docs/versions/VERSION_0.5.0.md)
+
+### Improved (v0.5.0)
+
+* Perfomance with regex
+
+### Added (v0.5.0)
+
+* New argument *show_details*
+* New argument *thousands_separator*
+* New argument *verbose_ignore*
+
 ## [v0.4.0](docs/versions/VERSION_0.4.0.md)
 
 ### Added (v0.4.0)
 
-* New argument *show_only_std_headers* 
+* New argument *show_only_std_headers*
 
 ## [v0.3.1](docs/versions/VERSION_0.3.1.md)
 

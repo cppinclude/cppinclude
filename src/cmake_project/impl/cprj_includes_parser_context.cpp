@@ -4,13 +4,13 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-
+namespace cmake_project
+{
 //------------------------------------------------------------------------------
 
 IncludeParserContext::IncludeParserContext( std::string_view _command )
-	:	m_command{ _command }
-	,	m_size{ _command.size() }
+	: m_command{ _command }
+	, m_size{ _command.size() }
 {
 }
 

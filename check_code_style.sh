@@ -4,7 +4,7 @@ echo "Prepare sources..."
 [[ -d $tempDir ]] && rm -r $tempDir
 mkdir -p $tempDir && echo "Created new folder $tempDir"
 
-cp .clang-tidy $tempDir && echo "Copied .clang-tidy"
+cp .clang-format $tempDir && echo "Copied .clang-format"
 cp -r ./src $tempDir  && echo "Copied src folder"
 
 echo "Run clang-format..."

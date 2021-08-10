@@ -5,8 +5,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class IncorrectReportImpl : public BaseExceptionImpl< IncorrectReport >

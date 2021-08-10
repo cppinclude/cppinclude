@@ -12,8 +12,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace project {
-
+namespace project
+{
 //------------------------------------------------------------------------------
 
 class ProjectImpl final : public Project
@@ -57,14 +57,22 @@ public:
 	void changeAllPathsToAbsolute( const Path & _currentDir ) override;
 	void changeAllPathsToAbsolute() override;
 
+	void setVerboseIgnore( bool _enable ) override;
+
 private:
 	Path convertToDirPath( const Path & _path ) const;
 
 	void changeToAbsolute( const Path & currentDir, Path & _path );
 	void changeToProjectPath( Path & _path );
 
-	static bool isIgnoredFile( const Path & _path, const tools::Regex & _filter );
-	static bool checkFilter( const std::string & _str, const tools::Regex  & _filter );
+	bool
+	isIgnoredFile( const Path & _path, const tools::Regex & _filter ) const;
+	bool
+	checkFilter( const std::string & _str, const tools::Regex & _filter ) const;
+
+	static void printIgnoredFolder( const Path & _path );
+	static void
+	printIgnoredPath( std::string_view _path, std::string_view _filter );
 
 private:
 	std::vector< Path > m_includeDirs;
@@ -76,6 +84,7 @@ private:
 
 	bool m_ignoreSystemIncludes;
 	bool m_analyzeWithoutExtension;
+	bool m_verboseIgnore;
 };
 
 //------------------------------------------------------------------------------

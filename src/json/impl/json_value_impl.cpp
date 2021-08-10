@@ -7,12 +7,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-
+namespace json
+{
 //------------------------------------------------------------------------------
 
 JsonValueImpl::JsonValueImpl( JsonImpl && _jsonImpl )
-	:	m_jsonImpl( std::move( _jsonImpl ) )
+	: m_jsonImpl( std::move( _jsonImpl ) )
 {
 }
 

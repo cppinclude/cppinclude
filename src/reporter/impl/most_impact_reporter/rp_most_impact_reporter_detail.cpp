@@ -2,17 +2,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 MostImpactReporterDetail::MostImpactReporterDetail(
 	const model_includes::File & _file,
 	CountType _includedByCount,
-	const model_includes::IncludeLocation & _includeLocation
-)
-	:	m_fileInfo{ _file, _includedByCount }
-	,	m_includeLocation{ _includeLocation }
+	const model_includes::IncludeLocation & _includeLocation )
+	: m_fileInfo{ _file, _includedByCount }
+	, m_includeLocation{ _includeLocation }
 {
 }
 

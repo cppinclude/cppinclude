@@ -10,8 +10,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 SortedFilesByNameContainer::SortedFilesByNameContainer() = default;
@@ -32,9 +32,10 @@ bool SortedFilesByNameContainer::isEmpty() const
 
 //------------------------------------------------------------------------------
 
-void SortedFilesByNameContainer::forEachFile( const FileCallback & _callback ) const
+void SortedFilesByNameContainer::forEachFile(
+	const FileCallback & _callback ) const
 {
-	for( const File * filePtr : m_files )
+	for( const File * filePtr: m_files )
 	{
 		if( filePtr == nullptr )
 		{

@@ -11,8 +11,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-
+namespace model_includes
+{
 //------------------------------------------------------------------------------
 
 class ModelImpl final : public Model
@@ -37,14 +37,12 @@ public:
 		File & _sourceFile,
 		File & _destinationFile,
 		IncludeStatus _status,
-		IncludeType _type
-	) override;
+		IncludeType _type ) override;
 
 private:
 	using IncludeLocationPtr = std::unique_ptr< IncludeLocation >;
-	IncludeLocationPtr createIncludeLocation(
-		const IncludeLocationInfo & _location
-	) const;
+	IncludeLocationPtr
+	createIncludeLocation( const IncludeLocationInfo & _location ) const;
 
 private:
 	using FilePtr = std::unique_ptr< File >;

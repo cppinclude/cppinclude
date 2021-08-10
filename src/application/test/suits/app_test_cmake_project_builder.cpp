@@ -22,10 +22,11 @@ TEST PLAN
 
 ------------------------------------------------------------------------------*/
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
+// clazy:excludeall=non-pod-global-static
 BOOST_FIXTURE_TEST_SUITE( CMakeProjectBuildersTets, CMakeProjectBuilderFixture )
 
 //------------------------------------------------------------------------------
@@ -57,8 +58,7 @@ BOOST_AUTO_TEST_CASE( t2_default_compilation_file_exist )
 		  "command": "/usr/bin/c++ -o file2.cpp.o -c file2.cpp",
 		  "file": "file2.cpp"
 		}
-		])"
-	);
+		])" );
 
 	// Run
 	buildProject();
@@ -67,17 +67,12 @@ BOOST_AUTO_TEST_CASE( t2_default_compilation_file_exist )
 	BOOST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
-	const auto exceptedFiles = toExceptedFiles( {
-		"/tmp/project/file1.cpp",
-		"/tmp/project/file2.cpp"
-	} );
+	const auto exceptedFiles = toExceptedFiles(
+		{ "/tmp/project/file1.cpp", "/tmp/project/file2.cpp" } );
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -100,8 +95,7 @@ BOOST_AUTO_TEST_CASE( t3_compilation_file_from_arguments )
 		  "command": "/usr/bin/c++ -o file2.cpp.o -c file2.cpp",
 		  "file": "file2.cpp"
 		}
-		])"
-	);
+		])" );
 
 	// Run
 	parserArgument( "--compile_commands=" + compilationFile );
@@ -111,17 +105,12 @@ BOOST_AUTO_TEST_CASE( t3_compilation_file_from_arguments )
 	BOOST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
-	const auto exceptedFiles = toExceptedFiles( {
-		"/tmp/project/file1.cpp",
-		"/tmp/project/file2.cpp"
-	} );
+	const auto exceptedFiles = toExceptedFiles(
+		{ "/tmp/project/file1.cpp", "/tmp/project/file2.cpp" } );
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -144,8 +133,7 @@ BOOST_AUTO_TEST_CASE( t4_compilation_file_from_configuration_file )
 		  "command": "/usr/bin/c++ -o file2.cpp.o -c file2.cpp",
 		  "file": "file2.cpp"
 		}
-		])"
-	);
+		])" );
 
 	// Run
 	setCompilationFileInConfigurationFile( compilationFile );
@@ -155,17 +143,12 @@ BOOST_AUTO_TEST_CASE( t4_compilation_file_from_configuration_file )
 	BOOST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
-	const auto exceptedFiles = toExceptedFiles( {
-		"/tmp/project/file1.cpp",
-		"/tmp/project/file2.cpp"
-	} );
+	const auto exceptedFiles = toExceptedFiles(
+		{ "/tmp/project/file1.cpp", "/tmp/project/file2.cpp" } );
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -181,8 +164,7 @@ BOOST_AUTO_TEST_CASE( t5_1_include_files_several_includes )
 		  "command": "/usr/bin/c++ -o file1.cpp.o -I./lib1/ -I./lib2/ -c file1.cpp",
 		  "file": "file1.cpp"
 		}
-		])"
-	);
+		])" );
 
 	// Run
 	buildProject();
@@ -194,21 +176,16 @@ BOOST_AUTO_TEST_CASE( t5_1_include_files_several_includes )
 	const auto exceptedFiles = toExceptedFiles( { "/tmp/project/file1.cpp" } );
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 
-	const auto resultIncludesFile = getResultIncludes( "/tmp/project/file1.cpp" );
-	const auto exceptedIncludes = toExceptedFiles( { "./lib1/" , "./lib2/" } );
+	const auto resultIncludesFile =
+		getResultIncludes( "/tmp/project/file1.cpp" );
+	const auto exceptedIncludes = toExceptedFiles( { "./lib1/", "./lib2/" } );
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(
-		resultIncludesFile.begin(),
-		resultIncludesFile.end(),
-		exceptedIncludes.begin(),
-		exceptedIncludes.end()
-	);
+		resultIncludesFile.begin(), resultIncludesFile.end(),
+		exceptedIncludes.begin(), exceptedIncludes.end() );
 }
 
 //------------------------------------------------------------------------------
@@ -229,8 +206,7 @@ BOOST_AUTO_TEST_CASE( t5_2_include_files_different_includes_in_different_files )
 		  "command": "/usr/bin/c++ -o file2.cpp.o -I./lib2/ -c file2.cpp",
 		  "file": "file2.cpp"
 		}
-		])"
-	);
+		])" );
 
 	// Run
 	buildProject();
@@ -239,39 +215,30 @@ BOOST_AUTO_TEST_CASE( t5_2_include_files_different_includes_in_different_files )
 	BOOST_REQUIRE( isInitializedProject() );
 
 	const auto resultFiles = getResultsFiles();
-	const auto exceptedFiles = toExceptedFiles( {
-		"/tmp/project/file1.cpp",
-		"/tmp/project/file2.cpp"
-	} );
+	const auto exceptedFiles = toExceptedFiles(
+		{ "/tmp/project/file1.cpp", "/tmp/project/file2.cpp" } );
 
 	BOOST_REQUIRE_EQUAL_COLLECTIONS(
-		resultFiles.begin(),
-		resultFiles.end(),
-		exceptedFiles.begin(),
-		exceptedFiles.end()
-	);
+		resultFiles.begin(), resultFiles.end(), exceptedFiles.begin(),
+		exceptedFiles.end() );
 
 	{
-		const auto resultIncludesFile = getResultIncludes( "/tmp/project/file1.cpp" );
+		const auto resultIncludesFile =
+			getResultIncludes( "/tmp/project/file1.cpp" );
 		const auto exceptedIncludes = toExceptedFiles( { "./lib1/" } );
 
-	BOOST_CHECK_EQUAL_COLLECTIONS(
-			resultIncludesFile.begin(),
-			resultIncludesFile.end(),
-			exceptedIncludes.begin(),
-			exceptedIncludes.end()
-		);
+		BOOST_CHECK_EQUAL_COLLECTIONS(
+			resultIncludesFile.begin(), resultIncludesFile.end(),
+			exceptedIncludes.begin(), exceptedIncludes.end() );
 	}
 	{
-		const auto resultIncludesFile = getResultIncludes( "/tmp/project/file2.cpp" );
+		const auto resultIncludesFile =
+			getResultIncludes( "/tmp/project/file2.cpp" );
 		const auto exceptedIncludes = toExceptedFiles( { "./lib2/" } );
 
 		BOOST_CHECK_EQUAL_COLLECTIONS(
-			resultIncludesFile.begin(),
-			resultIncludesFile.end(),
-			exceptedIncludes.begin(),
-			exceptedIncludes.end()
-		);
+			resultIncludesFile.begin(), resultIncludesFile.end(),
+			exceptedIncludes.begin(), exceptedIncludes.end() );
 	}
 }
 

@@ -4,14 +4,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonValue;
+namespace json
+{
+class JsonValue;
 }
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 class LoaderImpl final : public Loader

@@ -1,13 +1,14 @@
 #pragma once
 
-#include <stdfwd/size_t>
 #include <std_fs>
+#include <stdfwd/size_t>
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class Include;
-	enum class FileType;
+namespace model_includes
+{
+class Include;
+enum class FileType;
 
 //------------------------------------------------------------------------------
 

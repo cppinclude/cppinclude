@@ -4,15 +4,16 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class IncludeLocation;
-	class File;
+namespace model_includes
+{
+class IncludeLocation;
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class MostImpactReporterDetail
@@ -23,8 +24,7 @@ public:
 	MostImpactReporterDetail(
 		const model_includes::File & _file,
 		CountType _includedByCount,
-		const model_includes::IncludeLocation & _includeLocation
-	);
+		const model_includes::IncludeLocation & _includeLocation );
 
 public:
 	const model_includes::File & getFile() const;

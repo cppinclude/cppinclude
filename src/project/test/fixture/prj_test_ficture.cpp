@@ -15,8 +15,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace project::test {
-
+namespace project::test
+{
 //------------------------------------------------------------------------------
 
 ProjectFixture::ProjectFixture() = default;
@@ -100,13 +100,10 @@ bool ProjectFixture::isIgnoreDir( std::string_view _path )
 ProjectFixture::Paths ProjectFixture::getIgnoreDirs() const
 {
 	Paths result;
-	getProject().forEachIgnoreDir(
-		[&]( const Path & _path )
-		{
-			result.push_back( _path );
-			return true;
-		}
-	);
+	getProject().forEachIgnoreDir( [&]( const Path & _path ) {
+		result.push_back( _path );
+		return true;
+	} );
 	return result;
 }
 
@@ -163,14 +160,14 @@ ProjectFixture::Path ProjectFixture::getCurrentPath()
 
 std::string ProjectFixture::toString( const Strings & _strings )
 {
-	const std::string seperator = ",";
+	const std::string separator = ",";
 	std::string result;
 
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		if( !result.empty() )
 		{
-			result += seperator;
+			result += separator;
 		}
 
 		result += str;
@@ -184,7 +181,7 @@ std::string ProjectFixture::toString( const Strings & _strings )
 ProjectFixture::Paths ProjectFixture::toPaths( const Strings & _strings )
 {
 	Paths result;
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		result.push_back( str );
 	}

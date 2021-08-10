@@ -2,13 +2,13 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter::resources::dump_reporter {
-
+namespace reporter::resources::dump_reporter
+{
 //------------------------------------------------------------------------------
 
-	extern const char * const Name;
+extern const char * const Name;
 
-	extern const char * const Indent;
+extern const char * const Indent;
 
 //------------------------------------------------------------------------------
 

@@ -1,12 +1,13 @@
 #pragma once
 
-#include <stdfwd/memory>
 #include <iosfwd>
+#include <stdfwd/memory>
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonObject;
+namespace json
+{
+class JsonObject;
 
 //------------------------------------------------------------------------------
 

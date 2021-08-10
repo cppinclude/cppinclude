@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace compilation_db {
-
+namespace compilation_db
+{
 //------------------------------------------------------------------------------
 
 AccessorImpl::LoaderPtr AccessorImpl::createLoader()

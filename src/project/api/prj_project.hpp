@@ -1,29 +1,28 @@
 #pragma once
 
-#include <stdfwd/vector>
 #include <std_fs>
+#include <stdfwd/functional>
 #include <stdfwd/string>
 #include <stdfwd/string_view>
-#include <stdfwd/functional>
+#include <stdfwd/vector>
 
 //------------------------------------------------------------------------------
 
-namespace project {
-
+namespace project
+{
 //------------------------------------------------------------------------------
 
 class Project
 {
 public:
+	using Strings = stdfwd::vector< std::string >;
+	using Path = stdfs::path;
+	using DirPaths = stdfwd::vector< Path >;
+	using IncludeDirIndex = std::size_t;
+	using FileFilterIndex = std::size_t;
 
-	using Strings					= stdfwd::vector< std::string >;
-	using Path						= stdfs::path;
-	using DirPaths					= stdfwd::vector< Path >;
-	using IncludeDirIndex			= std::size_t;
-	using FileFilterIndex			= std::size_t;
-
-	using PathCallback				= std::function< bool ( const Path & ) >;
-	using FileExtensionCallback		= std::function< bool ( std::string_view ) >;
+	using PathCallback = std::function< bool( const Path & ) >;
+	using FileExtensionCallback = std::function< bool( std::string_view ) >;
 
 	virtual ~Project() = default;
 
@@ -46,7 +45,8 @@ public:
 
 	virtual void addCppFileExtension( std::string_view _ext ) = 0;
 	virtual void addCppFileExtensions( const Strings & _extensions ) = 0;
-	virtual void forEachFileExtension( FileExtensionCallback _callback ) const = 0;
+	virtual void
+	forEachFileExtension( FileExtensionCallback _callback ) const = 0;
 
 	virtual bool getAnalyzeWithoutExtension() const = 0;
 	virtual void setAnalyzeWithoutExtension( bool _enable ) = 0;
@@ -62,6 +62,8 @@ public:
 
 	virtual void changeAllPathsToAbsolute( const Path & _currentDir ) = 0;
 	virtual void changeAllPathsToAbsolute() = 0;
+
+	virtual void setVerboseIgnore( bool _enable ) = 0;
 };
 
 //------------------------------------------------------------------------------

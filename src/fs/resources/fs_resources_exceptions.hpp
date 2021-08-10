@@ -2,34 +2,34 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs::resources::exceptions {
-
+namespace fs::resources::exceptions
+{
 //------------------------------------------------------------------------------
 
-	extern const char * const ModuleName;
+extern const char * const ModuleName;
 
 //------------------------------------------------------------------------------
 
 namespace CantCreateFile
 {
-	extern const char * const Code;
-	extern const char * const Msg;
+extern const char * const Code;
+extern const char * const Msg;
 }
 
 //------------------------------------------------------------------------------
 
 namespace CantOpenFile
 {
-	extern const char * const Code;
-	extern const char * const Msg;
+extern const char * const Code;
+extern const char * const Msg;
 }
 
 //------------------------------------------------------------------------------
 
 namespace CheckingExistFileFail
 {
-	extern const char * const Code;
-	extern const char * const Msg;
+extern const char * const Code;
+extern const char * const Msg;
 }
 
 //------------------------------------------------------------------------------

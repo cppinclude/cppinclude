@@ -31,8 +31,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 
 ModelIncludesFixture::ModelIncludesFixture() = default;
@@ -48,9 +48,7 @@ void ModelIncludesFixture::setProjectDir( std::string_view _dir )
 //------------------------------------------------------------------------------
 
 void ModelIncludesFixture::addFileToProject(
-	std::string_view _file,
-	std::string_view _text
-)
+	std::string_view _file, std::string_view _text )
 {
 	Path filePath = getProjectDir() / _file;
 	addFile( filePath.string(), _text );
@@ -66,9 +64,7 @@ void ModelIncludesFixture::addFileToCmake( std::string_view _file )
 //------------------------------------------------------------------------------
 
 void ModelIncludesFixture::addFile(
-	std::string_view _path,
-	std::string_view _text
-)
+	std::string_view _path, std::string_view _text )
 {
 	Path filePath{ _path };
 	filePath = stdfs::lexically_normal( filePath );
@@ -122,9 +118,7 @@ void ModelIncludesFixture::setAnalyzeWithoutExtension( bool _enable )
 //------------------------------------------------------------------------------
 
 void ModelIncludesFixture::addIncludePathToCMake(
-	std::string_view _file,
-	std::string_view _includeDir
-)
+	std::string_view _file, std::string_view _includeDir )
 {
 	ensureCmakeProject().addIncludeToFile( _file, _includeDir );
 }
@@ -132,9 +126,7 @@ void ModelIncludesFixture::addIncludePathToCMake(
 //------------------------------------------------------------------------------
 
 ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
-	const Path & _startFile,
-	std::string_view _fileName
-)
+	const Path & _startFile, std::string_view _fileName )
 {
 	return resolvePath( _startFile, _fileName, std::nullopt );
 }
@@ -144,16 +136,11 @@ ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
 ModelIncludesFixture::PathOpt ModelIncludesFixture::resolvePath(
 	const Path & _startFile,
 	stdfwd::string_view _fileName,
-	const PathOpt & _currentCMakeFile
-)
+	const PathOpt & _currentCMakeFile )
 {
 	return ensureResolver().resolvePath(
-		ensureProject(),
-		m_cmakeProject.get(),
-		_startFile,
-		_fileName,
-		_currentCMakeFile
-	);
+		ensureProject(), m_cmakeProject.get(), _startFile, _fileName,
+		_currentCMakeFile );
 }
 
 //------------------------------------------------------------------------------
@@ -166,9 +153,7 @@ FileType ModelIncludesFixture::resolveFileType( stdfwd::string_view _file )
 //------------------------------------------------------------------------------
 
 BoostPredicate ModelIncludesFixture::checkFileType(
-	FileType _currentFileType,
-	FileType _excpectedFile
-)
+	FileType _currentFileType, FileType _excpectedFile )
 {
 	if( _currentFileType == _excpectedFile )
 	{
@@ -176,13 +161,9 @@ BoostPredicate ModelIncludesFixture::checkFileType(
 	}
 
 	std::stringstream stream;
-	stream
-		<< "\n"
-		<< "Current file type: "
-		<< toString( _currentFileType )
-		<<  "but expected : "
-		<< toString( _excpectedFile )
-	;
+	stream << "\n"
+		   << "Current file type: " << toString( _currentFileType )
+		   << "but expected : " << toString( _excpectedFile );
 	return stream.str();
 }
 
@@ -288,9 +269,7 @@ Analyzer & ModelIncludesFixture::ensureAnalyzer()
 	if( !m_analyzerPtr )
 	{
 		auto newAnalyzer = ensureModelAccesddor().createAnalyzer(
-			ensureFileSystem(),
-			ensureParser()
-		);
+			ensureFileSystem(), ensureParser() );
 		m_analyzerPtr.swap( newAnalyzer );
 	}
 
@@ -334,7 +313,8 @@ cmake_project::Accessor & ModelIncludesFixture::ensureCmakeProjectAccessor()
 {
 	if( !m_cmakeProjectAccessor )
 	{
-		m_cmakeProjectAccessor = std::make_unique< cmake_project::AccessorImpl >();
+		m_cmakeProjectAccessor =
+			std::make_unique< cmake_project::AccessorImpl >();
 	}
 
 	return *m_cmakeProjectAccessor;

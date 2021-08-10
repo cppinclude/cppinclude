@@ -7,8 +7,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace exception {
-
+namespace exception
+{
 //------------------------------------------------------------------------------
 
 class InternalError : public ExceptionImpl< Exception >
@@ -16,25 +16,19 @@ class InternalError : public ExceptionImpl< Exception >
 	using BaseClass = ExceptionImpl< Exception >;
 
 public:
-
-	InternalError( std::string_view _file, std::string_view _function, int _line )
-		:	BaseClass( "EXC", "INTERNAL_ERROR" )
-		,	m_file{ _file }
-		,	m_function{ _function }
-		,	m_line{ _line }
+	InternalError(
+		std::string_view _file, std::string_view _function, int _line )
+		: BaseClass( "EXC", "INTERNAL_ERROR" )
+		, m_file{ _file }
+		, m_function{ _function }
+		, m_line{ _line }
 	{
 	}
 
 	std::string getMessage() const noexcept override
 	{
-		return
-			"Internal error " +
-			m_file +
-			":" +
-			std::to_string( m_line ) +
-			" " +
-			m_function
-		;
+		return "Internal error " + m_file + ":" + std::to_string( m_line ) +
+			   " " + m_function;
 	}
 
 private:

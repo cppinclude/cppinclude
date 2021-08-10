@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-
+namespace fs
+{
 //------------------------------------------------------------------------------
 
 class FileSystemAccessorImpl final : public FileSystemAccessor

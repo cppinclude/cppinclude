@@ -13,8 +13,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 ParserWrapperFixture::ParserWrapperFixture() = default;
@@ -59,13 +59,7 @@ std::string ParserWrapperFixture::getProjectDir() const
 ParserWrapperFixture::StringsArray
 ParserWrapperFixture::getFileExtensions() const
 {
-	auto valueOpt = getParser().getFileExtensions();
-	if( valueOpt )
-	{
-		return *valueOpt;
-	}
-
-	return StringsArray{};
+	return getParser().getFileExtensions().value_or( StringsArray{} );
 }
 
 //------------------------------------------------------------------------------
@@ -80,12 +74,7 @@ ParserWrapperFixture::getDefaultFileExtensions() const
 
 bool ParserWrapperFixture::getAnalyzeWithoutExtension() const
 {
-	auto valueOpt = getParser().getAnalyzeWithoutExtension();
-	if( valueOpt )
-	{
-		return *valueOpt;
-	}
-	return false;
+	return getParser().getAnalyzeWithoutExtension().value_or( false );
 }
 
 //------------------------------------------------------------------------------
@@ -106,13 +95,7 @@ std::string ParserWrapperFixture::getDefaultProjectDir() const
 
 ParserWrapperFixture::Paths ParserWrapperFixture::getIncludeDirs() const
 {
-	auto valueOpt = getParser().getIncludeDirs();
-	if( valueOpt )
-	{
-		return *valueOpt;
-	}
-
-	return Paths{};
+	return getParser().getIncludeDirs().value_or( Paths{} );
 }
 
 //------------------------------------------------------------------------------
@@ -126,13 +109,7 @@ ParserWrapperFixture::Paths ParserWrapperFixture::getDefaultIncludeDirs() const
 
 ParserWrapperFixture::Paths ParserWrapperFixture::getIgnoreDirs() const
 {
-	auto valueOpt = getParser().getIgnoreDirs();
-	if( valueOpt )
-	{
-		return *valueOpt;
-	}
-
-	return Paths{};
+	return getParser().getIgnoreDirs().value_or( Paths{} );
 }
 
 //------------------------------------------------------------------------------
@@ -181,58 +158,44 @@ bool ParserWrapperFixture::getDefaultIgnoreSystemIncludes() const
 
 ParserWrapperFixture::Path ParserWrapperFixture::getConfigurationFile() const
 {
-	auto valueOpt = getParser().getConfigurationFile();
-	if( valueOpt )
-	{
-		return *valueOpt;
-	}
-
-	return Path{};
+	return getParser().getConfigurationFile().value_or( Path{} );
 }
 
 //------------------------------------------------------------------------------
 
 ParserWrapperFixture::Path ParserWrapperFixture::getCompileCommandsFile() const
 {
-	auto valueOpt = getParser().getCompileCommandsFile();
-	if( valueOpt )
-	{
-		return *valueOpt;
-	}
-
-	return Path{};
+	return getParser().getCompileCommandsFile().value_or( Path{} );
 }
 
 //------------------------------------------------------------------------------
 
-ParserWrapperFixture::Path ParserWrapperFixture::getDefaultCompileCommandsFile() const
+ParserWrapperFixture::Path
+ParserWrapperFixture::getDefaultCompileCommandsFile() const
 {
 	return getParser().getDefaultCompileCommandsFile();
 }
 
 //------------------------------------------------------------------------------
 
-ParserWrapperFixture::Path ParserWrapperFixture::getDefaultConfigurationFile() const
+ParserWrapperFixture::Path
+ParserWrapperFixture::getDefaultConfigurationFile() const
 {
-    return getParser().getDefaultConfigurationFile();
+	return getParser().getDefaultConfigurationFile();
 }
 
 //------------------------------------------------------------------------------
 
-ParserWrapperFixture::ReporterKinds ParserWrapperFixture::getReporterKinds() const
+ParserWrapperFixture::ReporterKinds
+ParserWrapperFixture::getReporterKinds() const
 {
-	auto kindsOpt = getParser().getReporterKinds();
-	if( kindsOpt )
-	{
-		return *kindsOpt;
-	}
-
-	return ReporterKinds{};
+	return getParser().getReporterKinds().value_or( ReporterKinds{} );
 }
 
 //------------------------------------------------------------------------------
 
-ParserWrapperFixture::ReporterKinds ParserWrapperFixture::getDefaultReporterKinds() const
+ParserWrapperFixture::ReporterKinds
+ParserWrapperFixture::getDefaultReporterKinds() const
 {
 	return getParser().getDefaultReporterKinds();
 }
@@ -241,12 +204,7 @@ ParserWrapperFixture::ReporterKinds ParserWrapperFixture::getDefaultReporterKind
 
 int ParserWrapperFixture::getReportLimit() const
 {
-	auto numberOpt = getParser().getReportLimit();
-	if( numberOpt )
-	{
-		return *numberOpt;
-	}
-	return -1;
+	return getParser().getReportLimit().value_or( -1 );
 }
 
 //------------------------------------------------------------------------------
@@ -260,12 +218,7 @@ int ParserWrapperFixture::getDefaultReportLimit() const
 
 int ParserWrapperFixture::getReportDetailsLimit() const
 {
-	auto numberOpt = getParser().getReportDetailsLimit();
-	if( numberOpt )
-	{
-		return *numberOpt;
-	}
-	return -1;
+	return getParser().getReportDetailsLimit().value_or( -1 );
 }
 
 //------------------------------------------------------------------------------
@@ -291,7 +244,8 @@ bool ParserWrapperFixture::getDefaultShowStdFile() const
 
 //------------------------------------------------------------------------------
 
-ParserWrapperFixture::BoolOpt ParserWrapperFixture::getShowOnlyStdHeaders() const
+ParserWrapperFixture::BoolOpt
+ParserWrapperFixture::getShowOnlyStdHeaders() const
 {
 	return getParser().getShowOnlyStdHeaders();
 }
@@ -301,6 +255,35 @@ ParserWrapperFixture::BoolOpt ParserWrapperFixture::getShowOnlyStdHeaders() cons
 bool ParserWrapperFixture::getDefaultShowOnlyStdHeaders() const
 {
 	return getParser().getDefaultShowOnlyStdHeaders();
+}
+
+//------------------------------------------------------------------------------
+
+ParserWrapperFixture::BoolOpt ParserWrapperFixture::getShowDetails() const
+{
+	return getParser().getShowDetails();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserWrapperFixture::getDefaultShowDetails() const
+{
+	return getParser().getDefaultShowDetails();
+}
+
+//------------------------------------------------------------------------------
+
+ParserWrapperFixture::StringOpt
+ParserWrapperFixture::getThousandsSeparator() const
+{
+	return getParser().getThousandsSeparator();
+}
+
+//------------------------------------------------------------------------------
+
+std::string ParserWrapperFixture::getDefaultThousandsSeparator() const
+{
+	return getParser().getDefaultThousandsSeparator();
 }
 
 //------------------------------------------------------------------------------
@@ -315,6 +298,13 @@ bool ParserWrapperFixture::isHelp() const
 bool ParserWrapperFixture::isVerbose() const
 {
 	return getParser().isVerbose();
+}
+
+//------------------------------------------------------------------------------
+
+bool ParserWrapperFixture::isVerboseIgnore() const
+{
+	return getParser().isVerboseIgnore();
 }
 
 //------------------------------------------------------------------------------
@@ -365,7 +355,7 @@ std::string ParserWrapperFixture::toString( const ReporterKinds & _array ) const
 	StringsArray strings;
 	strings.reserve( _array.size() );
 
-	for( reporter::ReporterKind kind : _array )
+	for( reporter::ReporterKind kind: _array )
 	{
 		strings.push_back( toString( kind ) );
 	}
@@ -382,7 +372,8 @@ std::string ParserWrapperFixture::toString( reporter::ReporterKind _kind ) const
 
 //------------------------------------------------------------------------------
 
-// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+// NOLINTNEXTLINE(hicpp-avoid-c-arrays, modernize-avoid-c-arrays,
+// cppcoreguidelines-avoid-c-arrays)
 std::string ParserWrapperFixture::toString( const char * const _values[] ) const
 {
 	std::string result;

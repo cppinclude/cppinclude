@@ -2,29 +2,29 @@
 
 #include "reporter/impl/tools/rp_file_sorter.hpp"
 
-#include <stdfwd/functional>
 #include <std_fs>
+#include <stdfwd/functional>
 
 #include <set>
 
 //------------------------------------------------------------------------------
 
-namespace model_includes {
-	class File;
+namespace model_includes
+{
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 class SortedFilesByNameContainer
 {
 public:
-
-	using File			= model_includes::File;
-	using FileCallback	= stdfwd::function< bool ( const File & ) >;
+	using File = model_includes::File;
+	using FileCallback = stdfwd::function< bool( const File & ) >;
 
 	SortedFilesByNameContainer();
 

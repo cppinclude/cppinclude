@@ -2,16 +2,14 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 FileWithCount::FileWithCount(
-	const model_includes::File & _file,
-	CountType _count
-)
-	:	m_file{ _file }
-	,	m_count{ _count }
+	const model_includes::File & _file, CountType _count )
+	: m_file{ _file }
+	, m_count{ _count }
 {
 }
 

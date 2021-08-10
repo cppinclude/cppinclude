@@ -1,40 +1,43 @@
 #pragma once
 
-#include <stdfwd/vector>
 #include <std_fs>
 #include <stdfwd/optional>
 #include <stdfwd/string_view>
+#include <stdfwd/vector>
 
 #include <memory>
 
 //------------------------------------------------------------------------------
 
-namespace application {
-    class ParserArgWrapper;
+namespace application
+{
+class ParserArgWrapper;
 }
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-	enum class ReporterKind;
+namespace reporter
+{
+enum class ReporterKind;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 class ParserWrapperFixture
 {
 public:
-	using Arguments 		= stdfwd::vector< std::string >;
-	using StringsArray 		= stdfwd::vector< std::string >;
-	using Path 				= stdfs::path;
-	using Paths 			= stdfwd::vector< Path >;
-	using ReporterKinds 	= stdfwd::vector< reporter::ReporterKind >;
+	using Arguments = stdfwd::vector< std::string >;
+	using StringOpt = std::optional< std::string >;
+	using StringsArray = stdfwd::vector< std::string >;
+	using Path = stdfs::path;
+	using Paths = stdfwd::vector< Path >;
+	using ReporterKinds = stdfwd::vector< reporter::ReporterKind >;
 
-	using BoolOpt 			= std::optional< bool >;
+	using BoolOpt = std::optional< bool >;
 
 	ParserWrapperFixture();
 	~ParserWrapperFixture();
@@ -84,8 +87,15 @@ public:
 	BoolOpt getShowOnlyStdHeaders() const;
 	bool getDefaultShowOnlyStdHeaders() const;
 
+	BoolOpt getShowDetails() const;
+	bool getDefaultShowDetails() const;
+
+	StringOpt getThousandsSeparator() const;
+	std::string getDefaultThousandsSeparator() const;
+
 	bool isHelp() const;
 	bool isVerbose() const;
+	bool isVerboseIgnore() const;
 	bool isVersion() const;
 
 	std::string toString( const StringsArray & _array ) const;

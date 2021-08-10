@@ -2,15 +2,17 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 SettingsImpl::SettingsImpl()
-	:	m_maxFilesCount{ 0 }
-	,	m_maxDetailsCount{ 0 }
-	,	m_showStdFiles{ false }
-	,	m_showOnlyStdHeaders{ false }
+	: m_maxFilesCount{ 0 }
+	, m_maxDetailsCount{ 0 }
+	, m_thousandsSeparator{ ' ' }
+	, m_showStdFiles{ false }
+	, m_showOnlyStdHeaders{ false }
+	, m_showDetails{ true }
 {
 }
 
@@ -72,12 +74,42 @@ void SettingsImpl::setShowOnlyStdHeaders( bool _enable )
 
 //------------------------------------------------------------------------------
 
+bool SettingsImpl::getShowDetails() const
+{
+	return m_showDetails;
+}
+
+//------------------------------------------------------------------------------
+
+void SettingsImpl::setShowDetails( bool _enable )
+{
+	m_showDetails = _enable;
+}
+
+//------------------------------------------------------------------------------
+
+char SettingsImpl::getThousandsSeparator() const
+{
+	return m_thousandsSeparator;
+}
+
+//------------------------------------------------------------------------------
+
+void SettingsImpl::setThousandsSeparator( char _separator )
+{
+	m_thousandsSeparator = _separator;
+}
+
+//------------------------------------------------------------------------------
+
 void SettingsImpl::copy( const Settings & _other )
 {
 	setMaxFilesCount( _other.getMaxFilesCount() );
 	setMaxDetailsCount( _other.getMaxDetailsCount() );
+	setThousandsSeparator( _other.getThousandsSeparator() );
 	setShowStdFiles( _other.getShowStdFiles() );
 	setShowOnlyStdHeaders( _other.getShowOnlyStdHeaders() );
+	setShowDetails( _other.getShowDetails() );
 }
 
 //------------------------------------------------------------------------------

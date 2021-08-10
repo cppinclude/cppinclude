@@ -3,49 +3,51 @@
 #include "application/tools/app_plugin_ptr.hpp"
 
 #include <memory>
-#include <stdfwd/optional>
-#include <stdfwd/vector>
 #include <std_fs>
+#include <stdfwd/optional>
 #include <stdfwd/string_view>
+#include <stdfwd/vector>
 
 //------------------------------------------------------------------------------
 
-namespace json {
-	class JsonAccessor;
+namespace json
+{
+class JsonAccessor;
 }
 
-namespace application {
-	class ConfigurationFile;
+namespace application
+{
+class ConfigurationFile;
 }
 
-namespace reporter {
-	enum class ReporterKind;
+namespace reporter
+{
+enum class ReporterKind;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 class ConfigurationfileFixture
 {
 public:
+	using StringOpt = stdfwd::optional< std::string >;
+	using Strings = stdfwd::vector< std::string >;
+	using StringsOpt = std::optional< Strings >;
 
-	using StringOpt			= stdfwd::optional< std::string >;
-	using Strings			= stdfwd::vector< std::string >;
-	using StringsOpt		= std::optional< Strings >;
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
+	using PathsArray = stdfwd::vector< Path >;
+	using PathsArrayOpt = std::optional< PathsArray >;
 
-	using Path				= stdfs::path;
-	using PathOpt			= std::optional< Path >;
-	using PathsArray		= stdfwd::vector< Path >;
-	using PathsArrayOpt		= std::optional< PathsArray >;
+	using BoolOpt = std::optional< bool >;
+	using IntOpt = std::optional< int >;
 
-	using BoolOpt			= std::optional< bool >;
-	using IntOpt			= std::optional< int >;
-
-	using ReporterKinds		= stdfwd::vector< reporter::ReporterKind >;
-	using ReporterKindsOpt	= std::optional< ReporterKinds >;
+	using ReporterKinds = stdfwd::vector< reporter::ReporterKind >;
+	using ReporterKindsOpt = std::optional< ReporterKinds >;
 
 	ConfigurationfileFixture();
 	~ConfigurationfileFixture();
@@ -69,6 +71,9 @@ public:
 	IntOpt getReportDetailsLimit() const;
 	BoolOpt getShowStdFile() const;
 	BoolOpt getShowOnlyStdHeaders() const;
+	BoolOpt getShowDetails() const;
+
+	StringOpt getThousandsSeparator() const;
 
 	static StringOpt toStirng( const StringsOpt & _arrayOpt );
 	static StringOpt toStirng( const PathsArrayOpt & _arrayOpt );

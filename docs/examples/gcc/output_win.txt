@@ -2,117 +2,117 @@ Start initialization project ...
 Start analyze sources ...
 Start report results ...
 Most impact files:
-1 : "libstdc++-v3\include\c_compatibility\stdio.h" impact on 10322 file(s)
+1 : "libstdc++-v3\include\c_compatibility\stdio.h" impact on 10 322 files
 Included by:
-	1 : "libstdc++-v3\testsuite\util\testsuite_hooks.h" line 49, impact on 4716 file(s)
-	2 : "gcc\testsuite\gcc.target\i386\m128-check.h" line 1, impact on 1799 file(s)
-	3 : "include\libiberty.h" line 49, impact on 1152 file(s)
-	4 : "gcc\wide-int-print.h" line 23, impact on 1118 file(s)
-	5 : "gcc\system.h" line 46, impact on 1060 file(s)
-	6 : "libgfortran\libgfortran.h" line 42, impact on 591 file(s)
-	7 : "libffi\testsuite\libffi.call\ffitest.h" line 2, impact on 145 file(s)
-	8 : "gcc\jit\libgccjit.h" line 23, impact on 139 file(s)
-	9 : "gcc\testsuite\gcc.dg\compat\compat-common.h" line 8, impact on 117 file(s)
-	10 : "gcc\testsuite\jit.dg\harness.h" line 16, impact on 117 file(s)
-	... 10 of 1198 details
-2 : "fixincludes\tests\base\unistd.h" impact on 6319 file(s)
+	1 : "libstdc++-v3\testsuite\util\testsuite_hooks.h" line 49, impact on 4 716 files
+	2 : "gcc\testsuite\gcc.target\i386\m128-check.h" line 1, impact on 1 799 files
+	3 : "include\libiberty.h" line 49, impact on 1 152 files
+	4 : "gcc\wide-int-print.h" line 23, impact on 1 118 files
+	5 : "gcc\system.h" line 46, impact on 1 060 files
+	6 : "libgfortran\libgfortran.h" line 42, impact on 591 files
+	7 : "libffi\testsuite\libffi.call\ffitest.h" line 2, impact on 145 files
+	8 : "gcc\jit\libgccjit.h" line 23, impact on 139 files
+	9 : "gcc\testsuite\gcc.dg\compat\compat-common.h" line 8, impact on 117 files
+	10 : "gcc\testsuite\jit.dg\harness.h" line 16, impact on 117 files
+	... 10 of 1 198 details
+2 : "fixincludes\tests\base\unistd.h" impact on 6 319 files
 Included by:
-	1 : "libstdc++-v3\testsuite\util\testsuite_hooks.h" line 73, impact on 4716 file(s)
-	2 : "gcc\system.h" line 294, impact on 1060 file(s)
-	3 : "libstdc++-v3\testsuite\util\testsuite_fs.h" line 38, impact on 140 file(s)
-	4 : "gcc\testsuite\jit.dg\harness.h" line 17, impact on 117 file(s)
-	5 : "gcc\tsystem.h" line 102, impact on 75 file(s)
-	6 : "libstdc++-v3\include\ext\stdio_sync_filebuf.h" line 35, impact on 18 file(s)
-	7 : "libcpp\system.h" line 222, impact on 14 file(s)
-	8 : "include\simple-object.h" line 27, impact on 11 file(s)
-	9 : "liboffloadmic\runtime\coi\coi_server.h" line 44, impact on 10 file(s)
-	10 : "gcc\testsuite\gcc.dg\guality\guality.h" line 25, impact on 8 file(s)
+	1 : "libstdc++-v3\testsuite\util\testsuite_hooks.h" line 73, impact on 4 716 files
+	2 : "gcc\system.h" line 294, impact on 1 060 files
+	3 : "libstdc++-v3\testsuite\util\testsuite_fs.h" line 38, impact on 140 files
+	4 : "gcc\testsuite\jit.dg\harness.h" line 17, impact on 117 files
+	5 : "gcc\tsystem.h" line 102, impact on 75 files
+	6 : "libstdc++-v3\include\ext\stdio_sync_filebuf.h" line 35, impact on 18 files
+	7 : "libcpp\system.h" line 222, impact on 14 files
+	8 : "include\simple-object.h" line 27, impact on 11 files
+	9 : "liboffloadmic\runtime\coi\coi_server.h" line 44, impact on 10 files
+	10 : "gcc\testsuite\gcc.dg\guality\guality.h" line 25, impact on 8 files
 	... 10 of 294 details
-3 : "gcc\ginclude\stdint-gcc.h" impact on 5209 file(s)
+3 : "gcc\ginclude\stdint-gcc.h" impact on 5 209 files
 Included by:
-	1 : "gcc\config\vxworks\stdint.h" line 26, impact on 5208 file(s)
-4 : "gcc\config\vxworks\stdint.h" impact on 5208 file(s)
+	1 : "gcc\config\vxworks\stdint.h" line 26, impact on 5 208 files
+4 : "gcc\config\vxworks\stdint.h" impact on 5 208 files
 Included by:
-	1 : "gcc\config\arm\arm_mve.h" line 31, impact on 2485 file(s)
-	2 : "gcc\system.h" line 524, impact on 1060 file(s)
-	3 : "libgcc\gstdint.h" line 6, impact on 659 file(s)
-	4 : "gcc\config\arm\arm_fp16.h" line 34, impact on 286 file(s)
-	5 : "gcc\config\arm\arm_neon.h" line 43, impact on 282 file(s)
-	6 : "include\plugin-api.h" line 30, impact on 235 file(s)
-	7 : "include\splay-tree.h" line 40, impact on 162 file(s)
-	8 : "libffi\testsuite\libffi.call\ffitest.h" line 9, impact on 145 file(s)
-	9 : "liboffloadmic\include\coi\common\COITypes_common.h" line 51, impact on 41 file(s)
-	10 : "libbacktrace\backtrace.h" line 43, impact on 34 file(s)
+	1 : "gcc\config\arm\arm_mve.h" line 31, impact on 2 485 files
+	2 : "gcc\system.h" line 524, impact on 1 060 files
+	3 : "libgcc\gstdint.h" line 6, impact on 659 files
+	4 : "gcc\config\arm\arm_fp16.h" line 34, impact on 286 files
+	5 : "gcc\config\arm\arm_neon.h" line 43, impact on 282 files
+	6 : "include\plugin-api.h" line 30, impact on 235 files
+	7 : "include\splay-tree.h" line 40, impact on 162 files
+	8 : "libffi\testsuite\libffi.call\ffitest.h" line 9, impact on 145 files
+	9 : "liboffloadmic\include\coi\common\COITypes_common.h" line 51, impact on 41 files
+	10 : "libbacktrace\backtrace.h" line 43, impact on 34 files
 	... 10 of 363 details
-5 : "libstdc++-v3\testsuite\util\testsuite_hooks.h" impact on 4716 file(s)
+5 : "libstdc++-v3\testsuite\util\testsuite_hooks.h" impact on 4 716 files
 Included by:
-	1 : "libstdc++-v3\testsuite\util\testsuite_allocator.h" line 32, impact on 332 file(s)
-	2 : "libstdc++-v3\testsuite\util\testsuite_iterators.h" line 30, impact on 326 file(s)
-	3 : "libstdc++-v3\testsuite\util\testsuite_tr1.h" line 26, impact on 225 file(s)
-	4 : "libstdc++-v3\testsuite\util\testsuite_api.h" line 23, impact on 138 file(s)
-	5 : "libstdc++-v3\testsuite\util\debug\checks.h" line 27, impact on 111 file(s)
-	6 : "libstdc++-v3\testsuite\util\testsuite_rvalref.h" line 25, impact on 71 file(s)
-	7 : "libstdc++-v3\testsuite\util\replacement_memory_operators.h" line 23, impact on 32 file(s)
-	8 : "libstdc++-v3\testsuite\util\debug\unordered_checks.h" line 19, impact on 16 file(s)
-	9 : "libstdc++-v3\testsuite\util\testsuite_random.h" line 29, impact on 12 file(s)
-	10 : "libstdc++-v3\testsuite\util\testsuite_new_operators.h" line 26, impact on 3 file(s)
-	... 10 of 4083 details
-6 : "gcc\config\i386\mmintrin.h" impact on 4383 file(s)
+	1 : "libstdc++-v3\testsuite\util\testsuite_allocator.h" line 32, impact on 332 files
+	2 : "libstdc++-v3\testsuite\util\testsuite_iterators.h" line 30, impact on 326 files
+	3 : "libstdc++-v3\testsuite\util\testsuite_tr1.h" line 26, impact on 225 files
+	4 : "libstdc++-v3\testsuite\util\testsuite_api.h" line 23, impact on 138 files
+	5 : "libstdc++-v3\testsuite\util\debug\checks.h" line 27, impact on 111 files
+	6 : "libstdc++-v3\testsuite\util\testsuite_rvalref.h" line 25, impact on 71 files
+	7 : "libstdc++-v3\testsuite\util\replacement_memory_operators.h" line 23, impact on 32 files
+	8 : "libstdc++-v3\testsuite\util\debug\unordered_checks.h" line 19, impact on 16 files
+	9 : "libstdc++-v3\testsuite\util\testsuite_random.h" line 29, impact on 12 files
+	10 : "libstdc++-v3\testsuite\util\testsuite_new_operators.h" line 26, impact on 3 files
+	... 10 of 4 083 details
+6 : "gcc\config\i386\mmintrin.h" impact on 4 383 files
 Included by:
-	1 : "gcc\config\i386\xmmintrin.h" line 31, impact on 4373 file(s)
-	2 : "gcc\config\i386\immintrin.h" line 27, impact on 3236 file(s)
-	3 : "gcc\config\i386\mm3dnow.h" line 30, impact on 367 file(s)
-7 : "gcc\config\rs6000\mm_malloc.h" impact on 4381 file(s)
+	1 : "gcc\config\i386\xmmintrin.h" line 31, impact on 4 373 files
+	2 : "gcc\config\i386\immintrin.h" line 27, impact on 3 236 files
+	3 : "gcc\config\i386\mm3dnow.h" line 30, impact on 367 files
+7 : "gcc\config\rs6000\mm_malloc.h" impact on 4 381 files
 Included by:
-	1 : "gcc\config\i386\xmmintrin.h" line 34, impact on 4373 file(s)
-	2 : "gcc\config\rs6000\xmmintrin.h" line 82, impact on 5 file(s)
-	3 : "gcc\testsuite\gcc.target\i386\sse-23.c" line 5, impact on 2 file(s)
-	4 : "gcc\testsuite\gcc.target\i386\sse-13.c" line 5, impact on 1 file(s)
-	5 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 6, impact on 1 file(s)
+	1 : "gcc\config\i386\xmmintrin.h" line 34, impact on 4 373 files
+	2 : "gcc\config\rs6000\xmmintrin.h" line 82, impact on 5 files
+	3 : "gcc\testsuite\gcc.target\i386\sse-23.c" line 5, impact on 2 files
+	4 : "gcc\testsuite\gcc.target\i386\sse-13.c" line 5, impact on 1 file
+	5 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 6, impact on 1 file
 	6 : "gcc\testsuite\gcc.target\i386\avx-1.c" line 5
 	7 : "gcc\testsuite\gcc.target\i386\avx-2.c" line 5
 	8 : "gcc\testsuite\gcc.target\i386\sse-14.c" line 5
 	9 : "liboffloadmic\runtime\offload_common.cpp" line 32
-8 : "gcc\config\i386\emmintrin.h" impact on 4373 file(s)
+8 : "gcc\config\i386\emmintrin.h" impact on 4 373 files
 Included by:
-	1 : "gcc\config\i386\xmmintrin.h" line 1316, impact on 4373 file(s)
-	2 : "gcc\config\i386\pmmintrin.h" line 31, impact on 3491 file(s)
-	3 : "gcc\config\i386\wmmintrin.h" line 31, impact on 3251 file(s)
-	4 : "gcc\config\i386\immintrin.h" line 31, impact on 3236 file(s)
-	5 : "gcc\testsuite\gcc.target\i386\m128-check.h" line 5, impact on 1799 file(s)
-	6 : "gcc\testsuite\gcc.target\powerpc\m128-check.h" line 9, impact on 7 file(s)
-	7 : "gcc\testsuite\g++.dg\asan\asan_test.cc" line 686, impact on 1 file(s)
-	8 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 141, impact on 1 file(s)
-	9 : "gcc\testsuite\gcc.target\i386\sse2-addpd-1.c" line 15, impact on 1 file(s)
-	10 : "gcc\testsuite\gcc.target\i386\sse2-addsd-1.c" line 15, impact on 1 file(s)
+	1 : "gcc\config\i386\xmmintrin.h" line 1 316, impact on 4 373 files
+	2 : "gcc\config\i386\pmmintrin.h" line 31, impact on 3 491 files
+	3 : "gcc\config\i386\wmmintrin.h" line 31, impact on 3 251 files
+	4 : "gcc\config\i386\immintrin.h" line 31, impact on 3 236 files
+	5 : "gcc\testsuite\gcc.target\i386\m128-check.h" line 5, impact on 1 799 files
+	6 : "gcc\testsuite\gcc.target\powerpc\m128-check.h" line 9, impact on 7 files
+	7 : "gcc\testsuite\g++.dg\asan\asan_test.cc" line 686, impact on 1 file
+	8 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 141, impact on 1 file
+	9 : "gcc\testsuite\gcc.target\i386\sse2-addpd-1.c" line 15, impact on 1 file
+	10 : "gcc\testsuite\gcc.target\i386\sse2-addsd-1.c" line 15, impact on 1 file
 	... 10 of 350 details
-9 : "gcc\config\i386\xmmintrin.h" impact on 4373 file(s)
+9 : "gcc\config\i386\xmmintrin.h" impact on 4 373 files
 Included by:
-	1 : "gcc\config\i386\emmintrin.h" line 31, impact on 4373 file(s)
-	2 : "gcc\config\i386\immintrin.h" line 29, impact on 3236 file(s)
-	3 : "gcc\testsuite\gcc.target\i386\m128-check.h" line 2, impact on 1799 file(s)
-	4 : "gcc\testsuite\gcc.target\x86_64\abi\defines.h" line 5, impact on 19 file(s)
-	5 : "gcc\testsuite\gcc.target\powerpc\m128-check.h" line 6, impact on 7 file(s)
-	6 : "gcc\testsuite\gcc.dg\compat\union-m128-1.h" line 1, impact on 2 file(s)
-	7 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 127, impact on 1 file(s)
-	8 : "gcc\testsuite\gcc.target\i386\sse-addps-1.c" line 15, impact on 1 file(s)
-	9 : "gcc\testsuite\gcc.target\i386\sse-addss-1.c" line 15, impact on 1 file(s)
-	10 : "gcc\testsuite\gcc.target\i386\sse-andnps-1.c" line 15, impact on 1 file(s)
+	1 : "gcc\config\i386\emmintrin.h" line 31, impact on 4 373 files
+	2 : "gcc\config\i386\immintrin.h" line 29, impact on 3 236 files
+	3 : "gcc\testsuite\gcc.target\i386\m128-check.h" line 2, impact on 1 799 files
+	4 : "gcc\testsuite\gcc.target\x86_64\abi\defines.h" line 5, impact on 19 files
+	5 : "gcc\testsuite\gcc.target\powerpc\m128-check.h" line 6, impact on 7 files
+	6 : "gcc\testsuite\gcc.dg\compat\union-m128-1.h" line 1, impact on 2 files
+	7 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 127, impact on 1 file
+	8 : "gcc\testsuite\gcc.target\i386\sse-addps-1.c" line 15, impact on 1 file
+	9 : "gcc\testsuite\gcc.target\i386\sse-addss-1.c" line 15, impact on 1 file
+	10 : "gcc\testsuite\gcc.target\i386\sse-andnps-1.c" line 15, impact on 1 file
 	... 10 of 169 details
-10 : "gcc\config\i386\pmmintrin.h" impact on 3491 file(s)
+10 : "gcc\config\i386\pmmintrin.h" impact on 3 491 files
 Included by:
-	1 : "gcc\config\i386\tmmintrin.h" line 31, impact on 3451 file(s)
-	2 : "gcc\config\i386\immintrin.h" line 33, impact on 3236 file(s)
-	3 : "gcc\config\i386\ammintrin.h" line 31, impact on 364 file(s)
-	4 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 157, impact on 1 file(s)
-	5 : "gcc\testsuite\gcc.target\i386\sse3-addsubpd.c" line 15, impact on 1 file(s)
-	6 : "gcc\testsuite\gcc.target\i386\sse3-addsubps.c" line 15, impact on 1 file(s)
-	7 : "gcc\testsuite\gcc.target\i386\sse3-haddpd.c" line 14, impact on 1 file(s)
-	8 : "gcc\testsuite\gcc.target\i386\sse3-haddps.c" line 15, impact on 1 file(s)
-	9 : "gcc\testsuite\gcc.target\i386\sse3-hsubpd.c" line 14, impact on 1 file(s)
-	10 : "gcc\testsuite\gcc.target\i386\sse3-hsubps.c" line 14, impact on 1 file(s)
+	1 : "gcc\config\i386\tmmintrin.h" line 31, impact on 3 451 files
+	2 : "gcc\config\i386\immintrin.h" line 33, impact on 3 236 files
+	3 : "gcc\config\i386\ammintrin.h" line 31, impact on 364 files
+	4 : "gcc\testsuite\gcc.target\i386\sse-22.c" line 157, impact on 1 file
+	5 : "gcc\testsuite\gcc.target\i386\sse3-addsubpd.c" line 15, impact on 1 file
+	6 : "gcc\testsuite\gcc.target\i386\sse3-addsubps.c" line 15, impact on 1 file
+	7 : "gcc\testsuite\gcc.target\i386\sse3-haddpd.c" line 14, impact on 1 file
+	8 : "gcc\testsuite\gcc.target\i386\sse3-haddps.c" line 15, impact on 1 file
+	9 : "gcc\testsuite\gcc.target\i386\sse3-hsubpd.c" line 14, impact on 1 file
+	10 : "gcc\testsuite\gcc.target\i386\sse3-hsubps.c" line 14, impact on 1 file
 	... 10 of 26 details
-... 10 of 3748 files
+... 10 of 3 748 files
 Unincluded headers:
 1 : "fixincludes\system.h"
 2 : "fixincludes\tests\base\AvailabilityInternal.h"

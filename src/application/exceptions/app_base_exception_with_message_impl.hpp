@@ -11,17 +11,15 @@ namespace application
 //------------------------------------------------------------------------------
 
 template< class _BaseException >
-class BaseExceptionWithMessageImpl : public
-	::exception::ExceptionWithMessageImpl< _BaseException >
+class BaseExceptionWithMessageImpl
+	: public ::exception::ExceptionWithMessageImpl< _BaseException >
 {
 public:
 	using BaseClass = ::exception::ExceptionWithMessageImpl< _BaseException >;
 
 	BaseExceptionWithMessageImpl(
-			std::string_view _code,
-			std::string_view _message
-	)
-		:	BaseClass{ resources::exceptions::ModuleName, _code, _message }
+		std::string_view _code, std::string_view _message )
+		: BaseClass{ resources::exceptions::ModuleName, _code, _message }
 	{
 	}
 };

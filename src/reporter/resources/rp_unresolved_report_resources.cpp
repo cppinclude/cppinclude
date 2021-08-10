@@ -2,17 +2,20 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter::resources::unresolved_report {
-
+namespace reporter::resources::unresolved_report
+{
 //------------------------------------------------------------------------------
 
-	const char * const Name = "unresolved";
+const char * const Name = "unresolved";
 
-	const char * const Header = "Unresolved files:\n";
-	const char * const Intend = "\t";
+const char * const Header = "Unresolved file{}:\n";
+const char * const Intend = "\t";
 
-	const char * const UnresolvedDestinationFmt = "{}. \"{}\" isn't resolved in:\n";
-	const char * const UnresolvedSourceFmt = "{}. \"{}\" line: {}\n";
+const char * const UnresolvedDestinationFmt =
+	"{:L} : \"{}\" isn't resolved in:\n";
+const char * const UnresolvedDestinationWithoutDetailsFmt =
+	"{:L} : \"{}\" isn't resolved\n";
+const char * const UnresolvedSourceFmt = "{:L} : \"{}\" line: {:L}\n";
 
 //------------------------------------------------------------------------------
 

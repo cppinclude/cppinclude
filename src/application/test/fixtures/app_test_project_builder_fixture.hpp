@@ -2,52 +2,55 @@
 
 #include "application/tools/app_plugin_ptr.hpp"
 
-#include <stdfwd/vector>
-#include <stdfwd/set>
 #include <std_fs>
+#include <stdfwd/set>
 #include <stdfwd/string>
 #include <stdfwd/string_view>
+#include <stdfwd/vector>
 
 #include <memory>
 
 //------------------------------------------------------------------------------
 
-namespace project {
-	class ProjectAccessor;
-	class Project;
+namespace project
+{
+class ProjectAccessor;
+class Project;
 }
 
-namespace json {
-	class JsonAccessor;
+namespace json
+{
+class JsonAccessor;
 }
 
-namespace fs {
-	class FileSystemAccessor;
-	class FileSystem;
-	class File;
+namespace fs
+{
+class FileSystemAccessor;
+class FileSystem;
+class File;
 }
 
-namespace application {
-	class ParserArgWrapper;
-	class ProjectBuilder;
-	class ConfigurationFile;
+namespace application
+{
+class ParserArgWrapper;
+class ProjectBuilder;
+class ConfigurationFile;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 class ProjectBuilderFixture
 {
 public:
-
-	using Arguments			= stdfwd::vector< std::string >;
-	using Strings			= stdfwd::vector< std::string >;
-	using OrderedStrings	= stdfwd::set< std::string >;
-	using FilePtr			= std::shared_ptr< fs::File >;
-	using Path				= stdfs::path;
+	using Arguments = stdfwd::vector< std::string >;
+	using Strings = stdfwd::vector< std::string >;
+	using OrderedStrings = stdfwd::set< std::string >;
+	using FilePtr = std::shared_ptr< fs::File >;
+	using Path = stdfs::path;
 
 	ProjectBuilderFixture();
 	~ProjectBuilderFixture();

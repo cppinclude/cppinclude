@@ -1,22 +1,23 @@
 #pragma once
 
-#include <stdfwd/vector>
-#include <stdfwd/optional>
 #include <std_fs>
+#include <stdfwd/optional>
 #include <stdfwd/string_view>
+#include <stdfwd/vector>
 
 #include <memory>
 
 //------------------------------------------------------------------------------
 
-namespace application {
-	class ParserArg;
+namespace application
+{
+class ParserArg;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 class ParserArgumentsFixture
@@ -25,52 +26,50 @@ public:
 	ParserArgumentsFixture();
 	~ParserArgumentsFixture();
 
-	using Strings			= stdfwd::vector< std::string >;
-	using StringOpt			= std::optional< std::string >;
-	using StringsOpt		= std::optional< Strings >;
+	using Strings = stdfwd::vector< std::string >;
+	using StringOpt = std::optional< std::string >;
+	using StringsOpt = std::optional< Strings >;
 
-	using IntOpt			= std::optional< int >;
-	using BoolOpt			= std::optional< bool >;
+	using IntOpt = std::optional< int >;
+	using BoolOpt = std::optional< bool >;
 
-	using Path				= stdfs::path;
-	using PathOpt			= std::optional< Path >;
-	using Paths				= stdfwd::vector< Path >;
-	using PathsOpt			= std::optional< Paths >;
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
+	using Paths = stdfwd::vector< Path >;
+	using PathsOpt = std::optional< Paths >;
+
+	void
+	addArgument( std::string_view _fullname, std::string_view _description );
 
 	void addArgument(
 		std::string_view _fullname,
-		std::string_view _description
-	);
+		std::string_view _description,
+		const std::string & _defaultValue );
+
 	void addArgument(
 		std::string_view _fullname,
 		std::string_view _description,
-		const std::string & _defaultValue
-	);
+		const Strings & _defaultValues );
+
 	void addArgument(
 		std::string_view _fullname,
 		std::string_view _description,
-		const Strings & _defaultValues
-	);
+		int _defaultValue );
+
 	void addArgument(
 		std::string_view _fullname,
 		std::string_view _description,
-		int _defaultValue
-	);
+		bool _defaultValue );
+
 	void addArgument(
 		std::string_view _fullname,
 		std::string_view _description,
-		bool _defaultValue
-	);
+		const Path & _defaultValue );
+
 	void addArgument(
 		std::string_view _fullname,
 		std::string_view _description,
-		const Path & _defaultValue
-	);
-	void addArgument(
-		std::string_view _fullname,
-		std::string_view _description,
-		const Paths & _defaultValues
-	);
+		const Paths & _defaultValues );
 
 	void parseArguments( const Strings & _arguments );
 

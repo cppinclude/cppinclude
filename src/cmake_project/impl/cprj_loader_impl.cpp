@@ -1,6 +1,5 @@
 #include "cmake_project/impl/cprj_loader_impl.hpp"
 
-#include "cmake_project/impl/cprj_project_impl.hpp"
 #include "cmake_project/impl/cprj_includes_parser.hpp"
 #include "cmake_project/impl/cprj_project_impl.hpp"
 
@@ -13,8 +12,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace cmake_project {
-
+namespace cmake_project
+{
 //------------------------------------------------------------------------------
 
 LoaderImpl::LoaderImpl() = default;
@@ -48,9 +47,7 @@ LoaderImpl::ProjectPtr LoaderImpl::createEmptyProject()
 //------------------------------------------------------------------------------
 
 LoaderImpl::Path LoaderImpl::loadFile(
-	const compilation_db::CommandObject & _commnad,
-	Project & _project
-)
+	const compilation_db::CommandObject & _commnad, Project & _project )
 {
 	const std::string & fileStr = _commnad.getFile();
 	Path filePath{ fileStr };
@@ -83,13 +80,12 @@ IncludesParser & LoaderImpl::ensureIncludesParser()
 void LoaderImpl::loadCommand(
 	const compilation_db::CommandObject & _commnad,
 	const Path & _currentFile,
-	Project & _project
-)
+	Project & _project )
 {
 	IncludesParser & parser = ensureIncludesParser();
 	const std::string & cmd = _commnad.getCommand();
 	auto includes = parser.parse( cmd );
-	for( const Path & include : includes )
+	for( const Path & include: includes )
 	{
 		_project.addIncludeToFile( _currentFile, include );
 	}

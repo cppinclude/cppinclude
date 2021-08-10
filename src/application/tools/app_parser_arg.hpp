@@ -1,23 +1,24 @@
 #pragma once
 
-#include <stdfwd/vector>
 #include <std_fs>
 #include <stdfwd/string_view>
+#include <stdfwd/vector>
 
 #include <memory>
 #include <optional>
 
 //------------------------------------------------------------------------------
 
-namespace cxxopts {
-	class Options;
-	class ParseResult;
+namespace cxxopts
+{
+class Options;
+class ParseResult;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application {
-
+namespace application
+{
 //------------------------------------------------------------------------------
 
 class ParserArg
@@ -26,55 +27,52 @@ public:
 	ParserArg();
 	~ParserArg();
 
-	using Strings			= stdfwd::vector< std::string >;
-	using StringOpt			= std::optional< std::string >;
-	using StringsOpt		= std::optional< Strings >;
+	using Strings = stdfwd::vector< std::string >;
+	using StringOpt = std::optional< std::string >;
+	using StringsOpt = std::optional< Strings >;
 
-	using IntOpt			= std::optional< int >;
-	using BoolOpt			= std::optional< bool >;
+	using IntOpt = std::optional< int >;
+	using BoolOpt = std::optional< bool >;
 
-	using Path				= stdfs::path;
-	using PathOpt			= std::optional< Path >;
-	using Paths				= stdfwd::vector< Path >;
-	using PathsOpt			= std::optional< Paths >;
+	using Path = stdfs::path;
+	using PathOpt = std::optional< Path >;
+	using Paths = stdfwd::vector< Path >;
+	using PathsOpt = std::optional< Paths >;
 
 	void parse( int _argc, char * _argv[] );
 
 	void addArgument(
 		std::string_view _fullname,
 		std::string_view _description,
-		const std::string & _defaultValue
-	);
-	void addArgument(
-		std::string_view _fullname,
-		std::string_view _description,
-		const Strings & _defaultValues
-	);
-	void addArgument(
-		std::string_view _fullname,
-		std::string_view _description,
-		int _defaultValue
-	);
-	void addArgument(
-		std::string_view _fullname,
-		std::string_view _description,
-		bool _defaultValue
-	);
-	void addArgument(
-		std::string_view _fullname,
-		std::string_view _description,
-		const Path & _defaultValue
-	);
-	void addArgument(
-		std::string_view _fullname,
-		std::string_view _description,
-		const Paths & _defaultValues
-	);
+		const std::string & _defaultValue );
 
 	void addArgument(
 		std::string_view _fullname,
-		std::string_view _description
-	);
+		std::string_view _description,
+		const Strings & _defaultValues );
+
+	void addArgument(
+		std::string_view _fullname,
+		std::string_view _description,
+		int _defaultValue );
+
+	void addArgument(
+		std::string_view _fullname,
+		std::string_view _description,
+		bool _defaultValue );
+
+	void addArgument(
+		std::string_view _fullname,
+		std::string_view _description,
+		const Path & _defaultValue );
+
+	void addArgument(
+		std::string_view _fullname,
+		std::string_view _description,
+		const Paths & _defaultValues );
+
+	void
+	addArgument( std::string_view _fullname, std::string_view _description );
 
 	StringOpt getArgumentStringValue( std::string_view _arg ) const;
 	StringsOpt getArgumentStringsValue( std::string_view _arg ) const;
@@ -99,8 +97,7 @@ private:
 	void addArg(
 		std::string_view _fullname,
 		std::string_view _description,
-		const _DefaultValue & _defaultValues
-	);
+		const _DefaultValue & _defaultValues );
 
 	static const std::string & toString( const std::string & _str );
 	static std::string toString( const Strings & _stringArray );

@@ -1,18 +1,19 @@
 #pragma once
 
-#include <stdfwd/string_view>
 #include <memory>
+#include <stdfwd/string_view>
 
 //------------------------------------------------------------------------------
 
-namespace fs {
-	class File;
+namespace fs
+{
+class File;
 }
 
 //------------------------------------------------------------------------------
 
-namespace parser::test {
-
+namespace parser::test
+{
 //------------------------------------------------------------------------------
 
 class FileWrapper

@@ -29,8 +29,8 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 // clazy:excludeall=non-pod-global-static
@@ -71,41 +71,30 @@ BOOST_AUTO_TEST_CASE( t2_only_arguments )
 	const std::string ignoreDirsArgName = argPrefix + ignoreDirs::FullName;
 	const std::string ignoreDirsArgValue = "ignore1/,ignore2/";
 
-	const std::string fileExtensionsArgName = argPrefix + fileExtensions::FullName;
+	const std::string fileExtensionsArgName =
+		argPrefix + fileExtensions::FullName;
 	const std::string fileExtensionsArgValue = "*.cpp,*.hpp";
 
 	// Run
-	parserArguments( {
-		projectArgName,
-		projectArgValue,
+	parserArguments(
+		{ projectArgName, projectArgValue,
 
-		includeDirsArgName,
-		includeDirsArgValue,
+		  includeDirsArgName, includeDirsArgValue,
 
-		ignoreDirsArgName,
-		ignoreDirsArgValue,
+		  ignoreDirsArgName, ignoreDirsArgValue,
 
-		fileExtensionsArgName,
-		fileExtensionsArgValue
-	} );
+		  fileExtensionsArgName, fileExtensionsArgValue } );
 	buildProject();
 
 	// Check
 	BOOST_CHECK_EQUAL( getProjectDir(), toAbsolutePath( projectArgValue ) );
 	BOOST_CHECK_EQUAL(
-		getIncludeDirs(),
-		toAbsolutePath("test_project/lib1/") +
-		"," +
-		toAbsolutePath("test_project/lib2/")
-	);
+		getIncludeDirs(), toAbsolutePath( "test_project/lib1/" ) + "," +
+							  toAbsolutePath( "test_project/lib2/" ) );
 	BOOST_CHECK_EQUAL(
-		getIgnoreDirs(),
-		toAbsolutePath("test_project/ignore1/") +
-		"," +
-		toAbsolutePath("test_project/ignore2/")
-	);
-	BOOST_CHECK_EQUAL( getFileExtensions(),	fileExtensionsArgValue );
-
+		getIgnoreDirs(), toAbsolutePath( "test_project/ignore1/" ) + "," +
+							 toAbsolutePath( "test_project/ignore2/" ) );
+	BOOST_CHECK_EQUAL( getFileExtensions(), fileExtensionsArgValue );
 }
 
 //------------------------------------------------------------------------------
@@ -114,13 +103,12 @@ BOOST_AUTO_TEST_CASE( t3_only_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
-	R"({
+		R"({
 		"project_dir" : "./src",
 		"file_extensions" : ["*.cpp","*.hpp"],
 		"include_dirs" : ["include1","include2"],
 		"ignore_dirs" : ["ignore1","ignore2"]
-	})"
-	);
+	})" );
 
 	// Run
 	parserArguments( {} );
@@ -129,19 +117,12 @@ BOOST_AUTO_TEST_CASE( t3_only_configuration_file )
 	// Check
 	BOOST_CHECK_EQUAL( getProjectDir(), toAbsolutePath( "src/" ) );
 	BOOST_CHECK_EQUAL(
-		getIncludeDirs(),
-		toAbsolutePath("src/include1/") +
-		"," +
-		toAbsolutePath("src/include2/")
-	);
+		getIncludeDirs(), toAbsolutePath( "src/include1/" ) + "," +
+							  toAbsolutePath( "src/include2/" ) );
 	BOOST_CHECK_EQUAL(
-		getIgnoreDirs(),
-		toAbsolutePath("src/ignore1/") +
-		"," +
-		toAbsolutePath("src/ignore2/")
-	);
-	BOOST_CHECK_EQUAL( getFileExtensions(),	"*.cpp,*.hpp" );
-
+		getIgnoreDirs(), toAbsolutePath( "src/ignore1/" ) + "," +
+							 toAbsolutePath( "src/ignore2/" ) );
+	BOOST_CHECK_EQUAL( getFileExtensions(), "*.cpp,*.hpp" );
 }
 
 //------------------------------------------------------------------------------
@@ -150,10 +131,9 @@ BOOST_AUTO_TEST_CASE( t5_1_ignore_system_includes_from_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
-	R"({
+		R"({
 		"ignore_system_includes" : true
-	})"
-	);
+	})" );
 
 	// Run
 	parserArguments( {} );
@@ -186,8 +166,7 @@ BOOST_AUTO_TEST_CASE( t5_3_ignore_system_includes_default )
 	// Check
 	BOOST_CHECK_EQUAL(
 		getIgnoreSystemIncludes(),
-		resources::arguments::ignoreSystemIncludes::DefaultValue
-	);
+		resources::arguments::ignoreSystemIncludes::DefaultValue );
 }
 
 //------------------------------------------------------------------------------
@@ -228,8 +207,9 @@ BOOST_AUTO_TEST_CASE( t6_3_ignore_files_default )
 	parserArguments( {} );
 	buildProject();
 
-	//Check
-	auto defaultValues = toStrings( resources::arguments::ignoreFiles::DefaultValues );
+	// Check
+	auto defaultValues =
+		toStrings( resources::arguments::ignoreFiles::DefaultValues );
 
 	BOOST_REQUIRE_EQUAL( getFileFiltersCount(), defaultValues.size() );
 }
@@ -240,10 +220,9 @@ BOOST_AUTO_TEST_CASE( t7_1_analyze_without_extension_from_configuration_file )
 {
 	// Init
 	createDefaultConfigurationFile(
-	R"({
+		R"({
 		"analyze_without_extension" : true
-	})"
-	);
+	})" );
 
 	// Run
 	parserArguments( {} );
@@ -273,8 +252,9 @@ BOOST_AUTO_TEST_CASE( t7_3_analyze_without_extension_default )
 	parserArguments( {} );
 	buildProject();
 
-	//Check
-	auto defaultValue = resources::arguments::analyze_without_extension::DefaultValue;
+	// Check
+	auto defaultValue =
+		resources::arguments::analyzeWithoutExtension::DefaultValue;
 
 	BOOST_REQUIRE_EQUAL( getAnalyzeWithoutExtension(), defaultValue );
 }

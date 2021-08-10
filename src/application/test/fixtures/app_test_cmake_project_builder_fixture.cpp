@@ -30,8 +30,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 CMakeProjectBuilderFixture::CMakeProjectBuilderFixture() = default;
@@ -43,10 +43,8 @@ void CMakeProjectBuilderFixture::buildProject()
 {
 	CMakeProjectBuilder & builder = ensureBuilder();
 
-	m_cmakeProject = builder.build(
-		ensureArguments(),
-		m_configurationFile.get()
-	);
+	m_cmakeProject =
+		builder.build( ensureArguments(), m_configurationFile.get() );
 }
 
 //------------------------------------------------------------------------------
@@ -59,9 +57,7 @@ bool CMakeProjectBuilderFixture::isInitializedProject() const
 //------------------------------------------------------------------------------
 
 void CMakeProjectBuilderFixture::addCMakeFile(
-	std::string_view _path,
-	std::string_view _text
-)
+	std::string_view _path, std::string_view _text )
 {
 	fs::FileSystem & fs = ensureFileSystem();
 	auto filePtr = fs.createFile( toRelativePath( _path ) );
@@ -73,8 +69,7 @@ void CMakeProjectBuilderFixture::addCMakeFile(
 //------------------------------------------------------------------------------
 
 void CMakeProjectBuilderFixture::setCompilationFileInConfigurationFile(
-	std::string_view _path
-)
+	std::string_view _path )
 {
 	ConfigurationFile & configurationFile = ensureConfigurationFile();
 	configurationFile.setCompileCommands( _path );
@@ -88,7 +83,7 @@ CMakeProjectBuilderFixture::getResultsFiles()
 	INTERNAL_CHECK_ERROR( m_cmakeProject != nullptr );
 	const cmake_project::Project & project = *m_cmakeProject;
 	Strings result;
-	project.forEachFilePath( [&]( const Path & _path ){
+	project.forEachFilePath( [&]( const Path & _path ) {
 		auto pair = result.insert( tools::toPath( _path.string() ) );
 		INTERNAL_CHECK_ERROR( pair.second );
 		return true;
@@ -104,26 +99,21 @@ CMakeProjectBuilderFixture::getResultIncludes( std::string_view _file )
 {
 	Strings result;
 	INTERNAL_CHECK_ERROR( m_cmakeProject != nullptr );
-	m_cmakeProject->forEachIncludes(
-		_file,
-		[&]( const Path & _include )
-		{
-			result.insert( tools::toPath( _include.string() ) );
-			return true;
-		}
-	);
+	m_cmakeProject->forEachIncludes( _file, [&]( const Path & _include ) {
+		result.insert( tools::toPath( _include.string() ) );
+		return true;
+	} );
 
 	return result;
 }
 
 //------------------------------------------------------------------------------
 
-CMakeProjectBuilderFixture::Strings CMakeProjectBuilderFixture::toExceptedFiles(
-	const Strings & _strings
-)
+CMakeProjectBuilderFixture::Strings
+CMakeProjectBuilderFixture::toExceptedFiles( const Strings & _strings )
 {
 	Strings result;
-	for( const std::string & str : _strings )
+	for( const std::string & str: _strings )
 	{
 		result.insert( tools::toPath( str ) );
 	}
@@ -132,9 +122,8 @@ CMakeProjectBuilderFixture::Strings CMakeProjectBuilderFixture::toExceptedFiles(
 
 //------------------------------------------------------------------------------
 
-CMakeProjectBuilderFixture::Path CMakeProjectBuilderFixture::toRelativePath(
-	std::string_view _path
-)
+CMakeProjectBuilderFixture::Path
+CMakeProjectBuilderFixture::toRelativePath( std::string_view _path )
 {
 	return ensureFileSystem().getCurrentPath() / _path;
 }
@@ -159,11 +148,8 @@ CMakeProjectBuilder & CMakeProjectBuilderFixture::ensureBuilder()
 	if( !m_builder )
 	{
 		m_builder = std::make_unique< CMakeProjectBuilder >(
-			ensureCMakeAccessor(),
-			ensureCompilationDbAccessor(),
-			ensureJsonAccessor(),
-			ensureFileSystem()
-		);
+			ensureCMakeAccessor(), ensureCompilationDbAccessor(),
+			ensureJsonAccessor(), ensureFileSystem() );
 	}
 
 	return *m_builder;
@@ -227,11 +213,13 @@ cmake_project::Accessor & CMakeProjectBuilderFixture::ensureCMakeAccessor()
 
 //------------------------------------------------------------------------------
 
-compilation_db::Accessor & CMakeProjectBuilderFixture::ensureCompilationDbAccessor()
+compilation_db::Accessor &
+CMakeProjectBuilderFixture::ensureCompilationDbAccessor()
 {
 	if( !m_compilationDbAccessor )
 	{
-		m_compilationDbAccessor = std::make_unique< compilation_db::AccessorImpl >();
+		m_compilationDbAccessor =
+			std::make_unique< compilation_db::AccessorImpl >();
 	}
 
 	return *m_compilationDbAccessor;

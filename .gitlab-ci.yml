@@ -1,5 +1,7 @@
 stages:
   - build_major_compilers
+  - build_minor_compiler_gcc10
+  - build_minor_compiler_gcc9
   - build_minor_compiler_gcc8
   - build_minor_compiler_gcc7
   - build_major_compiler_clang
@@ -9,10 +11,34 @@ stages:
   - install_deb_file
   - install_rpm_file
 
-build_gcc10:
+build_gcc:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: build_major_compilers
+  image: gcc
+  script:
+    - apt-get update
+    - apt-get install cmake -y
+    # Build without boost
+    - ./build.sh
+    # Build with boost
+    - apt-get install libboost-test-dev -y
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
+    - cmake --build . --config Release -j$(nproc)
+    # Run tests
+    - ctest . -C Release
+
+build_gcc10:
+  only:
+    refs:
+      - master
+  tags: 
+    - vm_linux
+  stage: build_minor_compiler_gcc10
   image: ubuntu
   script:
     - apt-get update
@@ -28,8 +54,32 @@ build_gcc10:
     - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
+  needs: [build_gcc]
+    
+build_gcc9:
+  only:
+    refs:
+      - master
+  tags: 
+    - vm_linux
+  stage: build_minor_compiler_gcc9
+  image: ubuntu
+  script:
+    - apt-get update
+    - apt-get install cmake gcc-9 g++-9 libboost-test-dev -y
+    - export CC=gcc-9
+    - export CXX=g++-9
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCPPINCLUDE_BUILD_WITH_TESTS=ON
+    - cmake --build . --config Release -j$(nproc)
+    # Run tests
+    - ctest . -C Release
+  needs: [build_gcc10]
 
 build_gcc8:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: build_minor_compiler_gcc8
@@ -44,9 +94,12 @@ build_gcc8:
     - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
-  needs: [build_gcc10]
+  needs: [build_gcc9]
     
 build_gcc7:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: build_minor_compiler_gcc7
@@ -64,6 +117,9 @@ build_gcc7:
   needs: [build_gcc8]
 
 build_clang:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: build_major_compiler_clang
@@ -81,6 +137,9 @@ build_clang:
   needs: [build_gcc7]
     
 build_windows:
+  only:
+    refs:
+      - master
   stage: build_major_compilers
   tags:
     - vm_win
@@ -102,6 +161,9 @@ build_windows:
     - ctest . -C Release
     
 build_vs2017:
+  only:
+    refs:
+      - master
   stage: build_major_compilers
   tags:
     - vm_win
@@ -115,6 +177,9 @@ build_vs2017:
     - cmake --build . --config Release -j4
     
 build_macos:
+  only:
+    refs:
+      - master
   stage: build_major_compilers
   tags: 
     - macmini
@@ -130,6 +195,9 @@ build_macos:
     - ctest . -C Release
     
 build_arm_linux:
+  only:
+    refs:
+      - master
   stage: build_minor_compiler_arm
   tags: 
     - arm-linux
@@ -139,9 +207,12 @@ build_arm_linux:
     - cmake --build . --config Release -j$(nproc)
     # Run tests
     - ctest . -C Release
-  needs: [build_gcc10]
+  needs: [build_gcc]
     
 check_typos:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: check_typos
@@ -158,6 +229,9 @@ check_typos:
   needs: [build_clang]
     
 cppcheck:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: run_cppcheck
@@ -171,6 +245,9 @@ cppcheck:
   needs: [check_typos]
   
 generate_deb_file:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: install_deb_file
@@ -191,13 +268,16 @@ generate_deb_file:
   needs: [cppcheck]
   
 generate_rpm_file:
+  only:
+    refs:
+      - master
   tags: 
     - vm_linux
   stage: install_rpm_file
   image: centos
   script:
     - yum group install "Development Tools" -y
-    - yum install cmake3 -y
+    - yum install cmake3 libarchive -y
     - cd build
     - cmake3 .. -DCMAKE_BUILD_TYPE=Release
     - cmake3 --build . --config Release
@@ -206,6 +286,6 @@ generate_rpm_file:
     - rpm -i *.rpm
     - cd ..
     - cppinclude --version
-  needs: [build_gcc10]
+  needs: [build_gcc]
 
 

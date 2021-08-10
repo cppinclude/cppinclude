@@ -5,31 +5,34 @@
 #include <stdfwd/string_view>
 
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-	class Settings;
-	class Factory;
-	class ReporterAccessor;
+namespace reporter
+{
+class Settings;
+class Factory;
+class ReporterAccessor;
 }
 
-namespace json {
-	class JsonAccessor;
+namespace json
+{
+class JsonAccessor;
 }
 
-namespace application {
-	class ReportSettingsLoader;
-	class ParserArgWrapper;
-	class ConfigurationFile;
+namespace application
+{
+class ReportSettingsLoader;
+class ParserArgWrapper;
+class ConfigurationFile;
 }
 
 //------------------------------------------------------------------------------
 
-namespace application::test {
-
+namespace application::test
+{
 //------------------------------------------------------------------------------
 
 class ReportSettingsLoaderFixture
@@ -57,8 +60,14 @@ public:
 	bool getShowOnlyStdHeaders() const;
 	bool getDefaultShowOnlyStdHeaders() const;
 
+	bool getShowDetails() const;
+	bool getDefaultShowDetails() const;
+
 	std::string getReports() const;
 	std::string getDefaultReports() const;
+
+	std::string getThousandsSeparator() const;
+	std::string getDefaultThousandsSeparator() const;
 
 private:
 	using ReporterKinds = std::vector< reporter::ReporterKind >;

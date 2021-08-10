@@ -16,10 +16,11 @@ TEST PLAN:
 
 ------------------------------------------------------------------------------*/
 
-namespace model_includes::test {
-
+namespace model_includes::test
+{
 //------------------------------------------------------------------------------
 
+// clazy:excludeall=non-pod-global-static
 BOOST_FIXTURE_TEST_SUITE( ResolverFileTypeTests, ModelIncludesFixture )
 
 //------------------------------------------------------------------------------

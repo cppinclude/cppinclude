@@ -6,8 +6,8 @@
 
 //------------------------------------------------------------------------------
 
-namespace reporter {
-
+namespace reporter
+{
 //------------------------------------------------------------------------------
 
 void FileWithCountContainer::insert( const FileWithCount & _file )

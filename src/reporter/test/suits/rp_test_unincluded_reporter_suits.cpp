@@ -2,6 +2,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <set>
+
 /*------------------------------------------------------------------------------
 
 TEST PLAN:
@@ -14,11 +16,12 @@ TEST PLAN:
 	4.3 Mix extensions
 	4.4 empty
 5. Limit
+6. Thousands separator
 
 ------------------------------------------------------------------------------*/
 
-namespace reporter::test {
-
+namespace reporter::test
+{
 //------------------------------------------------------------------------------
 // clazy:excludeall=non-pod-global-static
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
@@ -54,10 +57,8 @@ BOOST_AUTO_TEST_CASE( t2_one_header )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"header.hpp\"\n"
-	);
+		result, "Unincluded header:\n"
+				"1 : \"header.hpp\"\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -77,12 +78,10 @@ BOOST_AUTO_TEST_CASE( t3_several_headers )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"classA.hpp\"\n"
-		"2 : \"classB.hpp\"\n"
-		"3 : \"classC.hpp\"\n"
-	);
+		result, "Unincluded headers:\n"
+				"1 : \"classA.hpp\"\n"
+				"2 : \"classB.hpp\"\n"
+				"3 : \"classC.hpp\"\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -100,10 +99,8 @@ BOOST_AUTO_TEST_CASE( t4_1_extension_hpp )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"classA.hpp\"\n"
-	);
+		result, "Unincluded header:\n"
+				"1 : \"classA.hpp\"\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -121,10 +118,8 @@ BOOST_AUTO_TEST_CASE( t4_2_extension_h )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"classA.h\"\n"
-	);
+		result, "Unincluded header:\n"
+				"1 : \"classA.h\"\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -143,11 +138,9 @@ BOOST_AUTO_TEST_CASE( t4_3_mix_extensions )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"classA.h\"\n"
-		"2 : \"classB.hpp\"\n"
-	);
+		result, "Unincluded headers:\n"
+				"1 : \"classA.h\"\n"
+				"2 : \"classB.hpp\"\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -163,10 +156,8 @@ BOOST_AUTO_TEST_CASE( t4_4_empty_extension )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"header\"\n"
-	);
+		result, "Unincluded header:\n"
+				"1 : \"header\"\n" );
 }
 
 //------------------------------------------------------------------------------
@@ -188,12 +179,55 @@ BOOST_AUTO_TEST_CASE( t5_limit )
 
 	// Check
 	BOOST_CHECK_EQUAL(
-		result,
-		"Unincluded headers:\n"
-		"1 : \"classA.hpp\"\n"
-		"2 : \"classB.hpp\"\n"
-		"... 2 of 3 files\n"
-	);
+		result, "Unincluded headers:\n"
+				"1 : \"classA.hpp\"\n"
+				"2 : \"classB.hpp\"\n"
+				"... 2 of 3 files\n" );
+}
+
+//------------------------------------------------------------------------------
+
+BOOST_AUTO_TEST_CASE( t6_thousands_separator )
+{
+	// Init
+	setProjectDir( "/tmp/" );
+
+	addFileToProject( "main.cpp" );
+
+	const int count = 1'100;
+	for( int i = 1; i <= count; ++i )
+	{
+		addFileToProject( "header" + std::to_string( i ) + ".hpp" );
+	}
+
+	setSystemThousandsSeparator( ',' );
+
+	// Run
+	std::string result = runUnincludedReporter();
+
+	// Check
+
+	std::set< std::string > orderedFiles;
+	for( int i = 1; i <= count; ++i )
+	{
+		std::string fileName = "header" + std::to_string( i ) + ".hpp";
+		orderedFiles.insert( fileName );
+	}
+
+	std::string expectedResult = "Unincluded headers:\n";
+
+	int number = 1;
+	for( const std::string & str: orderedFiles )
+	{
+		std::string currentNumber =
+			( number >= 1'000 ? std::to_string( number ).insert( 1, 1, ',' )
+							  : std::to_string( number ) );
+
+		expectedResult += currentNumber + " : \"" + str + "\"\n";
+		++number;
+	}
+
+	BOOST_CHECK_EQUAL( result, expectedResult );
 }
 
 //------------------------------------------------------------------------------

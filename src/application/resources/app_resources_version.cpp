@@ -2,15 +2,15 @@
 
 //------------------------------------------------------------------------------
 
-namespace application::resources::version {
-
+namespace application::resources::version
+{
 //------------------------------------------------------------------------------
 
-	const int Major = 0;
-	const int Minor	= 4;
-	const int Patch	= 0;
+const int Major = 0;
+const int Minor = 5;
+const int Patch = 0;
 
-	const char * const VersionFormat = "{}.{}.{}\n";
+const char * const VersionFormat = "{}.{}.{}\n";
 
 //------------------------------------------------------------------------------
 

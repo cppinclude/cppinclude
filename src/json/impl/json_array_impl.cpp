@@ -4,12 +4,12 @@
 
 //------------------------------------------------------------------------------
 
-namespace json {
-
+namespace json
+{
 //------------------------------------------------------------------------------
 
 JsonArrayImpl::JsonArrayImpl( JsonImpl && _jsonImpl )
-	:	m_jsonImpl( std::move( _jsonImpl ) )
+	: m_jsonImpl( std::move( _jsonImpl ) )
 {
 }
 

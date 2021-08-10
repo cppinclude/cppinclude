@@ -1442,7 +1442,11 @@ namespace cxxopts
 		!o.default_value.empty()
 	  )
       {
-        desc += toLocalString(" (default: " + o.default_value + ")");
+		desc += toLocalString(
+			" (default: "
+			+ ( o.default_value != " " ? o.default_value : "' '")
+			+ ")"
+		);
       }
 
       String result;
