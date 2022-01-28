@@ -317,7 +317,7 @@ As a configuration file setting:
 
 Show headers that are included but not found in the given search paths.
 One possible reason is missing include files, for example:
-iven a *main.cpp* file and a *include* folder that stores
+given a *main.cpp* file and a *include* folder that stores
 the *header.hpp* header:
 
 ```
@@ -385,7 +385,7 @@ files to recompile.
 Show headers that are found in the search directories but that were not
 included in the source code.
 It often happens after refactoring when headers when include directives
-were removed from code and thefiles remained in place.
+were removed from code and the files remained in place.
 Example from [docs/examples/simple_example_with_unincluded_headers/](docs/examples/simple_example_with_unincluded_headers/)
 
 ```
