@@ -1,8 +1,6 @@
 #pragma once
 
 #include "fs/api/fs_file_system.hpp"
-#include "tools/std_hash_fs_path.hpp"
-
 #include <unordered_map>
 
 //------------------------------------------------------------------------------

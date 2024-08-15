@@ -3,7 +3,6 @@
 #include "project/api/prj_project.hpp"
 
 #include "tools/regex.hpp"
-#include "tools/std_hash_fs_path.hpp"
 
 #include <std_fs>
 #include <string>
